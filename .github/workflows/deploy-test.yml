@@ -1,0 +1,117 @@
+name: Deploy to TEST
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: test
+      url: https://test.cash-alimentaire.com
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Safety sentinel and container up
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+
+            ROOT="${{ secrets.SSH_PATH_ROOT }}"
+            C="${{ secrets.DOCKER_PHP_CONTAINER }}"
+
+            test -f "$ROOT/.allow-ci-sync" || (echo "No sentinel .allow-ci-sync, aborting" && exit 1)
+            test -d "$ROOT" || (echo "Missing SSH_PATH_ROOT: $ROOT" && exit 1)
+            docker ps --format '{{.Names}}' | grep -qx "$C" || (echo "PHP container not running: $C" && exit 1)
+
+      - name: Detect changed paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            theme:
+              - 'themes/**'
+            modules:
+              - 'modules/**'
+            override:
+              - 'override/**'
+            docker:
+              - 'docker/**'
+
+      - name: Rsync themes
+        if: steps.filter.outputs.theme == 'true'
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avz --no-perms --no-owner --no-group --exclude '.git/' --exclude '*.bak' --exclude '*.bak.*' --exclude '*~' --exclude '.DS_Store'
+          path: themes/
+          remote_path: ${{ secrets.SSH_PATH_ROOT }}/themes/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+
+      - name: Rsync modules
+        if: steps.filter.outputs.modules == 'true'
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avz --no-perms --no-owner --no-group --exclude '.git/' --exclude '*.bak' --exclude '*.bak.*' --exclude '*~' --exclude '.DS_Store' --exclude 'vendor/' --exclude 'node_modules/'
+          path: modules/
+          remote_path: ${{ secrets.SSH_PATH_ROOT }}/modules/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+
+      - name: Rsync override
+        if: steps.filter.outputs.override == 'true'
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avz --no-perms --no-owner --no-group --exclude '.git/' --exclude '*.bak' --exclude '*.bak.*' --exclude '*~' --exclude '.DS_Store'
+          path: override/
+          remote_path: ${{ secrets.SSH_PATH_ROOT }}/override/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+
+      - name: Rsync Docker config
+        if: steps.filter.outputs.docker == 'true'
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avz --no-perms --no-owner --no-group --exclude '.env' --exclude '*.bak' --exclude '*.OK_*' --exclude '.DS_Store'
+          path: docker/
+          remote_path: /srv/docker/cash-ps9-test/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+
+      - name: Reload Docker stack
+        if: steps.filter.outputs.docker == 'true'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            cd /srv/docker/cash-ps9-test
+            docker compose up -d
+
+      - name: Clear and warmup cache
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php bin/console cache:clear --no-warmup || true
+            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php bin/console cache:warmup || true
+
+      - name: Healthcheck
+        run: |
+          curl -fsSL -o /dev/null -w "%{http_code}\n" "${{ secrets.HEALTHCHECK_URL }}" | grep -E "200|301|302"

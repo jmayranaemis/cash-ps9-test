@@ -1,0 +1,49 @@
+services:
+  cash_ps9_test_php:
+    image: prestashop/prestashop:9-fpm
+    container_name: cash_ps9_test_php
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - /srv/www/cash-ps9-test:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+    networks:
+      - backend
+
+  cash_ps9_test_web:
+    image: nginx:1.25-alpine
+    container_name: cash_ps9_test_web
+    restart: unless-stopped
+    depends_on:
+      - cash_ps9_test_php
+    volumes:
+      - /srv/www/cash-ps9-test:/var/www/html:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - /srv/logs/cash-ps9-test/nginx:/var/log/nginx
+    networks:
+      - proxy
+      - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+
+      - "traefik.http.services.cash_ps9_test_svc.loadbalancer.server.port=80"
+
+      - "traefik.http.routers.cash_ps9_test.rule=Host(`test.cash-alimentaire.com`)"
+      - "traefik.http.routers.cash_ps9_test.entrypoints=websecure"
+      - "traefik.http.routers.cash_ps9_test.tls.certresolver=le"
+      - "traefik.http.routers.cash_ps9_test.service=cash_ps9_test_svc"
+
+      - "traefik.http.routers.cash_ps9_test_http.rule=Host(`test.cash-alimentaire.com`)"
+      - "traefik.http.routers.cash_ps9_test_http.entrypoints=web"
+      - "traefik.http.routers.cash_ps9_test_http.middlewares=redirect_web"
+      - "traefik.http.routers.cash_ps9_test_http.service=cash_ps9_test_svc"
+
+      - "traefik.http.middlewares.redirect_web.redirectscheme.scheme=https"
+
+networks:
+  proxy:
+    external: true
+  backend:
+    external: true

@@ -1,0 +1,32 @@
+# PrestaShop runtime and generated content
+/var/
+/vendor/
+/img/
+/upload/
+/download/
+/cache/
+/logs/
+/translations/
+/config/xml/
+
+# PrestaShop local secrets
+.env
+/app/config/parameters.php
+/app/config/parameters.yml
+/config/settings.inc.php
+
+# Docker local secrets
+/docker/.env
+
+# Heavy dependencies bundled in installed modules
+/modules/**/vendor/
+/modules/**/node_modules/
+
+# Editor and temporary files
+*.bak
+*.bak.*
+*~
+.DS_Store
+
+# Local overrides
+*.local

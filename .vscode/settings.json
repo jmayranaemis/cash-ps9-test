@@ -1,0 +1,10 @@
+{
+  "github-actions.workflows.pinned.workflows": [
+    ".github/workflows/deploy-test.yml"
+  ],
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/var": true,
+    "**/vendor": true
+  }
+}
