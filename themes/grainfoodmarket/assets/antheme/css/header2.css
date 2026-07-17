@@ -1,0 +1,89 @@
+@media (min-width: 768px) {
+    .header_middle_line {
+        min-height: 70px;
+    }
+    #header.header2 #_desktop_search_widget {
+        z-index: 2;
+    }
+    .checkout-minimize #header.header2 #_desktop_search_widget {
+        order: 2;
+    }
+    #index #header.header2 {
+        border-bottom: 0;
+    }
+    #header.header2 {
+        border-bottom: 1px solid #eeeeee;
+    }
+    #header.header2 .search-widget {
+        position: relative;
+        left: unset;
+        top: unset;
+        right: unset;
+        width: auto;
+        border: 0;
+        max-width: 100%;
+        display: block;
+    }
+    #header.header2 .header-nav {
+        border-bottom: 1px solid #eeeeee;
+        padding: 7px 0;
+    }
+    #header.header2 .header-top #_desktop_logo {
+        padding: 11px 0;
+    }
+    #header.header2 #_desktop_logo a {
+        align-items: flex-start;
+    }
+
+    #header.header2 #_desktop_search_widget {
+        width: 100%;
+        max-width: 255px;
+    }
+    #header.header2 .search-widget form button[type=submit] {
+        padding: 0;
+    }
+    #header.header2 .header-nav .blockcart {
+        margin-left: 27px;
+    }
+    #header.header2 #_desktop_an_wishlist-nav a {
+        display: flex;
+        align-items: center;
+    }
+    #header.header2 #_desktop_an_wishlist-nav a svg {
+        margin: 0 7px 2px 0;
+    }
+    #header.header2 #_desktop_an_wishlist-nav {
+        margin-left: 30px;
+    }
+    #header.header2 .user-info .btn-unstyle,
+    #header.header2 .header-nav .user-info a {
+        display: flex;
+        align-items: center;
+    }
+    #header.header2 .header-nav .user-info .btn-unstyle svg {
+        margin-right: 8px;
+    }
+    #header.header2 .header-nav .user-info a svg {
+        margin: 0 8px 2px 0;
+    }
+    #_desktop_user_info {
+        margin-left: 0;
+    }
+    #header.header2 .amenu-item .amenu-link {
+        padding: 12px 17px;
+    }
+}
+@media (max-width: 1200px) {
+    #header.header2 .amenu-item .amenu-link {
+        padding: 12px 14px;
+    }
+    #header.header2 .header-nav .blockcart,
+    #header.header2 #_desktop_an_wishlist-nav {
+        margin-left: 10px;
+    }
+}
+@media (max-width: 991px) {
+    #header.header2 .amenu-item .amenu-link {
+        padding: 22px 7px;
+    }
+}

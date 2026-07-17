@@ -1,0 +1,32 @@
+#header.header1 .header-nav .currency-selector {
+    margin-left: 20px;
+}
+#header.header1 .lang_and_сr_label {
+    margin-right: 0;
+}
+@media (min-width: 768px) {
+    #header.header1 .search-widget {
+        position: relative;
+        left: unset;
+        top: unset;
+        right: unset;
+        width: auto;
+        border: 0;
+        max-width: 100%;
+        display: block;
+    }
+    #header.header1 .header-left {
+        padding: 0 18px 0 0;
+    }
+    #header.header1 .amenu-item .amenu-link {
+        padding: 19px 20px 17px;
+    }
+}
+@media (max-width: 1200px) {
+    #header.header1 .amenu-item .amenu-link {
+        padding: 19px 13px 17px;
+    }
+}
+.gdpr-newsletter .custom-checkbox input[type=checkbox]+span {
+    border-color: transparent!important;
+}

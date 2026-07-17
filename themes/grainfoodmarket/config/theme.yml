@@ -1,0 +1,332 @@
+name: grainfoodmarket
+display_name: Grain Food Market
+version: 4.7.2
+theme_key: 065a24cc8916eb858b73f4514da2790f
+author:
+  name: "Anvanto Team"
+  email: "anvantoco@gmail.com"
+  url: "https://bit.ly/3ybMde2"
+
+meta:
+  compatibility:
+      from: 1.7.0.0
+      to: ~
+
+  available_layouts:
+    layout-full-width:
+      name: Full Width
+      description: No side columns, ideal for distraction-free pages such as product pages.
+    layout-both-columns:
+      name: Three Columns
+      description: One large central column and 2 side columns.
+    layout-left-column:
+      name: Two Columns, small left column
+      description: Two columns with a small left column
+    layout-right-column:
+      name: Two Columns, small right column
+      description: Two columns with a small right column
+      
+dependencies:
+  modules:
+    - an_productextratabs
+    - anscrolltop
+    - an_brandslider
+    - anmegamenu
+    - anblog
+    - an_productattributes
+    - an_wishlist 
+    - an_hurry_up
+    - an_stickyaddtocart
+    - an_logo
+    - an_cookie_popup
+    - an_copyright
+    - an_realtimevisitorcounter
+    - an_client_service
+    - an_sizeguide
+    - an_trust_badges
+    - an_advantages
+    - an_homecategories
+    - an_homeslider
+    - an_homeproducts
+    - an_banners
+    - an_simplefreeshippingline
+    - anproductvideogallery
+    - an_theme
+    - an_theme_dashboard
+
+assets:
+  # If you're using this theme as child and you want to load
+  # the parent theme assets, uncomment this line.
+#  use_parent_assets: true
+
+  # The following lines are showing how to load assets in your page
+  # Uncomment and change value to start loading css or js files
+#  css:
+#    all:
+#      - id: custom-lib-style
+#        path: assets/css/custom-lib.css
+#    product:
+#      - id: product-style
+#        path: assets/css/product.css
+#        media: all
+#        priority: 200
+#  js:
+#    cart:
+#      - id: cat-extra-lib
+#        path: assets/js/cart-lib.js
+
+
+global_settings:
+  configuration:
+    PS_IMAGE_QUALITY: png
+    PSR_ICON_COLOR: '#5ba718'
+    an_hp_view_type: blocks
+    an_hp_slider: 0
+    an_hp_show_load_more: 0
+    anmm_mainmenu_hook: 'displayTop'
+    anmm_enabledAnvantoTheme: true
+  modules:
+   to_enable:
+     - an_productextratabs
+     - anscrolltop
+     - an_brandslider
+     - anmegamenu
+     - anblog
+     - an_productattributes
+     - an_wishlist 
+     - an_hurry_up
+     - an_stickyaddtocart
+     - an_logo
+     - an_cookie_popup
+     - an_copyright
+     - an_client_service
+     - an_sizeguide
+     - an_trust_badges
+     - an_advantages
+     - an_homecategories
+     - an_homeslider
+     - an_homeproducts
+     - an_banners
+     - an_simplefreeshippingline
+     - anproductvideogallery
+     - an_theme
+     - an_theme_dashboard
+   to_disable:
+    - an_sizeguide
+    - blockreassurance
+    - blockwishlist
+    - ps_imageslider
+    - an_realtimevisitorcounter
+  hooks:
+    modules_to_hook:
+      displayGDPRConsent:
+        - psgdpr
+      displayFixedMenuLeft:
+        - an_logo
+      displayBanner:
+        - an_simplefreeshippingline
+      displayNav1:
+        - ps_languageselector
+        - ps_currencyselector
+      displayNav2:
+        - an_wishlist 
+        - ps_customersignin
+      displayCart:
+        - ps_shoppingcart
+      displayNav3:
+        - ps_socialfollow
+      displayTop:
+        - anmegamenu
+      displayMobileMenu:
+        - ~
+      displayLogoHeader:
+        - an_logo
+      displayHome:
+        - an_homeproducts
+        - anblog
+      displayLogoFooter:
+        - an_logo
+      displayFooterBefore:
+        - ps_emailsubscription
+      displayFooter:
+        - an_brandslider
+        - ps_contactinfo
+        - ps_linklist
+        - ps_customeraccountlinks
+        - anscrolltop
+      displayAnvantoProductThumbsList:
+        - anproductvideogallery
+      displayProductListWishlist:
+        - an_wishlist
+      displayProductListReviews:
+        - ~
+      displayAdminProductsExtra:
+        - ~
+      displayProductExtraContent:
+        - ~
+      displayLeftColumn:
+        - ps_categorytree
+        - ps_facetedsearch
+      displaySearch:
+        - ps_searchbar
+      displayProductVisitors:
+        - ~
+      displayProductAdditionalInfo:
+        - an_sizeguide
+        - an_hurry_up
+      displayProductAdditionalInfo2:
+        - an_wishlist
+      displayProductGuarantee:
+        - an_hurry_up
+        - an_trust_badges
+      displayReassurance:
+        - ~
+      displayOrderConfirmation2:
+        - ps_featuredproducts
+      displayCrossSellingShoppingCart:
+        - ps_featuredproducts
+      displayBeforeBodyClosingTag:
+        - ~
+      displayCartExtraProductActions:
+        - ~
+      displayCopyrightContainer:
+        - ~
+        - an_trust_badges
+      displayCopyrightContainerLeft:
+        - an_copyright
+      displayCustomerAccount:
+        - ~
+        - an_wishlist
+      displayCustomerLoginFormAfter:
+        - ~
+      displayFooterProduct:
+        - ~
+        - an_stickyaddtocart
+      displayHomeAfter:
+        - ~
+        - an_banners
+        - an_advantages
+        - an_brandslider
+      displayHomeBefore:
+        - ~
+        - an_homecategories
+      displayLeftColumnProduct:
+        - ~
+      displayMyAccountBlock:
+        - ~
+      displayNav:
+        - ~
+      displayNavFullWidth:
+        - ~
+      displayOrderConfirmation:
+        - ~
+      displayPaymentByBinaries:
+        - ~      
+      displayPaymentTop:
+        - ~      
+      displayRightColumn:
+        - ~      
+      displayRightColumnProduct:
+        - ~      
+      displayShoppingCart:
+        - ~
+      displayShoppingCartFooter:
+        - ~
+        - an_wishlist
+      displaySliderContainerWidth:
+        - ~
+      displaySliderFullWidth:
+        - ~
+        - an_homeslider
+      displayTopColumn:
+        - ~
+      displayBackOfficeHeader:
+        - ~
+        - anscrolltop
+        - anblog
+        - an_stickyaddtocart
+        - an_theme_dashboard
+
+  image_types:
+    attributes_default:
+      width: 50
+      height: 50
+      scope: [products]
+    cart_default:
+      width: 112
+      height: 113
+      scope: [products]
+    small_default:
+      width: 98
+      height: 98
+      scope: [products, categories, manufacturers, suppliers]
+    medium_default:
+      width: 452
+      height: 452
+      scope: [products, manufacturers, suppliers]
+    home_default:
+      width: 255
+      height: 255
+      scope: [products]
+    catalog_small:
+      width: 184
+      height: 184
+      scope: [products]
+    catalog_large:
+      width: 398
+      height: 398
+      scope: [products]
+    large_default:
+      width: 540
+      height: 540
+      scope: [products, manufacturers, suppliers]
+    product_zoom:
+      width: 1200
+      height: 1200
+      scope: [products]
+    category_default:
+      width: 156
+      height: 156
+      scope: [categories]
+    stores_default:
+      width: 170
+      height: 171
+      scope: [stores]
+    slider_photo:
+      width: 90
+      height: 90
+      scope: [products]
+    brand_small:
+      width: 185
+      height: 46
+      scope: [manufacturers]
+    menu_default:
+      width: 180
+      height: 180
+      scope: [products]
+    anblog_default:
+      width: 885
+      height: 620
+      scope: []
+    anblog_thumb:
+      width: 885
+      height: 620
+      scope: []
+    anblog_listing_leading_img:
+      width: 400
+      height: 280
+      scope: []
+    anblog_listing_secondary_img:
+      width: 885
+      height: 620
+      scope: []
+
+
+theme_settings:
+  default_layout: layout-full-width
+  layouts:
+    category: layout-left-column
+    best-sales: layout-left-column
+    new-products: layout-left-column
+    prices-drop: layout-left-column
+    contact: layout-left-column

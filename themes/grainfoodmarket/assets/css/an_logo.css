@@ -1,0 +1,45 @@
+#footer .logo,
+#header .logo,
+.footer-logo .logo {
+    max-width: 220px;
+    max-height: 50px;
+    height: auto;
+}
+#header .fixed-menu .logo {
+    max-width: 200px;
+    max-height: 40px;
+}
+#header #_mobile_logo svg,
+#header #_desktop_logo svg,
+#footer #_desktop_logo svg {
+    max-width: 220px;
+}
+@media (max-width: 991px) {
+    #header .logo {
+        width: auto
+    }
+    .footer-logo .logo{
+        max-width: 100%;
+    }
+}
+@media (max-width: 767px) {
+    #header .header-nav .top-logo a img {
+        max-height: 50px;
+        max-width: 170px;
+        margin-top: 2px;
+    }
+}
+@media (min-width: 768px) {
+    #header.header2 #_desktop_logo svg {
+        max-width: 185px;
+    }
+    #header.header3 #_desktop_logo svg {
+        max-width: 210px;
+    }
+    #header.header4 #_desktop_logo svg {
+        max-width: 200px;
+    }
+    #header.header5 #_desktop_logo svg {
+        max-width: 185px;
+    }
+}

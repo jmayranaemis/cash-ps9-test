@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="/var/www/fastuser/data/www/themes09.anvanto.com/super/themes/grain" source-language="fr-FR" target-language="fr-FR" datatype="plaintext">
+    <body>
+      <trans-unit id="9ae79c1fccd231ac7fbbf3235dbf6326">
+        <source>My wishlist</source>
+        <target>Ma liste d'envies</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="8413c683b4b27cc3f4dbd4c90329d8ba">
+        <source>Comments</source>
+        <target>commentaires</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="9084ac39ff314efca366f82703fe01f2">
+        <source>Our blog</source>
+        <target>Notre blog</target>
+        <note>Line: </note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

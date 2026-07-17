@@ -1,0 +1,377 @@
+/**
+ * 2021 Anvanto
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is not open source! Each license that you purchased is only available for 1 wesite only.
+ * If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+ * You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+ *
+ *  @author Anvanto <anvantoco@gmail.com>
+ *  @copyright  2021 Anvanto
+ *  @license    Valid for 1 website (or project) for each purchase of license
+ *  International Registered Trademark & Property of Anvanto
+ */
+
+.an_homeproducts-banner {
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+.an_homeproducts-block .products-section-title {
+    margin-bottom: 32px;
+    font-size: 32px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: none;
+}
+.an_homeproducts-banner img:not(.b-lazy),
+.an_homeproducts-banner img.b-loaded {
+    border-radius: 0;
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+.an_homeproducts-banner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    background: #ececec;
+    border-radius: 0;
+    padding: 35px 37px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+.an_homeproducts-banner-overlay .an_homeproducts-banner-content {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    bottom: 0;
+    left: 15px;
+    background: transparent;
+    width: calc(100% - 30px);
+}
+.an_homeproducts-banner-link {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    bottom: 0;
+    left: 15px;
+    z-index: 2;
+}
+.an_homeproducts-banner .an_homeproducts-banner-title-margin {
+    margin-bottom: 19px;
+}
+.an_homeproducts-banner p {
+    margin-bottom: 0;
+}
+.an_homeproducts-banner-overlay .an_homeproducts-banner-content .h2 {
+    text-transform: none;
+}
+.an_homeproducts-banner-overlay .an_homeproducts-banner-content p {
+    color: #fff;
+}
+.an_homeproducts-banner-default.an_homeproducts-banner-overlay {
+    margin-bottom: 20px;
+}
+.an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-content {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    right: 15px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    width: auto;
+}
+.an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-content .h2 {
+    margin-bottom: 13px;
+    max-width: 360px;
+    line-height: 1.5;
+    font-size: 32px;
+    letter-spacing: 1.7px;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    left: 0;
+    right: 0;
+    transition: transform 0.35s, color 0.35s;
+}
+.an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-content p:not(.h2) {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 1rem;
+    letter-spacing: 1.7px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 2em;
+    width: 100%;
+    opacity: 0;
+    -webkit-transform: translate3d(0,10px,0);
+    transform: translate3d(0,10px,0);
+}
+
+@media (min-width: 480px) {
+    .an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-link:hover+.an_homeproducts-banner-content .h2 {
+        color: #fff;
+        -webkit-transform: translate3d(0,0%,0) translate3d(0,-25px,0);
+        transform: translate3d(0,0%,0) translate3d(0,-25px,0);
+    }
+    .an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-content::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 75%);
+        background: linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 75%);
+        content: '';
+        opacity: 0;
+        -webkit-transform: translate3d(0,50%,0);
+        transform: translate3d(0,50%,0);
+    }
+    .an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-content::before,
+    .an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-content p:not(.h2) {
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+    }
+    .an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-link:hover+.an_homeproducts-banner-content::before,
+    .an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-link:hover+.an_homeproducts-banner-content p:not(.h2) {
+        opacity: 1;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+    }
+}
+@media (max-width: 1200px) {
+    .an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-content p:not(.h2) {
+        padding: 1em;
+        margin-bottom: 0;
+    }
+}
+@media (max-width: 480px) {
+    .an_homeproducts-banner-default.an_homeproducts-banner-overlay .an_homeproducts-banner-content .h2 {
+        font-size: 24px;
+    }
+}
+.an_homeproducts-banner-type2.an_homeproducts-banner-overlay {
+    max-width: 570px;
+    margin: 30px auto;
+}
+.an_homeproducts-banner-type2.an_homeproducts-banner-overlay .an_homeproducts-banner-content {
+    top: 60px;
+    left: 55px;
+    right: 55px;
+    bottom: 60px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: auto;
+}
+.an_homeproducts-banner-type2.an_homeproducts-banner-overlay .an_homeproducts-banner-content::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    bottom: 0;
+    opacity: .6;
+    z-index: 0;
+    transition: opacity 0.35s;
+}
+.an_homeproducts-banner-type2.an_homeproducts-banner-overlay .an_homeproducts-banner-link:hover+.an_homeproducts-banner-content::before {
+    opacity: .8;
+}
+.an_homeproducts-banner-type2.an_homeproducts-banner-overlay .an_homeproducts-banner-content p,
+.an_homeproducts-banner-type2.an_homeproducts-banner-overlay .an_homeproducts-banner-content .h2 {
+    margin-bottom: 0px;
+    line-height: 1.5;
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 1.7px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    left: 0;
+    right: 0;
+    transition: transform 0.35s, color 0.35s;
+    z-index: 2;
+}
+.an_homeproducts-banner-type2.an_homeproducts-banner-overlay .an_homeproducts-banner-content .h2 {
+    font-weight: 500;
+}
+@media (max-width: 767px) {
+    .an_homeproducts-banner-type2.an_homeproducts-banner-overlay .an_homeproducts-banner-content::before {
+        display: none;
+    }
+    .an_homeproducts-banner-type2.an_homeproducts-banner-overlay .an_homeproducts-banner-content {
+        top: 0;
+        left: 15px;
+        right: 15px;
+        bottom: 0;
+        padding: 15px;
+    }
+}
+.anhp-banner-global-top {
+    margin-bottom: 50px;
+}
+.anhp-banner-global-bottom {
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+.an_homeproducts hr {
+    display: none;
+}
+.an_homeproducts-title {
+    margin-bottom: 24px;
+}
+.an_homeproducts-tab-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+.an_homeproducts-link-all {
+    text-decoration: underline;
+    color: #000;
+}
+.an_homeproducts-link-all:hover {
+    text-decoration: none;
+}
+.an_homeproducts-tabs {
+    margin-bottom: 35px;
+}
+.an_homeproducts-tabs-list {
+    text-align: center;
+}
+.an_homeproducts-tab {
+    background: transparent!important;
+    border: 0;
+    padding: 0;
+    margin: 0 22px;
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 300;
+    color: #7a7a7a!important;
+    text-transform: none;
+}
+.an_homeproducts-tab:hover,
+.an_homeproducts-tab.active {
+    color: #000!important;
+}
+.an_homeproducts-content {
+    position: relative;
+}
+.an_homeproducts-content:not(.active) {
+    display: none;
+}
+.an_homeproducts-products .products {
+    margin-left: 0;
+}
+.an_homeproducts-products .owl-carousel {
+    margin: 0;
+}
+.an_homeproducts-products .owl-carousel.owl-loaded .product {
+    width: 100%;
+    padding: 0;
+}
+
+.an_homeproducts-container {
+    position: relative;
+}
+.an_homeproducts-conteiner-category {
+    margin-top: 20px;
+}
+.an_homeproducts-category {
+    cursor: pointer;
+    margin-right: 10px;
+}
+a.an_homeproducts-category:not(.active){
+    color: #949494;
+}
+a.an_homeproducts-category.active {
+    color: #000;
+}
+.an_homeproducts-tab-bottom {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.an_homeproducts-loadmore {
+    position: relative;
+    display: block;
+    margin: 10px auto;
+}
+.anhp-loader {
+    position: absolute;
+    z-index: 2;
+    background: rgba(255,255,255,.5);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.an_homeproducts-loadmore .anhp-loader {
+    background: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.an_homeproducts-loadmore .anhp-loader svg {
+    transform: scale(3.5);
+    max-width: 100%;
+    max-height: 100%;
+}
+.an_homeproducts-products .owl-carousel .owl-nav:not(.disabled) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+.an_homeproducts-products .owl-carousel .owl-nav .owl-next,
+.an_homeproducts-products .owl-carousel .owl-nav .owl-prev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ddd;
+    margin: 0 5px;
+}
+
+.an_homeproducts-products .owl-carousel .owl-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.an_homeproducts-products .owl-carousel .owl-dots.disabled {
+    display: none;
+}
+.an_homeproducts-products .owl-carousel .owl-dot span {
+    display: block;
+    background: #fff;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+}
+.an_homeproducts-products .owl-carousel .owl-dot.active span {
+    background: #000;
+}
+.an_homeproducts-products .owl-carousel .product-miniature {
+    max-width: 100%;
+}

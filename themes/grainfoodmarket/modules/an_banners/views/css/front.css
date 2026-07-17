@@ -1,0 +1,43 @@
+/**
+* 2022 Anvanto
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+*
+*  @author    Anvanto <anvantoco@gmail.com>
+*  @copyright 2022 Anvanto
+*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*/
+
+.an_banner {
+    max-height: 500px;
+    margin-top: 22px;
+    margin-bottom: 72px;
+}
+.an_banner-img {
+    overflow: hidden;
+}
+.an_banner a {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+.an_banner img:not(.b-lazy),
+.an_banner img.b-loaded {
+    width: 100%;
+    height: auto;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+.an_banner-link:hover+.an_banner-img img,
+.an_banner-img:hover img {
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+}

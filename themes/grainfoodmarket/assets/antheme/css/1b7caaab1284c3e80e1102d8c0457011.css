@@ -1,0 +1,548 @@
+
+
+html {
+  font-size: 16px;
+  font-weight: 400;
+}
+body {
+  font-size: 16px;
+  line-height: 26px;
+  background: #ffffff;
+  font-family: "Lato", Arial, sans-serif;
+}
+
+body,
+p {
+  color: #000000;
+}
+
+p {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Lato", Arial, sans-serif;;
+  font-weight: 300;
+}
+
+.h1,
+h1 {
+  font-size: 32px;
+  line-height: 36px;
+}
+.h2,
+h2 {
+  font-size: 28px;
+  line-height: 32px;
+}
+.h3,
+.h4,
+h3,
+h4 {
+  font-size: 24px;
+  line-height: 28px;
+}
+.h5,
+h5 {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 24px;
+}
+.h6,
+h6 {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 24px;
+}
+
+.h1,
+.h2,
+.h3 {
+  color: #000000;
+}
+
+
+a {
+  color: #a5a5a5;
+}
+
+a:focus,
+a:hover,
+.btn-link:focus,
+.btn-link:hover,
+.page-link:focus,
+.page-link:hover,
+a.text-primary:focus,
+a.text-primary:hover {
+  color: #000000;
+}
+
+a.bg-primary:focus,
+a.bg-primary:hover {
+  background-color: #000000!important
+}
+.btn-primary.focus,
+.btn-primary:focus,
+.btn-primary:hover {
+    
+}
+.btn-primary.active,
+.btn-primary:active,
+.open>.btn-primary.dropdown-toggle {
+    background-color: #000000;
+}
+.tag-primary[href]:focus,
+.tag-primary[href]:hover {
+    background-color: #000000
+}
+
+.hover_slider ul li::after{
+    background: #e8e8e8;
+}
+.hover_slider:not(:hover) li:first-child::after,
+.hover_slider ul li:hover::after{
+    background: #000000;
+}
+.hover_slider .more-images{
+    color: #000000;
+}
+
+.cart-preview .cart-title h4{
+  font-size: 24px;
+}
+.cart-preview .cart-title,
+.cart-preview .cart-bottom{
+  background: #f4f4f4;
+}
+.sb-open .sb-menu-right{
+  background: #ffffff;
+}
+ 
+
+.footer-container a,
+.block-contact{
+  color: #a5a5a5;
+}
+.footer-container a:hover,
+.footer-container a:focus{
+  color: #188f00;
+}
+.footer-container li a:before{
+  border-bottom-color: #188f00;
+}
+.links h3.h3,
+#block_myaccount_infos h3 a,
+.links h4.block-contact-title,
+.links>h3 {
+  color: #000000;
+}
+
+.block-contact > .hidden-sm-down{
+  color: #a5a5a5;
+}
+
+.dropdown,
+.block-social li a,
+.language-selector-wrapper span {
+  color: #9e9e9e;
+}
+.block-social li a:hover{
+  color: #ffffff;
+}
+.dropdown .expand-more,
+#header .header-nav .user-info a{
+  color: #ffffff;
+}
+.dropdown:hover .expand-more,
+.dropdown:hover a i,
+#header .header-nav .user-info a:hover{
+  color: #9e9e9e;
+}
+#header .search-widget span,
+.blockcart .blockcart-link{
+  color: #000000;
+}
+#header .search-widget span:hover,
+.blockcart .blockcart-link:hover{
+  color: #5ba718;
+}
+
+.js-products-column-slider .owl-nav .owl-prev:hover,
+.js-products-column-slider .owl-nav .owl-next:hover {
+  background:  #5ba718;
+}
+.product-btn a.quick-view{
+  color: #5ba718;
+}
+.anthemeblocks-homeslider .owl-prev:hover, 
+.anthemeblocks-homeslider .owl-next:hover{
+  background:  #5ba718;
+}
+.form-control:focus,
+.input-group.focus {
+    outline: 1px solid #5ba718;
+}
+
+.bootstrap-touchspin .group-span-filestyle .btn-touchspin,
+.group-span-filestyle .bootstrap-touchspin .btn-touchspin,
+.group-span-filestyle .btn-default {
+  background:  #5ba718;
+}
+@media (max-width: 767px) {
+  .blockcart span {
+    background:  #5ba718;
+  }
+}
+.btn-primary:hover{
+  background:  #188f00;
+}
+.custom-radio input[type=radio]:checked+span { 
+  background-color: #5ba718;
+}
+
+.search-widget form input[type=text]:focus {
+  outline: 0;
+}
+.search-widget form button[type=submit]{
+  background:  #5ba718;
+}
+body#checkout section.checkout-step .address-item.selected {
+  border: 3px solid #5ba718;
+}
+
+.products-sort-order .select-list:hover {
+  background: #5ba718;
+}
+.tabs .nav-tabs .nav-link.active,
+.tabs .nav-tabs .nav-link:hover {
+
+}
+#product-modal .modal-content .modal-body .product-images img:hover {
+  border: 3px solid #5ba718;
+}
+.product-images>li.thumb-container>.thumb.selected,
+.product-images>li.thumb-container>.thumb:hover {
+  opacity: 1;
+}
+li.product-flag {
+  background:  #5ba718;
+}
+.dropdown-item:focus,
+.page-my-account #content .links a:hover i,
+.dropdown-item:hover,
+.search-widget form input[type=text]:focus+button .search,
+#header .top-menu a[data-depth="0"]:hover,
+.search-widget form button[type=submit] .search:hover,
+#products .highlighted-informations .quick-view:hover,
+.featured-products .highlighted-informations .quick-view:hover,
+.product-accessories .highlighted-informations .quick-view:hover,
+.product-miniature .highlighted-informations .quick-view:hover,
+.block-categories .collapse-icons .add:hover,
+.block-categories .collapse-icons .remove:hover,
+.block-categories .arrows .arrow-down:hover,
+.block-categories .arrows .arrow-right:hover,
+.cart-grid-body a.label:hover
+.product-price,
+#blockcart-modal .product-name,
+.tabs .nav-tabs .nav-link.active {
+  color: #5ba718;
+}
+#header .header-nav .language-selector:hover .language-selector .expand-more{
+  color: #fff;
+}
+.subscribe-btn{
+  background-color: #5ba718;
+}
+.block_newsletter{
+  background-color: #f4f4f8;
+}
+.block_newsletter form input[type=text]:focus {
+  
+}
+.block_newsletter form input[type=text]:focus+button .search {
+  color: #5ba718;
+}
+.block_newsletter form button[type=submit] .search:hover {
+  color: #5ba718;
+}
+.block_newsletter form input[type=text]:focus {
+ 
+}
+.account-list a:hover {
+  color: #5ba718;
+}
+.social-sharing li:hover {
+  background-color: #5ba718;
+}
+#header .header-nav .blockcart a:hover {
+  color: #fff;
+}
+@media (max-width: 767px) {
+	#header .header-nav .user-info .logged {
+	  color: #5ba718;
+	}
+}
+.btn-primary {
+  background-color: #5ba718;
+}
+.btn-primary.disabled.focus,
+.btn-primary.disabled:focus,
+.btn-primary.disabled:hover,
+.btn-primary:disabled.focus,
+.btn-primary:disabled:focus,
+.btn-primary:disabled:hover {
+    background-color: #5ba718;
+}
+.btn-outline-primary {
+    color: #5ba718;
+    border-color: #5ba718;
+}
+.btn-outline-primary.active,
+.btn-outline-primary.focus,
+.btn-outline-primary:active,
+.btn-outline-primary:focus,
+.btn-outline-primary:hover,
+.open>.btn-outline-primary.dropdown-toggle {
+    background-color: #5ba718;
+    border-color: #5ba718;
+}
+.btn-link {
+  color: #5ba718;
+}
+.dropdown-item.active,
+.dropdown-item.active:focus,
+.dropdown-item.active:hover {
+  background-color: #5ba718;
+}
+.nav-pills .nav-item.open .nav-link,
+.nav-pills .nav-item.open .nav-link:focus,
+.nav-pills .nav-item.open .nav-link:hover,
+.nav-pills .nav-link.active,
+.nav-pills .nav-link.active:focus,
+.nav-pills .nav-link.active:hover {
+  background-color: #5ba718;
+}
+.card-primary {
+  background-color: #5ba718;
+  border-color: #5ba718;
+}
+.card-outline-primary {
+  border-color: #5ba718;
+}
+.page-item.active .page-link,
+.page-item.active .page-link:focus,
+.page-item.active .page-link:hover {
+  background-color: #5ba718;
+  border-color: #5ba718;
+}
+.tag-primary {
+  background-color: #5ba718;
+}
+.page-link {
+  color: #5ba718;
+}
+.bg-primary {
+    background-color: #5ba718!important
+}
+.text-primary {
+    color: #5ba718!important;
+}
+.anthemeshipping-line {
+  background-color: #000000;
+}
+
+#products .product-title a,
+.featured-products .product-title a,
+.product-accessories .product-title a,
+.product-miniature .product-title a,
+.product-name a {
+  color: #000000;
+  font-size: 16px;
+}
+
+.page-product h1 {
+  font-size: 36px;
+}
+
+#products .product-price-and-shipping,
+.featured-products .product-price-and-shipping,
+.product-accessories .product-price-and-shipping,
+.product-miniature .product-price-and-shipping,
+.product-price {
+  color: #000;
+  font-size: 20px;
+}
+.current-price {
+  color: #000;
+}
+.featured-products .regular-price,
+.product-accessories .regular-price,
+.product-miniature .regular-price,
+.regular-price {
+ color: #888888;
+ font-size: 16px;
+}
+#products .regular-price {
+  color: #888888;
+}
+.product-discount {
+ color: #888888;
+}
+
+
+
+#header {
+  background: #ffffff; 
+}
+.header-nav {
+  background: #282828; 
+}
+.header-nav {
+  font-size: 14px;  
+}
+
+
+#_desktop_logo {
+  text-align: center;
+  padding-bottom: 10px;
+}
+#_desktop_top_menu,
+#amegamenu {
+  background: #ffffff; 
+}
+#_desktop_top_menu,
+#amegamenu {
+  font-size: 14px;  
+}
+
+/* fixed-menu */
+@media (max-width: 1920px) and (min-width: 1024px) {
+  .fixed-menu {
+    z-index: 9;
+	background: rgba(0,0,0,0.4);
+    padding-top: 0px!important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+	width: 100%;
+  }
+  #top-menu {
+    margin-bottom: 0px !important;
+	position: relative;
+  }
+}
+
+#wrapper {
+  background: #ffffff;
+}
+
+.footer-container {
+  background: #f5f6fa;
+}
+.copyright-container {
+  background: #f5f6fa;
+}
+
+
+.anthemeblocks-homeslider-desc h2 {
+  color: #ffffff;
+  font-size: 56px;
+  font-family: "Lato", Arial, sans-serif;
+}
+
+.anthemeblocks-homeslider-desc,
+.anthemeblocks-homeslider-desc p {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: normal;
+}
+
+
+
+
+
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #ffffff;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #ffffff, 0 0 5px #ffffff;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.ui-widget {
+  font-family: inherit !important;
+}

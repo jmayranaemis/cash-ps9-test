@@ -1,0 +1,289 @@
+/**
+* 2024 Anvanto
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+*
+*  @author    Anvanto <anvantoco@gmail.com>
+*  @copyright 2024 Anvanto
+*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*/
+
+.anblog-widget {
+    padding: 0;
+    margin-top: 75px!important;
+    margin-bottom: 20px;
+}
+.anblog-widget .anblog-widget-title {
+    margin-bottom: 35px;
+    text-align: center;
+    text-transform: none;
+}
+.anblog-widget .anblog-widget-title a {
+    color: #000;
+}
+.anblog-widget .blog-item .blog-image {
+    margin-bottom: 24px;
+}
+.anblog-widget .blog-item .blog-meta {
+    margin-bottom: 10px;
+    line-height: 1;
+}
+.anblog-widget .blog-item .blog-meta span,
+.anblog-widget .blog-item .blog-meta a {
+    font-size: 14px;
+    color: #000 !important;
+}
+.anblog-widget .blog-item .title {
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: left;
+}
+.anblog-widget .blog-item .title a {
+    color: #000;
+}
+.anblog-widget .blog-item .blog-shortinfo {
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0;
+    line-height: 24px;
+    text-align: left;
+}
+
+
+#module-anblog-list #wrapper,
+#module-anblog-blog #wrapper,
+#module-anblog-category #wrapper {
+    padding-top: 60px;
+}
+.blog-menu .title_block,
+.an-blog-tags .title_block,
+.an-block-sidebar .title_block {
+    font-weight: 400;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+.blog-image {
+    overflow: hidden;
+}
+.blog-image img {
+    max-width: 100% !important;
+    max-height: unset;
+    width: 100%;
+    height: auto;
+    border-radius: 0px;
+}
+
+#module-anblog-list #content-wrapper h1 {
+    text-align: center;
+    margin-top: -2px;
+    margin-bottom: 34px;
+    text-transform: uppercase;
+}
+.blog-item .blog-meta {
+    margin-bottom: 8px;
+}
+.blog-item .blog-meta span {
+    color: rgb(198, 198, 198);
+    font-size: 13px;
+    line-height: 24px;
+}
+.blog-item-type-2 .blog-image {
+    margin-bottom: 24px;
+}
+.blog-item .title a {
+    color: #000;
+}
+.blog-item-type-1 .title {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 24px;
+    margin-bottom: 40px;
+}
+.blog-item-type-2 .title {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    margin-bottom: 5px;
+}
+.blog-item-type-3 .title {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 24px;
+}
+.blog-item .blog-shortinfo {
+    font-size: 16px;
+    line-height: 24px;
+}
+.blog-item .btn-primary {
+    margin-top: 15px;
+}
+.blog-item .more {
+    display: inline-block;
+    margin-top: 33px;
+    text-decoration: underline;
+    padding: 0;
+    font-size: 16px;
+}
+.blog-item .more:hover {
+    text-decoration: none;
+}
+
+.anblog-pagination .pagination {
+    color: #929292;
+    background: transparent;
+}
+
+
+#module-anblog-blog .blog-title {
+    margin-bottom: 9px;
+    margin-top: -2px;
+    font-size: 36px;
+    line-height: 1.2;
+}
+.blog-detail .blog-meta {
+    padding-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 19px;
+}
+.blog-detail .blog-meta span,
+.blog-detail .blog-meta span a {
+    color: rgb(198, 198, 198);
+    font-size: 13px;
+}
+.blog-detail .blog-meta > span {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.blog-detail .blog-image {
+    margin-bottom: 30px;
+}
+#module-anblog-blog .post-tags.anblog-tags a {
+    padding: 10px 15px 10px 16px;
+    background-color: #f4f4f4;
+    border-radius: 0px;
+    margin: 0 14px 10px 0px;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #929292;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.blog-detail #products .product-miniature {
+    width: 33.3334%;
+}
+.social-heading {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.blog-comment-block h4 {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+}
+.blog-comment-block .form-control {
+    background: #f9f9f9;
+    border: 0;
+    padding: 15px 20px;
+}
+.blog-comment-block textarea.form-control {
+    padding-bottom: 19px;
+    min-height: 10rem;
+}
+.btn-submit-comment-wrapper {
+    height: auto;
+}
+
+#categories_blog_menu {
+    margin-bottom: 34px;
+}
+
+.an-blog-tags {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 29px;
+}
+.an-blog-tags .title_block {
+    margin-bottom: 21px;
+}
+.an-blog-tags .block_content a {
+    padding: 8px 9px 7px 8px;
+    background-color: #f6f6f6;
+    margin: 0 5px 5px 0;
+    font-size: 11px;
+    line-height: 1.2;
+    color: rgb(198, 198, 198);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.an-block-sidebar .list-item {
+    margin-bottom: 36px;
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+.an-block-sidebar .title_block {
+    margin-bottom: 27px;
+}
+.an-block-sidebar .blog-image {
+    margin-bottom: 16px;
+}
+.an-block-sidebar .blog-content .info {
+    color: rgb(198, 198, 198);
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.an-block-sidebar .post-name {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    text-transform: none;
+}
+.an-block-sidebar .post-name a {
+    font-size: inherit;
+    font-weight: inherit;
+}
+.an-block-sidebar .blog-content .blog-shortinfo {
+    display: none;
+}
+
+#categories_blog_menu .category-sub-menu .category-sub-link:before {
+    display: none;
+}
+#categories_blog_menu .category-sub-menu .category-sub-link {
+    margin-left: 0!important;
+    padding-left: 0!important;
+}
+#categories_blog_menu .collapse-icons[aria-expanded=true] .remove,
+#categories_blog_menu .collapse-icons .add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#categories_blog_menu .collapse-icons[aria-expanded=true] .add,
+#categories_blog_menu .collapse-icons .remove {
+    display: none;
+}
+.anblog-pagination .pagination .page-list li a {
+    line-height: 30px;
+}
+
+@media (min-width: 992px) {
+    .anblog-hidden-desktop {
+        display: none!important;
+    }
+}

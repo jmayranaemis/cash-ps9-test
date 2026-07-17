@@ -1,0 +1,105 @@
+/**
+ * 2022 Anvanto
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is not open source! Each license that you purchased is only available for 1 wesite only.
+ * If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+ * You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+ *
+ *  @author Anvanto <anvantoco@gmail.com>
+ *  @copyright  2022 Anvanto
+ *  @license    Valid for 1 website (or project) for each purchase of license
+ *  International Registered Trademark & Property of Anvanto
+ */
+
+.an_advantages {
+    margin-bottom: 30px;
+}
+.an_advantages-inner-wrap {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.an_advantages-head.an_advantages-head-hidden {
+    display: none!important;
+}
+.an_advantages-head.an_advantages-head-hidden+.an_advantages-list {
+    width: 100%;
+    padding: 0;
+}
+.an_advantages-head .an_advantages-title {
+    font-size: 32px;
+    margin-bottom: 26px;
+    text-transform: none;
+}
+.an_advantages-head .an_advantages-text p {
+    margin-bottom: 26px;
+    letter-spacing: -.1px;
+}
+.an_advantages .an_advantages-head {
+    width: 66.66667%;
+    text-align: right;
+}
+.an_advantages .an_advantages-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0;
+    width: 33.3333%;
+    padding: 40px 37px 0 10px;
+}
+.an_advantages .an_advantages-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-width: 100%;
+    padding: 0;
+    margin-bottom: 31px;
+}
+.an_advantages .an_advantages-item-img {
+    max-width: 50px;
+    border-radius: 50%;
+    min-width: 48px;
+    display: flex;
+    padding-top: 5px;
+}
+.an_advantages .an_advantages-item-img img {
+    max-width: 100%;
+}
+.an_advantages-item-desc {
+    margin-right: 30px;
+}
+.an_advantages-item-desc .an_advantages-item-title {
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+}
+.an_advantages-item-desc p:not(.an_advantages-item-title) {
+    margin-bottom: 0;
+    line-height: 20px;
+    color: #949494;
+    font-size: 14px;
+    font-weight: 300;
+}
+@media (max-width: 991px) {
+    .an_advantages .an_advantages-head,
+    .an_advantages .an_advantages-list {
+        width: 50%;
+    }
+}
+@media (max-width: 640px) {
+    .an_advantages .an_advantages-head {
+        width: 100%;
+    }
+    .an_advantages .an_advantages-list {
+        padding: 40px 0 0;
+        width: 100%;
+    }
+}

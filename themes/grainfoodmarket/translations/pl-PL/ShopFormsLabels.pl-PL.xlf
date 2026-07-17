@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="/var/www/fastuser/data/www/themes09.anvanto.com/super/themes/grain" source-language="pl-PL" target-language="pl-PL" datatype="plaintext">
+    <body>
+      <trans-unit id="2e99e504e93fb3294eb1130912ede67c">
+        <source>Enter you e-mail</source>
+        <target>Wprowadź swój email</target>
+        <note>Line: </note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

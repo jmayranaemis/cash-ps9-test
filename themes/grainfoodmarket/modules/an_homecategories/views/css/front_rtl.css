@@ -1,0 +1,156 @@
+/**
+ * 2021 Anvanto
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is not open source! Each license that you purchased is only available for 1 wesite only.
+ * If you want to use this file on more websites (or projects), you need to purchase additional licenses. 
+ * You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+ *
+ *  @author Anvanto <anvantoco@gmail.com>
+ *  @copyright  2021 Anvanto
+ *  @license    Valid for 1 website (or project) for each purchase of license
+ *  International Registered Trademark & Property of Anvanto
+ */
+
+.an_homecategories {
+    margin-bottom: 75px;
+}
+.an_homecategories-head {
+    margin-bottom: 30px;
+}
+.an_homecategories-head .an_homecategories-title {
+    font-size: 32px;
+    margin: 2px 0 35px;
+    text-align: center;
+    text-transform: none;
+}
+.an_homecategories-head p:not(.an_homecategories-title) {
+    text-align: center;
+}
+.an_homecategories-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 -15px;
+}
+.an_homecategories-slider {
+    margin: 0;
+}
+.an_homecategories-item {
+    position: relative;
+    overflow: hidden;
+}
+.an_homecategories-item {
+    display: block;
+    max-width: 100%;
+    width: 160px;
+    position: relative;
+    margin: 0 15px 30px;
+
+}
+.an_homecategories-slider .an_homecategories-item {
+    margin: 0 auto 13px;
+}
+.an_homecategories-item .an_homecategories-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f6f6f6;
+    height: 160px;
+    margin-bottom: 12px;
+}
+.an_homecategories-item .an_homecategories-image img {
+    max-width: 100%;
+}
+.an_homecategories-item-desc .h6 {
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+    line-height: 28px;
+    text-transform: uppercase;
+}
+.an_homecategories-item-desc p:not(.h6) {
+    margin-bottom: 0;
+    text-align: center;
+}
+.an_homecategories .owl-carousel .owl-item img {
+    width: auto;
+    max-width: 100%;
+}
+.an_homecategories .owl-dots {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.an_homecategories .owl-dots .owl-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #f6f6f6;
+    margin: 5px;
+}
+.an_homecategories .owl-dots .owl-dot.active,
+.an_homecategories .owl-dots .owl-dot:hover {
+    background: #000;
+}
+.an_homecategories .an_homecategories-nav {
+    display: flex;
+    justify-content: center;
+}
+.an_homecategories .an_homecategories-nav .owl-prev,
+.an_homecategories .an_homecategories-nav .owl-next {
+    margin: 3px;
+}
+.an_homecategories .an_homecategories-nav .disabled i {
+    opacity: .5;
+    cursor: no-drop;
+}
+.an_homecategories .an_homecategories-nav i {
+    background: #f6f6f6;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 21px;
+    height: 35px;
+    line-height: 35px;
+    width: 35px;
+    text-align: center;
+}
+.an_homecategories .an_homecategories-nav i:hover {
+    background: #000;
+    color: #fff;
+}
+/*** effects ***/
+.an_homecategories-item .an_homecategories-image {
+    position: relative;
+    overflow: hidden;
+}
+.an_homecategories-item .an_homecategories-image::before {
+    position: absolute;
+    top: 0;
+    right: -75%;
+    z-index: 2;
+    display: block;
+    content: '';
+    width: 50%;
+    height: 100%;
+    background: -webkit-linear-gradient(right, rgba(255,255,255,0) 100%, rgba(255,255,255,.5) 100%);
+    background: linear-gradient(to left, rgba(255,255,255,0) 100%, rgba(255,255,255,.5) 100%);
+    -webkit-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+}
+.an_homecategories-item:hover .an_homecategories-image::before {
+    -webkit-animation: shine .75s;
+    animation: shine .75s;
+}
+@-webkit-keyframes shine {
+    100% {
+        right: 125%;
+    }
+}
+@keyframes shine {
+    100% {
+        right: 125%;
+    }
+}

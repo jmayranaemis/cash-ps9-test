@@ -1,0 +1,8 @@
+/**/
+.an_homeslider .an_homeslider-desc>.container {
+    align-items: flex-start;
+    text-align: left;
+}
+.an_homeslider .an_homeslider-desc p {
+    margin-left: 0;
+}
