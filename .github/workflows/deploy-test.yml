@@ -109,8 +109,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php bin/console cache:clear --no-warmup || true
-            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php bin/console cache:warmup || true
+            set -e
+            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php -d memory_limit=1G bin/console cache:clear --no-warmup
+            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php -d memory_limit=1G bin/console cache:warmup --no-optional-warmers
 
       - name: Healthcheck
         run: |
