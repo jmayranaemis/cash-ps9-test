@@ -79,7 +79,11 @@ assets:
 global_settings:
   configuration:
     PS_IMAGE_QUALITY: png
-    PSR_ICON_COLOR: '#5ba718'
+    # Cash Alimentaire is a professional catalogue: products stay browsable,
+    # while commercial enquiries replace the checkout journey.
+    PS_CATALOG_MODE: 1
+    PS_CATALOG_MODE_WITH_PRICES: 0
+    PSR_ICON_COLOR: '#6b5353'
     an_hp_view_type: blocks
     an_hp_slider: 0
     an_hp_show_load_more: 0
@@ -111,8 +115,23 @@ global_settings:
      - anproductvideogallery
      - an_theme
      - an_theme_dashboard
+     - contactform
+     - ps_contactinfo
+     - ps_emailsubscription
+     - ps_searchbar
+     - ps_facetedsearch
+     - ps_categorytree
+     - ps_linklist
+     - ps_socialfollow
+     - ps_languageselector
    to_disable:
+    - an_hurry_up
     - an_sizeguide
+    - an_stickyaddtocart
+    - an_wishlist
+    - ps_shoppingcart
+    - ps_customersignin
+    - ps_currencyselector
     - blockreassurance
     - blockwishlist
     - ps_imageslider
@@ -127,12 +146,10 @@ global_settings:
         - an_simplefreeshippingline
       displayNav1:
         - ps_languageselector
-        - ps_currencyselector
       displayNav2:
-        - an_wishlist 
-        - ps_customersignin
+        - ~
       displayCart:
-        - ps_shoppingcart
+        - ~
       displayNav3:
         - ps_socialfollow
       displayTop:
@@ -157,7 +174,7 @@ global_settings:
       displayAnvantoProductThumbsList:
         - anproductvideogallery
       displayProductListWishlist:
-        - an_wishlist
+        - ~
       displayProductListReviews:
         - ~
       displayAdminProductsExtra:
@@ -172,12 +189,10 @@ global_settings:
       displayProductVisitors:
         - ~
       displayProductAdditionalInfo:
-        - an_sizeguide
-        - an_hurry_up
+        - ~
       displayProductAdditionalInfo2:
-        - an_wishlist
+        - ~
       displayProductGuarantee:
-        - an_hurry_up
         - an_trust_badges
       displayReassurance:
         - ~
@@ -196,12 +211,10 @@ global_settings:
         - an_copyright
       displayCustomerAccount:
         - ~
-        - an_wishlist
       displayCustomerLoginFormAfter:
         - ~
       displayFooterProduct:
         - ~
-        - an_stickyaddtocart
       displayHomeAfter:
         - ~
         - an_banners
@@ -232,7 +245,6 @@ global_settings:
         - ~
       displayShoppingCartFooter:
         - ~
-        - an_wishlist
       displaySliderContainerWidth:
         - ~
       displaySliderFullWidth:
@@ -329,4 +341,4 @@ theme_settings:
     best-sales: layout-left-column
     new-products: layout-left-column
     prices-drop: layout-left-column
-    contact: layout-left-column
+    contact: layout-full-width

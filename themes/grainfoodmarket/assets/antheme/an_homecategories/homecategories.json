@@ -1,1 +1,72 @@
-[{"id_homecategory":"1","image":"0423df32e045e99e19daa937fc1cb160.webp","active":"1","position":"0","title":"Burger","link":"#","text":"","id_lang":"1"},{"id_homecategory":"2","image":"76f48f11f1d8499d2e4ef9c543b8abd6.webp","active":"1","position":"0","title":"Tomatoes","link":"#","text":"","id_lang":"1"},{"id_homecategory":"3","image":"dc2c6beadc2edea7970fd4b1cf5a51ab.webp","active":"1","position":"0","title":"Snack","link":"#","text":"","id_lang":"1"},{"id_homecategory":"4","image":"adea307a3e668890b16eab24e2bf5f26.webp","active":"1","position":"0","title":"Tackos","link":"#","text":"","id_lang":"1"},{"id_homecategory":"5","image":"d487728816c3987b5be651249a2bb2b7.webp","active":"1","position":"0","title":"Oranges","link":"#","text":"","id_lang":"1"},{"id_homecategory":"6","image":"038c9a2daa985bfd89371a757eddbe9c.webp","active":"1","position":"0","title":"Milk","link":"#","text":"","id_lang":"1"},{"id_homecategory":"7","image":"36a321198ddd14738d77a72cc9762b45.webp","active":"1","position":"0","title":"Snack","link":"#","text":"","id_lang":"1"}]
+[
+  {
+    "id_homecategory": "1",
+    "image": "0423df32e045e99e19daa937fc1cb160.webp",
+    "active": "1",
+    "position": "0",
+    "title": "Frais",
+    "link": "#",
+    "text": "",
+    "id_lang": "1"
+  },
+  {
+    "id_homecategory": "2",
+    "image": "76f48f11f1d8499d2e4ef9c543b8abd6.webp",
+    "active": "1",
+    "position": "0",
+    "title": "Surgelés",
+    "link": "#",
+    "text": "",
+    "id_lang": "1"
+  },
+  {
+    "id_homecategory": "3",
+    "image": "dc2c6beadc2edea7970fd4b1cf5a51ab.webp",
+    "active": "1",
+    "position": "0",
+    "title": "Épicerie",
+    "link": "#",
+    "text": "",
+    "id_lang": "1"
+  },
+  {
+    "id_homecategory": "4",
+    "image": "adea307a3e668890b16eab24e2bf5f26.webp",
+    "active": "1",
+    "position": "0",
+    "title": "Boissons",
+    "link": "#",
+    "text": "",
+    "id_lang": "1"
+  },
+  {
+    "id_homecategory": "5",
+    "image": "d487728816c3987b5be651249a2bb2b7.webp",
+    "active": "1",
+    "position": "0",
+    "title": "Hygiène & emballages",
+    "link": "#",
+    "text": "",
+    "id_lang": "1"
+  },
+  {
+    "id_homecategory": "6",
+    "image": "038c9a2daa985bfd89371a757eddbe9c.webp",
+    "active": "1",
+    "position": "0",
+    "title": "Fruits & légumes",
+    "link": "#",
+    "text": "",
+    "id_lang": "1"
+  },
+  {
+    "id_homecategory": "7",
+    "image": "36a321198ddd14738d77a72cc9762b45.webp",
+    "active": "1",
+    "position": "0",
+    "title": "Catalogues à télécharger",
+    "link": "#",
+    "text": "",
+    "id_lang": "1"
+  }
+]
