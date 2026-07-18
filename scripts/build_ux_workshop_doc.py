@@ -183,10 +183,10 @@ def callout(doc, label, text, fill=SAGE):
     para(doc, "", size=2, after=1)
 
 
-def decision_line(doc, label):
+def decision_line(doc, label, *, compact=False):
     p = doc.add_paragraph()
-    p.paragraph_format.space_before = Pt(3)
-    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.space_before = Pt(0 if compact else 3)
+    p.paragraph_format.space_after = Pt(1 if compact else 4)
     font(p.add_run(label + "  "), 9.5, bold=True, hex_color=BROWN)
     font(p.add_run("______________________________________________________________"), 9.5)
 
@@ -243,17 +243,18 @@ def build():
 
     # Page 1 — the benchmark converted into five decisions.
     para(doc, "ATELIER UX EXPRESS", size=9, bold=True, hex_color=GOLD, after=2)
-    para(doc, "75 minutes. 5 décisions. Zéro page blanche.", size=24, bold=True, hex_color=BROWN, after=5)
+    para(doc, "90 minutes. 6 décisions. Zéro page blanche.", size=24, bold=True, hex_color=BROWN, after=5)
     para(doc, "Le benchmark est déjà fait. L’équipe valide la direction, corrige ce qui est faux et nomme les responsables.", size=11.5, after=9)
 
-    agenda = doc.add_table(rows=1, cols=5)
-    geometry(agenda, [1872] * 5, indent=0)
+    agenda = doc.add_table(rows=1, cols=6)
+    geometry(agenda, [1560] * 6, indent=0)
     borders(agenda, BROWN, 4)
     for index, (minutes, label) in enumerate([
         ("10 min", "Cible"),
         ("15 min", "Promesse"),
         ("20 min", "Accueil"),
         ("15 min", "Conversion"),
+        ("15 min", "Fiche produit"),
         ("15 min", "Actions"),
     ]):
         cell = agenda.cell(0, index)
@@ -290,7 +291,7 @@ def build():
 
     # Page 2 — conversion path.
     page_break(doc)
-    para(doc, "DÉCISION 4 / 5", size=9, bold=True, hex_color=GOLD, after=2)
+    para(doc, "DÉCISION 4 / 6", size=9, bold=True, hex_color=GOLD, after=2)
     para(doc, "Le parcours « Devenir client »", size=22, bold=True, hex_color=BROWN, after=5)
     callout(doc, "OBJECTIF", "Une demande qualifiée en moins de 2 minutes, suivie d’un rappel commercial dans un délai réellement tenu.")
 
@@ -320,9 +321,51 @@ def build():
     decision_line(doc, "Message de confirmation :")
     callout(doc, "SORTIE DE CETTE PAGE", "Le formulaire est figé et une personne est responsable de chaque demande.", fill=CREAM)
 
-    # Page 3 — content and immediate execution.
+    # Page 3 — product detail page, the core object of a catalogue site.
     page_break(doc)
-    para(doc, "DÉCISION 5 / 5", size=9, bold=True, hex_color=GOLD, after=2)
+    para(doc, "DÉCISION 5 / 6", size=9, bold=True, hex_color=GOLD, after=2)
+    para(doc, "La fiche produit type", size=22, bold=True, hex_color=BROWN, after=5)
+    callout(doc, "OBJECTIF", "Permettre au professionnel de vérifier en quelques secondes que le produit correspond à son usage, puis déclencher une action utile.")
+
+    heading(doc, "Structure recommandée", 2)
+    product_structure = table(doc, ["Zone", "Recommandation à valider", "Décision"], [
+        ["Écran initial", "Galerie à gauche ; identité, format professionnel et CTA à droite.", "[ ] OK  [ ] Corriger"],
+        ["Visuels", "Packshot net + conditionnement réel. Photo d’usage seulement si elle apporte une information.", "[ ] OK  [ ] Corriger"],
+        ["Identité", "Nom, marque, référence Cash, famille, origine / labels.", "[ ] OK  [ ] Corriger"],
+        ["Format pro", "Unité de vente, poids / volume, colisage et variantes visibles sans chercher.", "[ ] OK  [ ] Corriger"],
+        ["Bénéfices", "3 bénéfices ou usages métier, avant la longue description.", "[ ] OK  [ ] Corriger"],
+        ["CTA produit", "DEMANDER UNE INFORMATION ; la référence produit est transmise automatiquement.", "[ ] OK  [ ] Corriger"],
+        ["CTA global", "DEVENIR CLIENT reste visible dans l’en-tête.", "[ ] OK  [ ] Corriger"],
+        ["Sous la ligne de flottaison", "Description, préparation, conservation, composition, documents et produits associés.", "[ ] OK  [ ] Corriger"],
+    ], [1800, 5600, 1960], size=7.9)
+    for row in product_structure.rows:
+        for cell in row.cells:
+            margins(cell, 45, 45, 100, 100)
+
+    heading(doc, "Données indispensables", 2)
+    product_data = table(doc, ["Information", "Sur la page", "Dans la fiche PDF", "Indisponible"], [
+        ["Conditionnement / unité de vente / colisage", "[ ]", "[ ]", "[ ]"],
+        ["Origine, labels et marque", "[ ]", "[ ]", "[ ]"],
+        ["Conservation, température et DLC", "[ ]", "[ ]", "[ ]"],
+        ["Ingrédients, allergènes et nutrition", "[ ]", "[ ]", "[ ]"],
+        ["Préparation, usage et rendement", "[ ]", "[ ]", "[ ]"],
+        ["Fiche technique / fiche de sécurité", "[ ]", "[ ]", "[ ]"],
+        ["Produits associés ou alternatives", "[ ]", "[ ]", "[ ]"],
+    ], [5200, 1400, 1700, 1060], size=8.0)
+    for row in product_data.rows:
+        for cell in row.cells:
+            margins(cell, 40, 40, 100, 100)
+
+    heading(doc, "Arbitrages à fermer", 2)
+    decision_line(doc, "Prix : [ ] masqué  [ ] après connexion  [ ] affiché", compact=True)
+    decision_line(doc, "Disponibilité / stock affiché :", compact=True)
+    decision_line(doc, "CTA produit retenu :", compact=True)
+    decision_line(doc, "Source et responsable des données produit :", compact=True)
+    callout(doc, "SORTIE DE CETTE PAGE", "Une fiche type est figée. Les données non disponibles sont identifiées avec un responsable.", fill=CREAM)
+
+    # Page 4 — content and immediate execution.
+    page_break(doc)
+    para(doc, "DÉCISION 6 / 6", size=9, bold=True, hex_color=GOLD, after=2)
     para(doc, "Ce qu’on met en production dès maintenant", size=22, bold=True, hex_color=BROWN, after=5)
     callout(doc, "RÈGLE", "Pas de rubrique sans source, responsable et date. Pas de contenu pour remplir le template.")
 
@@ -350,9 +393,10 @@ def build():
         ["CTA", "Devenir client", ""],
         ["Accueil", "8 blocs validés / corrections consignées", ""],
         ["Conversion", "Formulaire et délai de rappel validés", ""],
+        ["Fiche produit", "Structure, données et CTA validés", ""],
     ], [1900, 5200, 2260], size=8.6)
 
-    callout(doc, "PROCHAINE ÉTAPE", "Sous 48 h : consolider les réponses. Ensuite : wireframe de l’accueil + page Devenir client + backlog des contenus.", fill=SAGE)
+    callout(doc, "PROCHAINE ÉTAPE", "Sous 48 h : consolider les réponses. Ensuite : wireframes de l’accueil, de la fiche produit et du parcours Devenir client + backlog des contenus.", fill=SAGE)
 
     props = doc.core_properties
     props.title = "Atelier UX express — Cash Alimentaire"
