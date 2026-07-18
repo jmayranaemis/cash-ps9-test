@@ -271,8 +271,8 @@ def build():
     table(doc, ["Décision", "Recommandation à valider", "Verdict"], [
         ["Cible", "Métiers de bouche et professionnels de la restauration des Alpes-Maritimes.", "[ ] VALIDER\n[ ] CORRIGER"],
         ["Positionnement", "Le partenaire de terrain des métiers de bouche sur la Côte d’Azur.", "[ ] VALIDER\n[ ] CORRIGER"],
-        ["CTA principal", "DEVENIR CLIENT — visible dans l’en-tête, le hero et en fin de page.", "[ ] VALIDER\n[ ] CORRIGER"],
-        ["CTA secondaire", "CONSULTER LES CATALOGUES — toujours moins fort visuellement.", "[ ] VALIDER\n[ ] CORRIGER"],
+        ["Bouton principal", "DEVENIR CLIENT — visible dans l’en-tête, le hero et en fin de page.", "[ ] VALIDER\n[ ] CORRIGER"],
+        ["Bouton secondaire", "CONSULTER LES CATALOGUES — toujours moins fort visuellement.", "[ ] VALIDER\n[ ] CORRIGER"],
         ["Différenciation", "Proximité, connaissance métier, disponibilité et service local avant le volume de références.", "[ ] VALIDER\n[ ] CORRIGER"],
     ], [1900, 5660, 1800], size=8.7)
 
@@ -329,13 +329,13 @@ def build():
 
     heading(doc, "Structure recommandée", 2)
     product_structure = table(doc, ["Zone", "Recommandation à valider", "Décision"], [
-        ["Écran initial", "Galerie à gauche ; identité, format professionnel et CTA à droite.", "[ ] OK  [ ] Corriger"],
+        ["Écran initial", "Galerie à gauche ; identité, format professionnel et bouton de demande à droite.", "[ ] OK  [ ] Corriger"],
         ["Visuels", "Packshot net + conditionnement réel. Photo d’usage seulement si elle apporte une information.", "[ ] OK  [ ] Corriger"],
         ["Identité", "Nom, marque, référence Cash, famille, origine / labels.", "[ ] OK  [ ] Corriger"],
         ["Format pro", "Unité de vente, poids / volume, colisage et variantes visibles sans chercher.", "[ ] OK  [ ] Corriger"],
         ["Bénéfices", "3 bénéfices ou usages métier, avant la longue description.", "[ ] OK  [ ] Corriger"],
-        ["CTA produit", "DEMANDER UNE INFORMATION ; la référence produit est transmise automatiquement.", "[ ] OK  [ ] Corriger"],
-        ["CTA global", "DEVENIR CLIENT reste visible dans l’en-tête.", "[ ] OK  [ ] Corriger"],
+        ["Bouton produit", "DEMANDER UNE INFORMATION ; la référence produit est transmise automatiquement.", "[ ] OK  [ ] Corriger"],
+        ["Bouton global", "DEVENIR CLIENT reste visible dans l’en-tête.", "[ ] OK  [ ] Corriger"],
         ["Sous la ligne de flottaison", "Description, préparation, conservation, composition, documents et produits associés.", "[ ] OK  [ ] Corriger"],
     ], [1800, 5600, 1960], size=7.9)
     for row in product_structure.rows:
@@ -357,9 +357,7 @@ def build():
             margins(cell, 40, 40, 100, 100)
 
     heading(doc, "Arbitrages à fermer", 2)
-    decision_line(doc, "Prix : [ ] masqué  [ ] après connexion  [ ] affiché", compact=True)
-    decision_line(doc, "Disponibilité / stock affiché :", compact=True)
-    decision_line(doc, "CTA produit retenu :", compact=True)
+    decision_line(doc, "Bouton produit retenu :", compact=True)
     decision_line(doc, "Source et responsable des données produit :", compact=True)
     callout(doc, "SORTIE DE CETTE PAGE", "Une fiche type est figée. Les données non disponibles sont identifiées avec un responsable.", fill=CREAM)
 
@@ -390,10 +388,10 @@ def build():
     table(doc, ["Sujet", "Décision en une phrase", "Responsable"], [
         ["Cible", "", ""],
         ["Promesse", "", ""],
-        ["CTA", "Devenir client", ""],
+        ["Bouton principal", "Devenir client", ""],
         ["Accueil", "8 blocs validés / corrections consignées", ""],
         ["Conversion", "Formulaire et délai de rappel validés", ""],
-        ["Fiche produit", "Structure, données et CTA validés", ""],
+        ["Fiche produit", "Structure, données et bouton validés", ""],
     ], [1900, 5200, 2260], size=8.6)
 
     callout(doc, "PROCHAINE ÉTAPE", "Sous 48 h : consolider les réponses. Ensuite : wireframes de l’accueil, de la fiche produit et du parcours Devenir client + backlog des contenus.", fill=SAGE)
