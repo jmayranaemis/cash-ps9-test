@@ -39,12 +39,12 @@
 {block name='header_top'}
 <div class="header-top">
     <div class="container header_middle_line">
-      <div class="header-left col-md-4">
-      {hook h='displaySearch'}
-      </div>
       {hook h='displayLogoHeader'}
-      <div class="header-right col-md-4">
-      {hook h='displayCart'}
+      <div class="header-middle col-md-6">
+        {hook h='displaySearch'}
+      </div>
+      <div class="header-right col-md-3">
+        {hook h='displayCart'}
       </div>
     </div>
     <div class="amegamenu_mobile-cover"></div>

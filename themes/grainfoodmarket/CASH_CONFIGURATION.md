@@ -4,18 +4,18 @@ Ce thème est préparé pour un site catalogue professionnel. Son installation a
 
 ## Direction visuelle
 
-La couleur historique relevée sur `www.cash-alimentaire.com` est le marron `#6B5353`. Elle reste le fil conducteur des appels à l'action, liens, états actifs et éléments de navigation.
+La palette validée le 6 juillet 2026 associe l'identité brune historique de Cash Alimentaire à un rouge d'action et à des tons naturels.
 
 | Rôle | Couleur | Usage |
 | --- | --- | --- |
-| Primaire | `#6B5353` | Marque, boutons, liens, navigation |
-| Primaire sombre | `#4E3B3B` | Survols, bandeaux forts |
-| Crème | `#F7F3EE` | Menus et fonds éditoriaux |
-| Vert sauge | `#566C4F` | Services, réassurance, newsletter |
-| Or doux | `#D1A35C` | Accent, focus clavier, repères |
-| Encre | `#2D2927` | Titres et texte principal |
+| Brun identitaire | `#432A19` | Logo, titres, textes forts, menu |
+| Rouge d'action | `#D01719` | Boutons, promotions, liens actifs |
+| Ivoire | `#FFF8F1` | Fonds de page, cartes, zones aérées |
+| Beige | `#D9C5AD` | Blocs secondaires, séparateurs, pictogrammes |
+| Vert olive | `#71735B` | Catégories, icônes, informations secondaires |
+| Vert profond | `#24483D` | Footer, menu foncé, encadrés premium, survols |
 
-Le vert sauge évoque le frais et l'alimentaire sans concurrencer le marron. L'or apporte un accent premium discret. Le crème évite l'effet froid d'une interface entièrement blanche.
+Sur ordinateur, l'en-tête utilise une grille stable : logo à gauche, recherche au centre et zone utilitaire à droite.
 
 ## Parcours cible
 
@@ -59,4 +59,3 @@ Sans ces modules, PrestaShop ne peut pas terminer l'installation ni importer les
 3. Vérifier l'accueil, une catégorie, une fiche produit et le contact en desktop et mobile.
 4. Confirmer l'absence de prix, panier et bouton d'ajout au panier pour un visiteur non connecté.
 5. Tester la recherche, les filtres, les téléchargements de catalogues et l'envoi du formulaire.
-

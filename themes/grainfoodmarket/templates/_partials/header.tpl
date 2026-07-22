@@ -100,11 +100,11 @@
 <div class="header-top">
     {if (Module::isEnabled('an_theme') and Module::getInstanceByName('an_theme')->getParam('header_typeHeader') == 'header1')}
     <div class="container header_middle_line">
-      <div class="header-left col-md-4">
-           {hook h='displaySearch'}
-        </div>
       {hook h='displayLogoHeader'}
-      <div class="header-right col-md-4">
+      <div class="header-middle col-md-6">
+        {hook h='displaySearch'}
+      </div>
+      <div class="header-right col-md-3">
         {hook h='displayCart'}
       </div>
     </div>
