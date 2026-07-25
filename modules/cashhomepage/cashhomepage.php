@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.1';
+        $this->version = '1.1.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -30,7 +30,9 @@ class CashHomepage extends Module
         return parent::install()
             && $this->registerHook('displayHome')
             && $this->registerHook('displayHeader')
-            && $this->registerHook('displayTop')
+            && $this->registerHook('displayNav1')
+            && $this->registerHook('displayNav2')
+            && $this->registerHook('displayNav3')
             && $this->configureCashExperience();
     }
 
@@ -38,6 +40,7 @@ class CashHomepage extends Module
     {
         $this->removeDemoHooks();
         $this->configureB2BRegistration();
+        $this->configureProfessionalHeader();
 
         return true;
     }
@@ -46,6 +49,14 @@ class CashHomepage extends Module
     {
         $this->removeDemoHooks();
         $this->configureB2BRegistration();
+
+        return true;
+    }
+
+    public function upgradeTo110()
+    {
+        $this->removeDemoHooks();
+        $this->configureProfessionalHeader();
 
         return true;
     }
@@ -64,7 +75,7 @@ class CashHomepage extends Module
             'anmegamenu' => ['displayTop'],
             'b2bregistration' => ['displayBanner', 'displayNav2', 'displayTop'],
             'pm_advancedsearch' => ['displayHome', 'displayTop'],
-            'ets_megamenu' => ['displayTop', 'displayNavFullWidth'],
+            'ets_megamenu' => ['displayTop'],
             'ps_searchbar' => ['displayTop'],
             'ps_customersignin' => ['displayNav2'],
             'jwishlist' => ['displayNav2'],
@@ -81,6 +92,231 @@ class CashHomepage extends Module
                 }
             }
         }
+    }
+
+    private function configureProfessionalHeader()
+    {
+        if ($this->isRegisteredInHook('displayTop')) {
+            $this->unregisterHook(Hook::getIdByName('displayTop'));
+        }
+
+        $this->ensureFaqPage();
+        $this->configureMegaMenu();
+        $this->configureAnnouncementLine();
+    }
+
+    private function configureMegaMenu()
+    {
+        $megaMenu = Module::getInstanceByName('ets_megamenu');
+        if (!$megaMenu || !$megaMenu->id) {
+            return;
+        }
+
+        if (!$megaMenu->isRegisteredInHook('displayNavFullWidth')) {
+            $megaMenu->registerHook('displayNavFullWidth');
+        }
+
+        $db = Db::getInstance();
+        $baseUrl = rtrim($this->context->shop->getBaseURL(true), '/') . '/';
+        $menuConfiguration = [
+            2 => [
+                'title' => 'Nos produits',
+                'link_type' => 'CATEGORY',
+                'id_category' => (int) Configuration::get('PS_HOME_CATEGORY'),
+                'link' => '',
+                'custom_class' => 'cash-mega-products',
+            ],
+            3 => [
+                'title' => 'Catalogues',
+                'link_type' => 'CUSTOM',
+                'id_category' => 0,
+                'link' => $baseUrl . '#catalogues',
+                'custom_class' => '',
+            ],
+            4 => [
+                'title' => 'Services',
+                'link_type' => 'CUSTOM',
+                'id_category' => 0,
+                'link' => $baseUrl . '#services',
+                'custom_class' => '',
+            ],
+            5 => [
+                'title' => 'Conseils & recettes',
+                'link_type' => 'CATEGORY',
+                'id_category' => 616,
+                'link' => '',
+                'custom_class' => '',
+            ],
+            6 => [
+                'title' => 'Devenir client',
+                'link_type' => 'CUSTOM',
+                'id_category' => 0,
+                'link' => $this->context->link->getModuleLink('b2bregistration', 'business'),
+                'custom_class' => 'cash-mega-client',
+            ],
+        ];
+
+        foreach ($menuConfiguration as $menuId => $menu) {
+            $db->update('ets_mm_menu', [
+                'enabled' => 1,
+                'enabled_vertical' => 0,
+                'link_type' => pSQL($menu['link_type']),
+                'id_category' => (int) $menu['id_category'],
+                'id_cms' => 0,
+                'id_manufacturer' => 0,
+                'id_supplier' => 0,
+                'sub_menu_type' => 'FULL',
+                'sub_menu_max_width' => '100%',
+                'custom_class' => pSQL($menu['custom_class']),
+                'menu_icon' => '',
+            ], 'id_menu = ' . (int) $menuId);
+
+            foreach (Language::getLanguages(false) as $language) {
+                $db->update('ets_mm_menu_lang', [
+                    'title' => pSQL($menu['title']),
+                    'link' => pSQL($menu['link']),
+                    'bubble_text' => '',
+                ], 'id_menu = ' . (int) $menuId . ' AND id_lang = ' . (int) $language['id_lang']);
+            }
+        }
+
+        Configuration::updateValue('ETS_MM_INCLUDE_SUB_CATEGORIES', 0);
+        $this->ensureMegaMenuCategoryColumns(2);
+
+        if (method_exists($megaMenu, 'clearAllCache')) {
+            $megaMenu->clearAllCache();
+        }
+    }
+
+    private function ensureMegaMenuCategoryColumns($menuId)
+    {
+        $db = Db::getInstance();
+        if ((int) $db->getValue(
+            'SELECT COUNT(*) FROM `' . _DB_PREFIX_ . 'ets_mm_column` WHERE id_menu = ' . (int) $menuId
+        )) {
+            return;
+        }
+
+        $columns = [
+            ['title' => 'Frais & saison', 'categories' => '3,8'],
+            ['title' => 'Surgelés & glaces', 'categories' => '5,11'],
+            ['title' => 'Épicerie', 'categories' => '284,634'],
+            ['title' => 'Boissons & équipement', 'categories' => '9,12,6'],
+        ];
+
+        foreach ($columns as $position => $column) {
+            $db->insert('ets_mm_column', [
+                'id_menu' => (int) $menuId,
+                'id_tab' => 0,
+                'is_breaker' => 0,
+                'column_size' => '3',
+                'sort_order' => $position + 1,
+            ]);
+            $columnId = (int) $db->Insert_ID();
+            $db->insert('ets_mm_block', [
+                'id_column' => $columnId,
+                'block_type' => 'CATEGORY',
+                'sort_order' => 1,
+                'enabled' => 1,
+                'id_categories' => pSQL($column['categories']),
+                'order_by_category' => 'c.position ASC,c.id_category ASC',
+                'display_mnu_img' => 0,
+                'display_mnu_name' => 1,
+                'display_title' => 1,
+                'display_content_mobile' => 1,
+                'customer_groups' => '',
+            ]);
+            $blockId = (int) $db->Insert_ID();
+            foreach (Language::getLanguages(false) as $language) {
+                $db->insert('ets_mm_block_lang', [
+                    'id_block' => $blockId,
+                    'id_lang' => (int) $language['id_lang'],
+                    'title' => pSQL($column['title']),
+                    'content' => '',
+                    'title_link' => '',
+                    'image_link' => '',
+                    'image' => '',
+                ]);
+            }
+        }
+    }
+
+    private function configureAnnouncementLine()
+    {
+        $announcement = Module::getInstanceByName('an_simplefreeshippingline');
+        if (!$announcement || !$announcement->id) {
+            return;
+        }
+
+        if (!$announcement->isRegisteredInHook('displayNavFullWidth')) {
+            $announcement->registerHook('displayNavFullWidth');
+        }
+
+        $titles = [];
+        $links = [];
+        foreach (Language::getLanguages(false) as $language) {
+            $languageId = (int) $language['id_lang'];
+            $titles[$languageId] = 'Livraison en 24h* [span]•[/span] Plus de 2 000 références [span]•[/span] Une équipe à votre écoute';
+            $links[$languageId] = $this->context->link->getPageLink('contact', true, $languageId);
+        }
+        Configuration::updateValue('an_sfsl_title', $titles);
+        Configuration::updateValue('an_sfsl_link', $links);
+
+        $hookId = (int) Hook::getIdByName('displayNavFullWidth');
+        Db::getInstance()->update(
+            'hook_module',
+            ['position' => 1],
+            'id_hook = ' . $hookId . ' AND id_module = ' . (int) Module::getModuleIdByName('ets_megamenu')
+        );
+        Db::getInstance()->update(
+            'hook_module',
+            ['position' => 2],
+            'id_hook = ' . $hookId . ' AND id_module = ' . (int) $announcement->id
+        );
+    }
+
+    private function ensureFaqPage()
+    {
+        $db = Db::getInstance();
+        $faqId = (int) $db->getValue(
+            'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+             WHERE link_rewrite = "faq-professionnels" LIMIT 1'
+        );
+        if ($faqId) {
+            return $faqId;
+        }
+
+        $faq = new CMS();
+        $faq->id_cms_category = 1;
+        $faq->active = 1;
+        $faq->indexation = 1;
+        $faq->meta_title = [];
+        $faq->meta_description = [];
+        $faq->meta_keywords = [];
+        $faq->link_rewrite = [];
+        $faq->content = [];
+        foreach (Language::getLanguages(false) as $language) {
+            $languageId = (int) $language['id_lang'];
+            $faq->meta_title[$languageId] = 'FAQ professionnels';
+            $faq->meta_description[$languageId] = 'Les réponses aux questions fréquentes des clients professionnels Cash Alimentaire.';
+            $faq->meta_keywords[$languageId] = 'faq, professionnels, cash alimentaire';
+            $faq->link_rewrite[$languageId] = 'faq-professionnels';
+            $faq->content[$languageId] = '
+                <h2>Questions fréquentes</h2>
+                <h3>Qui peut devenir client professionnel ?</h3>
+                <p>Les restaurants, commerces de bouche, collectivités et professionnels disposant d’un SIRET valide.</p>
+                <h3>Comment demander l’ouverture d’un compte ?</h3>
+                <p>Remplissez le formulaire « Devenir client » avec votre SIRET et votre extrait Kbis. Notre équipe contrôle ensuite votre demande.</p>
+                <h3>Proposez-vous la livraison ?</h3>
+                <p>Oui, selon votre zone et les conditions convenues avec notre équipe commerciale.</p>
+                <h3>Comment obtenir un catalogue ?</h3>
+                <p>Utilisez le formulaire de contact ou appelez le 04 89 03 23 23 afin de recevoir la sélection adaptée à votre activité.</p>
+                <h3>Quand puis-je joindre l’équipe ?</h3>
+                <p>Du lundi au vendredi de 9h à 17h et le samedi de 8h30 à 12h.</p>';
+        }
+        $faq->add();
+
+        return (int) $faq->id;
     }
 
     private function configureB2BRegistration()
@@ -232,6 +468,39 @@ class CashHomepage extends Module
             'modules/' . $this->name . '/views/css/home.css',
             ['media' => 'all', 'priority' => 200]
         );
+        $this->context->controller->registerJavascript(
+            'module-cashhomepage-carousel',
+            'modules/' . $this->name . '/views/js/home.js',
+            ['position' => 'bottom', 'priority' => 200]
+        );
+    }
+
+    public function hookDisplayNav1()
+    {
+        return $this->fetch('module:' . $this->name . '/views/templates/hook/header-service.tpl');
+    }
+
+    public function hookDisplayNav2()
+    {
+        $this->context->smarty->assign([
+            'cash_header_become_client_url' => $this->context->link->getModuleLink(
+                'b2bregistration',
+                'business'
+            ),
+        ]);
+
+        return $this->fetch('module:' . $this->name . '/views/templates/hook/header-client.tpl');
+    }
+
+    public function hookDisplayNav3()
+    {
+        $this->context->smarty->assign([
+            'cash_header_contact_url' => $this->context->link->getPageLink('contact', true),
+            'cash_header_stores_url' => $this->context->link->getPageLink('stores', true),
+            'cash_header_faq_url' => $this->getFaqUrl(),
+        ]);
+
+        return $this->fetch('module:' . $this->name . '/views/templates/hook/header-links.tpl');
     }
 
     public function hookDisplayTop()
@@ -312,5 +581,17 @@ class CashHomepage extends Module
         }
 
         return $families;
+    }
+
+    private function getFaqUrl()
+    {
+        $faqId = (int) Db::getInstance()->getValue(
+            'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+             WHERE link_rewrite = "faq-professionnels" LIMIT 1'
+        );
+
+        return $faqId
+            ? $this->context->link->getCMSLink($faqId)
+            : $this->context->link->getPageLink('contact', true);
     }
 }

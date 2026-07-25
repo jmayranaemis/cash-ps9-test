@@ -35,9 +35,16 @@
           <p class="cash-eyebrow">L’essentiel en un coup d’œil</p>
           <h2>Nos familles de produits</h2>
         </div>
-        <a href="{$cash_products_url|escape:'htmlall':'UTF-8'}">Voir tous les produits →</a>
+        <div class="cash-section__tools">
+          <a href="{$cash_products_url|escape:'htmlall':'UTF-8'}">Voir tous les produits →</a>
+          <div class="cash-carousel-buttons">
+            <button type="button" data-cash-carousel-prev aria-label="Catégories précédentes">←</button>
+            <button type="button" data-cash-carousel-next aria-label="Catégories suivantes">→</button>
+          </div>
+        </div>
       </div>
-      <div class="cash-card-scroll">
+      <div class="cash-carousel" data-cash-carousel>
+      <div class="cash-card-scroll" data-cash-carousel-track>
         {foreach from=$cash_families item=family}
           <a class="cash-family-card" href="{$family.url|escape:'htmlall':'UTF-8'}">
             <span class="cash-family-card__image" style="background-image:url('{$family.image|escape:'htmlall':'UTF-8'}')"></span>
@@ -45,6 +52,7 @@
             <span>Explorer la gamme →</span>
           </a>
         {/foreach}
+      </div>
       </div>
     </div>
   </section>
@@ -81,7 +89,7 @@
     </div>
   </section>
 
-  <section class="cash-section cash-services">
+  <section id="services" class="cash-section cash-services">
     <div class="cash-home__container">
       <div class="cash-section__heading">
         <div><p class="cash-eyebrow">Plus qu’un fournisseur</p><h2>Des services utiles au quotidien</h2></div>
@@ -121,13 +129,21 @@
   {if $cash_manufacturers}
     <section class="cash-section cash-brands">
       <div class="cash-home__container">
-        <div class="cash-section__heading"><div><p class="cash-eyebrow">Nos partenaires</p><h2>Des marques professionnelles reconnues</h2></div></div>
-        <div class="cash-brands__scroll">
+        <div class="cash-section__heading">
+          <div><p class="cash-eyebrow">Nos partenaires</p><h2>Des marques professionnelles reconnues</h2></div>
+          <div class="cash-carousel-buttons">
+            <button type="button" data-cash-carousel-prev aria-label="Marques précédentes">←</button>
+            <button type="button" data-cash-carousel-next aria-label="Marques suivantes">→</button>
+          </div>
+        </div>
+        <div class="cash-carousel" data-cash-carousel>
+        <div class="cash-brands__scroll" data-cash-carousel-track>
           {foreach from=$cash_manufacturers item=manufacturer}
             <a href="{$manufacturer.url|escape:'htmlall':'UTF-8'}" aria-label="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
               <img loading="lazy" src="{$manufacturer.image|escape:'htmlall':'UTF-8'}" alt="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
             </a>
           {/foreach}
+        </div>
         </div>
       </div>
     </section>
