@@ -64,7 +64,7 @@ class CashHomepage extends Module
             'anmegamenu' => ['displayTop'],
             'b2bregistration' => ['displayBanner', 'displayNav2', 'displayTop'],
             'pm_advancedsearch' => ['displayHome', 'displayTop'],
-            'ets_megamenu' => ['displayTop'],
+            'ets_megamenu' => ['displayTop', 'displayNavFullWidth'],
             'ps_searchbar' => ['displayTop'],
             'ps_customersignin' => ['displayNav2'],
             'jwishlist' => ['displayNav2'],
