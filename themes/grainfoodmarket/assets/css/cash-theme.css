@@ -248,6 +248,176 @@ a.active,
   background: var(--cash-beige);
 }
 
+/* Demande d'ouverture de compte professionnel. */
+.cash-b2b {
+  max-width: 980px;
+  margin: 0 auto 70px;
+}
+
+.cash-b2b__intro {
+  padding: 45px;
+  color: var(--cash-ivory);
+  background: var(--cash-green);
+}
+
+.cash-b2b__intro h1 {
+  margin-bottom: 15px;
+  color: var(--cash-white);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1;
+}
+
+.cash-b2b__eyebrow {
+  margin-bottom: 12px;
+  color: var(--cash-beige);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cash-b2b__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 32px;
+}
+
+.cash-b2b__steps span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--cash-beige);
+  font-size: 0.85rem;
+}
+
+.cash-b2b__steps b {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  color: var(--cash-green);
+  background: var(--cash-beige);
+  border-radius: 50%;
+}
+
+.cash-b2b__steps .is-active {
+  color: var(--cash-white);
+}
+
+.cash-b2b__steps .is-active b {
+  color: var(--cash-white);
+  background: var(--cash-red);
+}
+
+.cash-b2b__form {
+  padding: 45px;
+  background: var(--cash-white);
+}
+
+.cash-b2b fieldset {
+  margin: 0 0 42px;
+  padding: 0;
+  border: 0;
+}
+
+.cash-b2b legend {
+  width: 100%;
+  margin-bottom: 24px;
+  padding-bottom: 13px;
+  color: var(--cash-brown);
+  border-bottom: 1px solid var(--cash-beige);
+  font-size: 1.4rem;
+  font-weight: 750;
+}
+
+.cash-b2b legend span {
+  display: inline-grid;
+  width: 31px;
+  height: 31px;
+  margin-right: 8px;
+  place-items: center;
+  color: var(--cash-white);
+  background: var(--cash-red);
+  border-radius: 50%;
+  font-size: 0.9rem;
+}
+
+.cash-b2b__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 22px;
+}
+
+.cash-b2b__wide {
+  grid-column: 1 / -1;
+}
+
+.cash-b2b label {
+  color: var(--cash-brown);
+  font-weight: 700;
+}
+
+.cash-b2b sup {
+  color: var(--cash-red);
+}
+
+.cash-b2b .form-control {
+  min-height: 48px;
+  color: var(--cash-brown);
+  background: var(--cash-ivory);
+  border: 1px solid var(--cash-beige);
+  border-radius: 3px;
+}
+
+.cash-b2b .form-control:focus {
+  background: var(--cash-white);
+  border-color: var(--cash-red);
+}
+
+.cash-b2b__custom .form-group {
+  margin-bottom: 20px;
+}
+
+.cash-b2b__custom input[type="file"] {
+  width: 100%;
+  padding: 18px;
+  color: var(--cash-brown);
+  background: var(--cash-ivory);
+  border: 1px dashed var(--cash-olive);
+}
+
+.cash-b2b__consent {
+  margin: 15px 0 30px;
+  padding: 20px;
+  background: var(--cash-ivory);
+  border-left: 4px solid var(--cash-olive);
+}
+
+.cash-b2b__consent label {
+  display: flex;
+  gap: 10px;
+}
+
+.cash-b2b__footer {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 28px;
+  border-top: 1px solid var(--cash-beige);
+}
+
+.cash-b2b__footer p {
+  margin: 0;
+}
+
+.cash-b2b__submit {
+  min-width: 230px;
+  min-height: 54px;
+}
+
 @media (max-width: 767px) {
   #header .header-nav {
     background: var(--cash-ivory);
@@ -256,5 +426,28 @@ a.active,
   #header .header-nav a,
   #header .header-nav .expand-more {
     color: var(--cash-brown);
+  }
+
+  .cash-b2b__intro,
+  .cash-b2b__form {
+    padding: 25px 20px;
+  }
+
+  .cash-b2b__steps,
+  .cash-b2b__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cash-b2b__wide {
+    grid-column: auto;
+  }
+
+  .cash-b2b__steps {
+    gap: 10px;
+  }
+
+  .cash-b2b__footer {
+    align-items: stretch;
+    flex-direction: column;
   }
 }
