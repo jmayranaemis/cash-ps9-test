@@ -73,8 +73,9 @@ class CashHomepage extends Module
             'an_advantages' => ['displayHomeAfter'],
             'an_simplefreeshippingline' => ['displayBanner'],
             'anmegamenu' => ['displayTop'],
+            'blockreassurance' => ['displayNavFullWidth'],
             'b2bregistration' => ['displayBanner', 'displayNav2', 'displayTop'],
-            'pm_advancedsearch' => ['displayHome', 'displayTop'],
+            'pm_advancedsearch' => ['displayHome', 'displayTop', 'displayNavFullWidth'],
             'ets_megamenu' => ['displayTop'],
             'ps_searchbar' => ['displayTop'],
             'ps_customersignin' => ['displayNav2'],
@@ -117,9 +118,10 @@ class CashHomepage extends Module
         }
 
         $db = Db::getInstance();
-        $baseUrl = rtrim($this->context->shop->getBaseURL(true), '/') . '/';
+        $baseUrl = rtrim($this->context->link->getPageLink('index', true), '/') . '/';
         $menuConfiguration = [
             2 => [
+                'position' => 0,
                 'title' => 'Nos produits',
                 'link_type' => 'CATEGORY',
                 'id_category' => (int) Configuration::get('PS_HOME_CATEGORY'),
@@ -127,6 +129,7 @@ class CashHomepage extends Module
                 'custom_class' => 'cash-mega-products',
             ],
             3 => [
+                'position' => 1,
                 'title' => 'Catalogues',
                 'link_type' => 'CUSTOM',
                 'id_category' => 0,
@@ -134,6 +137,7 @@ class CashHomepage extends Module
                 'custom_class' => '',
             ],
             4 => [
+                'position' => 2,
                 'title' => 'Services',
                 'link_type' => 'CUSTOM',
                 'id_category' => 0,
@@ -141,6 +145,7 @@ class CashHomepage extends Module
                 'custom_class' => '',
             ],
             5 => [
+                'position' => 3,
                 'title' => 'Conseils & recettes',
                 'link_type' => 'CATEGORY',
                 'id_category' => 616,
@@ -148,6 +153,7 @@ class CashHomepage extends Module
                 'custom_class' => '',
             ],
             6 => [
+                'position' => 4,
                 'title' => 'Devenir client',
                 'link_type' => 'CUSTOM',
                 'id_category' => 0,
@@ -158,6 +164,7 @@ class CashHomepage extends Module
 
         foreach ($menuConfiguration as $menuId => $menu) {
             $db->update('ets_mm_menu', [
+                'sort_order' => (int) $menu['position'],
                 'enabled' => 1,
                 'enabled_vertical' => 0,
                 'link_type' => pSQL($menu['link_type']),

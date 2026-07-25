@@ -165,7 +165,7 @@ a.active,
 /* Barre de service professionnelle. */
 #header.header1 .header-nav .hidden-sm-down {
   display: grid !important;
-  grid-template-columns: minmax(330px, 1.1fr) minmax(390px, 1.35fr) auto;
+  grid-template-columns: minmax(315px, 1.15fr) minmax(360px, 1.2fr) minmax(215px, auto);
   gap: 20px;
   align-items: center;
 }
@@ -174,9 +174,39 @@ a.active,
 #header.header1 .header-nav .left-nav,
 #header.header1 .header-nav .right-nav {
   width: auto;
+  min-width: 0;
   max-width: none;
   padding: 0;
   float: none;
+}
+
+#header.header1 .header-nav .right-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#header.header1 #_desktop_an_wishlist-nav {
+  width: auto !important;
+  flex: 0 0 auto;
+  margin-left: 0;
+  white-space: nowrap;
+}
+
+#header.header1 #_desktop_an_wishlist-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+}
+
+#header.header1 #_desktop_an_wishlist-nav svg {
+  width: 15px;
+  height: 14px;
+}
+
+#header.header1 #_desktop_an_wishlist-nav svg path {
+  fill: var(--cash-beige);
 }
 
 #header.header1 #_desktop_social {
@@ -417,11 +447,11 @@ a.active,
 }
 
 /* Ligne d'annonce placée juste sous Mega Menu PRO. */
-#header .ets_mm_megamenu + a {
+#header .an-sfsl {
   display: block;
   padding: 9px 20px;
   color: var(--cash-ivory);
-  background: var(--cash-green);
+  background: var(--cash-green) !important;
   font-size: 0.78rem;
   font-weight: 750;
   letter-spacing: 0.035em;
@@ -429,12 +459,20 @@ a.active,
   text-transform: uppercase;
 }
 
-#header .ets_mm_megamenu + a:hover {
-  color: var(--cash-white);
+#header .an-sfsl p {
+  margin: 0;
+  color: inherit;
+}
+
+#header .an-sfsl a {
+  color: var(--cash-ivory);
+}
+
+#header .an-sfsl:hover {
   background: var(--cash-olive);
 }
 
-#header .ets_mm_megamenu + a span {
+#header .an-sfsl span {
   padding: 0 10px;
   color: var(--cash-beige);
 }
@@ -742,7 +780,7 @@ a.active,
     padding: 10px 18px;
   }
 
-  #header .ets_mm_megamenu + a {
+  #header .an-sfsl {
     padding: 8px 14px;
     font-size: 0.68rem;
     line-height: 1.45;
