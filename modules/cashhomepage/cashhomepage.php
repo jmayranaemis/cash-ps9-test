@@ -475,19 +475,22 @@ class CashHomepage extends Module
     private function ensureFaqPage($refreshContent = false)
     {
         $db = Db::getInstance();
-        $faqId = (int) $db->getValue(
-            'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
-             WHERE link_rewrite = "faq-professionnels" LIMIT 1'
+        $faqRows = $db->executeS(
+            'SELECT DISTINCT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+             WHERE link_rewrite = \'faq-professionnels\' ORDER BY id_cms ASC'
         );
-        if ($faqId) {
+        if ($faqRows) {
+            $faqId = (int) $faqRows[0]['id_cms'];
             Configuration::updateValue('CASH_HOMEPAGE_FAQ_CMS_ID', $faqId);
             if ($refreshContent) {
-                $faq = new CMS($faqId);
-                $faq->content = [];
-                foreach (Language::getLanguages(false) as $language) {
-                    $faq->content[(int) $language['id_lang']] = $this->getFaqContent();
+                foreach ($faqRows as $faqRow) {
+                    $faq = new CMS((int) $faqRow['id_cms']);
+                    $faq->content = [];
+                    foreach (Language::getLanguages(false) as $language) {
+                        $faq->content[(int) $language['id_lang']] = $this->getFaqContent();
+                    }
+                    $faq->update();
                 }
-                $faq->update();
             }
             return $faqId;
         }
@@ -871,7 +874,7 @@ class CashHomepage extends Module
         if (!$faqId) {
             $faqId = (int) Db::getInstance()->getValue(
                 'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
-                 WHERE link_rewrite = "faq-professionnels" LIMIT 1'
+                 WHERE link_rewrite = \'faq-professionnels\' ORDER BY id_cms ASC LIMIT 1'
             );
         }
 
