@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.0';
+        $this->version = '1.0.1';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -30,10 +30,19 @@ class CashHomepage extends Module
         return parent::install()
             && $this->registerHook('displayHome')
             && $this->registerHook('displayHeader')
+            && $this->registerHook('displayTop')
             && $this->configureCashExperience();
     }
 
     private function configureCashExperience()
+    {
+        $this->removeDemoHooks();
+        $this->configureB2BRegistration();
+
+        return true;
+    }
+
+    public function upgradeTo101()
     {
         $this->removeDemoHooks();
         $this->configureB2BRegistration();
@@ -52,6 +61,7 @@ class CashHomepage extends Module
             'an_brandslider' => ['displayHomeAfter', 'displayFooter'],
             'an_advantages' => ['displayHomeAfter'],
             'an_simplefreeshippingline' => ['displayBanner'],
+            'anmegamenu' => ['displayTop'],
             'b2bregistration' => ['displayBanner', 'displayNav2', 'displayTop'],
             'pm_advancedsearch' => ['displayHome', 'displayTop'],
             'ets_megamenu' => ['displayTop'],
@@ -111,6 +121,31 @@ class CashHomepage extends Module
         ]);
         $this->ensureB2BField('Besoin principal', 'textarea', 2, 1);
         $this->ensureB2BField('Extrait Kbis (PDF)', 'attachment', 3, 1, 'pdf', 5);
+
+        Configuration::updateValue(
+            'an_modal_cookie_text',
+            '<p>Nous utilisons des cookies nécessaires au fonctionnement du site et à la mesure de son audience.</p>',
+            false,
+            $shopGroupId,
+            $shopId
+        );
+        Configuration::updateValue('an_modal_cookie_accept', 'Accepter', false, $shopGroupId, $shopId);
+        Configuration::updateValue(
+            'an_modal_cookie_privacy',
+            'Politique de confidentialité',
+            false,
+            $shopGroupId,
+            $shopId
+        );
+        Configuration::updateValue(
+            'an_modal_cookie_privacy_link',
+            $this->context->link->getCMSLink(2),
+            false,
+            $shopGroupId,
+            $shopId
+        );
+        Configuration::updateValue('an_modal_cookie_background', '#432a19');
+        Configuration::updateValue('an_modal_cookie_links_color', '#fff8f1');
     }
 
     private function ensureB2BField(
@@ -199,33 +234,25 @@ class CashHomepage extends Module
         );
     }
 
+    public function hookDisplayTop()
+    {
+        $this->context->smarty->assign([
+            'cash_nav_families' => $this->getProductFamilies(6),
+            'cash_nav_become_client_url' => $this->context->link->getModuleLink('b2bregistration', 'business'),
+            'cash_nav_contact_url' => $this->context->link->getPageLink('contact', true),
+            'cash_nav_products_url' => $this->context->link->getCategoryLink(
+                (int) Configuration::get('PS_HOME_CATEGORY')
+            ),
+        ]);
+
+        return $this->fetch('module:' . $this->name . '/views/templates/hook/navigation.tpl');
+    }
+
     public function hookDisplayHome()
     {
         $languageId = (int) $this->context->language->id;
         $shopId = (int) $this->context->shop->id;
         $homeCategory = new Category((int) Configuration::get('PS_HOME_CATEGORY'), $languageId, $shopId);
-        $categories = Category::getChildren($homeCategory->id, $languageId, true, $shopId);
-        $families = [];
-
-        foreach ($categories as $category) {
-            if (count($families) >= 8 || in_array((int) $category['id_category'], [4, 6, 7], true)) {
-                continue;
-            }
-
-            $families[] = [
-                'name' => $category['name'],
-                'url' => $this->context->link->getCategoryLink(
-                    (int) $category['id_category'],
-                    $category['link_rewrite'],
-                    $languageId
-                ),
-                'image' => $this->context->link->getCatImageLink(
-                    $category['link_rewrite'],
-                    (int) $category['id_category'],
-                    'category_default'
-                ),
-            ];
-        }
 
         $manufacturers = array_slice(
             Manufacturer::getManufacturers(false, $languageId, true, false, false, false, true),
@@ -245,7 +272,7 @@ class CashHomepage extends Module
         unset($manufacturer);
 
         $this->context->smarty->assign([
-            'cash_families' => $families,
+            'cash_families' => $this->getProductFamilies(8),
             'cash_manufacturers' => $manufacturers,
             'cash_become_client_url' => $this->context->link->getModuleLink('b2bregistration', 'business'),
             'cash_contact_url' => $this->context->link->getPageLink('contact', true),
@@ -254,5 +281,36 @@ class CashHomepage extends Module
         ]);
 
         return $this->fetch('module:' . $this->name . '/views/templates/hook/home.tpl');
+    }
+
+    private function getProductFamilies($limit)
+    {
+        $languageId = (int) $this->context->language->id;
+        $shopId = (int) $this->context->shop->id;
+        $homeCategoryId = (int) Configuration::get('PS_HOME_CATEGORY');
+        $categories = Category::getChildren($homeCategoryId, $languageId, true, $shopId);
+        $families = [];
+
+        foreach ($categories as $category) {
+            if (count($families) >= $limit || in_array((int) $category['id_category'], [4, 6, 7], true)) {
+                continue;
+            }
+
+            $families[] = [
+                'name' => $category['name'],
+                'url' => $this->context->link->getCategoryLink(
+                    (int) $category['id_category'],
+                    $category['link_rewrite'],
+                    $languageId
+                ),
+                'image' => $this->context->link->getCatImageLink(
+                    $category['link_rewrite'],
+                    (int) $category['id_category'],
+                    'category_default'
+                ),
+            ];
+        }
+
+        return $families;
     }
 }
