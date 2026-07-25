@@ -626,7 +626,7 @@ class CashHomepage extends Module
         $this->context->controller->registerStylesheet(
             'module-cashhomepage',
             'modules/' . $this->name . '/views/css/home.css',
-            ['media' => 'all', 'priority' => 200, 'version' => $this->version]
+            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-3']
         );
         $this->context->controller->registerJavascript(
             'module-cashhomepage-carousel',
@@ -751,18 +751,20 @@ class CashHomepage extends Module
     private function getCategoryImage(array $category)
     {
         $categoryId = (int) $category['id_category'];
-        $imageCategoryId = 0;
-        $imageRewrite = $category['link_rewrite'];
+        $imageFile = '';
 
         foreach (['jpg', 'webp', 'png'] as $extension) {
-            if (file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '.' . $extension)
-                || file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '-category_default.' . $extension)) {
-                $imageCategoryId = $categoryId;
+            if (file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '-category_default.' . $extension)) {
+                $imageFile = $categoryId . '-category_default.' . $extension;
+                break;
+            }
+            if (file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '.' . $extension)) {
+                $imageFile = $categoryId . '.' . $extension;
                 break;
             }
         }
 
-        if (!$imageCategoryId) {
+        if (!$imageFile) {
             $categoryObject = new Category(
                 $categoryId,
                 (int) $this->context->language->id,
@@ -771,18 +773,21 @@ class CashHomepage extends Module
             foreach ($categoryObject->getAllChildren() as $child) {
                 $childId = (int) $child->id;
                 foreach (['jpg', 'webp', 'png'] as $extension) {
-                    if (file_exists(_PS_CAT_IMG_DIR_ . $childId . '.' . $extension)
-                        || file_exists(_PS_CAT_IMG_DIR_ . $childId . '-category_default.' . $extension)) {
-                        $imageCategoryId = $childId;
-                        $imageRewrite = $child->link_rewrite;
+                    if (file_exists(_PS_CAT_IMG_DIR_ . $childId . '-category_default.' . $extension)) {
+                        $imageFile = $childId . '-category_default.' . $extension;
+                        break 2;
+                    }
+                    if (file_exists(_PS_CAT_IMG_DIR_ . $childId . '.' . $extension)) {
+                        $imageFile = $childId . '.' . $extension;
                         break 2;
                     }
                 }
             }
         }
 
-        return $imageCategoryId
-            ? $this->context->link->getCatImageLink($imageRewrite, $imageCategoryId, 'category_default')
+        // URL directe : la règle Nginx de réécriture /c/... n'est pas active sur ce serveur.
+        return $imageFile
+            ? $this->context->link->getMediaLink(_PS_IMG_ . 'c/' . $imageFile)
             : '';
     }
 
