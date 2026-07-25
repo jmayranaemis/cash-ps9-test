@@ -290,6 +290,7 @@ class CashHomepage extends Module
              WHERE link_rewrite = "faq-professionnels" LIMIT 1'
         );
         if ($faqId) {
+            Configuration::updateValue('CASH_HOMEPAGE_FAQ_CMS_ID', $faqId);
             return $faqId;
         }
 
@@ -322,6 +323,7 @@ class CashHomepage extends Module
                 <p>Du lundi au vendredi de 9h à 17h et le samedi de 8h30 à 12h.</p>';
         }
         $faq->add();
+        Configuration::updateValue('CASH_HOMEPAGE_FAQ_CMS_ID', (int) $faq->id);
 
         return (int) $faq->id;
     }
@@ -592,10 +594,13 @@ class CashHomepage extends Module
 
     private function getFaqUrl()
     {
-        $faqId = (int) Db::getInstance()->getValue(
-            'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
-             WHERE link_rewrite = "faq-professionnels" LIMIT 1'
-        );
+        $faqId = (int) Configuration::get('CASH_HOMEPAGE_FAQ_CMS_ID');
+        if (!$faqId) {
+            $faqId = (int) Db::getInstance()->getValue(
+                'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+                 WHERE link_rewrite = "faq-professionnels" LIMIT 1'
+            );
+        }
 
         return $faqId
             ? $this->context->link->getCMSLink($faqId)

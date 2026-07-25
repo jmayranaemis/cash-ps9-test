@@ -187,7 +187,8 @@ a.active,
 }
 
 #header.header1 #_desktop_an_wishlist-nav {
-  width: auto !important;
+  width: max-content !important;
+  max-width: 110px;
   flex: 0 0 auto;
   margin-left: 0;
   white-space: nowrap;
@@ -195,6 +196,7 @@ a.active,
 
 #header.header1 #_desktop_an_wishlist-nav a {
   display: inline-flex;
+  width: max-content !important;
   align-items: center;
   gap: 6px;
   font-size: 0.76rem;
@@ -271,6 +273,7 @@ a.active,
   border-radius: 3px;
   font-size: 0.76rem;
   font-weight: 750;
+  white-space: nowrap;
 }
 
 #header .cash-header-client:hover {
