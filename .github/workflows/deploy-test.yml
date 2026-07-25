@@ -114,7 +114,9 @@ jobs:
             docker exec "$C" chown -R www-data:www-data \
               /var/www/html/modules \
               /var/www/html/themes \
-              /var/www/html/override
+              /var/www/html/override \
+              /var/www/html/var/cache \
+              /var/www/html/var/logs
 
       - name: Clear and warmup cache
         uses: appleboy/ssh-action@v1.0.3
@@ -124,8 +126,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             set -e
-            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php -d memory_limit=1G bin/console cache:clear --no-warmup
-            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php -d memory_limit=1G bin/console cache:warmup --no-optional-warmers
+            docker exec -u www-data ${{ secrets.DOCKER_PHP_CONTAINER }} php -d memory_limit=1G bin/console cache:clear --no-warmup
+            docker exec -u www-data ${{ secrets.DOCKER_PHP_CONTAINER }} php -d memory_limit=1G bin/console cache:warmup --no-optional-warmers
 
       - name: Healthcheck
         run: |
