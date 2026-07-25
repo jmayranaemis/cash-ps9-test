@@ -102,6 +102,20 @@ jobs:
             cd /srv/docker/cash-ps9-test
             docker compose up -d
 
+      - name: Restore PrestaShop writable ownership
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            C="${{ secrets.DOCKER_PHP_CONTAINER }}"
+            docker exec "$C" chown -R www-data:www-data \
+              /var/www/html/modules \
+              /var/www/html/themes \
+              /var/www/html/override
+
       - name: Clear and warmup cache
         uses: appleboy/ssh-action@v1.0.3
         with:
