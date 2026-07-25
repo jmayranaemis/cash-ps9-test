@@ -449,6 +449,35 @@ a.active,
   transform: translateX(3px);
 }
 
+#header .ets_mm_megamenu .ets_mm_block_content ul,
+#header .ets_mm_megamenu .ets_mm_block_content li {
+  margin: 0;
+  padding-left: 0;
+  list-style: none !important;
+}
+
+#header .ets_mm_megamenu .ets_mm_block_content li::before,
+#header .ets_mm_megamenu .ets_mm_block_content li::marker {
+  display: none !important;
+  content: "" !important;
+}
+
+#header .ets_mm_megamenu .ets_mm_block_content li a {
+  position: relative;
+  padding: 8px 0 8px 18px;
+}
+
+#header .ets_mm_megamenu .ets_mm_block_content li a::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 7px;
+  height: 1px;
+  background: var(--cash-beige);
+  content: "";
+  transform: translateY(-50%);
+}
+
 /* Ligne d'annonce placée juste sous Mega Menu PRO. */
 #header .an-sfsl {
   display: block;
@@ -547,10 +576,315 @@ a.active,
   color: var(--cash-beige);
 }
 
+.footer-container {
+  padding-top: 55px;
+}
+
+.footer-container .links .h3,
+.footer-container .links .h3 a,
+.footer-container #block_myaccount_infos .myaccount-title a,
+.footer-container .title .h3 {
+  color: var(--cash-white) !important;
+}
+
+.footer-container .links li a {
+  color: var(--cash-ivory) !important;
+  opacity: 0.88;
+}
+
+.footer-container .links li a:hover {
+  color: var(--cash-beige) !important;
+  opacity: 1;
+}
+
+.cash-footer-brand {
+  padding-right: 35px;
+}
+
+.cash-footer-brand__logo {
+  display: inline-flex;
+  max-width: 210px;
+  margin-bottom: 20px;
+}
+
+.cash-footer-brand__logo img {
+  width: auto;
+  max-width: 100%;
+  max-height: 62px;
+}
+
+.cash-footer-brand p {
+  max-width: 290px;
+  margin-bottom: 20px;
+  color: var(--cash-ivory) !important;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+
+.cash-footer-brand__phone {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--cash-white) !important;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.cash-footer-brand__hours {
+  display: block;
+  color: var(--cash-beige);
+  font-size: 0.78rem;
+}
+
+.cash-footer-brand__actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.cash-footer-brand__actions a {
+  color: var(--cash-white) !important;
+  font-size: 0.8rem;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .copyright-container,
 .footer-after {
   color: var(--cash-brown);
   background: var(--cash-beige);
+}
+
+/* Icône Favoris : aucun positionnement hérité ne peut recouvrir le libellé. */
+#header.header1 #_desktop_an_wishlist-nav a {
+  gap: 9px;
+  line-height: 1.2;
+}
+
+#header.header1 #_desktop_an_wishlist-nav a > svg {
+  position: static !important;
+  width: 16px !important;
+  height: 15px !important;
+  flex: 0 0 16px;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+#header.header1 #_desktop_an_wishlist-nav a > span {
+  position: static !important;
+  flex: 0 0 auto;
+  margin: 0 !important;
+}
+
+/* Page contact signature. */
+#contact #wrapper {
+  padding-bottom: 0;
+  background: var(--cash-ivory);
+}
+
+#contact #content {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.cash-contact-page {
+  margin-bottom: 70px;
+}
+
+.cash-contact-page__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 55px;
+  align-items: end;
+  padding: 65px;
+  color: var(--cash-white);
+  background:
+    radial-gradient(circle at 90% 10%, rgba(217, 197, 173, 0.18), transparent 34%),
+    var(--cash-green);
+}
+
+.cash-contact-page__hero h1 {
+  max-width: 720px;
+  margin: 0 0 20px;
+  color: var(--cash-white);
+  font-size: clamp(2.7rem, 6vw, 5.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.cash-contact-page__hero p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--cash-ivory);
+  font-size: 1.08rem;
+}
+
+.cash-contact-page__eyebrow {
+  margin: 0 0 12px !important;
+  color: var(--cash-beige) !important;
+  font-size: 0.76rem !important;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.cash-contact-page__promise {
+  padding: 28px;
+  color: var(--cash-brown);
+  background: var(--cash-beige);
+  box-shadow: 12px 12px 0 rgba(67, 42, 25, 0.22);
+}
+
+.cash-contact-page__promise strong,
+.cash-contact-page__promise span {
+  display: block;
+}
+
+.cash-contact-page__promise strong {
+  margin-bottom: 9px;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.cash-contact-page__body {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr);
+  gap: 70px;
+  padding: 65px;
+  background: var(--cash-white);
+}
+
+.cash-contact-page__details h2,
+.cash-contact-page__form h2 {
+  margin-bottom: 30px;
+  color: var(--cash-brown);
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  line-height: 1.05;
+}
+
+.cash-contact-page__detail {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 13px;
+  padding: 16px;
+  color: var(--cash-brown) !important;
+  background: var(--cash-ivory);
+  border: 1px solid var(--cash-beige);
+  text-decoration: none !important;
+}
+
+.cash-contact-page__icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  color: var(--cash-white);
+  background: var(--cash-red);
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+
+.cash-contact-page__detail small,
+.cash-contact-page__detail strong {
+  display: block;
+}
+
+.cash-contact-page__detail small {
+  color: var(--cash-olive);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cash-contact-page__detail strong {
+  margin-top: 2px;
+  color: var(--cash-brown);
+  font-size: 1rem;
+}
+
+.cash-contact-page__note {
+  margin-top: 25px;
+  padding-left: 16px;
+  color: var(--cash-brown) !important;
+  border-left: 3px solid var(--cash-red);
+}
+
+.cash-contact-page__note a {
+  color: var(--cash-red);
+  font-weight: 750;
+}
+
+.cash-contact-page__form {
+  padding: 35px;
+  background: var(--cash-ivory);
+  border-top: 6px solid var(--cash-red);
+}
+
+.cash-contact-page .contact-form {
+  padding: 0;
+  background: transparent;
+}
+
+.cash-contact-page .contact-form .form-group {
+  margin-bottom: 20px;
+}
+
+.cash-contact-page .contact-form .form-control-label {
+  margin-bottom: 8px;
+  color: var(--cash-brown);
+  font-weight: 750;
+}
+
+.cash-contact-page .contact-form .form-control {
+  width: 100%;
+  min-height: 50px;
+  color: var(--cash-brown);
+  background: var(--cash-white);
+  border: 1px solid var(--cash-beige);
+  border-radius: 3px;
+}
+
+.cash-contact-page .contact-form textarea.form-control {
+  min-height: 155px;
+}
+
+.cash-contact-page .contact-form .form-control:focus {
+  border-color: var(--cash-red);
+  box-shadow: 0 0 0 3px rgba(208, 23, 25, 0.1);
+}
+
+.cash-contact-page .contact-form .form-footer {
+  padding-top: 10px;
+}
+
+.cash-contact-page .contact-form .btn-primary {
+  min-width: 180px;
+  min-height: 52px;
+}
+
+@media (max-width: 991px) {
+  .cash-contact-page__hero,
+  .cash-contact-page__body {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cash-contact-page__hero,
+  .cash-contact-page__body {
+    padding: 30px 20px;
+  }
+
+  .cash-contact-page__form {
+    padding: 25px 18px;
+  }
 }
 
 /* Demande d'ouverture de compte professionnel. */

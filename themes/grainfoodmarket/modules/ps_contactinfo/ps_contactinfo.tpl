@@ -24,47 +24,17 @@
 *}
 
 <div class="block-contact col-md-3 links wrapper">
-  <div class="hidden-sm-down">
-     {hook h='displayLogoFooter'}
-      {$contact_infos.address.formatted nofilter}
-      {if $contact_infos.phone}
-        <br>
-        {* [1][/1] is for a HTML tag. *}
-        {l s='Call us: [1]%phone%[/1]'
-          sprintf=[
-          '[1]' => '<span>',
-          '[/1]' => '</span>',
-          '%phone%' => $contact_infos.phone
-          ]
-          d='Shop.Theme.Global'
-        }
-      {/if}
-      {if $contact_infos.fax}
-        <br>
-        {* [1][/1] is for a HTML tag. *}
-        {l
-          s='Fax: [1]%fax%[/1]'
-          sprintf=[
-            '[1]' => '<span>',
-            '[/1]' => '</span>',
-            '%fax%' => $contact_infos.fax
-          ]
-          d='Shop.Theme.Global'
-        }
-      {/if}
-      {if $contact_infos.email}
-        <br>
-        {* [1][/1] is for a HTML tag. *}
-        {l
-          s='Email us: [1]%email%[/1]'
-          sprintf=[
-            '[1]' => '<span>',
-            '[/1]' => '</span>',
-            '%email%' => $contact_infos.email
-          ]
-          d='Shop.Theme.Global'
-        }
-      {/if}
+  <div class="hidden-sm-down cash-footer-brand">
+    <a class="cash-footer-brand__logo" href="{$urls.base_url}" aria-label="Cash Alimentaire - accueil">
+      {hook h='displayLogoFooter'}
+    </a>
+    <p>Grossiste alimentaire au service des professionnels de la restauration et des métiers de bouche depuis 1984.</p>
+    <a class="cash-footer-brand__phone" href="tel:+33489032323">04 89 03 23 23</a>
+    <span class="cash-footer-brand__hours">Lun–ven 9h–17h · Sam 8h30–12h</span>
+    <div class="cash-footer-brand__actions">
+      <a href="{$urls.pages.contact}">Nous contacter</a>
+      <a href="{$urls.pages.stores}">Nos magasins</a>
+    </div>
   </div>
   <div class="hidden-md-up">
     <div class="title">

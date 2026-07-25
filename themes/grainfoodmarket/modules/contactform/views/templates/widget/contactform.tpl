@@ -38,26 +38,20 @@
     {if !$notifications || $notifications.nw_error}
       <section class="form-fields">
 
-        <div class="form-group row">
-          <div class="col-md-9 col-md-offset-3 contact-title">
-            <h3>{l s='Contact us' d='Shop.Theme.Global'}</h3>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-md-3 form-control-label">{l s='Subject' d='Shop.Forms.Labels'}</label>
-          <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-control-label">{l s='Subject' d='Shop.Forms.Labels'}</label>
+          <div>
             <select name="id_contact" class="form-control form-control-select">
               {foreach from=$contact.contacts item=contact_elt}
-                <option value="{$contact_elt.id_contact}">{$contact_elt.name}</option>
+                <option value="{$contact_elt.id_contact}"{if isset($smarty.get.id_contact) && $smarty.get.id_contact == $contact_elt.id_contact} selected{/if}>{$contact_elt.name}</option>
               {/foreach}
             </select>
           </div>
         </div>
 
-        <div class="form-group row">
-          <label class="col-md-3 form-control-label">{l s='Email address' d='Shop.Forms.Labels'}</label>
-          <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-control-label">{l s='Email address' d='Shop.Forms.Labels'}</label>
+          <div>
             <input
               class="form-control"
               name="from"
@@ -86,25 +80,25 @@
         {/if}
 
         {if $contact.allow_file_upload}
-          <div class="form-group row">
-            <label class="col-md-3 form-control-label">{l s='Attachment' d='Shop.Forms.Labels'}</label>
-            <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-control-label">{l s='Attachment' d='Shop.Forms.Labels'}</label>
+            <div>
               <input type="file" name="fileUpload" class="filestyle" data-buttonText="{l s='Choose file' d='Shop.Theme.Actions'}">
             </div>
-            <span class="col-md-3 form-control-comment">
+            <span class="form-control-comment">
               {l s='optional' d='Shop.Forms.Help'}
             </span>
           </div>
         {/if}
 
-        <div class="form-group row">
-          <label class="col-md-3 form-control-label">{l s='Message' d='Shop.Forms.Labels'}</label>
-          <div class="col-md-9">
+        <div class="form-group">
+          <label class="form-control-label">{l s='Message' d='Shop.Forms.Labels'}</label>
+          <div>
             <textarea
               class="form-control"
               name="message"
               placeholder="{l s='How can we help?' d='Shop.Forms.Help'}"
-              rows="3"
+              rows="6"
             >{if $contact.message}{$contact.message}{/if}</textarea>
           </div>
         </div>

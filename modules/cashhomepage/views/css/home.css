@@ -4,3 +4,13 @@
 
 .cash-section__tools{display:flex;gap:22px;align-items:center}.cash-section__tools>a{color:var(--red);font-weight:750}.cash-carousel{position:relative;width:100%;max-width:100%;min-width:0;overflow:hidden}.cash-carousel-buttons{display:flex;gap:8px}.cash-carousel-buttons button{display:grid;width:42px;height:42px;padding:0;place-items:center;color:var(--brown);background:transparent;border:1px solid var(--brown);border-radius:50%;font-size:1.15rem;cursor:pointer;transition:.2s}.cash-carousel-buttons button:hover,.cash-carousel-buttons button:focus{color:#fff;background:var(--red);border-color:var(--red)}.cash-card-scroll,.cash-brands__scroll{width:100%;max-width:100%;min-width:0;scrollbar-width:thin;scrollbar-color:var(--beige) transparent}.cash-card-scroll::-webkit-scrollbar,.cash-brands__scroll::-webkit-scrollbar{height:5px}.cash-card-scroll::-webkit-scrollbar-thumb,.cash-brands__scroll::-webkit-scrollbar-thumb{background:var(--beige);border-radius:5px}
 @media(max-width:767px){.cash-section__tools{width:100%;align-items:flex-start;justify-content:space-between}.cash-carousel-buttons button{width:38px;height:38px}}
+
+/* Correctifs éditoriaux et visuels. */
+.cash-proof__grid div{display:flex;gap:15px;align-items:center}
+.cash-proof__grid svg{width:40px;height:40px;flex:0 0 40px;fill:none;stroke:var(--beige);stroke-linecap:round;stroke-linejoin:round;stroke-width:2}
+.cash-proof__grid p{margin:0!important;color:#fff!important}
+.cash-proof strong{color:#fff}
+.cash-family-card__image--fallback{display:grid;place-items:center;background:linear-gradient(145deg,var(--beige),#f0e4d5)}
+.cash-family-card__image--fallback b{color:rgba(67,42,25,.62);font-size:4.4rem;font-weight:800}
+.cash-catalogues__grid>div>p,.cash-client p,.cash-contact p{color:#fff!important}
+@media(max-width:767px){.cash-proof__grid div{padding:14px 0}}

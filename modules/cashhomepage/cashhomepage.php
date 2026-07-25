@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.1.0';
+        $this->version = '1.2.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -33,6 +33,7 @@ class CashHomepage extends Module
             && $this->registerHook('displayNav1')
             && $this->registerHook('displayNav2')
             && $this->registerHook('displayNav3')
+            && $this->installEditableContent()
             && $this->configureCashExperience();
     }
 
@@ -57,6 +58,15 @@ class CashHomepage extends Module
     {
         $this->removeDemoHooks();
         $this->configureProfessionalHeader();
+
+        return true;
+    }
+
+    public function upgradeTo120()
+    {
+        $this->installEditableContent();
+        $this->configureProfessionalHeader();
+        $this->ensureCatalogueContact();
 
         return true;
     }
@@ -102,6 +112,7 @@ class CashHomepage extends Module
         }
 
         $this->ensureFaqPage();
+        $this->ensureCatalogueContact();
         $this->configureMegaMenu();
         $this->configureAnnouncementLine();
     }
@@ -187,12 +198,152 @@ class CashHomepage extends Module
             }
         }
 
+        // Les liens utilitaires restent dans la barre marron afin d'éviter les doublons.
+        $db->update('ets_mm_menu', ['enabled' => 0], 'id_menu IN (6, 7)');
+
         Configuration::updateValue('ETS_MM_INCLUDE_SUB_CATEGORIES', 0);
         $this->ensureMegaMenuCategoryColumns(2);
 
         if (method_exists($megaMenu, 'clearAllCache')) {
             $megaMenu->clearAllCache();
         }
+    }
+
+    private function ensureCatalogueContact()
+    {
+        $contactId = (int) Configuration::get('CASH_CATALOGUE_CONTACT_ID');
+        if ($contactId && Validate::isLoadedObject(new Contact($contactId))) {
+            return $contactId;
+        }
+
+        foreach (Contact::getContacts((int) $this->context->language->id) as $contactData) {
+            if (strtolower(trim($contactData['name'])) === 'demande de catalogue') {
+                Configuration::updateValue('CASH_CATALOGUE_CONTACT_ID', (int) $contactData['id_contact']);
+
+                return (int) $contactData['id_contact'];
+            }
+        }
+
+        $contact = new Contact();
+        $contact->email = (string) Configuration::get('PS_SHOP_EMAIL');
+        $contact->customer_service = 0;
+        $contact->name = [];
+        $contact->description = [];
+        foreach (Language::getLanguages(false) as $language) {
+            $languageId = (int) $language['id_lang'];
+            $contact->name[$languageId] = 'Demande de catalogue';
+            $contact->description[$languageId] = 'Recevoir ou consulter un catalogue professionnel Cash Alimentaire.';
+        }
+        if ($contact->add()) {
+            Configuration::updateValue('CASH_CATALOGUE_CONTACT_ID', (int) $contact->id);
+
+            return (int) $contact->id;
+        }
+
+        return 0;
+    }
+
+    private function getEditableContentDefinitions()
+    {
+        return [
+            'CASH_HOME_HERO_EYEBROW' => ['hero_eyebrow', 'Sur-titre du hero', 'Grossiste alimentaire pour les professionnels', 'text'],
+            'CASH_HOME_HERO_TITLE' => ['hero_title', 'Titre principal', 'Tout pour votre activité, avec un interlocuteur local', 'text'],
+            'CASH_HOME_HERO_LEAD' => ['hero_lead', 'Introduction du hero', 'Une offre complète pour la restauration, la vente à emporter et les métiers de bouche, disponible dans nos magasins et en livraison.', 'textarea'],
+            'CASH_HOME_PROOF_1_TITLE' => ['proof_1_title', 'Preuve 1 — titre', 'Depuis 1984', 'text'],
+            'CASH_HOME_PROOF_1_TEXT' => ['proof_1_text', 'Preuve 1 — texte', 'Une expérience terrain', 'text'],
+            'CASH_HOME_PROOF_2_TITLE' => ['proof_2_title', 'Preuve 2 — titre', 'Des milliers de références', 'text'],
+            'CASH_HOME_PROOF_2_TEXT' => ['proof_2_text', 'Preuve 2 — texte', 'Pour tous les métiers', 'text'],
+            'CASH_HOME_PROOF_3_TITLE' => ['proof_3_title', 'Preuve 3 — titre', 'Livraison professionnelle', 'text'],
+            'CASH_HOME_PROOF_3_TEXT' => ['proof_3_text', 'Preuve 3 — texte', 'Selon votre zone', 'text'],
+            'CASH_HOME_PROOF_4_TITLE' => ['proof_4_title', 'Preuve 4 — titre', 'Une équipe locale', 'text'],
+            'CASH_HOME_PROOF_4_TEXT' => ['proof_4_text', 'Preuve 4 — texte', 'Disponible et réactive', 'text'],
+            'CASH_HOME_FAMILIES_TITLE' => ['families_title', 'Titre des familles', 'Nos familles de produits', 'text'],
+            'CASH_HOME_TRADES_TITLE' => ['trades_title', 'Titre des métiers', 'Vous êtes…', 'text'],
+            'CASH_HOME_CATALOGUE_TITLE' => ['catalogue_title', 'Titre des catalogues', 'Les catalogues du moment', 'text'],
+            'CASH_HOME_CATALOGUE_TEXT' => ['catalogue_text', 'Introduction des catalogues', 'Feuilletez nos sélections professionnelles et retrouvez rapidement les références adaptées à votre activité.', 'textarea'],
+            'CASH_HOME_CATALOGUE_CARD_TITLE' => ['catalogue_card_title', 'Carte catalogue — titre', 'Nos sélections professionnelles', 'text'],
+            'CASH_HOME_CATALOGUE_CARD_TEXT' => ['catalogue_card_text', 'Carte catalogue — texte', 'Consultez le catalogue interactif ci-dessous ou demandez à notre équipe la sélection adaptée à votre besoin.', 'textarea'],
+            'CASH_HOME_SERVICES_TITLE' => ['services_title', 'Titre des services', 'Des services utiles au quotidien', 'text'],
+            'CASH_HOME_CLIENT_TITLE' => ['client_title', 'Titre devenir client', 'Devenir client Cash Alimentaire', 'text'],
+            'CASH_HOME_CLIENT_TEXT' => ['client_text', 'Texte devenir client', 'Déposez votre demande en moins de 2 minutes. Après vérification de vos informations, notre équipe vous recontacte pour finaliser l’ouverture.', 'textarea'],
+            'CASH_HOME_CONTACT_TITLE' => ['contact_title', 'Titre du bloc contact', 'Contactez-nous', 'text'],
+            'CASH_HOME_CONTACT_TEXT' => ['contact_text', 'Texte du bloc contact', 'Notre équipe vous oriente vers le bon produit, le bon service ou le magasin le plus proche.', 'textarea'],
+        ];
+    }
+
+    private function installEditableContent()
+    {
+        foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
+            if (Configuration::get($configurationKey) === false) {
+                Configuration::updateValue($configurationKey, $definition[2]);
+            }
+        }
+
+        return true;
+    }
+
+    private function getEditableContent()
+    {
+        $content = [];
+        foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
+            $value = Configuration::get($configurationKey);
+            $content[$definition[0]] = $value === false || $value === '' ? $definition[2] : $value;
+        }
+
+        return $content;
+    }
+
+    public function getContent()
+    {
+        $confirmation = '';
+        if (Tools::isSubmit('submitCashHomepage')) {
+            foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
+                Configuration::updateValue($configurationKey, trim((string) Tools::getValue($configurationKey)));
+            }
+            $confirmation = $this->displayConfirmation($this->l('Les textes de la page d’accueil ont été enregistrés.'));
+        }
+
+        $fields = [];
+        foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
+            $fields[] = [
+                'type' => $definition[3],
+                'label' => $definition[1],
+                'name' => $configurationKey,
+                'rows' => 3,
+                'cols' => 60,
+            ];
+        }
+
+        $helper = new HelperForm();
+        $helper->show_toolbar = false;
+        $helper->table = $this->table;
+        $helper->module = $this;
+        $helper->default_form_language = (int) Configuration::get('PS_LANG_DEFAULT');
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG');
+        $helper->identifier = $this->identifier;
+        $helper->submit_action = 'submitCashHomepage';
+        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
+            . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->fields_value = [];
+        foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
+            $helper->fields_value[$configurationKey] = Configuration::get($configurationKey) ?: $definition[2];
+        }
+
+        return $confirmation . $helper->generateForm([[
+            'form' => [
+                'legend' => [
+                    'title' => $this->l('Textes de la page d’accueil'),
+                    'icon' => 'icon-edit',
+                ],
+                'description' => $this->l('Ces champs pilotent les principaux textes éditoriaux affichés sur la page d’accueil.'),
+                'input' => $fields,
+                'submit' => [
+                    'title' => $this->l('Enregistrer'),
+                    'class' => 'btn btn-default pull-right',
+                ],
+            ],
+        ]]);
     }
 
     private function ensureMegaMenuCategoryColumns($menuId)
@@ -548,12 +699,20 @@ class CashHomepage extends Module
             );
         }
         unset($manufacturer);
+        $catalogueContactId = $this->ensureCatalogueContact();
 
         $this->context->smarty->assign([
             'cash_families' => $this->getProductFamilies(8),
             'cash_manufacturers' => $manufacturers,
+            'cash_content' => $this->getEditableContent(),
             'cash_become_client_url' => $this->context->link->getModuleLink('b2bregistration', 'business'),
             'cash_contact_url' => $this->context->link->getPageLink('contact', true),
+            'cash_catalogue_contact_url' => $this->context->link->getPageLink(
+                'contact',
+                true,
+                $languageId,
+                $catalogueContactId ? ['id_contact' => $catalogueContactId] : null
+            ),
             'cash_stores_url' => $this->context->link->getPageLink('stores', true),
             'cash_products_url' => $this->context->link->getCategoryLink($homeCategory->id),
         ]);
@@ -581,15 +740,50 @@ class CashHomepage extends Module
                     $category['link_rewrite'],
                     $languageId
                 ),
-                'image' => $this->context->link->getCatImageLink(
-                    $category['link_rewrite'],
-                    (int) $category['id_category'],
-                    'category_default'
-                ),
+                'image' => $this->getCategoryImage($category),
+                'initial' => mb_strtoupper(mb_substr(trim($category['name']), 0, 1)),
             ];
         }
 
         return $families;
+    }
+
+    private function getCategoryImage(array $category)
+    {
+        $categoryId = (int) $category['id_category'];
+        $imageCategoryId = 0;
+        $imageRewrite = $category['link_rewrite'];
+
+        foreach (['jpg', 'webp', 'png'] as $extension) {
+            if (file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '.' . $extension)
+                || file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '-category_default.' . $extension)) {
+                $imageCategoryId = $categoryId;
+                break;
+            }
+        }
+
+        if (!$imageCategoryId) {
+            $categoryObject = new Category(
+                $categoryId,
+                (int) $this->context->language->id,
+                (int) $this->context->shop->id
+            );
+            foreach ($categoryObject->getAllChildren() as $child) {
+                $childId = (int) $child->id;
+                foreach (['jpg', 'webp', 'png'] as $extension) {
+                    if (file_exists(_PS_CAT_IMG_DIR_ . $childId . '.' . $extension)
+                        || file_exists(_PS_CAT_IMG_DIR_ . $childId . '-category_default.' . $extension)) {
+                        $imageCategoryId = $childId;
+                        $imageRewrite = $child->link_rewrite;
+                        break 2;
+                    }
+                }
+            }
+        }
+
+        return $imageCategoryId
+            ? $this->context->link->getCatImageLink($imageRewrite, $imageCategoryId, 'category_default')
+            : '';
     }
 
     private function getFaqUrl()
