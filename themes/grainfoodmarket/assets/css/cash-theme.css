@@ -163,14 +163,14 @@ a.active,
 }
 
 /* Barre de service professionnelle. */
-#header.header1 .header-nav .hidden-sm-down {
+#header.header1 .header-nav .row > .hidden-sm-down {
   display: grid !important;
   grid-template-columns: minmax(315px, 1.15fr) minmax(360px, 1.2fr) minmax(215px, auto);
   gap: 20px;
   align-items: center;
 }
 
-#header.header1 .header-nav .hidden-sm-down > div,
+#header.header1 .header-nav .row > .hidden-sm-down > div,
 #header.header1 .header-nav .left-nav,
 #header.header1 .header-nav .right-nav {
   width: auto;
