@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.2.0';
+        $this->version = '1.3.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -71,13 +71,20 @@ class CashHomepage extends Module
         return true;
     }
 
+    public function upgradeTo130()
+    {
+        $this->configureNewsBlog();
+        $this->ensureFaqPage(true);
+
+        return true;
+    }
+
     private function removeDemoHooks()
     {
         $hooksByModule = [
             'an_homeslider' => ['displaySliderFullWidth'],
             'an_homecategories' => ['displayHomeBefore'],
             'an_homeproducts' => ['displayHome'],
-            'anblog' => ['displayHome'],
             'an_banners' => ['displayHome', 'displayHomeBefore', 'displayHomeAfter'],
             'an_brandslider' => ['displayHomeAfter', 'displayFooter'],
             'an_advantages' => ['displayHomeAfter'],
@@ -113,8 +120,40 @@ class CashHomepage extends Module
 
         $this->ensureFaqPage();
         $this->ensureCatalogueContact();
+        $this->configureNewsBlog();
         $this->configureMegaMenu();
         $this->configureAnnouncementLine();
+    }
+
+    private function configureNewsBlog()
+    {
+        $blog = Module::getInstanceByName('anblog');
+        if (!$blog || !$blog->id) {
+            return;
+        }
+
+        if (!$blog->isRegisteredInHook('displayHome')) {
+            $blog->registerHook('displayHome');
+        }
+
+        foreach (Language::getLanguages(false) as $language) {
+            Db::getInstance()->update(
+                'anblog_blog_widgets_lang',
+                ['title' => pSQL('Actualités')],
+                'id_anblog_blog_widgets = 1 AND id_lang = ' . (int) $language['id_lang']
+            );
+        }
+
+        $hookId = (int) Hook::getIdByName('displayHome');
+        $cashPosition = (int) Db::getInstance()->getValue(
+            'SELECT position FROM `' . _DB_PREFIX_ . 'hook_module`
+             WHERE id_hook = ' . $hookId . ' AND id_module = ' . (int) $this->id
+        );
+        Db::getInstance()->update(
+            'hook_module',
+            ['position' => max(2, $cashPosition + 1)],
+            'id_hook = ' . $hookId . ' AND id_module = ' . (int) $blog->id
+        );
     }
 
     private function configureMegaMenu()
@@ -433,7 +472,7 @@ class CashHomepage extends Module
         );
     }
 
-    private function ensureFaqPage()
+    private function ensureFaqPage($refreshContent = false)
     {
         $db = Db::getInstance();
         $faqId = (int) $db->getValue(
@@ -442,6 +481,14 @@ class CashHomepage extends Module
         );
         if ($faqId) {
             Configuration::updateValue('CASH_HOMEPAGE_FAQ_CMS_ID', $faqId);
+            if ($refreshContent) {
+                $faq = new CMS($faqId);
+                $faq->content = [];
+                foreach (Language::getLanguages(false) as $language) {
+                    $faq->content[(int) $language['id_lang']] = $this->getFaqContent();
+                }
+                $faq->update();
+            }
             return $faqId;
         }
 
@@ -460,23 +507,50 @@ class CashHomepage extends Module
             $faq->meta_description[$languageId] = 'Les réponses aux questions fréquentes des clients professionnels Cash Alimentaire.';
             $faq->meta_keywords[$languageId] = 'faq, professionnels, cash alimentaire';
             $faq->link_rewrite[$languageId] = 'faq-professionnels';
-            $faq->content[$languageId] = '
-                <h2>Questions fréquentes</h2>
-                <h3>Qui peut devenir client professionnel ?</h3>
-                <p>Les restaurants, commerces de bouche, collectivités et professionnels disposant d’un SIRET valide.</p>
-                <h3>Comment demander l’ouverture d’un compte ?</h3>
-                <p>Remplissez le formulaire « Devenir client » avec votre SIRET et votre extrait Kbis. Notre équipe contrôle ensuite votre demande.</p>
-                <h3>Proposez-vous la livraison ?</h3>
-                <p>Oui, selon votre zone et les conditions convenues avec notre équipe commerciale.</p>
-                <h3>Comment obtenir un catalogue ?</h3>
-                <p>Utilisez le formulaire de contact ou appelez le 04 89 03 23 23 afin de recevoir la sélection adaptée à votre activité.</p>
-                <h3>Quand puis-je joindre l’équipe ?</h3>
-                <p>Du lundi au vendredi de 9h à 17h et le samedi de 8h30 à 12h.</p>';
+            $faq->content[$languageId] = $this->getFaqContent();
         }
         $faq->add();
         Configuration::updateValue('CASH_HOMEPAGE_FAQ_CMS_ID', (int) $faq->id);
 
         return (int) $faq->id;
+    }
+
+    private function getFaqContent()
+    {
+        return '
+            <div class="cash-faq">
+              <div class="cash-faq__intro">
+                <p class="cash-faq__eyebrow">Aide aux professionnels</p>
+                <h2>Questions fréquentes</h2>
+                <p>Retrouvez les réponses essentielles avant de contacter notre équipe.</p>
+              </div>
+              <div class="cash-faq__list">
+                <details class="cash-faq__item">
+                  <summary><span>Qui peut devenir client professionnel&nbsp;?</span><b aria-hidden="true"></b></summary>
+                  <div><p>Les restaurants, commerces de bouche, collectivités et professionnels disposant d’un SIRET valide peuvent déposer une demande d’ouverture de compte.</p></div>
+                </details>
+                <details class="cash-faq__item">
+                  <summary><span>Comment demander l’ouverture d’un compte&nbsp;?</span><b aria-hidden="true"></b></summary>
+                  <div><p>Remplissez le formulaire «&nbsp;Devenir client&nbsp;» avec vos coordonnées, votre SIRET et votre extrait Kbis. Notre équipe contrôle ensuite votre dossier avant de vous recontacter.</p></div>
+                </details>
+                <details class="cash-faq__item">
+                  <summary><span>Proposez-vous la livraison&nbsp;?</span><b aria-hidden="true"></b></summary>
+                  <div><p>Oui, selon votre zone et les conditions convenues avec notre équipe commerciale. Appelez-nous pour vérifier la couverture de votre établissement.</p></div>
+                </details>
+                <details class="cash-faq__item">
+                  <summary><span>Comment obtenir un catalogue&nbsp;?</span><b aria-hidden="true"></b></summary>
+                  <div><p>Consultez les catalogues interactifs sur le site ou sélectionnez «&nbsp;Demande de catalogue&nbsp;» dans le formulaire de contact pour recevoir la sélection adaptée à votre activité.</p></div>
+                </details>
+                <details class="cash-faq__item">
+                  <summary><span>Quand puis-je joindre l’équipe&nbsp;?</span><b aria-hidden="true"></b></summary>
+                  <div><p>Du lundi au vendredi de 9h à 17h et le samedi de 8h30 à 12h, au 04 89 03 23 23 ou par e-mail à commandeweb@cash-alimentaire.com.</p></div>
+                </details>
+              </div>
+              <div class="cash-faq__contact">
+                <strong>Vous ne trouvez pas votre réponse&nbsp;?</strong>
+                <a href="/nous-contacter">Contactez notre équipe</a>
+              </div>
+            </div>';
     }
 
     private function configureB2BRegistration()
