@@ -29,7 +29,7 @@
   </section>
 
   <section id="familles-produits" class="cash-section cash-families">
-    <div class="cash-home__container">
+    <div class="cash-home__container" data-cash-carousel>
       <div class="cash-section__heading">
         <div>
           <p class="cash-eyebrow">L’essentiel en un coup d’œil</p>
@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="cash-carousel" data-cash-carousel>
+      <div class="cash-carousel">
       <div class="cash-card-scroll" data-cash-carousel-track>
         {foreach from=$cash_families item=family}
           <a class="cash-family-card" href="{$family.url|escape:'htmlall':'UTF-8'}">
@@ -128,7 +128,7 @@
 
   {if $cash_manufacturers}
     <section class="cash-section cash-brands">
-      <div class="cash-home__container">
+      <div class="cash-home__container" data-cash-carousel>
         <div class="cash-section__heading">
           <div><p class="cash-eyebrow">Nos partenaires</p><h2>Des marques professionnelles reconnues</h2></div>
           <div class="cash-carousel-buttons">
@@ -136,7 +136,7 @@
             <button type="button" data-cash-carousel-next aria-label="Marques suivantes">→</button>
           </div>
         </div>
-        <div class="cash-carousel" data-cash-carousel>
+        <div class="cash-carousel">
         <div class="cash-brands__scroll" data-cash-carousel-track>
           {foreach from=$cash_manufacturers item=manufacturer}
             <a href="{$manufacturer.url|escape:'htmlall':'UTF-8'}" aria-label="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
