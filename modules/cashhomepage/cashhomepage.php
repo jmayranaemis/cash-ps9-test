@@ -528,26 +528,26 @@ class CashHomepage extends Module
                 <p>Retrouvez les réponses essentielles avant de contacter notre équipe.</p>
               </div>
               <div class="cash-faq__list">
-                <details class="cash-faq__item">
-                  <summary><span>Qui peut devenir client professionnel&nbsp;?</span><b aria-hidden="true"></b></summary>
-                  <div><p>Les restaurants, commerces de bouche, collectivités et professionnels disposant d’un SIRET valide peuvent déposer une demande d’ouverture de compte.</p></div>
-                </details>
-                <details class="cash-faq__item">
-                  <summary><span>Comment demander l’ouverture d’un compte&nbsp;?</span><b aria-hidden="true"></b></summary>
-                  <div><p>Remplissez le formulaire «&nbsp;Devenir client&nbsp;» avec vos coordonnées, votre SIRET et votre extrait Kbis. Notre équipe contrôle ensuite votre dossier avant de vous recontacter.</p></div>
-                </details>
-                <details class="cash-faq__item">
-                  <summary><span>Proposez-vous la livraison&nbsp;?</span><b aria-hidden="true"></b></summary>
-                  <div><p>Oui, selon votre zone et les conditions convenues avec notre équipe commerciale. Appelez-nous pour vérifier la couverture de votre établissement.</p></div>
-                </details>
-                <details class="cash-faq__item">
-                  <summary><span>Comment obtenir un catalogue&nbsp;?</span><b aria-hidden="true"></b></summary>
-                  <div><p>Consultez les catalogues interactifs sur le site ou sélectionnez «&nbsp;Demande de catalogue&nbsp;» dans le formulaire de contact pour recevoir la sélection adaptée à votre activité.</p></div>
-                </details>
-                <details class="cash-faq__item">
-                  <summary><span>Quand puis-je joindre l’équipe&nbsp;?</span><b aria-hidden="true"></b></summary>
-                  <div><p>Du lundi au vendredi de 9h à 17h et le samedi de 8h30 à 12h, au 04 89 03 23 23 ou par e-mail à commandeweb@cash-alimentaire.com.</p></div>
-                </details>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Qui peut devenir client professionnel&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Les restaurants, commerces de bouche, collectivités et professionnels disposant d’un SIRET valide peuvent déposer une demande d’ouverture de compte.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment demander l’ouverture d’un compte&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Remplissez le formulaire «&nbsp;Devenir client&nbsp;» avec vos coordonnées, votre SIRET et votre extrait Kbis. Notre équipe contrôle ensuite votre dossier avant de vous recontacter.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Proposez-vous la livraison&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, selon votre zone et les conditions convenues avec notre équipe commerciale. Appelez-nous pour vérifier la couverture de votre établissement.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment obtenir un catalogue&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Consultez les catalogues interactifs sur le site ou sélectionnez «&nbsp;Demande de catalogue&nbsp;» dans le formulaire de contact pour recevoir la sélection adaptée à votre activité.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Quand puis-je joindre l’équipe&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Du lundi au vendredi de 9h à 17h et le samedi de 8h30 à 12h, au 04 89 03 23 23 ou par e-mail à commandeweb@cash-alimentaire.com.</p></div>
+                </div>
               </div>
               <div class="cash-faq__contact">
                 <strong>Vous ne trouvez pas votre réponse&nbsp;?</strong>

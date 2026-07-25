@@ -1040,7 +1040,7 @@ a.active,
   border: 1px solid var(--cash-beige);
 }
 
-.cash-faq__item summary {
+.cash-faq__question {
   display: flex;
   min-height: 70px;
   gap: 24px;
@@ -1054,16 +1054,14 @@ a.active,
   list-style: none;
 }
 
-.cash-faq__item summary::-webkit-details-marker {
-  display: none;
-}
-
-.cash-faq__item summary:hover {
+.cash-faq__question:hover,
+.cash-faq__question:focus {
   color: var(--cash-red);
   background: rgba(217, 197, 173, 0.18);
+  outline: none;
 }
 
-.cash-faq__item summary b {
+.cash-faq__question b {
   position: relative;
   width: 38px;
   height: 38px;
@@ -1072,8 +1070,8 @@ a.active,
   border-radius: 50%;
 }
 
-.cash-faq__item summary b::before,
-.cash-faq__item summary b::after {
+.cash-faq__question b::before,
+.cash-faq__question b::after {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1085,33 +1083,38 @@ a.active,
   transform: translate(-50%, -50%);
 }
 
-.cash-faq__item summary b::after {
+.cash-faq__question b::after {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.cash-faq__item[open] {
+.cash-faq__item.is-open {
   border-color: var(--cash-olive);
 }
 
-.cash-faq__item[open] summary {
+.cash-faq__item.is-open .cash-faq__question {
   color: var(--cash-white);
   background: var(--cash-brown);
 }
 
-.cash-faq__item[open] summary b {
+.cash-faq__item.is-open .cash-faq__question b {
   background: var(--cash-red);
 }
 
-.cash-faq__item[open] summary b::after {
+.cash-faq__item.is-open .cash-faq__question b::after {
   transform: translate(-50%, -50%) rotate(0);
 }
 
-.cash-faq__item > div {
+.cash-faq__answer {
+  display: none;
   padding: 22px 72px 24px 24px;
   border-top: 1px solid var(--cash-beige);
 }
 
-.cash-faq__item > div p {
+.cash-faq__item.is-open .cash-faq__answer {
+  display: block;
+}
+
+.cash-faq__answer p {
   margin: 0;
   color: var(--cash-brown) !important;
   line-height: 1.7;
@@ -1155,12 +1158,12 @@ a.active,
     padding: 30px 22px;
   }
 
-  .cash-faq__item summary {
+  .cash-faq__question {
     min-height: 62px;
     padding-left: 17px;
   }
 
-  .cash-faq__item > div {
+  .cash-faq__answer {
     padding: 20px 17px;
   }
 
