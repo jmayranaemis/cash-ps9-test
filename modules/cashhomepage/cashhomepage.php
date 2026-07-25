@@ -626,7 +626,7 @@ class CashHomepage extends Module
         $this->context->controller->registerStylesheet(
             'module-cashhomepage',
             'modules/' . $this->name . '/views/css/home.css',
-            ['media' => 'all', 'priority' => 200]
+            ['media' => 'all', 'priority' => 200, 'version' => $this->version]
         );
         $this->context->controller->registerJavascript(
             'module-cashhomepage-carousel',

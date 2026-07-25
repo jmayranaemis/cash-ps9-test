@@ -689,6 +689,12 @@ a.active,
   box-shadow: none;
 }
 
+#contact #content-wrapper {
+  width: 100%;
+  max-width: 100%;
+  flex: 0 0 100%;
+}
+
 .cash-contact-page {
   margin-bottom: 70px;
 }
