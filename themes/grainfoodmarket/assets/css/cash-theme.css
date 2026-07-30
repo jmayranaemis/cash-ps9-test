@@ -411,7 +411,7 @@ a.active,
 #header .ets_mm_megamenu .mm_menus_li:hover > a.ets_mm_url,
 #header .ets_mm_megamenu .mm_menus_li.active > a.ets_mm_url {
   color: var(--cash-red) !important;
-  background: rgba(217, 197, 173, 0.28);
+  background: var(--cash-beige);
 }
 
 #header .ets_mm_megamenu .cash-mega-client {
@@ -1234,6 +1234,10 @@ a.active,
     padding: 10px 15px 0 !important;
     text-align: right !important;
   }
+}
+
+.products-selection .sort-by {
+  color: var(--cash-brown) !important;
 }
 
 .cash-b2b__eyebrow {
