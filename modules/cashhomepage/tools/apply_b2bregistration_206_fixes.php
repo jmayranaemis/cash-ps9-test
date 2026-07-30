@@ -13,7 +13,45 @@ if ('cli' !== PHP_SAPI) {
 
 $checkOnly = in_array('--check', $argv, true);
 $modulesRoot = dirname(__DIR__, 2);
+$prestashopRoot = dirname($modulesRoot);
 $patches = [
+    $prestashopRoot . '/classes/Mail.php' => [
+        [
+            'from' => "                'PS_MAIL_SERVER',\n"
+                . "                'PS_MAIL_USER',",
+            'to' => "                'PS_MAIL_SERVER',\n"
+                . "                'PS_MAIL_DOMAIN',\n"
+                . "                'PS_MAIL_USER',",
+        ],
+        [
+            'from' => "                if (!isset(\$configuration['PS_MAIL_SMTP_ENCRYPTION']) || Tools::strtolower(\$configuration['PS_MAIL_SMTP_ENCRYPTION']) === 'off') {\n"
+                . "                    \$isTls = false;\n"
+                . "                } else {\n"
+                . "                    \$isTls = true;\n"
+                . "                }",
+            'to' => "                \$smtpEncryption = isset(\$configuration['PS_MAIL_SMTP_ENCRYPTION'])\n"
+                . "                    ? Tools::strtolower(\$configuration['PS_MAIL_SMTP_ENCRYPTION'])\n"
+                . "                    : 'off';\n"
+                . "                if ('off' === \$smtpEncryption) {\n"
+                . "                    \$isTls = false;\n"
+                . "                } elseif ('starttls' === \$smtpEncryption) {\n"
+                . "                    // Let Symfony connect in plain SMTP, then negotiate STARTTLS after EHLO.\n"
+                . "                    \$isTls = null;\n"
+                . "                } else {\n"
+                . "                    // Preserve PrestaShop's existing implicit TLS behaviour for other values.\n"
+                . "                    \$isTls = true;\n"
+                . "                }",
+        ],
+        [
+            'from' => "                ))\n"
+                . "                    ->setUsername(\$configuration['PS_MAIL_USER'])",
+            'to' => "                ))\n"
+                . "                    ->setLocalDomain(!empty(\$configuration['PS_MAIL_DOMAIN'])\n"
+                . "                        ? \$configuration['PS_MAIL_DOMAIN']\n"
+                . "                        : \$shop->domain)\n"
+                . "                    ->setUsername(\$configuration['PS_MAIL_USER'])",
+        ],
+    ],
     $modulesRoot . '/b2bregistration/controllers/admin/AdminB2BCustomers.php' => [
         [
             'from' => '            } elseif (empty($website)) {' . "\n"
