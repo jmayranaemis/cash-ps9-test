@@ -914,6 +914,16 @@ class CashHomepage extends Module
         $_POST['identification_number'] = $siret;
         $_REQUEST['identification_number'] = $siret;
 
+        // The streamlined form deliberately hides the country selector.
+        // Always provide the shop default country server-side as well, so a
+        // stale cached template can never submit an empty country.
+        $countryId = (int) Tools::getValue('id_country');
+        if (!$countryId) {
+            $countryId = (int) Configuration::get('PS_COUNTRY_DEFAULT');
+            $_POST['id_country'] = $countryId;
+            $_REQUEST['id_country'] = $countryId;
+        }
+
         if (!$this->isSiretChecksumValid($siret)) {
             $controller->errors[] = $this->l(
                 'Le numéro SIRET doit comporter 14 chiffres et respecter la clé de contrôle officielle.'

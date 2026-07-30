@@ -20,7 +20,8 @@
       <input type="hidden" name="password" id="cash-pending-password" value="">
       <input type="hidden" name="confirm_password" id="cash-pending-confirm-password" value="">
       <input type="hidden" name="address_alias" value="Établissement principal">
-      <input type="hidden" name="id_country" value="{$selected_country_id|default:8|intval}">
+      {* Le site ne demande pas le pays : l'établissement est enregistré en France. *}
+      <input type="hidden" name="id_country" value="8">
       <input type="hidden" name="terms" value="1">
 
       <div id="b2b_registation_required" class="alert alert-danger error" style="display:none;"></div>
