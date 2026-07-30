@@ -971,6 +971,10 @@ class CashHomepage extends Module
                 true
             );
             $email = is_array($params['to']) ? reset($params['to']) : $params['to'];
+            if (!Validate::isEmail((string) $email)) {
+                return;
+            }
+
             $customer = new Customer();
             $customer->getByEmail((string) $email);
 
