@@ -171,12 +171,47 @@ class CashHomepage extends Module
         $db->update('an_homeproducts_blocks', ['active' => 0]);
         $db->update('an_homeproducts_blocks', [
             'active' => 1,
+            'type' => 'products',
             'products_display' => 8,
             'position' => 0,
             'show_sort' => 0,
             'show_sub_cat' => 0,
             'randomize' => 0,
         ], 'id_block = ' . $blockId);
+
+        /*
+         * Start with a representative selection: one active, illustrated
+         * product per family. The site manager can then curate this list from
+         * Home Products > Blocks without changing the homepage template.
+         */
+        $selectedProducts = $db->executeS(
+            'SELECT MAX(p.id_product) AS id_product
+             FROM `' . _DB_PREFIX_ . 'product` p
+             INNER JOIN `' . _DB_PREFIX_ . 'product_shop` ps
+                ON ps.id_product = p.id_product
+                AND ps.id_shop = ' . (int) $this->context->shop->id . '
+             WHERE ps.active = 1
+               AND p.id_category_default > 2
+               AND EXISTS (
+                   SELECT 1
+                   FROM `' . _DB_PREFIX_ . 'image` i
+                   WHERE i.id_product = p.id_product
+               )
+             GROUP BY p.id_category_default
+             ORDER BY MAX(ps.date_upd) DESC, MAX(p.id_product) DESC
+             LIMIT 8'
+        );
+        $db->delete('an_homeproducts_blocks_products', 'id_block = ' . $blockId);
+        foreach ($selectedProducts as $position => $product) {
+            $db->insert('an_homeproducts_blocks_products', [
+                'id_block' => $blockId,
+                'id_product' => (int) $product['id_product'],
+                'position' => (int) $position,
+            ]);
+        }
+
+        // The banners shipped with the theme are demonstration content.
+        $db->update('an_homeproducts_banners', ['active' => 0]);
 
         foreach (Language::getLanguages(false) as $language) {
             $languageId = (int) $language['id_lang'];
