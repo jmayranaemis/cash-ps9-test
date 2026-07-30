@@ -68,6 +68,18 @@ jobs:
           remote_user: ${{ secrets.SSH_USER }}
           remote_key: ${{ secrets.SSH_KEY }}
 
+      - name: Apply B2B Registration compatibility fixes
+        if: steps.filter.outputs.modules == 'true'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            docker exec -u www-data ${{ secrets.DOCKER_PHP_CONTAINER }} \
+              php /var/www/html/modules/cashhomepage/tools/apply_b2bregistration_206_fixes.php
+
       - name: Rsync override
         if: steps.filter.outputs.override == 'true'
         uses: burnett01/rsync-deployments@6.0.0
