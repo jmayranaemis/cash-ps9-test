@@ -376,13 +376,13 @@ a.active,
 /* Mega Menu PRO — navigation principale Cash. */
 #header .ets_mm_megamenu {
   color: var(--cash-brown);
-  background: var(--cash-ivory);
+  background: var(--cash-beige);
   border-top: 1px solid rgba(67, 42, 25, 0.08);
   border-bottom: 1px solid var(--cash-beige);
 }
 
 #header .ets_mm_megamenu .ets_mm_megamenu_content {
-  background: transparent;
+  background: var(--cash-beige);
 }
 
 #header .ets_mm_megamenu .mm_menus_ul {
@@ -390,6 +390,7 @@ a.active,
   min-height: 60px;
   align-items: stretch;
   justify-content: flex-start;
+  background: var(--cash-beige) !important;
 }
 
 #header .ets_mm_megamenu .mm_menus_li {
@@ -411,7 +412,7 @@ a.active,
 #header .ets_mm_megamenu .mm_menus_li:hover > a.ets_mm_url,
 #header .ets_mm_megamenu .mm_menus_li.active > a.ets_mm_url {
   color: var(--cash-red) !important;
-  background: var(--cash-beige);
+  background: rgba(217, 197, 173, 0.28);
 }
 
 #header .ets_mm_megamenu .cash-mega-client {
