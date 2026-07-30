@@ -36,4 +36,4 @@
 {/foreach}
 
 {* Chargement direct : theme.yml n'est pas réimporté sur un thème déjà installé. *}
-<link rel="stylesheet" href="{$urls.theme_assets}css/cash-theme.css?v=20260730-14" type="text/css" media="all">
+<link rel="stylesheet" href="{$urls.theme_assets}css/cash-theme.css?v=20260730-15" type="text/css" media="all">

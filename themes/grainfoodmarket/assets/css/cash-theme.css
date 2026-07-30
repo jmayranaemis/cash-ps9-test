@@ -1216,6 +1216,26 @@ a.active,
   overflow-wrap: anywhere;
 }
 
+/* Compteur de pagination : ligne dédiée sous le tri, sans position absolue. */
+@media (min-width: 768px) {
+  .products-selection .products-selection-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .products-selection .showing {
+    position: static !important;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    clear: both;
+    margin: 0;
+    padding: 10px 15px 0 !important;
+    text-align: right !important;
+  }
+}
+
 .cash-b2b__eyebrow {
   margin-bottom: 12px;
   color: var(--cash-beige);
