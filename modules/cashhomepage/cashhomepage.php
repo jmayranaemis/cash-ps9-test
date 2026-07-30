@@ -439,6 +439,7 @@ class CashHomepage extends Module
             'CASH_HOME_HERO_EYEBROW' => ['hero_eyebrow', 'Sur-titre du hero', 'Grossiste alimentaire pour les professionnels', 'text'],
             'CASH_HOME_HERO_TITLE' => ['hero_title', 'Titre principal', 'Tout pour votre activité, avec un interlocuteur local', 'text'],
             'CASH_HOME_HERO_LEAD' => ['hero_lead', 'Introduction du hero', 'Une offre complète pour la restauration, la vente à emporter et les métiers de bouche, disponible dans nos magasins et en livraison.', 'textarea'],
+            'CASH_HOME_HERO_IMAGE_URL' => ['hero_image_url', 'Image de fond du hero — URL', '/modules/cashhomepage/views/img/cash-hero-restauration.webp', 'text'],
             'CASH_HOME_PROOF_1_TITLE' => ['proof_1_title', 'Preuve 1 — titre', 'Depuis 1984', 'text'],
             'CASH_HOME_PROOF_1_TEXT' => ['proof_1_text', 'Preuve 1 — texte', 'Une expérience terrain', 'text'],
             'CASH_HOME_PROOF_2_TITLE' => ['proof_2_title', 'Preuve 2 — titre', 'Des milliers de références', 'text'],
@@ -887,7 +888,7 @@ class CashHomepage extends Module
         $this->context->controller->registerStylesheet(
             'module-cashhomepage',
             'modules/' . $this->name . '/views/css/home.css',
-            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-3']
+            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-4']
         );
         $this->context->controller->registerJavascript(
             'module-cashhomepage-carousel',

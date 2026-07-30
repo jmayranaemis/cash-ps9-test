@@ -52,6 +52,40 @@ $patches = [
                 . "                    ->setUsername(\$configuration['PS_MAIL_USER'])",
         ],
     ],
+    $modulesRoot . '/anblog/libs/Helper.php' => [
+        [
+            'from' => "        \$params = array_merge(\$params, \$params1);\n"
+                . "        return \$this->getModuleLink('module-anblog-blog', 'blog', \$params, null, \$id_lang);",
+            'legacy' => "        \$params = array_merge(\$params, \$params1);\n"
+                . "        if (Configuration::get('PS_REWRITING_SETTINGS') && !empty(\$params['rewrite'])) {\n"
+                . "            /*\n"
+                . "             * PrestaShop 9 evaluates its generic product route before this\n"
+                . "             * module route. Use the unambiguous native module endpoint.\n"
+                . "             */\n"
+                . "            return \$this->getLinkObject()->getBaseLink()\n"
+                . "                . 'module/anblog/blog?rewrite=' . rawurlencode(\$params['rewrite']);\n"
+                . "        }\n"
+                . "\n"
+                . "        return \$this->getModuleLink('module-anblog-blog', 'blog', \$params, null, \$id_lang);",
+            'to' => "        \$params = array_merge(\$params, \$params1);\n"
+                . "        if (Configuration::get('PS_REWRITING_SETTINGS') && !empty(\$params['rewrite'])) {\n"
+                . "            /*\n"
+                . "             * PrestaShop 9 evaluates its generic product route before this\n"
+                . "             * module route. Use the unambiguous native module endpoint.\n"
+                . "             */\n"
+                . "            \$rewrite = \$params['rewrite'];\n"
+                . "            if (is_array(\$rewrite)) {\n"
+                . "                \$languageId = \$id_lang ?: (int) Context::getContext()->language->id;\n"
+                . "                \$rewrite = \$rewrite[\$languageId] ?? reset(\$rewrite);\n"
+                . "            }\n"
+                . "\n"
+                . "            return \$this->getLinkObject()->getBaseLink()\n"
+                . "                . 'module/anblog/blog?rewrite=' . rawurlencode((string) \$rewrite);\n"
+                . "        }\n"
+                . "\n"
+                . "        return \$this->getModuleLink('module-anblog-blog', 'blog', \$params, null, \$id_lang);",
+        ],
+    ],
     $modulesRoot . '/b2bregistration/controllers/admin/AdminB2BCustomers.php' => [
         [
             'from' => '            } elseif (empty($website)) {' . "\n"
@@ -117,7 +151,13 @@ foreach ($patches as $path => $filePatches) {
             $contents = str_replace($patch['from'], $patch['to'], $contents);
             $changed = true;
         } elseif (false === strpos($contents, $patch['to'])) {
-            throw new RuntimeException('B2B vendor code changed; patch aborted for ' . $path);
+            $legacyOccurrences = isset($patch['legacy']) ? substr_count($contents, $patch['legacy']) : 0;
+            if (1 === $legacyOccurrences) {
+                $contents = str_replace($patch['legacy'], $patch['to'], $contents);
+                $changed = true;
+            } else {
+                throw new RuntimeException('Vendor code changed; patch aborted for ' . $path);
+            }
         }
     }
 

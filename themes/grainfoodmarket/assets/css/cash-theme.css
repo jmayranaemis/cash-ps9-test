@@ -1196,6 +1196,10 @@ a.active,
   line-height: 1;
 }
 
+.cash-b2b__intro > p:not(.cash-b2b__eyebrow) {
+  color: var(--cash-ivory) !important;
+}
+
 .cash-b2b__eyebrow {
   margin-bottom: 12px;
   color: var(--cash-beige);

@@ -1,5 +1,5 @@
 <div class="cash-home">
-  <section class="cash-hero">
+  <section class="cash-hero" style="--cash-hero-image:url('{$cash_content.hero_image_url|escape:'htmlall':'UTF-8'}')">
     <div class="cash-home__container cash-hero__inner">
       <div class="cash-hero__content">
         <p class="cash-eyebrow">{$cash_content.hero_eyebrow|escape:'htmlall':'UTF-8'}</p>
@@ -49,10 +49,6 @@
         </div>
         <div class="cash-section__tools">
           <a href="{$cash_products_url|escape:'htmlall':'UTF-8'}">Voir tous les produits →</a>
-          <div class="cash-carousel-buttons">
-            <button type="button" data-cash-carousel-prev aria-label="Catégories précédentes">←</button>
-            <button type="button" data-cash-carousel-next aria-label="Catégories suivantes">→</button>
-          </div>
         </div>
       </div>
       <div class="cash-carousel">
@@ -69,6 +65,10 @@
           </a>
         {/foreach}
       </div>
+      </div>
+      <div class="cash-carousel-buttons cash-carousel-buttons--below">
+        <button type="button" data-cash-carousel-prev aria-label="Catégories précédentes">←</button>
+        <button type="button" data-cash-carousel-next aria-label="Catégories suivantes">→</button>
       </div>
     </div>
   </section>
