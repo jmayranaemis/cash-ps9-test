@@ -5,10 +5,15 @@ Bonjour {first_name} {last_name},
 Votre dossier a été validé par l’équipe Cash Alimentaire.
 Votre identifiant est : {email}
 
-Pour choisir votre mot de passe, rendez-vous sur :
-{shop_url}recuperation-mot-de-passe
+Votre espace professionnel vous permet de conserver vos produits favoris
+et de retrouver vos informations. Le site fonctionne actuellement en mode
+catalogue : aucune commande ne peut être passée en ligne.
 
-Utilisez la fonction « Mot de passe oublié » avec votre adresse e-mail.
+Choisissez votre mot de passe avec ce lien sécurisé :
+{password_url}
+
+Ce lien personnel est temporaire. S’il a expiré, utilisez « Mot de passe
+oublié » depuis la page de connexion.
 
 Besoin d’aide ? Appelez-nous au 04 89 03 23 23.
 

@@ -1357,6 +1357,97 @@ a.active,
 .cash-b2b-confirmation__next li+li{margin-top:8px}
 .cash-b2b-confirmation__help a{color:#d01719;font-weight:700}
 
+.cash-pro-account {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.cash-pro-account__intro {
+  margin-bottom: 28px;
+  padding: 34px 38px;
+  border-left: 6px solid var(--cash-red);
+  background: var(--cash-ivory);
+}
+
+.cash-pro-account__eyebrow {
+  margin: 0 0 8px;
+  color: var(--cash-red);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.cash-pro-account__intro h2 {
+  margin: 0 0 12px;
+  color: var(--cash-brown);
+}
+
+.cash-pro-account__intro p:last-child {
+  max-width: 760px;
+  margin: 0;
+  color: var(--cash-brown);
+  line-height: 1.65;
+}
+
+.cash-pro-account__links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.cash-pro-account__card {
+  display: flex;
+  min-height: 130px;
+  align-items: center;
+  gap: 20px;
+  padding: 26px;
+  border: 1px solid var(--cash-beige);
+  background: var(--cash-white);
+  color: var(--cash-brown);
+  box-shadow: 0 10px 28px rgba(67, 42, 25, .07);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.cash-pro-account__card:hover {
+  border-color: var(--cash-red);
+  color: var(--cash-brown);
+  box-shadow: 0 16px 34px rgba(67, 42, 25, .13);
+  transform: translateY(-2px);
+}
+
+.cash-pro-account__card > i {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--cash-green);
+  color: var(--cash-ivory);
+  font-size: 27px;
+}
+
+.cash-pro-account__card:first-child > i {
+  background: var(--cash-red);
+}
+
+.cash-pro-account__card strong,
+.cash-pro-account__card small {
+  display: block;
+}
+
+.cash-pro-account__card strong {
+  margin-bottom: 6px;
+  color: var(--cash-brown);
+  font-size: 1rem;
+}
+
+.cash-pro-account__card small {
+  color: var(--cash-olive);
+  line-height: 1.45;
+}
+
 @media (max-width: 767px) {
   #header .header-nav {
     background: var(--cash-ivory);
@@ -1388,6 +1479,14 @@ a.active,
   .cash-b2b__footer {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .cash-pro-account__intro {
+    padding: 26px 22px;
+  }
+
+  .cash-pro-account__links {
+    grid-template-columns: 1fr;
   }
 
   #header .cash-main-nav {

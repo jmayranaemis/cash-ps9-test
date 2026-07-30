@@ -44,10 +44,10 @@
                 <a href="{$urls.pages.password}" rel="nofollow">
                   {l s='Forgot your password?' d='Shop.Theme.Customeraccount'}
                 </a>
-              </div>
+               </div>
                <div class="no-account">
-                  <a href="{$urls.pages.register}" data-link-action="display-register-form">
-                    {l s='No account? Create one here' d='Shop.Theme.Customeraccount'}
+                  <a href="{$link->getModuleLink('b2bregistration', 'business', array(), true)|escape:'htmlall':'UTF-8'}">
+                    Pas encore client&nbsp;? Devenir client professionnel
                   </a>
                 </div>
            </div>

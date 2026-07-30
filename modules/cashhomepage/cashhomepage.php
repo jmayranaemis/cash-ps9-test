@@ -898,6 +898,18 @@ class CashHomepage extends Module
 
     public function hookActionFrontControllerInitAfter($params)
     {
+        if ('registration' === Dispatcher::getInstance()->getController()
+            && !$this->context->customer->isLogged()) {
+            Tools::redirect(
+                $this->context->link->getModuleLink(
+                    'b2bregistration',
+                    'business',
+                    [],
+                    true
+                )
+            );
+        }
+
         if (!Tools::isSubmit('b2b_add_data')) {
             return;
         }
@@ -951,6 +963,46 @@ class CashHomepage extends Module
 
         if (isset($subjects[$params['template']])) {
             $params['subject'] = $subjects[$params['template']];
+        }
+
+        if ('b2b_activated' === $params['template']) {
+            $params['templateVars']['{password_url}'] = $this->context->link->getPageLink(
+                'password',
+                true
+            );
+            $email = is_array($params['to']) ? reset($params['to']) : $params['to'];
+            $customer = new Customer();
+            $customer->getByEmail((string) $email);
+
+            if (Validate::isLoadedObject($customer) && $customer->active) {
+                /*
+                 * Do not call Customer::update() here: this email is sent from
+                 * the B2B customer-update hook. Updating the object again would
+                 * trigger a duplicate activation email.
+                 */
+                $customer->stampResetPasswordToken();
+                $tokenSaved = Db::getInstance()->update(
+                    'customer',
+                    [
+                        'reset_password_token' => pSQL($customer->reset_password_token),
+                        'reset_password_validity' => pSQL($customer->reset_password_validity),
+                    ],
+                    'id_customer = ' . (int) $customer->id
+                );
+
+                if ($tokenSaved) {
+                    $params['templateVars']['{password_url}'] = $this->context->link->getPageLink(
+                        'password',
+                        true,
+                        null,
+                        http_build_query([
+                            'token' => $customer->secure_key,
+                            'id_customer' => (int) $customer->id,
+                            'reset_token' => $customer->reset_password_token,
+                        ])
+                    );
+                }
+            }
         }
     }
 
