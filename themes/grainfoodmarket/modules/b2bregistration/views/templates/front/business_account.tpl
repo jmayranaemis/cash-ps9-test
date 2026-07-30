@@ -85,7 +85,7 @@
 
       <div class="cash-b2b__consent">
         <label>
-          <input required name="cash_privacy" type="checkbox" value="1">
+          <input required id="terms" name="cash_privacy" type="checkbox" value="1">
           <span>J’accepte que mes informations soient utilisées pour traiter ma demande d’ouverture de compte professionnel. <sup>*</sup></span>
         </label>
         {hook h='displayGDPRConsent' mod='psgdpr' id_module=$id_module}
