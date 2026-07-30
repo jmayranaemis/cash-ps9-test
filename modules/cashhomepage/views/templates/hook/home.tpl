@@ -73,6 +73,21 @@
     </div>
   </section>
 
+  <section class="cash-section cash-product-selection" aria-label="Sélection de produits">
+    <div class="cash-home__container">
+      <div class="cash-section__heading">
+        <div>
+          <p class="cash-eyebrow">Un aperçu concret de notre offre</p>
+          <h2>Des produits pour les professionnels</h2>
+        </div>
+        <a href="{$cash_products_url|escape:'htmlall':'UTF-8'}">Explorer tout le catalogue →</a>
+      </div>
+      <div class="cash-product-selection__module">
+        {widget name='an_homeproducts'}
+      </div>
+    </div>
+  </section>
+
   <section class="cash-section cash-trades">
     <div class="cash-home__container">
       <div class="cash-section__heading">

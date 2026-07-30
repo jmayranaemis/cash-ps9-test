@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.3.0';
+        $this->version = '1.4.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -41,6 +41,7 @@ class CashHomepage extends Module
     {
         $this->removeDemoHooks();
         $this->configureB2BRegistration();
+        $this->configureHomeProducts();
         $this->configureProfessionalHeader();
 
         return true;
@@ -75,6 +76,13 @@ class CashHomepage extends Module
     {
         $this->configureNewsBlog();
         $this->ensureFaqPage(true);
+
+        return true;
+    }
+
+    public function upgradeTo140()
+    {
+        $this->configureHomeProducts();
 
         return true;
     }
@@ -123,6 +131,90 @@ class CashHomepage extends Module
         $this->configureNewsBlog();
         $this->configureMegaMenu();
         $this->configureAnnouncementLine();
+    }
+
+    private function configureHomeProducts()
+    {
+        $homeProducts = Module::getInstanceByName('an_homeproducts');
+        if (!$homeProducts || !$homeProducts->id) {
+            return;
+        }
+
+        /*
+         * The widget is rendered inside the editorial homepage, immediately
+         * after product families. Keep it off displayHome to avoid a duplicate
+         * block below the complete Cash homepage.
+         */
+        if ($homeProducts->isRegisteredInHook('displayHome')) {
+            $homeProducts->unregisterHook(Hook::getIdByName('displayHome'));
+        }
+
+        Configuration::updateValue('an_hp_view_type', 'blocks');
+        Configuration::updateValue('an_hp_slider', 1);
+        Configuration::updateValue('an_hp_slider_nav', 1);
+        Configuration::updateValue('an_hp_slider_dots', 0);
+        Configuration::updateValue('an_hp_slider_loop', 0);
+        Configuration::updateValue('an_hp_show_load_more', 0);
+
+        $db = Db::getInstance();
+        $blockId = (int) $db->getValue(
+            'SELECT id_block
+             FROM `' . _DB_PREFIX_ . 'an_homeproducts_blocks`
+             WHERE type = "new-products"
+             ORDER BY active DESC, position ASC'
+        );
+
+        if (!$blockId) {
+            return;
+        }
+
+        $db->update('an_homeproducts_blocks', ['active' => 0]);
+        $db->update('an_homeproducts_blocks', [
+            'active' => 1,
+            'products_display' => 8,
+            'position' => 0,
+            'show_sort' => 0,
+            'show_sub_cat' => 0,
+            'randomize' => 0,
+        ], 'id_block = ' . $blockId);
+
+        foreach (Language::getLanguages(false) as $language) {
+            $languageId = (int) $language['id_lang'];
+            $data = [
+                'title' => pSQL('Quelques produits de notre catalogue'),
+                'text' => pSQL(
+                    '<p>Un aperçu de nos références professionnelles. Consultez la fiche pour découvrir le produit.</p>',
+                    true
+                ),
+            ];
+            if ((int) $db->getValue(
+                'SELECT COUNT(*) FROM `' . _DB_PREFIX_ . 'an_homeproducts_blocks_lang`
+                 WHERE id_block = ' . $blockId . ' AND id_lang = ' . $languageId
+            )) {
+                $db->update(
+                    'an_homeproducts_blocks_lang',
+                    $data,
+                    'id_block = ' . $blockId . ' AND id_lang = ' . $languageId
+                );
+            } else {
+                $data['id_block'] = $blockId;
+                $data['id_lang'] = $languageId;
+                $data['link'] = '';
+                $db->insert('an_homeproducts_blocks_lang', $data);
+            }
+        }
+
+        if (!(int) $db->getValue(
+            'SELECT COUNT(*) FROM `' . _DB_PREFIX_ . 'an_homeproducts_blocks_shop`
+             WHERE id_block = ' . $blockId . ' AND id_shop = ' . (int) $this->context->shop->id
+        )) {
+            $db->insert('an_homeproducts_blocks_shop', [
+                'id_block' => $blockId,
+                'id_shop' => (int) $this->context->shop->id,
+            ]);
+        }
+
+        $homeProducts->_clearCache('*');
     }
 
     private function configureNewsBlog()
