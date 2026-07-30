@@ -34,7 +34,7 @@
           </div>
           <div class="form-group">
             <label for="identification-number">SIRET (14 chiffres) <sup>*</sup></label>
-            <input required type="text" inputmode="numeric" minlength="14" maxlength="14" pattern="[0-9]{14}" name="identification_number" id="identification-number" class="form-control" autocomplete="off" value="{if !empty($smarty.post.identification_number)}{$smarty.post.identification_number|escape:'htmlall':'UTF-8'}{/if}">
+            <input required type="text" inputmode="numeric" minlength="14" maxlength="14" pattern="[0-9]+" name="identification_number" id="identification-number" class="form-control" autocomplete="off" value="{if !empty($smarty.post.identification_number)}{$smarty.post.identification_number|escape:'htmlall':'UTF-8'}{/if}">
             <small id="cash-siret-help">Un contrôle de cohérence est effectué avant l’envoi.</small>
           </div>
           <div class="form-group">
@@ -135,7 +135,11 @@
         password.value = generated;
         confirmation.value = generated;
       });
-      siret.addEventListener('input', function () { siret.setCustomValidity(''); });
+      siret.addEventListener('input', function () {
+        var digits = siret.value.replace(/\D/g, '').slice(0, 14);
+        if (siret.value !== digits) siret.value = digits;
+        siret.setCustomValidity('');
+      });
     }());
   </script>
 {/block}
