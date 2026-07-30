@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.5.0';
+        $this->version = '1.5.1';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -34,6 +34,7 @@ class CashHomepage extends Module
             && $this->registerHook('displayNav2')
             && $this->registerHook('displayNav3')
             && $this->registerHook('actionFrontControllerInitAfter')
+            && $this->registerHook('actionEmailSendBefore')
             && $this->installEditableContent()
             && $this->configureCashExperience();
     }
@@ -96,6 +97,16 @@ class CashHomepage extends Module
         }
 
         $this->configureB2BRegistration();
+
+        return true;
+    }
+
+    public function upgradeTo151()
+    {
+        if (!$this->isRegisteredInHook('actionEmailSendBefore')
+            && !$this->registerHook('actionEmailSendBefore')) {
+            return false;
+        }
 
         return true;
     }
@@ -913,6 +924,23 @@ class CashHomepage extends Module
             $controller->errors[] = $this->l(
                 'Vous devez accepter l’utilisation de vos informations pour transmettre votre demande.'
             );
+        }
+    }
+
+    public function hookActionEmailSendBefore($params)
+    {
+        if (empty($params['template'])) {
+            return;
+        }
+
+        $subjects = [
+            'b2b_customer_pending' => 'Votre demande professionnelle est en attente de validation',
+            'b2b_activated' => 'Votre compte professionnel Cash Alimentaire est activé',
+            'customer_registration_admin_notify' => 'Nouvelle demande d’ouverture de compte professionnel',
+        ];
+
+        if (isset($subjects[$params['template']])) {
+            $params['subject'] = $subjects[$params['template']];
         }
     }
 
