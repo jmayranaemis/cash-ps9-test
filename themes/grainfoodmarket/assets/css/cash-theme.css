@@ -520,7 +520,8 @@ a.active,
   height: 8px;
   border-right: 2px solid var(--cash-white);
   border-bottom: 2px solid var(--cash-white);
-  pointer-events: none;
+  cursor: pointer;
+  pointer-events: auto;
   transform: translateY(-70%) rotate(45deg);
   transition: transform .2s ease;
 }
@@ -560,6 +561,15 @@ a.active,
   border-top: 3px solid var(--cash-red);
   border-radius: 0 0 14px 14px;
   box-shadow: 0 24px 54px rgba(67, 42, 25, .23);
+}
+
+@media (min-width: 1200px) {
+  #header .ets_mm_megamenu .mm_menus_li .mm_columns_ul.mm_columns_ul_tab.active {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
 }
 
 #header .ets_mm_megamenu .mm_columns_ul::before {
@@ -636,13 +646,18 @@ a.active,
   width: calc(100% - 270px) !important;
   min-height: 100%;
   align-content: flex-start;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin: 0;
   padding: 34px 34px 24px;
   background: var(--cash-white);
   border: 0;
 }
 
 #header .ets_mm_megamenu .mm_columns_contents_ul .mm_columns_li {
+  display: flex;
   width: 50% !important;
+  float: none;
   margin: 0 !important;
   padding: 0 14px 16px !important;
   border: 0 !important;
@@ -650,12 +665,17 @@ a.active,
 
 #header .ets_mm_megamenu .mm_blocks_ul,
 #header .ets_mm_megamenu .mm_blocks_li {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  float: none;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 #header .ets_mm_megamenu .ets_mm_block {
+  width: 100%;
   height: 100%;
   padding: 20px 22px 18px;
   background: var(--cash-ivory);
@@ -737,6 +757,25 @@ a.active,
 #header .ets_mm_megamenu .ets_mm_block_content li a:focus::after {
   opacity: 1;
   transform: translate(0, -50%);
+}
+
+/* Le module et le thème ajoutent plusieurs styles de listes concurrents. */
+#header .ets_mm_megamenu ul,
+#header .ets_mm_megamenu li,
+#header .ets_mm_megamenu .mm_columns_ul,
+#header .ets_mm_megamenu .mm_columns_contents_ul,
+#header .ets_mm_megamenu .mm_columns_li,
+#header .ets_mm_megamenu .mm_blocks_ul,
+#header .ets_mm_megamenu .mm_blocks_li {
+  list-style: none !important;
+}
+
+#header .ets_mm_megamenu li::marker,
+#header .ets_mm_megamenu .mm_columns_li::marker,
+#header .ets_mm_megamenu .mm_blocks_li::marker {
+  color: transparent !important;
+  content: "" !important;
+  font-size: 0 !important;
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
