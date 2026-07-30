@@ -551,10 +551,10 @@ a.active,
   left: 0;
   width: 100% !important;
   min-height: 390px;
-  max-height: min(590px, calc(100vh - 230px));
+  max-height: none;
   margin: 0;
   padding: 0 !important;
-  overflow: auto;
+  overflow: visible;
   color: var(--cash-brown);
   background: var(--cash-white);
   border: 0;
@@ -569,6 +569,23 @@ a.active,
     opacity: 1;
     pointer-events: auto;
     visibility: visible;
+  }
+
+  /*
+   * Le contenu est positionné par le module hors du flux du panneau.
+   * On réserve donc la hauteur de chaque rangée supplémentaire afin de
+   * conserver un seul défilement : celui de la page.
+   */
+  #header .ets_mm_megamenu .mm_columns_ul_tab:has(.mm_columns_contents_ul > .mm_columns_li:nth-child(3)) {
+    min-height: 820px;
+  }
+
+  #header .ets_mm_megamenu .mm_columns_ul_tab:has(.mm_columns_contents_ul > .mm_columns_li:nth-child(5)) {
+    min-height: 1250px;
+  }
+
+  #header .ets_mm_megamenu .mm_columns_ul_tab:has(.mm_columns_contents_ul > .mm_columns_li:nth-child(7)) {
+    min-height: 1680px;
   }
 }
 
