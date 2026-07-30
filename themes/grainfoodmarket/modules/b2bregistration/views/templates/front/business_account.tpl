@@ -106,31 +106,9 @@
       var confirmation = document.getElementById('cash-pending-confirm-password');
       if (!form || !siret) return;
 
-      function isValidSiret(value) {
-        var digits = value.replace(/\s/g, '');
-        if (!/^\d{14}$/.test(digits)) return false;
-        var sum = 0;
-        for (var i = 0; i < digits.length; i++) {
-          var number = parseInt(digits.charAt(i), 10);
-          if (i % 2 === 0) {
-            number *= 2;
-            if (number > 9) number -= 9;
-          }
-          sum += number;
-        }
-        return sum % 10 === 0;
-      }
-
-      form.addEventListener('submit', function (event) {
+      form.addEventListener('submit', function () {
         var cleanSiret = siret.value.replace(/\s/g, '');
         siret.value = cleanSiret;
-        if (!isValidSiret(cleanSiret)) {
-          event.preventDefault();
-          siret.setCustomValidity('Le numéro SIRET saisi n’est pas valide.');
-          siret.reportValidity();
-          return;
-        }
-        siret.setCustomValidity('');
         var generated = 'Pending-' + Date.now() + '-' + Math.random().toString(36).slice(2) + '!A7';
         password.value = generated;
         confirmation.value = generated;
