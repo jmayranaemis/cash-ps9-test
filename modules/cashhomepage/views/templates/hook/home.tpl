@@ -106,17 +106,34 @@
 
   <section id="catalogues" class="cash-section cash-catalogues">
     <div class="cash-home__container cash-catalogues__grid">
-      <div>
+      <div class="cash-catalogues__intro">
         <p class="cash-eyebrow">Sélections & nouveautés</p>
         <h2>{$cash_content.catalogue_title|escape:'htmlall':'UTF-8'}</h2>
         <p>{$cash_content.catalogue_text|escape:'htmlall':'UTF-8'}</p>
+        <a class="cash-catalogues__all" href="{$cash_catalogues_url|escape:'htmlall':'UTF-8'}">Voir tous les catalogues →</a>
       </div>
-      <div class="cash-catalogue-card">
-        <span>Catalogue professionnel</span>
-        <strong>{$cash_content.catalogue_card_title|escape:'htmlall':'UTF-8'}</strong>
-        <p>{$cash_content.catalogue_card_text|escape:'htmlall':'UTF-8'}</p>
-        <a class="cash-button cash-button--primary" href="{$cash_catalogue_contact_url|escape:'htmlall':'UTF-8'}">Demander un catalogue</a>
-      </div>
+      {if $cash_catalogues}
+        <div class="cash-catalogues__showcase" data-cash-carousel>
+          <div class="cash-catalogues__list" data-cash-carousel-track>
+            {foreach from=$cash_catalogues item=catalogue}
+              {include file='module:cashhomepage/views/templates/_partials/catalogue-card.tpl' catalogue=$catalogue}
+            {/foreach}
+          </div>
+          {if $cash_catalogues|count > 1}
+            <div class="cash-carousel-buttons cash-catalogues__buttons">
+              <button type="button" data-cash-carousel-prev aria-label="Catalogue précédent">←</button>
+              <button type="button" data-cash-carousel-next aria-label="Catalogue suivant">→</button>
+            </div>
+          {/if}
+        </div>
+      {else}
+        <div class="cash-catalogue-card cash-catalogue-card--empty">
+          <span>Catalogue professionnel</span>
+          <strong>{$cash_content.catalogue_card_title|escape:'htmlall':'UTF-8'}</strong>
+          <p>{$cash_content.catalogue_card_text|escape:'htmlall':'UTF-8'}</p>
+          <a class="cash-button cash-button--primary" href="{$cash_catalogue_contact_url|escape:'htmlall':'UTF-8'}">Demander un catalogue</a>
+        </div>
+      {/if}
     </div>
   </section>
 

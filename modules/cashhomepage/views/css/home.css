@@ -121,3 +121,111 @@
   }
   .cash-hero__panel{box-shadow:8px 8px 0 rgba(217,197,173,.8)}
 }
+
+/* Catalogues interactifs — habillage Cash autour du lecteur Flipbook. */
+.cash-catalogues__grid{align-items:start}
+.cash-catalogues__intro{padding-top:14px}
+.cash-catalogues__all{display:inline-flex;margin-top:22px;color:#fff!important;font-weight:800;text-decoration:none!important}
+.cash-catalogues__all:hover{text-decoration:underline!important}
+.cash-catalogues__showcase{min-width:0}
+.cash-catalogues__list{
+  display:grid;
+  grid-auto-columns:100%;
+  grid-auto-flow:column;
+  gap:18px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+}
+.cash-catalogues__list::-webkit-scrollbar{display:none}
+.cash-catalogues__buttons{justify-content:flex-end;margin-top:15px}
+.cash-catalogues__buttons button{color:#fff!important;border-color:rgba(255,255,255,.72)!important;background:transparent!important}
+.cash-catalogues__buttons button:hover{color:var(--brown)!important;background:#fff!important;border-color:#fff!important}
+.cash-flipbook-card{
+  display:grid;
+  min-width:0;
+  grid-template-columns:180px minmax(0,1fr);
+  overflow:hidden;
+  color:var(--brown);
+  background:#fff;
+  border:1px solid rgba(67,42,25,.14);
+  border-radius:12px;
+  box-shadow:0 18px 45px rgba(20,38,33,.2);
+  scroll-snap-align:start;
+}
+.cash-flipbook-card__media{
+  display:grid;
+  min-height:310px;
+  padding:25px 20px;
+  place-items:center;
+  background:linear-gradient(145deg,var(--beige),#eee0d0);
+}
+.cash-flipbook-card__media .cash-flipbook-card__cover{
+  width:154px!important;
+  height:220px!important;
+  margin:0!important;
+  cursor:pointer;
+  box-shadow:0 14px 30px rgba(67,42,25,.25);
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+.cash-flipbook-card__media .cash-flipbook-card__cover:hover{
+  box-shadow:0 18px 34px rgba(67,42,25,.32);
+  transform:translateY(-4px);
+}
+.cash-flipbook-card__body{display:flex;min-width:0;flex-direction:column;padding:29px 28px}
+.cash-flipbook-card__label{color:var(--red);font-size:.72rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+.cash-flipbook-card h3{margin:9px 0 12px;color:var(--brown);font-size:1.42rem;line-height:1.15}
+.cash-flipbook-card p{margin:0;color:var(--olive)!important;font-size:.9rem;line-height:1.55}
+.cash-flipbook-card__actions{display:flex;flex-wrap:wrap;gap:11px;align-items:center;margin-top:auto;padding-top:22px}
+.cash-flipbook-card__actions .cash-button{min-height:44px;padding:10px 17px;cursor:pointer;font:inherit;font-weight:800}
+.cash-flipbook-card__download{color:var(--brown)!important;font-size:.83rem;font-weight:800;text-decoration:underline!important;text-underline-offset:3px}
+.cash-catalogue-card--empty{border-radius:10px}
+
+/* Page dédiée aux catalogues. */
+.cash-catalogues-page{
+  --brown:#432a19;
+  --red:#d01719;
+  --ivory:#fff8f1;
+  --beige:#d9c5ad;
+  --olive:#71735b;
+  --green:#24483d;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  color:var(--brown);
+}
+html:has(body#module-cashhomepage-catalogues),
+body#module-cashhomepage-catalogues{overflow-x:hidden!important}
+.cash-catalogues-page *{box-sizing:border-box}
+.cash-catalogues-page__hero{padding:78px 0 72px;color:#fff;background:linear-gradient(120deg,var(--brown),var(--green))}
+.cash-catalogues-page__hero .cash-eyebrow,.cash-catalogues-page__hero h1{color:#fff}
+.cash-catalogues-page__hero h1{max-width:800px;margin:0 0 18px;font-size:clamp(2.5rem,5vw,4.8rem);line-height:1}
+.cash-catalogues-page__hero>div>p:last-child{max-width:760px;margin:0;color:var(--ivory);font-size:1.1rem}
+.cash-catalogues-page__content{padding:74px 0 82px;background:var(--ivory)}
+.cash-catalogues-page__heading{display:flex;gap:40px;align-items:end;justify-content:space-between;margin-bottom:32px}
+.cash-catalogues-page__heading h2,.cash-catalogues-page__empty h2,.cash-catalogues-page__help h2{margin:0;color:var(--brown)}
+.cash-catalogues-page__heading>p{max-width:420px;margin:0;color:var(--olive)}
+.cash-catalogues-page__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.cash-catalogues-page__grid .cash-flipbook-card{box-shadow:0 12px 32px rgba(67,42,25,.1)}
+.cash-catalogues-page__empty{padding:50px;background:#fff;border:1px solid var(--beige);border-left:7px solid var(--red)}
+.cash-catalogues-page__empty p:not(.cash-eyebrow){color:var(--olive)}
+.cash-catalogues-page__help{padding:55px 0;background:var(--beige)}
+.cash-catalogues-page__help>div{display:flex;gap:35px;align-items:center;justify-content:space-between}
+.cash-catalogues-page__help .cash-eyebrow{margin-bottom:8px}
+
+@media(max-width:991px){
+  .cash-catalogues-page__grid{grid-template-columns:1fr}
+  .cash-catalogues-page__heading{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:767px){
+  .cash-catalogues__grid{gap:34px}
+  .cash-catalogues-page__hero{padding:55px 0}
+  .cash-catalogues-page__content{padding:55px 0}
+  .cash-catalogues-page__help>div{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:560px){
+  .cash-flipbook-card{grid-template-columns:1fr}
+  .cash-flipbook-card__media{min-height:275px;padding:24px}
+  .cash-flipbook-card__body{padding:25px 22px}
+  .cash-flipbook-card__actions{margin-top:8px}
+}

@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.5.1';
+        $this->version = '1.6.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -33,6 +33,7 @@ class CashHomepage extends Module
             && $this->registerHook('displayNav1')
             && $this->registerHook('displayNav2')
             && $this->registerHook('displayNav3')
+            && $this->registerHook('moduleRoutes')
             && $this->registerHook('actionFrontControllerInitAfter')
             && $this->registerHook('actionEmailSendBefore')
             && $this->installEditableContent()
@@ -45,6 +46,7 @@ class CashHomepage extends Module
         $this->configureB2BRegistration();
         $this->configureHomeProducts();
         $this->configureProfessionalHeader();
+        $this->configureCataloguesIntegration();
 
         return true;
     }
@@ -111,6 +113,18 @@ class CashHomepage extends Module
         return true;
     }
 
+    public function upgradeTo160()
+    {
+        if (!$this->isRegisteredInHook('moduleRoutes')
+            && !$this->registerHook('moduleRoutes')) {
+            return false;
+        }
+
+        $this->configureCataloguesIntegration();
+
+        return true;
+    }
+
     private function removeDemoHooks()
     {
         $hooksByModule = [
@@ -155,6 +169,28 @@ class CashHomepage extends Module
         $this->configureNewsBlog();
         $this->configureMegaMenu();
         $this->configureAnnouncementLine();
+    }
+
+    private function configureCataloguesIntegration()
+    {
+        $flipbook = Module::getInstanceByName('lpsflipbook');
+        if ($flipbook && $flipbook->id && $flipbook->isRegisteredInHook('displayFooterAfter')) {
+            $flipbook->unregisterHook(Hook::getIdByName('displayFooterAfter'));
+        }
+
+        $cataloguesUrl = $this->getCataloguesUrl();
+        $db = Db::getInstance();
+        if ($db->getValue(
+            'SELECT COUNT(*) FROM information_schema.tables
+             WHERE table_schema = "' . pSQL(_DB_NAME_) . '"
+             AND table_name = "' . pSQL(_DB_PREFIX_ . 'ets_mm_menu_lang') . '"'
+        )) {
+            $db->update(
+                'ets_mm_menu_lang',
+                ['link' => pSQL($cataloguesUrl)],
+                'LOWER(title) LIKE "%catalogue%"'
+            );
+        }
     }
 
     private function configureHomeProducts()
@@ -334,7 +370,7 @@ class CashHomepage extends Module
                 'title' => 'Catalogues',
                 'link_type' => 'CUSTOM',
                 'id_category' => 0,
-                'link' => $baseUrl . '#catalogues',
+                'link' => $this->context->link->getModuleLink($this->name, 'catalogues', [], true),
                 'custom_class' => '',
             ],
             4 => [
@@ -881,20 +917,39 @@ class CashHomepage extends Module
 
     public function hookDisplayHeader()
     {
-        if ('index' !== $this->context->controller->php_self) {
+        $isHomepage = 'index' === $this->context->controller->php_self;
+        $isCataloguesPage = 'cashhomepage' === Tools::getValue('module')
+            && 'catalogues' === Tools::getValue('controller');
+
+        if (!$isHomepage && !$isCataloguesPage) {
             return;
         }
 
         $this->context->controller->registerStylesheet(
             'module-cashhomepage',
             'modules/' . $this->name . '/views/css/home.css',
-            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-5']
+            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-2']
         );
         $this->context->controller->registerJavascript(
             'module-cashhomepage-carousel',
             'modules/' . $this->name . '/views/js/home.js',
-            ['position' => 'bottom', 'priority' => 200]
+            ['position' => 'bottom', 'priority' => 200, 'version' => $this->version . '-2']
         );
+    }
+
+    public function hookModuleRoutes()
+    {
+        return [
+            'module-' . $this->name . '-catalogues' => [
+                'controller' => 'catalogues',
+                'rule' => 'catalogues-professionnels.html',
+                'keywords' => [],
+                'params' => [
+                    'fc' => 'module',
+                    'module' => $this->name,
+                ],
+            ],
+        ];
     }
 
     public function hookActionFrontControllerInitAfter($params)
@@ -1097,6 +1152,7 @@ class CashHomepage extends Module
         }
         unset($manufacturer);
         $catalogueContactId = $this->ensureCatalogueContact();
+        $catalogues = $this->getActiveCatalogues();
 
         $this->context->smarty->assign([
             'cash_families' => $this->getProductFamilies(8),
@@ -1110,11 +1166,85 @@ class CashHomepage extends Module
                 $languageId,
                 $catalogueContactId ? ['id_contact' => $catalogueContactId] : null
             ),
+            'cash_catalogues' => $catalogues,
+            'cash_catalogues_url' => $this->getCataloguesUrl(),
             'cash_stores_url' => $this->context->link->getPageLink('stores', true),
             'cash_products_url' => $this->context->link->getCategoryLink($homeCategory->id),
         ]);
 
         return $this->fetch('module:' . $this->name . '/views/templates/hook/home.tpl');
+    }
+
+    public function getActiveCatalogues($limit = 0)
+    {
+        $flipbook = Module::getInstanceByName('lpsflipbook');
+        if (!$flipbook || !$flipbook->id || !$flipbook->active) {
+            return [];
+        }
+
+        $db = Db::getInstance();
+        if (!(int) $db->getValue(
+            'SELECT COUNT(*) FROM information_schema.tables
+             WHERE table_schema = "' . pSQL(_DB_NAME_) . '"
+             AND table_name = "' . pSQL(_DB_PREFIX_ . 'lpsflipbook') . '"'
+        )) {
+            return [];
+        }
+
+        $rows = $db->executeS(
+            'SELECT f.*, fl.title
+             FROM `' . _DB_PREFIX_ . 'lpsflipbook` f
+             INNER JOIN `' . _DB_PREFIX_ . 'lpsflipbook_lang` fl
+                ON fl.id_lpsflipbook = f.id_lpsflipbook
+                AND fl.id_lang = ' . (int) $this->context->language->id . '
+             WHERE f.id_shop = ' . (int) $this->context->shop->id . '
+               AND f.pdf_name <> ""
+             ORDER BY f.id_lpsflipbook DESC'
+        );
+
+        $catalogues = [];
+        $baseUrl = rtrim(
+            $this->context->link->getBaseLink((int) $this->context->shop->id, true),
+            '/'
+        );
+        foreach ($rows as $row) {
+            $pdfFile = _PS_MODULE_DIR_ . 'lpsflipbook/views/pdf/' . basename($row['pdf_name']);
+            if (!is_file($pdfFile)) {
+                continue;
+            }
+
+            $thumbName = basename((string) $row['thumb_name']);
+            $thumbFile = _PS_MODULE_DIR_ . 'lpsflipbook/views/thumb/' . $thumbName;
+            $catalogues[] = [
+                'id' => (int) $row['id_lpsflipbook'],
+                'title' => trim((string) $row['title']) ?: $this->l('Catalogue professionnel'),
+                'pdf_url' => $baseUrl . '/modules/lpsflipbook/views/pdf/' . rawurlencode(
+                    basename($row['pdf_name'])
+                ),
+                'thumb_url' => is_file($thumbFile)
+                    ? $baseUrl . '/modules/lpsflipbook/views/thumb/' . rawurlencode($thumbName)
+                    : '',
+                'sound' => (int) $row['sound'],
+                'download' => (int) $row['download'],
+                'background_color' => Validate::isColor($row['background_color'])
+                    ? $row['background_color']
+                    : '#fff8f1',
+            ];
+
+            if ($limit > 0 && count($catalogues) >= $limit) {
+                break;
+            }
+        }
+
+        return $catalogues;
+    }
+
+    public function getCataloguesUrl()
+    {
+        return rtrim(
+            $this->context->link->getBaseLink((int) $this->context->shop->id, true),
+            '/'
+        ) . '/catalogues-professionnels.html';
     }
 
     private function getProductFamilies($limit)

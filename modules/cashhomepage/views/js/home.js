@@ -26,7 +26,25 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function initCashHomepage() {
     document.querySelectorAll('[data-cash-carousel]').forEach(initCarousel);
-  });
+
+    document.addEventListener('click', function (event) {
+      var opener = event.target.closest('[data-cash-open-catalogue]');
+      if (!opener) {
+        return;
+      }
+
+      var catalogue = document.getElementById(opener.getAttribute('data-cash-open-catalogue'));
+      if (catalogue) {
+        catalogue.click();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCashHomepage);
+  } else {
+    initCashHomepage();
+  }
 }());
