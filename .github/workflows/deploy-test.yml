@@ -45,6 +45,8 @@ jobs:
               - 'override/**'
             docker:
               - 'docker/**'
+            robots:
+              - 'robots.txt'
 
       - name: Rsync themes
         if: steps.filter.outputs.theme == 'true'
@@ -102,6 +104,17 @@ jobs:
           remote_user: ${{ secrets.SSH_USER }}
           remote_key: ${{ secrets.SSH_KEY }}
 
+      - name: Rsync robots.txt
+        if: steps.filter.outputs.robots == 'true'
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avz --no-perms --no-owner --no-group
+          path: robots.txt
+          remote_path: ${{ secrets.SSH_PATH_ROOT }}/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+
       - name: Reload Docker stack
         if: steps.filter.outputs.docker == 'true'
         uses: appleboy/ssh-action@v1.0.3
@@ -112,7 +125,10 @@ jobs:
           script: |
             set -e
             cd /srv/docker/cash-ps9-test
-            docker compose up -d
+            docker compose up -d --force-recreate cash_ps9_test_web
+            docker exec cash_ps9_test_web nginx -t
+            docker exec ${{ secrets.DOCKER_PHP_CONTAINER }} php -r \
+              'require "/var/www/html/config/config.inc.php"; Configuration::updateValue("uit_force_nginx_mode", 1);'
 
       - name: Restore PrestaShop writable ownership
         uses: appleboy/ssh-action@v1.0.3
