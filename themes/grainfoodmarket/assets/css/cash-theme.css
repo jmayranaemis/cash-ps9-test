@@ -674,6 +674,16 @@ a.active,
   list-style: none;
 }
 
+#header .ets_mm_megamenu .mm_columns_contents_ul .mm_blocks_ul {
+  gap: 14px;
+  align-items: stretch;
+}
+
+#header .ets_mm_megamenu .mm_columns_contents_ul .mm_blocks_li {
+  min-width: 0;
+  flex: 1 1 0;
+}
+
 #header .ets_mm_megamenu .ets_mm_block {
   width: 100%;
   height: 100%;
