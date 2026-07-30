@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.4.0';
+        $this->version = '1.5.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -33,6 +33,7 @@ class CashHomepage extends Module
             && $this->registerHook('displayNav1')
             && $this->registerHook('displayNav2')
             && $this->registerHook('displayNav3')
+            && $this->registerHook('actionFrontControllerInitAfter')
             && $this->installEditableContent()
             && $this->configureCashExperience();
     }
@@ -83,6 +84,18 @@ class CashHomepage extends Module
     public function upgradeTo140()
     {
         $this->configureHomeProducts();
+
+        return true;
+    }
+
+    public function upgradeTo150()
+    {
+        if (!$this->isRegisteredInHook('actionFrontControllerInitAfter')
+            && !$this->registerHook('actionFrontControllerInitAfter')) {
+            return false;
+        }
+
+        $this->configureB2BRegistration();
 
         return true;
     }
@@ -711,6 +724,39 @@ class CashHomepage extends Module
             Configuration::updateValue($key, $value, false, $shopGroupId, $shopId);
         }
 
+        $confirmation = [];
+        foreach (Language::getLanguages(false) as $language) {
+            $confirmation[(int) $language['id_lang']] = '
+                <section class="cash-b2b-confirmation">
+                    <span class="cash-b2b-confirmation__icon" aria-hidden="true">✓</span>
+                    <p class="cash-b2b__eyebrow">Demande transmise</p>
+                    <h1>Votre dossier est bien enregistré</h1>
+                    <p>Merci. Votre demande d’ouverture de compte est maintenant en attente de validation par notre équipe.</p>
+                    <div class="cash-b2b-confirmation__next">
+                        <strong>La suite</strong>
+                        <ol>
+                            <li>Nous vérifions votre SIRET et votre extrait Kbis.</li>
+                            <li>Nous vous contactons si une information doit être complétée.</li>
+                            <li>Après validation, vous recevez un e-mail pour accéder à votre compte.</li>
+                        </ol>
+                    </div>
+                    <p class="cash-b2b-confirmation__help">Une question ? Appelez-nous au
+                        <a href="tel:+33489032323">04 89 03 23 23</a> ou
+                        <a href="' . $this->context->link->getPageLink('contact', true) . '">contactez notre équipe</a>.
+                    </p>
+                    <a class="btn btn-primary cash-b2b__submit" href="' . $this->context->link->getPageLink('index', true) . '">
+                        Revenir à l’accueil
+                    </a>
+                </section>';
+        }
+        Configuration::updateValue(
+            'B2BREGISTRATION_CUSTOM_TEXT',
+            $confirmation,
+            true,
+            $shopGroupId,
+            $shopId
+        );
+
         $this->ensureB2BField('Type d’établissement', 'select', 1, 1, '', 2, [
             'Restaurant traditionnel',
             'Restauration rapide / snacking',
@@ -837,6 +883,58 @@ class CashHomepage extends Module
             'modules/' . $this->name . '/views/js/home.js',
             ['position' => 'bottom', 'priority' => 200]
         );
+    }
+
+    public function hookActionFrontControllerInitAfter($params)
+    {
+        if (!Tools::isSubmit('b2b_add_data')) {
+            return;
+        }
+
+        $controller = isset($params['controller']) ? $params['controller'] : null;
+        if (!$controller
+            || !isset($controller->module)
+            || 'b2bregistration' !== $controller->module->name
+            || 'business' !== Dispatcher::getInstance()->getController()) {
+            return;
+        }
+
+        $siret = preg_replace('/\D+/', '', (string) Tools::getValue('identification_number'));
+        $_POST['identification_number'] = $siret;
+        $_REQUEST['identification_number'] = $siret;
+
+        if (!$this->isSiretChecksumValid($siret)) {
+            $controller->errors[] = $this->l(
+                'Le numéro SIRET doit comporter 14 chiffres et respecter la clé de contrôle officielle.'
+            );
+        }
+
+        if (!(int) Tools::getValue('cash_privacy')) {
+            $controller->errors[] = $this->l(
+                'Vous devez accepter l’utilisation de vos informations pour transmettre votre demande.'
+            );
+        }
+    }
+
+    private function isSiretChecksumValid($siret)
+    {
+        if (!preg_match('/^\d{14}$/', $siret)) {
+            return false;
+        }
+
+        $sum = 0;
+        for ($index = 0; $index < 14; ++$index) {
+            $digit = (int) $siret[$index];
+            if (0 === $index % 2) {
+                $digit *= 2;
+                if ($digit > 9) {
+                    $digit -= 9;
+                }
+            }
+            $sum += $digit;
+        }
+
+        return 0 === $sum % 10;
     }
 
     public function hookDisplayNav1()

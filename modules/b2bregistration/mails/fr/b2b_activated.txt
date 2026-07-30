@@ -1,0 +1,15 @@
+COMPTE VALIDÉ
+
+Bonjour {first_name} {last_name},
+
+Votre dossier a été validé par l’équipe Cash Alimentaire.
+Votre identifiant est : {email}
+
+Pour choisir votre mot de passe, rendez-vous sur :
+{shop_url}recuperation-mot-de-passe
+
+Utilisez la fonction « Mot de passe oublié » avec votre adresse e-mail.
+
+Besoin d’aide ? Appelez-nous au 04 89 03 23 23.
+
+Cash Alimentaire du Sud-Est
