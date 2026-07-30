@@ -87,9 +87,20 @@
 }
 .cash-product-selection__module .owl-item .thumbnail-container,
 .cash-product-selection__module .owl-item .thumbnail-container-image,
-.cash-product-selection__module .owl-item .product-thumbnail{
+.cash-product-selection__module .owl-item .product-thumbnail,
+.cash-product-selection__module .owl-item .product-description{
   width:100%!important;
   max-width:100%!important;
+  box-sizing:border-box;
+}
+.cash-product-selection__module .owl-item .product-title,
+.cash-product-selection__module .owl-item .product-title a{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  overflow:hidden;
+  overflow-wrap:anywhere;
 }
 .cash-product-selection__module .owl-item .product-thumbnail img{
   width:100%!important;

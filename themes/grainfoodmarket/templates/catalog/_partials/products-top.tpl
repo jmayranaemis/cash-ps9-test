@@ -24,6 +24,7 @@
  *}
 
 {assign isLeftCol 0}
+{assign var='showCollectionView' value=false}
 {foreach from=$page.body_classes key=k item=v}
 	{if $k == 'layout-left-column'}
 	    {assign isLeftCol 1}
@@ -65,6 +66,7 @@
             </div>
           </div>
 
+          {if $showCollectionView}
           <div class="col-md-6 collection-view">
             <div class="collection-view-btn
             {if isset($smarty.get.view) && ($smarty.get.view == 'col2' || $smarty.get.view == 'col3' || $smarty.get.view == 'col4' || $smarty.get.view == 'row')}
@@ -129,6 +131,7 @@
                 <div class="view-type view-type-4"></div>
             </div>
           </div>
+          {/if}
           <div class="col-sm-6 showing text-xs-right">
             <div class="showing-text">
             {l s='Showing %from%-%to% of %total% item(s)' d='Shop.Theme.Catalog' sprintf=[
@@ -170,6 +173,7 @@
             </div>
           </div>
 
+          {if $showCollectionView}
           <div class="col-md-6 collection-view">
             <div class="collection-view-btn
             {if isset($smarty.get.view) && ($smarty.get.view == 'col2' || $smarty.get.view == 'col3' || $smarty.get.view == 'col4' || $smarty.get.view == 'row')}
@@ -234,6 +238,7 @@
                 <div class="view-type view-type-4"></div>
             </div>
           </div>
+          {/if}
           <div class="col-sm-6 showing text-xs-right">
             <div class="showing-text">
             {l s='Showing %from%-%to% of %total% item(s)' d='Shop.Theme.Catalog' sprintf=[
@@ -264,6 +269,7 @@
                           </button>
                         </div>
                       {/if}
+                    {if $showCollectionView}
                     <div class="collection-view-wrap">
                         <div class="collection-view-btn
                         {if isset($smarty.get.view) && ($smarty.get.view == 'col2' || $smarty.get.view == 'col3' || $smarty.get.view == 'col4' || $smarty.get.view == 'row')}
@@ -328,6 +334,7 @@
                             <div class="view-type view-type-4"></div>
                         </div>
                     </div>
+                    {/if}
                   </div>
 
                   <div class="col-md-4 hidden-sm-down total-products">
@@ -366,6 +373,7 @@
                   </button>
                 </div>
               {/if}
+            {if $showCollectionView}
             <div class="collection-view-wrap">
                 <div class="collection-view-btn
                 {if isset($smarty.get.view) && ($smarty.get.view == 'col2' || $smarty.get.view == 'col3' || $smarty.get.view == 'col4' || $smarty.get.view == 'row')}
@@ -430,6 +438,7 @@
                     <div class="view-type view-type-4"></div>
                 </div>
             </div>
+            {/if}
           </div>
 
           <div class="col-md-4 hidden-sm-down total-products">

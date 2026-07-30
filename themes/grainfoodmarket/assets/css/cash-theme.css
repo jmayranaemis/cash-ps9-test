@@ -1200,6 +1200,22 @@ a.active,
   color: var(--cash-ivory) !important;
 }
 
+/* Cartes catalogue : le texte reste strictement dans la largeur de la carte. */
+#products .product-miniature:not(.col-lg-12) .product-description,
+#products .product-miniature:not(.col-lg-12) .product-title,
+#products .product-miniature:not(.col-lg-12) .product-title a {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+#products .product-miniature:not(.col-lg-12) .product-title,
+#products .product-miniature:not(.col-lg-12) .product-title a {
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
 .cash-b2b__eyebrow {
   margin-bottom: 12px;
   color: var(--cash-beige);
