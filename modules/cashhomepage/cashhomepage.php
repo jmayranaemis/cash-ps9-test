@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.10.2';
+        $this->version = '1.11.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -1012,6 +1012,12 @@ class CashHomepage extends Module
 
     public function hookDisplayHeader()
     {
+        $this->context->controller->registerStylesheet(
+            'module-cashhomepage-header-palette',
+            'modules/' . $this->name . '/views/css/header-palette.css',
+            ['media' => 'all', 'priority' => 250, 'version' => $this->version]
+        );
+
         $isHomepage = 'index' === $this->context->controller->php_self;
         $isCataloguesPage = 'cashhomepage' === Tools::getValue('module')
             && 'catalogues' === Tools::getValue('controller');

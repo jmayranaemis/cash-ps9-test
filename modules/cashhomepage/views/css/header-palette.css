@@ -1,0 +1,37 @@
+/* Test de palette du header Cash. */
+.an-sfsl{
+  color:var(--cash-brown)!important;
+  background:var(--cash-beige)!important;
+}
+.an-sfsl a,
+.an-sfsl span,
+.an-sfsl p{
+  color:var(--cash-brown)!important;
+}
+
+#header .ets_mm_megamenu:not(.changestatus),
+#header .ets_mm_megamenu:not(.changestatus) .ets_mm_megamenu_content,
+#header .ets_mm_megamenu:not(.changestatus) .mm_menus_ul{
+  background:var(--cash-green)!important;
+}
+
+#header .ets_mm_megamenu:not(.changestatus) .mm_menus_li>a.ets_mm_url,
+#header .ets_mm_megamenu:not(.changestatus) .mm_menus_li:hover>a.ets_mm_url,
+#header .ets_mm_megamenu:not(.changestatus) .mm_menus_li.active>a.ets_mm_url,
+#header .ets_mm_megamenu:not(.changestatus) .mm_menus_li.menu_hover>a.ets_mm_url,
+#header .ets_mm_megamenu:not(.changestatus) .mm_menus_li:focus-within>a.ets_mm_url{
+  color:var(--cash-ivory)!important;
+}
+
+#header .ets_mm_megamenu:not(.changestatus) .mm_menus_li::after{
+  background:rgba(255,248,241,.25)!important;
+}
+
+#header .ets_mm_megamenu:not(.changestatus) .mm_menus_li.mm_has_sub>a.ets_mm_url{
+  background:rgba(67,42,25,.28)!important;
+}
+
+#header .ets_mm_megamenu:not(.changestatus) .cash-mega-client>a.ets_mm_url{
+  color:var(--cash-white)!important;
+  background:var(--cash-red)!important;
+}
