@@ -46,7 +46,7 @@
 .product-miniature:not(.col-lg-12) .thumbnail-container-image {
   position: relative;
   display: block;
-  width: calc(100% - 24px);
+  width: calc(100% - 24px) !important;
   height: 252px !important;
   min-height: 252px !important;
   margin: 12px 12px 0;
