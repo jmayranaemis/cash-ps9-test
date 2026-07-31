@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.7.0';
+        $this->version = '1.7.1';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -1232,14 +1232,18 @@ class CashHomepage extends Module
 
         $manufacturers = $this->getSelectedManufacturers($languageId);
         foreach ($manufacturers as &$manufacturer) {
+            $manufacturerId = (int) $manufacturer['id_manufacturer'];
             $manufacturer['url'] = $this->context->link->getManufacturerLink(
-                (int) $manufacturer['id_manufacturer'],
+                $manufacturerId,
                 $manufacturer['link_rewrite'],
                 $languageId
             );
-            $manufacturer['image'] = $this->context->link->getMediaLink(
-                _THEME_MANU_DIR_ . (int) $manufacturer['id_manufacturer'] . '.jpg'
-            );
+            $manufacturer['image'] = file_exists(_PS_MANU_IMG_DIR_ . $manufacturerId . '.jpg')
+                ? $this->context->link->getManufacturerImageLink(
+                    $manufacturerId,
+                    ImageType::getFormattedName('brand_small')
+                )
+                : '';
         }
         unset($manufacturer);
         $catalogueContactId = $this->ensureCatalogueContact();

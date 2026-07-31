@@ -187,7 +187,11 @@
           <div class="cash-brands__scroll" data-cash-carousel-track>
             {foreach from=$cash_manufacturers item=manufacturer}
               <a href="{$manufacturer.url|escape:'htmlall':'UTF-8'}" aria-label="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
-                <img loading="lazy" src="{$manufacturer.image|escape:'htmlall':'UTF-8'}" alt="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
+                {if $manufacturer.image}
+                  <img loading="lazy" src="{$manufacturer.image|escape:'htmlall':'UTF-8'}" alt="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
+                {else}
+                  <span class="cash-brands__name">{$manufacturer.name|escape:'htmlall':'UTF-8'}</span>
+                {/if}
               </a>
             {/foreach}
           </div>
