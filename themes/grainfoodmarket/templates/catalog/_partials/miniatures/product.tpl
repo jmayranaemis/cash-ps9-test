@@ -1014,19 +1014,27 @@ product-mobile-row
 
         </div>
       <div class="product-description">
-       {block name='product_reviews'}
+      {block name='product_reviews'}
         {hook h='displayProductListReviews' product=$product}
       {/block}
+        {if $product.id_manufacturer}
+          <span class="cash-product-card__brand">
+            {Manufacturer::getnamebyid($product.id_manufacturer)}
+          </span>
+        {/if}
         {block name='product_name'}
           <h3 class="h3 product-title" itemprop="name"><a href="{$product.url}">
-           {if Module::isEnabled('an_theme') and Module::getInstanceByName('an_theme')->getParam('product_miniatureTitleLength')}
-              {$max_titlelength = Module::getInstanceByName('an_theme')->getParam('product_miniatureTitleLength')}
-               {$product.name|truncate:$max_titlelength:'...'}
-            {else}
-              {$product.name|truncate:30:'...'}
-            {/if}
+            {$product.name}
           </a></h3>
         {/block}
+
+        <div class="cash-product-card__meta">
+          {if isset($product.reference) && $product.reference}
+            <span>Réf. {$product.reference|escape:'html':'UTF-8'}</span>
+          {elseif isset($product.reference_to_display) && $product.reference_to_display}
+            <span>Réf. {$product.reference_to_display|escape:'html':'UTF-8'}</span>
+          {/if}
+        </div>
        
 
         {block name='product_price_and_shipping'}
@@ -1077,6 +1085,10 @@ product-mobile-row
         {/if}
       {/block}
 
+      <a class="cash-product-card__action" href="{$product.url}">
+        <span>Voir la fiche produit</span>
+        <span aria-hidden="true">→</span>
+      </a>
 
     </div>
 

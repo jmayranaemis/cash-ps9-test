@@ -25,7 +25,13 @@
 *}
 
 <div class="an_wishlist-mini js-an_wishlist-container">
-	<span class="js-an_wishlist-addremove{if $status} an_wishlist-in{/if}" data-url="{$an_wishlistAjax|escape:'quotes'}">
+	<span
+		class="js-an_wishlist-addremove{if $status} an_wishlist-in{/if}"
+		data-url="{$an_wishlistAjax|escape:'quotes'}"
+		role="button"
+		tabindex="0"
+		aria-label="{if $status}Retirer ce produit des favoris{else}Ajouter ce produit aux favoris{/if}"
+	>
 		<svg class="an_wishlist-icon"
          xmlns="http://www.w3.org/2000/svg"
          xmlns:xlink="http://www.w3.org/1999/xlink"
