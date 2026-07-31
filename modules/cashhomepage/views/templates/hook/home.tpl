@@ -84,6 +84,11 @@
       </div>
       <div class="cash-product-selection__module">
         {widget name='an_homeproducts'}
+        <script>
+          document.querySelectorAll('.cash-product-selection .js-an_homeproducts-content').forEach(function (block) {
+            block.setAttribute('data-items', '6');
+          });
+        </script>
       </div>
     </div>
   </section>
