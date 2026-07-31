@@ -229,3 +229,37 @@ body#module-cashhomepage-catalogues{overflow-x:hidden!important}
   .cash-flipbook-card__body{padding:25px 22px}
   .cash-flipbook-card__actions{margin-top:8px}
 }
+
+/* Marques partenaires : sélection éditoriale sur deux lignes, sans barre native. */
+.cash-brands__scroll{
+  grid-template-rows:repeat(2,105px);
+  grid-auto-columns:150px;
+  grid-auto-flow:column;
+  gap:16px 18px;
+  overflow-x:auto;
+  padding-bottom:0;
+  scroll-behavior:smooth;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+.cash-brands__scroll::-webkit-scrollbar{display:none}
+.cash-brands__scroll a{
+  width:150px;
+  height:105px;
+  scroll-snap-align:start;
+}
+.cash-brands .cash-carousel-buttons--below{margin-top:22px}
+
+@media(max-width:767px){
+  .cash-brands__scroll{
+    grid-template-rows:repeat(2,92px);
+    grid-auto-columns:130px;
+    gap:12px;
+  }
+  .cash-brands__scroll a{
+    width:130px;
+    height:92px;
+    padding:14px;
+  }
+}

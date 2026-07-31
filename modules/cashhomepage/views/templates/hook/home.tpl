@@ -179,19 +179,22 @@
       <div class="cash-home__container" data-cash-carousel>
         <div class="cash-section__heading">
           <div><p class="cash-eyebrow">Nos partenaires</p><h2>Des marques professionnelles reconnues</h2></div>
-          <div class="cash-carousel-buttons">
-            <button type="button" data-cash-carousel-prev aria-label="Marques précédentes">←</button>
-            <button type="button" data-cash-carousel-next aria-label="Marques suivantes">→</button>
+          <div class="cash-section__tools">
+            <a href="{$cash_manufacturers_url|escape:'htmlall':'UTF-8'}">Découvrir toutes nos marques →</a>
           </div>
         </div>
         <div class="cash-carousel">
-        <div class="cash-brands__scroll" data-cash-carousel-track>
-          {foreach from=$cash_manufacturers item=manufacturer}
-            <a href="{$manufacturer.url|escape:'htmlall':'UTF-8'}" aria-label="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
-              <img loading="lazy" src="{$manufacturer.image|escape:'htmlall':'UTF-8'}" alt="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
-            </a>
-          {/foreach}
+          <div class="cash-brands__scroll" data-cash-carousel-track>
+            {foreach from=$cash_manufacturers item=manufacturer}
+              <a href="{$manufacturer.url|escape:'htmlall':'UTF-8'}" aria-label="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
+                <img loading="lazy" src="{$manufacturer.image|escape:'htmlall':'UTF-8'}" alt="{$manufacturer.name|escape:'htmlall':'UTF-8'}">
+              </a>
+            {/foreach}
+          </div>
         </div>
+        <div class="cash-carousel-buttons cash-carousel-buttons--below">
+          <button type="button" data-cash-carousel-prev aria-label="Marques précédentes">←</button>
+          <button type="button" data-cash-carousel-next aria-label="Marques suivantes">→</button>
         </div>
       </div>
     </section>

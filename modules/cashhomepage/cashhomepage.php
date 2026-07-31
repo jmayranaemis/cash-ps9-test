@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.6.0';
+        $this->version = '1.7.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -37,6 +37,7 @@ class CashHomepage extends Module
             && $this->registerHook('actionFrontControllerInitAfter')
             && $this->registerHook('actionEmailSendBefore')
             && $this->installEditableContent()
+            && $this->installBrandSelection()
             && $this->configureCashExperience();
     }
 
@@ -123,6 +124,11 @@ class CashHomepage extends Module
         $this->configureCataloguesIntegration();
 
         return true;
+    }
+
+    public function upgradeTo170()
+    {
+        return $this->installBrandSelection();
     }
 
     private function removeDemoHooks()
@@ -509,6 +515,65 @@ class CashHomepage extends Module
         return true;
     }
 
+    private function installBrandSelection()
+    {
+        if (Configuration::get('CASH_HOME_MANUFACTURERS') !== false) {
+            return true;
+        }
+
+        $manufacturers = Manufacturer::getManufacturers(
+            false,
+            (int) Configuration::get('PS_LANG_DEFAULT'),
+            true,
+            false,
+            false,
+            false,
+            true
+        );
+        $manufacturerIds = [];
+        foreach (array_slice($manufacturers, 0, 12) as $manufacturer) {
+            $manufacturerIds[] = (int) $manufacturer['id_manufacturer'];
+        }
+
+        return Configuration::updateValue('CASH_HOME_MANUFACTURERS', implode(',', $manufacturerIds));
+    }
+
+    private function getSelectedManufacturerIds()
+    {
+        if (Configuration::get('CASH_HOME_MANUFACTURERS') === false) {
+            $this->installBrandSelection();
+        }
+
+        $value = trim((string) Configuration::get('CASH_HOME_MANUFACTURERS'));
+        if ($value === '') {
+            return [];
+        }
+
+        return array_values(array_unique(array_filter(array_map('intval', explode(',', $value)))));
+    }
+
+    private function getSelectedManufacturers($languageId)
+    {
+        $selectedIds = $this->getSelectedManufacturerIds();
+        if (!$selectedIds) {
+            return [];
+        }
+
+        $manufacturersById = [];
+        foreach (Manufacturer::getManufacturers(false, (int) $languageId, true, false, false, false, true) as $manufacturer) {
+            $manufacturersById[(int) $manufacturer['id_manufacturer']] = $manufacturer;
+        }
+
+        $manufacturers = [];
+        foreach ($selectedIds as $manufacturerId) {
+            if (isset($manufacturersById[$manufacturerId])) {
+                $manufacturers[] = $manufacturersById[$manufacturerId];
+            }
+        }
+
+        return $manufacturers;
+    }
+
     private function getEditableContent()
     {
         $content = [];
@@ -527,7 +592,13 @@ class CashHomepage extends Module
             foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
                 Configuration::updateValue($configurationKey, trim((string) Tools::getValue($configurationKey)));
             }
-            $confirmation = $this->displayConfirmation($this->l('Les textes de la page d’accueil ont été enregistrés.'));
+            $selectedManufacturerIds = Tools::getValue('CASH_HOME_MANUFACTURERS', []);
+            if (!is_array($selectedManufacturerIds)) {
+                $selectedManufacturerIds = [];
+            }
+            $selectedManufacturerIds = array_values(array_unique(array_filter(array_map('intval', $selectedManufacturerIds))));
+            Configuration::updateValue('CASH_HOME_MANUFACTURERS', implode(',', $selectedManufacturerIds));
+            $confirmation = $this->displayConfirmation($this->l('Les contenus et les marques de la page d’accueil ont été enregistrés.'));
         }
 
         $fields = [];
@@ -540,6 +611,29 @@ class CashHomepage extends Module
                 'cols' => 60,
             ];
         }
+
+        $manufacturerOptions = Manufacturer::getManufacturers(
+            false,
+            (int) $this->context->language->id,
+            true,
+            false,
+            false,
+            false,
+            true
+        );
+        $fields[] = [
+            'type' => 'select',
+            'label' => $this->l('Marques mises en avant'),
+            'name' => 'CASH_HOME_MANUFACTURERS',
+            'multiple' => true,
+            'class' => 'chosen',
+            'desc' => $this->l('Sélectionnez les logos affichés dans le carrousel Marques de la page d’accueil.'),
+            'options' => [
+                'query' => $manufacturerOptions,
+                'id' => 'id_manufacturer',
+                'name' => 'name',
+            ],
+        ];
 
         $helper = new HelperForm();
         $helper->show_toolbar = false;
@@ -556,6 +650,7 @@ class CashHomepage extends Module
         foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
             $helper->fields_value[$configurationKey] = Configuration::get($configurationKey) ?: $definition[2];
         }
+        $helper->fields_value['CASH_HOME_MANUFACTURERS'] = $this->getSelectedManufacturerIds();
 
         return $confirmation . $helper->generateForm([[
             'form' => [
@@ -1135,11 +1230,7 @@ class CashHomepage extends Module
         $shopId = (int) $this->context->shop->id;
         $homeCategory = new Category((int) Configuration::get('PS_HOME_CATEGORY'), $languageId, $shopId);
 
-        $manufacturers = array_slice(
-            Manufacturer::getManufacturers(false, $languageId, true, false, false, false, true),
-            0,
-            12
-        );
+        $manufacturers = $this->getSelectedManufacturers($languageId);
         foreach ($manufacturers as &$manufacturer) {
             $manufacturer['url'] = $this->context->link->getManufacturerLink(
                 (int) $manufacturer['id_manufacturer'],
@@ -1157,6 +1248,7 @@ class CashHomepage extends Module
         $this->context->smarty->assign([
             'cash_families' => $this->getProductFamilies(8),
             'cash_manufacturers' => $manufacturers,
+            'cash_manufacturers_url' => $this->context->link->getPageLink('manufacturer', true),
             'cash_content' => $this->getEditableContent(),
             'cash_become_client_url' => $this->context->link->getModuleLink('b2bregistration', 'business'),
             'cash_contact_url' => $this->context->link->getPageLink('contact', true),
