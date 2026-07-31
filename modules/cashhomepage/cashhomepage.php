@@ -1317,7 +1317,9 @@ class CashHomepage extends Module
                 'pdf_url' => $baseUrl . '/modules/lpsflipbook/views/pdf/' . rawurlencode(
                     basename($row['pdf_name'])
                 ),
-                'thumb_url' => is_file($thumbFile)
+                // En mode Normal, DeepFlip génère la couverture depuis la première page du PDF.
+                // Une miniature n'est imposée que pour le mode Thumbnail du module.
+                'thumb_url' => $row['type'] === 'Thumbnail' && is_file($thumbFile)
                     ? $baseUrl . '/modules/lpsflipbook/views/thumb/' . rawurlencode($thumbName)
                     : '',
                 'sound' => (int) $row['sound'],
