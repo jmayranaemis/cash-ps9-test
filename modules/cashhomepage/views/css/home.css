@@ -123,14 +123,17 @@
 }
 
 /* Catalogues interactifs — habillage Cash autour du lecteur Flipbook. */
-.cash-catalogues__grid{align-items:start}
-.cash-catalogues__intro{padding-top:14px}
+.cash-catalogues__grid{grid-template-columns:1fr;gap:32px;align-items:start}
+.cash-catalogues__intro{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 36px;align-items:end;padding-top:0}
+.cash-catalogues__intro .cash-eyebrow{grid-column:1/-1}
+.cash-catalogues__intro h2{margin-bottom:12px}
+.cash-catalogues__intro>p:last-of-type{max-width:720px;margin:0}
 .cash-catalogues__all{display:inline-flex;margin-top:22px;color:#fff!important;font-weight:800;text-decoration:none!important}
 .cash-catalogues__all:hover{text-decoration:underline!important}
 .cash-catalogues__showcase{min-width:0}
 .cash-catalogues__list{
   display:grid;
-  grid-auto-columns:100%;
+  grid-auto-columns:calc((100% - 36px)/3);
   grid-auto-flow:column;
   gap:18px;
   overflow-x:auto;
@@ -142,6 +145,14 @@
 .cash-catalogues__buttons{justify-content:flex-end;margin-top:15px}
 .cash-catalogues__buttons button{color:#fff!important;border-color:rgba(255,255,255,.72)!important;background:transparent!important}
 .cash-catalogues__buttons button:hover{color:var(--brown)!important;background:#fff!important;border-color:#fff!important}
+.cash-catalogues .cash-flipbook-card{grid-template-columns:1fr;box-shadow:0 14px 34px rgba(20,38,33,.2)}
+.cash-catalogues .cash-flipbook-card__media{min-height:224px;padding:20px}
+.cash-catalogues .cash-flipbook-card__media .cash-flipbook-card__cover{width:126px!important;height:180px!important}
+.cash-catalogues .cash-flipbook-card__body{min-height:220px;padding:21px 20px}
+.cash-catalogues .cash-flipbook-card h3{font-size:1.18rem}
+.cash-catalogues .cash-flipbook-card p{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.cash-catalogues .cash-flipbook-card__actions{padding-top:17px}
+.cash-catalogues .cash-flipbook-card__actions .cash-button{width:100%}
 .cash-flipbook-card{
   display:grid;
   min-width:0;
@@ -214,11 +225,14 @@ body#module-cashhomepage-catalogues{overflow-x:hidden!important}
 .cash-catalogues-page__help .cash-eyebrow{margin-bottom:8px}
 
 @media(max-width:991px){
+  .cash-catalogues__list{grid-auto-columns:calc((100% - 18px)/2)}
   .cash-catalogues-page__grid{grid-template-columns:1fr}
   .cash-catalogues-page__heading{align-items:flex-start;flex-direction:column}
 }
 @media(max-width:767px){
   .cash-catalogues__grid{gap:34px}
+  .cash-catalogues__intro{display:block}
+  .cash-catalogues__list{grid-auto-columns:100%}
   .cash-catalogues-page__hero{padding:55px 0}
   .cash-catalogues-page__content{padding:55px 0}
   .cash-catalogues-page__help>div{align-items:flex-start;flex-direction:column}
