@@ -1,11 +1,11 @@
 /* Test de palette du header Cash. */
-.an-sfsl{
+body #header .an-sfsl{
   color:var(--cash-brown)!important;
   background:var(--cash-beige)!important;
 }
-.an-sfsl a,
-.an-sfsl span,
-.an-sfsl p{
+body #header .an-sfsl a,
+body #header .an-sfsl span,
+body #header .an-sfsl p{
   color:var(--cash-brown)!important;
 }
 
