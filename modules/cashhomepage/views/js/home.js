@@ -26,8 +26,31 @@
     });
   }
 
+  function renderPdfCover(canvas) {
+    if (!window.pdfjsLib || !canvas.dataset.cashPdfCover) {
+      return;
+    }
+
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+      '/modules/lpsflipbook/lib/dflip/js/libs/pdf.worker.min.js';
+    window.pdfjsLib.getDocument(canvas.dataset.cashPdfCover).promise
+      .then(function (pdf) { return pdf.getPage(1); })
+      .then(function (page) {
+        var initialViewport = page.getViewport({scale: 1});
+        var viewport = page.getViewport({scale: 360 / initialViewport.height});
+        var context = canvas.getContext('2d');
+        canvas.width = Math.round(viewport.width);
+        canvas.height = Math.round(viewport.height);
+        return page.render({canvasContext: context, viewport: viewport}).promise;
+      })
+      .catch(function () {
+        canvas.classList.add('cash-flipbook-card__pdf-cover--error');
+      });
+  }
+
   function initCashHomepage() {
     document.querySelectorAll('[data-cash-carousel]').forEach(initCarousel);
+    document.querySelectorAll('[data-cash-pdf-cover]').forEach(renderPdfCover);
 
     document.addEventListener('click', function (event) {
       var opener = event.target.closest('[data-cash-open-catalogue]');

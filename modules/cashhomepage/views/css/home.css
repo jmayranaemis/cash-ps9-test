@@ -166,12 +166,27 @@
   scroll-snap-align:start;
 }
 .cash-flipbook-card__media{
+  position:relative;
   display:grid;
   min-height:310px;
   padding:25px 20px;
   place-items:center;
   background:linear-gradient(145deg,var(--beige),#eee0d0);
 }
+.cash-flipbook-card__pdf-cover{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:154px;
+  height:220px;
+  background:#fff;
+  box-shadow:0 14px 30px rgba(67,42,25,.25);
+  transform:translate(-50%,-50%);
+}
+.cash-catalogues .cash-flipbook-card__pdf-cover{width:126px;height:180px}
+.cash-flipbook-card__cover--generated{z-index:1;background:transparent!important;box-shadow:none!important}
+.cash-flipbook-card__cover--generated ._df_book-cover{opacity:0}
+.cash-flipbook-card__pdf-cover--error+.cash-flipbook-card__cover--generated ._df_book-cover{opacity:1}
 .cash-flipbook-card__media .cash-flipbook-card__cover{
   width:154px!important;
   height:220px!important;

@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.8.0';
+        $this->version = '1.8.1';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -1024,6 +1024,11 @@ class CashHomepage extends Module
             'module-cashhomepage',
             'modules/' . $this->name . '/views/css/home.css',
             ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-2']
+        );
+        $this->context->controller->registerJavascript(
+            'module-cashhomepage-pdfjs',
+            'modules/lpsflipbook/lib/dflip/js/libs/pdf.min.js',
+            ['position' => 'bottom', 'priority' => 190, 'version' => $this->version]
         );
         $this->context->controller->registerJavascript(
             'module-cashhomepage-carousel',

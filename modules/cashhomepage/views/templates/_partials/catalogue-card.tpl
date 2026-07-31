@@ -1,8 +1,15 @@
 <article class="cash-flipbook-card">
   <div class="cash-flipbook-card__media">
+    {if !$catalogue.thumb_url}
+      <canvas
+        class="cash-flipbook-card__pdf-cover"
+        data-cash-pdf-cover="{$catalogue.pdf_url|escape:'htmlall':'UTF-8'}"
+        aria-label="Première page du catalogue {$catalogue.title|escape:'htmlall':'UTF-8'}"
+      ></canvas>
+    {/if}
     <div
       id="cash_catalogue_{$catalogue.id|intval}"
-      class="_df_thumb cash-flipbook-card__cover"
+      class="_df_thumb cash-flipbook-card__cover{if !$catalogue.thumb_url} cash-flipbook-card__cover--generated{/if}"
       source="{$catalogue.pdf_url|escape:'htmlall':'UTF-8'}"
       {if $catalogue.thumb_url}thumb="{$catalogue.thumb_url|escape:'htmlall':'UTF-8'}"{/if}
       sound="{$catalogue.sound|intval}"
