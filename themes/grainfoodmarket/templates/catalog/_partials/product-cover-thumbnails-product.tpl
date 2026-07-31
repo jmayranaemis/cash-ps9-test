@@ -79,7 +79,7 @@
         {else}
             <div class="an_productpage-slider-holder" style="height: {$product.default_image.bySize.large_default.height}px"></div>
         {/if}
-        {if $smarty.get.view != 'nominis'}
+        {if $smarty.get.view != 'nominis' && $product.images|@count > 1}
             {block name='product_images'}
             <div class="an_productpage-slider {if $smarty.get.view == 'botlist'}an_productpage-list{else}an_productpage-slider-nav{/if} {if $product.images|@count > 4}an_productpage-slider-scroll{/if} {if $smarty.get.view == 'rightcol'}nav-vertical-right{/if}" data-vertical="{$nav_vertical}" data-draggable="true">
                 {foreach from=$product.images item=image name=navimages}
@@ -106,7 +106,7 @@
 {else}
     {if Module::isEnabled('an_theme')}
         {$orientation = ''}
-        {if Module::isEnabled('an_theme') and Module::getInstanceByName('an_theme')->getParam('productslider_minisPos') != 'none'}
+        {if Module::isEnabled('an_theme') and Module::getInstanceByName('an_theme')->getParam('productslider_minisPos') != 'none' && $product.images|@count > 1}
             {$minis_pos = Module::getInstanceByName('an_theme')->getParam('productslider_minisPos')}
             {$nav_vertical = 'false'}
             {if Module::getInstanceByName('an_theme')->getParam('productslider_minisPos') == 'right' || Module::getInstanceByName('an_theme')->getParam('productslider_minisPos') == 'left'}

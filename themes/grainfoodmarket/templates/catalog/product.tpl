@@ -65,6 +65,7 @@
     <div class="col-md-6 productblock-content">
           {block name='page_header_container'}
             {block name='page_header'}
+              <p class="cash-product-kicker">Catalogue professionnel</p>
               <h1 class="h1" itemprop="name">{block name='page_title'}{$product.name}{/block}</h1>
             {/block}
           {/block}
@@ -128,6 +129,27 @@
 
         </div>
 
+        <aside class="cash-product-enquiry" aria-labelledby="cash-product-enquiry-title">
+          <span class="cash-product-enquiry__eyebrow">Service commercial</span>
+          <h2 id="cash-product-enquiry-title">Ce produit vous intéresse&nbsp;?</h2>
+          <p>
+            Disponibilité, conditionnement ou produit équivalent&nbsp;:
+            notre équipe vous répond selon les besoins de votre établissement.
+          </p>
+          <div class="cash-product-enquiry__actions">
+            <a
+              class="cash-product-enquiry__primary"
+              href="{$urls.pages.contact|escape:'htmlall':'UTF-8'}?id_contact=2&amp;product_reference={$product.reference_to_display|escape:'url':'UTF-8'}"
+            >
+              Demander des informations
+            </a>
+            <a class="cash-product-enquiry__phone" href="tel:+33489032323">
+              <span aria-hidden="true">☎</span>
+              04 89 03 23 23
+            </a>
+          </div>
+          <small>Du lundi au vendredi de 9h à 17h · samedi de 8h30 à 12h</small>
+        </aside>
 
       </div>
     </div>
@@ -158,9 +180,11 @@
                   </li>
                   {/if}
                   {foreach from=$product.extraContent item=extra key=extraKey}
+                  {if $extra.title != 'Custom tab 1' && $extra.title != 'Custom tab 2'}
                   <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#extra-{$extraKey}">{$extra.title}</a>
                   </li>
+                  {/if}
                   {/foreach}
                 </ul>
 
@@ -195,9 +219,11 @@
                  {/block}
 
                  {foreach from=$product.extraContent item=extra key=extraKey}
+                 {if $extra.title != 'Custom tab 1' && $extra.title != 'Custom tab 2'}
                  <div class="tab-pane fade in {$extra.attr.class}" id="extra-{$extraKey}" {foreach $extra.attr as $key => $val} {$key}="{$val}"{/foreach}>
                    {$extra.content nofilter}
                  </div>
+                 {/if}
                  {/foreach}
               </div>
             

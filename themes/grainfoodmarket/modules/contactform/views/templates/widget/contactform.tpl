@@ -99,7 +99,7 @@
               name="message"
               placeholder="{l s='How can we help?' d='Shop.Forms.Help'}"
               rows="6"
-            >{if $contact.message}{$contact.message}{/if}</textarea>
+            >{if $contact.message}{$contact.message}{elseif isset($smarty.get.product_reference) && $smarty.get.product_reference}Je souhaite obtenir des informations sur le produit portant la référence {$smarty.get.product_reference|escape:'html':'UTF-8'}.{/if}</textarea>
           </div>
         </div>
 
