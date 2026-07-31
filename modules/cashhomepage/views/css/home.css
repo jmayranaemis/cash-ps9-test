@@ -133,7 +133,7 @@ body#index{overflow-x:clip!important}.cash-main-nav{display:flex;width:100%;alig
 .cash-catalogues__showcase{min-width:0}
 .cash-catalogues__list{
   display:grid;
-  grid-auto-columns:calc((100% - 36px)/3);
+  grid-auto-columns:calc((100% - 54px)/4);
   grid-auto-flow:column;
   gap:18px;
   overflow-x:auto;
@@ -239,6 +239,20 @@ body#module-cashhomepage-catalogues{overflow-x:hidden!important}
 .cash-catalogues-page__help>div{display:flex;gap:35px;align-items:center;justify-content:space-between}
 .cash-catalogues-page__help .cash-eyebrow{margin-bottom:8px}
 
+/* Le blog du thème est injecté hors de cash-home : on le libère du conteneur PrestaShop. */
+.page-index .anblog-widget{
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  padding:78px 0;
+  box-sizing:border-box;
+}
+.page-index .anblog-widget>.anblog-widget-title,
+.page-index .anblog-widget>.anblog-widget-posts{
+  width:min(1520px,calc(100% - 48px));
+  margin-right:auto!important;
+  margin-left:auto!important;
+}
+
 @media(max-width:991px){
   .cash-catalogues__list{grid-auto-columns:calc((100% - 18px)/2)}
   .cash-catalogues-page__grid{grid-template-columns:1fr}
@@ -251,6 +265,9 @@ body#module-cashhomepage-catalogues{overflow-x:hidden!important}
   .cash-catalogues-page__hero{padding:55px 0}
   .cash-catalogues-page__content{padding:55px 0}
   .cash-catalogues-page__help>div{align-items:flex-start;flex-direction:column}
+  .page-index .anblog-widget{padding:55px 0}
+  .page-index .anblog-widget>.anblog-widget-title,
+  .page-index .anblog-widget>.anblog-widget-posts{width:calc(100% - 28px)}
 }
 @media(max-width:560px){
   .cash-flipbook-card{grid-template-columns:1fr}

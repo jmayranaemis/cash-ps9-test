@@ -21,6 +21,9 @@
 function anhp_slider_init(slider_id) {
     $('.an_homeproducts-slider .js-an_homeproducts-content .products').each(function(i, val) {
         var slider_id = '.js-an_homeproducts-content[data-block-id=' + $(this).parents('.js-an_homeproducts-content').data('block-id') + ']';
+        if ($(this).closest('.cash-product-selection').length) {
+            $(slider_id).attr('data-items', 6).data('items', 6);
+        }
         let responsive_items;
         if ($(slider_id).data('items') == 4) {
             responsive_items = {
