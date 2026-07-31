@@ -12,7 +12,7 @@
 	<a href="{$urls.pages.index|escape:'html':'UTF-8'}">
 		<img class="logo img-responsive"
 			src="{$shop.logo|escape:'html':'UTF-8'}"
-			style="mix-blend-mode:multiply"
+			style="width:210px;height:auto;max-width:100%;max-height:66px;mix-blend-mode:multiply"
 			alt="{$shop.name|escape:'html':'UTF-8'}">
 	</a>
 </div>
