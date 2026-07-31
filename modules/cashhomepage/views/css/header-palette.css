@@ -9,6 +9,10 @@ body #header .an-sfsl p{
   color:var(--cash-brown)!important;
 }
 
+#header .header-nav #_desktop_an_wishlist-nav{
+  display:none!important;
+}
+
 #header .ets_mm_megamenu:not(.changestatus),
 #header .ets_mm_megamenu:not(.changestatus) .ets_mm_megamenu_content,
 #header .ets_mm_megamenu:not(.changestatus) .mm_menus_ul{
