@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.8.2';
+        $this->version = '1.9.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
