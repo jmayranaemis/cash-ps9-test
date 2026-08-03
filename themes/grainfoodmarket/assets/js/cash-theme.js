@@ -80,7 +80,7 @@
       }
     });
 
-    var requestedAnchor = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+    var requestedAnchor = window.location.hash.replace(/^#/, '');
     var target = requestedAnchor ? document.getElementById(requestedAnchor) : null;
     if (target) {
       window.requestAnimationFrame(function () {
