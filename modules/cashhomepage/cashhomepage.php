@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.16.0';
+        $this->version = '1.16.1';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -1454,6 +1454,6 @@ class CashHomepage extends Module
 
         return $servicesId
             ? $this->context->link->getCMSLink($servicesId)
-            : $this->context->link->getPageLink('index', true);
+            : Tools::getShopDomainSsl(true) . __PS_BASE_URI__ . 'content/services-cash-alimentaire';
     }
 }
