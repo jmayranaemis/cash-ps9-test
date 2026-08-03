@@ -61,6 +61,8 @@
     }
 
     var catalogues = homepage.querySelector('.cash-catalogues');
+    var hero = homepage.querySelector('.cash-hero');
+    var productSelection = homepage.querySelector('.cash-product-selection');
     var services = homepage.querySelector('.cash-services');
     var client = homepage.querySelector('.cash-client');
     var brands = homepage.querySelector('.cash-brands');
@@ -68,9 +70,11 @@
     var blog = document.querySelector('#content > .anblog-widget');
     var newsletter = document.querySelector('#footer > .block_newsletter');
 
-    if (!catalogues || !services || !client || !proof) {
+    if (!hero || !productSelection || !catalogues || !services || !client || !proof) {
       return;
     }
+
+    hero.insertAdjacentElement('afterend', productSelection);
 
     var orderedBlocks = [services];
 
