@@ -13,6 +13,23 @@ body #header .an-sfsl p{
   display:none!important;
 }
 
+body .breadcrumb{
+  background:var(--cash-ivory)!important;
+  border-bottom:1px solid var(--cash-beige)!important;
+}
+body .breadcrumb a{
+  color:var(--cash-brown)!important;
+}
+body .breadcrumb li:last-child span{
+  color:var(--cash-olive)!important;
+}
+
+body #header.header1 .search-widget form input[type="text"]{
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+
 #header .ets_mm_megamenu:not(.changestatus),
 #header .ets_mm_megamenu:not(.changestatus) .ets_mm_megamenu_content,
 #header .ets_mm_megamenu:not(.changestatus) .mm_menus_ul{

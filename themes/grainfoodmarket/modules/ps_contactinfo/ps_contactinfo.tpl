@@ -26,11 +26,17 @@
 <div class="block-contact col-md-3 links wrapper">
   <div class="hidden-sm-down cash-footer-brand">
     <a class="cash-footer-brand__logo" href="{$urls.base_url}" aria-label="Cash Alimentaire - accueil">
-      {hook h='displayLogoFooter'}
+      <img
+        src="{$urls.theme_assets}img/case-logo-blanc.png"
+        width="653"
+        height="129"
+        loading="lazy"
+        alt="Cash Alimentaire du Sud-Est"
+      >
     </a>
     <p>Grossiste alimentaire au service des professionnels de la restauration et des métiers de bouche depuis 1984.</p>
     <a class="cash-footer-brand__phone" href="tel:+33489032323">04 89 03 23 23</a>
-    <span class="cash-footer-brand__hours">Lun–ven 9h–17h · Sam 8h30–12h</span>
+    <span class="cash-footer-brand__hours">Lun–ven 9h–17h</span>
     <div class="cash-footer-brand__actions">
       <a href="{$urls.pages.contact}">Nous contacter</a>
       <a href="{$urls.pages.stores}">Nos magasins</a>
