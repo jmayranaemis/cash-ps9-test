@@ -340,19 +340,29 @@ body#index.page-index .cash-home .cash-home-blog .anblog-widget>.anblog-widget-p
   padding:34px 0;
 }
 .cash-home-newsletter .block_newsletter>.container>.row{
+  display:flex!important;
   flex-wrap:nowrap;
   align-items:center;
   gap:28px;
 }
 .cash-home-newsletter .block_newsletter .col-lg-2{
+  display:flex;
   width:auto;
+  min-height:54px;
   max-width:none;
   flex:0 0 auto;
+  align-items:center;
 }
 .cash-home-newsletter .block_newsletter .col-lg-10{
   width:auto;
+  min-width:0;
   max-width:none;
   flex:1 1 auto;
+}
+.cash-home-newsletter .block_newsletter form,
+.cash-home-newsletter .block_newsletter .input-wrapper{
+  width:100%;
+  max-width:none;
 }
 .cash-home-newsletter .block_newsletter .h1{
   margin:0;
