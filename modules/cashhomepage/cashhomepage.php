@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.13.1';
+        $this->version = '1.14.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -1275,6 +1275,7 @@ class CashHomepage extends Module
             ),
             'cash_catalogues' => $catalogues,
             'cash_catalogues_url' => $this->getCataloguesUrl(),
+            'cash_promotions_url' => $this->context->link->getPageLink('prices-drop', true),
             'cash_stores_url' => $this->context->link->getPageLink('stores', true),
             'cash_products_url' => $this->context->link->getCategoryLink($homeCategory->id),
         ]);

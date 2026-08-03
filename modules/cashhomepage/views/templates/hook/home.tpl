@@ -1,21 +1,30 @@
 <div class="cash-home">
-  <section class="cash-hero" style="--cash-hero-image:url('{$cash_content.hero_image_url|escape:'htmlall':'UTF-8'}')">
-    <div class="cash-home__container cash-hero__inner">
-      <div class="cash-hero__content">
-        <p class="cash-eyebrow">{$cash_content.hero_eyebrow|escape:'htmlall':'UTF-8'}</p>
-        <h1>{$cash_content.hero_title|escape:'htmlall':'UTF-8'}</h1>
-        <p class="cash-hero__lead">{$cash_content.hero_lead|escape:'htmlall':'UTF-8'}</p>
-        <div class="cash-actions">
-          <a class="cash-button cash-button--primary" href="{$cash_become_client_url|escape:'htmlall':'UTF-8'}">Devenir client</a>
-          <a class="cash-button cash-button--secondary" href="#familles-produits">Découvrir les produits</a>
+  <section class="cash-hero">
+    <div class="cash-home__container cash-hero__layout">
+      <article class="cash-hero__primary" style="--cash-hero-image:url('{$cash_content.hero_image_url|escape:'htmlall':'UTF-8'}')">
+        <div class="cash-hero__content">
+          <p class="cash-eyebrow">{$cash_content.hero_eyebrow|escape:'htmlall':'UTF-8'}</p>
+          <h1>{$cash_content.hero_title|escape:'htmlall':'UTF-8'}</h1>
+          <p class="cash-hero__lead">{$cash_content.hero_lead|escape:'htmlall':'UTF-8'}</p>
+          <div class="cash-actions">
+            <a class="cash-button cash-button--primary" href="{$cash_become_client_url|escape:'htmlall':'UTF-8'}">Devenir client</a>
+            <a class="cash-button cash-button--secondary" href="#familles-produits">Découvrir les produits</a>
+          </div>
         </div>
+      </article>
+
+      <div class="cash-hero__aside" aria-label="Accès rapides">
+        <a class="cash-hero-card cash-hero-card--promotions" href="{$cash_promotions_url|escape:'htmlall':'UTF-8'}">
+          <span class="cash-hero-card__kicker">Offres professionnelles</span>
+          <strong>Les promotions du moment</strong>
+          <span class="cash-hero-card__cta">Découvrir les promotions <b aria-hidden="true">→</b></span>
+        </a>
+        <a class="cash-hero-card cash-hero-card--stores" href="{$cash_stores_url|escape:'htmlall':'UTF-8'}">
+          <span class="cash-hero-card__kicker">Au plus près de vous</span>
+          <strong>Découvrez nos magasins</strong>
+          <span class="cash-hero-card__cta">Trouver un magasin <b aria-hidden="true">→</b></span>
+        </a>
       </div>
-      <aside class="cash-hero__panel" aria-label="Accès rapide">
-        <span class="cash-hero__panel-kicker">Déjà professionnel ?</span>
-        <strong>Construisons votre offre ensemble.</strong>
-        <p>Un besoin produit, une ouverture ou une demande de livraison&nbsp;?</p>
-        <a href="{$cash_contact_url|escape:'htmlall':'UTF-8'}">Parler à l’équipe commerciale →</a>
-      </aside>
     </div>
   </section>
 
