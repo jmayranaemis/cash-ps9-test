@@ -82,6 +82,39 @@
     </div>
   </section>
 
+  <section id="catalogues" class="cash-section cash-catalogues">
+    <div class="cash-home__container cash-catalogues__grid">
+      <div class="cash-catalogues__intro">
+        <p class="cash-eyebrow">Sélections & nouveautés</p>
+        <h2>{$cash_content.catalogue_title|escape:'htmlall':'UTF-8'}</h2>
+        <p>{$cash_content.catalogue_text|escape:'htmlall':'UTF-8'}</p>
+        <a class="cash-catalogues__all" href="{$cash_catalogues_url|escape:'htmlall':'UTF-8'}">Voir tous les catalogues →</a>
+      </div>
+      {if $cash_catalogues}
+        <div class="cash-catalogues__showcase" data-cash-carousel>
+          <div class="cash-catalogues__list" data-cash-carousel-track>
+            {foreach from=$cash_catalogues item=catalogue}
+              {include file='module:cashhomepage/views/templates/_partials/catalogue-card.tpl' catalogue=$catalogue}
+            {/foreach}
+          </div>
+          {if $cash_catalogues|count > 1}
+            <div class="cash-carousel-buttons cash-catalogues__buttons">
+              <button type="button" data-cash-carousel-prev aria-label="Catalogue précédent">←</button>
+              <button type="button" data-cash-carousel-next aria-label="Catalogue suivant">→</button>
+            </div>
+          {/if}
+        </div>
+      {else}
+        <div class="cash-catalogue-card cash-catalogue-card--empty">
+          <span>Catalogue professionnel</span>
+          <strong>{$cash_content.catalogue_card_title|escape:'htmlall':'UTF-8'}</strong>
+          <p>{$cash_content.catalogue_card_text|escape:'htmlall':'UTF-8'}</p>
+          <a class="cash-button cash-button--primary" href="{$cash_catalogue_contact_url|escape:'htmlall':'UTF-8'}">Demander un catalogue</a>
+        </div>
+      {/if}
+    </div>
+  </section>
+
   <section class="cash-section cash-product-selection" aria-label="Sélection de produits">
     <div class="cash-home__container">
       <div class="cash-section__heading">
@@ -115,39 +148,6 @@
         <article><span>02</span><h3>Fast-food & snacking</h3><p>Des références adaptées aux volumes, au rendement et à la rapidité de service.</p></article>
         <article><span>03</span><h3>Pizza & vente à emporter</h3><p>Ingrédients, emballages et boissons pour composer une offre complète.</p></article>
       </div>
-    </div>
-  </section>
-
-  <section id="catalogues" class="cash-section cash-catalogues">
-    <div class="cash-home__container cash-catalogues__grid">
-      <div class="cash-catalogues__intro">
-        <p class="cash-eyebrow">Sélections & nouveautés</p>
-        <h2>{$cash_content.catalogue_title|escape:'htmlall':'UTF-8'}</h2>
-        <p>{$cash_content.catalogue_text|escape:'htmlall':'UTF-8'}</p>
-        <a class="cash-catalogues__all" href="{$cash_catalogues_url|escape:'htmlall':'UTF-8'}">Voir tous les catalogues →</a>
-      </div>
-      {if $cash_catalogues}
-        <div class="cash-catalogues__showcase" data-cash-carousel>
-          <div class="cash-catalogues__list" data-cash-carousel-track>
-            {foreach from=$cash_catalogues item=catalogue}
-              {include file='module:cashhomepage/views/templates/_partials/catalogue-card.tpl' catalogue=$catalogue}
-            {/foreach}
-          </div>
-          {if $cash_catalogues|count > 1}
-            <div class="cash-carousel-buttons cash-catalogues__buttons">
-              <button type="button" data-cash-carousel-prev aria-label="Catalogue précédent">←</button>
-              <button type="button" data-cash-carousel-next aria-label="Catalogue suivant">→</button>
-            </div>
-          {/if}
-        </div>
-      {else}
-        <div class="cash-catalogue-card cash-catalogue-card--empty">
-          <span>Catalogue professionnel</span>
-          <strong>{$cash_content.catalogue_card_title|escape:'htmlall':'UTF-8'}</strong>
-          <p>{$cash_content.catalogue_card_text|escape:'htmlall':'UTF-8'}</p>
-          <a class="cash-button cash-button--primary" href="{$cash_catalogue_contact_url|escape:'htmlall':'UTF-8'}">Demander un catalogue</a>
-        </div>
-      {/if}
     </div>
   </section>
 
