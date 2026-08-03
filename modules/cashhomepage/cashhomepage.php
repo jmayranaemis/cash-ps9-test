@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.15.5';
+        $this->version = '1.16.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -1268,6 +1268,7 @@ class CashHomepage extends Module
             'cash_become_client_url' => $this->context->link->getModuleLink('b2bregistration', 'business'),
             'cash_contact_url' => $this->context->link->getPageLink('contact', true),
             'cash_faq_url' => $this->getFaqUrl(),
+            'cash_services_url' => $this->getServicesUrl(),
             'cash_catalogue_contact_url' => $this->context->link->getPageLink(
                 'contact',
                 true,
@@ -1442,5 +1443,17 @@ class CashHomepage extends Module
         return $faqId
             ? $this->context->link->getCMSLink($faqId)
             : $this->context->link->getPageLink('contact', true);
+    }
+
+    private function getServicesUrl()
+    {
+        $servicesId = (int) Db::getInstance()->getValue(
+            'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+             WHERE link_rewrite = \'services-cash-alimentaire\' ORDER BY id_cms ASC LIMIT 1'
+        );
+
+        return $servicesId
+            ? $this->context->link->getCMSLink($servicesId)
+            : $this->context->link->getPageLink('index', true);
     }
 }

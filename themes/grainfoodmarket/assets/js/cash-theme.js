@@ -56,9 +56,47 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCashFaq);
-  } else {
+  function initCashServiceAnchors() {
+    if (window.location.pathname.indexOf('/content/services-cash-alimentaire') === -1) {
+      return;
+    }
+
+    var serviceAnchors = {
+      'conseil': 'conseil',
+      'disponibilite': 'disponibilite',
+      'livraison': 'livraison',
+      'accompagnement': 'accompagnement'
+    };
+
+    document.querySelectorAll('#content h3').forEach(function (heading) {
+      var normalizedTitle = heading.textContent.trim().toLocaleLowerCase('fr')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+      var anchor = serviceAnchors[normalizedTitle];
+
+      if (anchor) {
+        heading.id = anchor;
+        heading.classList.add('cash-service-anchor');
+      }
+    });
+
+    var requestedAnchor = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+    var target = requestedAnchor ? document.getElementById(requestedAnchor) : null;
+    if (target) {
+      window.requestAnimationFrame(function () {
+        target.scrollIntoView({block: 'start'});
+      });
+    }
+  }
+
+  function initCashTheme() {
     initCashFaq();
+    initCashServiceAnchors();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCashTheme);
+  } else {
+    initCashTheme();
   }
 }());
