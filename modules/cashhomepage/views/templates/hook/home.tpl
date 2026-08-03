@@ -182,8 +182,8 @@
         <ul><li>SIRET de l’établissement</li><li>Coordonnées professionnelles</li><li>Extrait Kbis au format PDF</li></ul>
       </div>
       <div class="cash-client__action">
-        <a class="cash-button cash-button--primary" href="{$cash_become_client_url|escape:'htmlall':'UTF-8'}">Déposer ma demande</a>
-        <a href="{$cash_contact_url|escape:'htmlall':'UTF-8'}">Vous avez une question&nbsp;?</a>
+        <a class="cash-button cash-button--primary" href="{$cash_become_client_url|escape:'htmlall':'UTF-8'}">Devenir client</a>
+        <a href="{$cash_faq_url|escape:'htmlall':'UTF-8'}">Vous avez une question&nbsp;?</a>
       </div>
     </div>
   </section>
