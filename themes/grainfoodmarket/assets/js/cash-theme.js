@@ -20,7 +20,28 @@
       answer.setAttribute('aria-hidden', 'true');
 
       function toggleAnswer() {
-        var isOpen = item.classList.toggle('is-open');
+        var isOpen = !item.classList.contains('is-open');
+
+        if (isOpen) {
+          document.querySelectorAll('.cash-faq__item.is-open').forEach(function (openItem) {
+            if (openItem === item) {
+              return;
+            }
+
+            openItem.classList.remove('is-open');
+            var openQuestion = openItem.querySelector('.cash-faq__question');
+            var openAnswer = openItem.querySelector('.cash-faq__answer');
+
+            if (openQuestion) {
+              openQuestion.setAttribute('aria-expanded', 'false');
+            }
+            if (openAnswer) {
+              openAnswer.setAttribute('aria-hidden', 'true');
+            }
+          });
+        }
+
+        item.classList.toggle('is-open', isOpen);
         question.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         answer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
       }
