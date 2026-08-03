@@ -48,7 +48,61 @@
       });
   }
 
+  function createHomepageSlot(className) {
+    var section = document.createElement('section');
+    section.className = 'cash-section ' + className;
+    return section;
+  }
+
+  function reorderHomepageBlocks() {
+    var homepage = document.querySelector('.cash-home');
+    if (!homepage) {
+      return;
+    }
+
+    var catalogues = homepage.querySelector('.cash-catalogues');
+    var services = homepage.querySelector('.cash-services');
+    var client = homepage.querySelector('.cash-client');
+    var brands = homepage.querySelector('.cash-brands');
+    var proof = homepage.querySelector('.cash-proof');
+    var blog = document.querySelector('#content > .anblog-widget');
+    var newsletter = document.querySelector('#footer > .block_newsletter');
+
+    if (!catalogues || !services || !client || !proof) {
+      return;
+    }
+
+    var orderedBlocks = [services];
+
+    if (blog) {
+      var blogSlot = createHomepageSlot('cash-home-blog');
+      blogSlot.appendChild(blog);
+      orderedBlocks.push(blogSlot);
+    }
+
+    orderedBlocks.push(client);
+
+    if (brands) {
+      orderedBlocks.push(brands);
+    }
+
+    orderedBlocks.push(proof);
+
+    if (newsletter) {
+      var newsletterSlot = createHomepageSlot('cash-home-newsletter');
+      newsletterSlot.appendChild(newsletter);
+      orderedBlocks.push(newsletterSlot);
+    }
+
+    var anchor = catalogues;
+    orderedBlocks.forEach(function (block) {
+      anchor.insertAdjacentElement('afterend', block);
+      anchor = block;
+    });
+  }
+
   function initCashHomepage() {
+    reorderHomepageBlocks();
     document.querySelectorAll('[data-cash-carousel]').forEach(initCarousel);
     document.querySelectorAll('[data-cash-pdf-cover]').forEach(renderPdfCover);
 

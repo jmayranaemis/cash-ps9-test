@@ -319,6 +319,27 @@ body#index.page-index .anblog-widget>.anblog-widget-posts{
   margin-left:auto!important;
 }
 
+/* Le blog et la newsletter conservent leurs modules, mais rejoignent le flux éditorial Cash. */
+.cash-home-blog{background:#fff}
+.cash-home .cash-home-blog .anblog-widget{
+  width:min(1520px,calc(100% - 48px))!important;
+  margin:0 auto!important;
+  padding:0!important;
+}
+.cash-home .cash-home-blog .anblog-widget>.anblog-widget-title,
+.cash-home .cash-home-blog .anblog-widget>.anblog-widget-posts{
+  width:100%!important;
+}
+.cash-home-newsletter{
+  padding:0;
+  background:var(--beige);
+}
+.cash-home-newsletter .block_newsletter{
+  width:100%;
+  margin:0;
+  padding:34px 0;
+}
+
 @media(max-width:991px){
   .cash-catalogues__list{grid-auto-columns:calc((100% - 18px)/2)}
   .cash-catalogues-page__grid{grid-template-columns:1fr}
@@ -334,6 +355,7 @@ body#index.page-index .anblog-widget>.anblog-widget-posts{
   body#index.page-index .anblog-widget{padding:55px 0}
   body#index.page-index .anblog-widget>.anblog-widget-title,
   body#index.page-index .anblog-widget>.anblog-widget-posts{width:calc(100% - 28px)}
+  .cash-home .cash-home-blog .anblog-widget{width:calc(100% - 28px)!important}
 }
 @media(max-width:560px){
   .cash-flipbook-card{grid-template-columns:1fr}
