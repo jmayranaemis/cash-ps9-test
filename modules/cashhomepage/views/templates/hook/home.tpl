@@ -161,21 +161,25 @@
           <span class="cash-service-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M9 8h30v23H22l-9 7v-7H9z"/><path d="M16 16h16M16 22h11"/></svg></span>
           <h3><a href="{$cash_services_url|escape:'htmlall':'UTF-8'}#conseil">Conseil</a></h3>
           <p>Une équipe qui connaît les produits et votre métier.</p>
+          <a class="cash-services__more" href="{$cash_services_url|escape:'htmlall':'UTF-8'}#conseil">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
         <article>
           <span class="cash-service-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="7" y="8" width="14" height="14" rx="2"/><rect x="27" y="8" width="14" height="14" rx="2"/><rect x="7" y="28" width="14" height="14" rx="2"/><path d="m29 35 4 4 8-10"/></svg></span>
           <h3><a href="{$cash_services_url|escape:'htmlall':'UTF-8'}#disponibilite">Disponibilité</a></h3>
           <p>Une offre large et des solutions de remplacement.</p>
+          <a class="cash-services__more" href="{$cash_services_url|escape:'htmlall':'UTF-8'}#disponibilite">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
         <article>
           <span class="cash-service-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 12h25v22H5zM30 20h7l6 7v7H30z"/><circle cx="14" cy="37" r="4"/><circle cx="37" cy="37" r="4"/></svg></span>
           <h3><a href="{$cash_services_url|escape:'htmlall':'UTF-8'}#livraison">Livraison</a></h3>
           <p>Un service organisé selon votre secteur et vos besoins.</p>
+          <a class="cash-services__more" href="{$cash_services_url|escape:'htmlall':'UTF-8'}#livraison">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
         <article>
           <span class="cash-service-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="18" cy="15" r="7"/><circle cx="34" cy="18" r="5"/><path d="M5 41c1-10 6-15 13-15s12 5 13 15M29 28c7 0 12 4 14 12"/><path d="m31 11 3-3 3 3"/></svg></span>
           <h3><a href="{$cash_services_url|escape:'htmlall':'UTF-8'}#accompagnement">Accompagnement</a></h3>
           <p>Un interlocuteur pour suivre votre activité dans la durée.</p>
+          <a class="cash-services__more" href="{$cash_services_url|escape:'htmlall':'UTF-8'}#accompagnement">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
       </div>
     </div>

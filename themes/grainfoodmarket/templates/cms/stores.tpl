@@ -24,65 +24,81 @@
  *}
 {extends file='page.tpl'}
 
-{block name='page_title'}
-  {l s='Our stores' d='Shop.Theme.Global'}
-{/block}
+{block name='page_header_container'}{/block}
 
 {block name='page_content_container'}
-  <section id="content" class="page-content page-stores">
+  <section id="content" class="page-content cash-stores-page">
+    <header class="cash-stores-page__hero">
+      <div class="cash-stores-page__container">
+        <span>Cash Alimentaire près de chez vous</span>
+        <h1>Nos magasins et notre centre logistique</h1>
+        <p>Deux boutiques au cœur de Nice et une plateforme logistique à La Trinité pour servir les professionnels de la Côte d’Azur.</p>
+      </div>
+    </header>
 
-    {foreach $stores as $store}
-      <article id="store-{$store.id}" class="store-item card">
-        <div class="store-item-container clearfix">
-          <div class="col-md-3 store-picture hidden-sm-down">
-            <img src="{$store.image.bySize.stores_default.url}" alt="{$store.image.legend}" title="{$store.image.legend}">
-          </div>
-          <div class="col-md-5 col-sm-7 col-xs-12 store-description">
-            <h3 class="h3 card-title">{$store.name}</h3>
-            <address>{$store.address.formatted nofilter}</address>
-            {if $store.note || $store.phone || $store.fax || $store.email}
-              <a data-toggle="collapse" href="#about-{$store.id}" aria-expanded="false" aria-controls="about-{$store.id}"><strong>{l s='About and Contact' d='Shop.Theme.Global'}</strong><i class="material-icons">&#xE409;</i></a>
+    <div class="cash-stores-page__container cash-stores-grid">
+      {foreach $stores as $store}
+        {if $store.id == 1}
+          {assign var='cash_store_image' value="{$urls.base_url}modules/cashhomepage/views/img/cash-store-france.webp"}
+          {assign var='cash_store_kind' value='Boutique de proximité'}
+          {assign var='cash_store_maps' value='https://www.google.com/maps/search/?api=1&query=Cash+Alimentaire+15+rue+de+France+06000+Nice'}
+          {assign var='cash_store_reviews' value='https://www.google.com/search?q=Cash+Alimentaire+15+rue+de+France+Nice+avis'}
+        {elseif $store.id == 2}
+          {assign var='cash_store_image' value="{$urls.base_url}modules/cashhomepage/views/img/cash-store-villermont.webp"}
+          {assign var='cash_store_kind' value='Boutique historique'}
+          {assign var='cash_store_maps' value='https://www.google.com/maps/search/?api=1&query=Cash+Alimentaire+19+avenue+Villermont+06000+Nice'}
+          {assign var='cash_store_reviews' value='https://www.google.com/search?q=Cash+Alimentaire+19+avenue+Villermont+Nice+avis'}
+        {else}
+          {assign var='cash_store_image' value="{$urls.base_url}modules/cashhomepage/views/img/cash-about-logistics.webp"}
+          {assign var='cash_store_kind' value='Centre logistique'}
+          {assign var='cash_store_maps' value='https://www.google.com/maps/search/?api=1&query=Cash+Alimentaire+38+boulevard+de+l%27Oli+06340+La+Trinite'}
+          {assign var='cash_store_reviews' value='https://www.google.com/search?q=Cash+Alimentaire+38+boulevard+de+l%27Oli+La+Trinite+avis'}
+        {/if}
+
+        <article id="store-{$store.id}" class="cash-store-card">
+          <figure class="cash-store-card__image">
+            <img src="{$cash_store_image|escape:'htmlall':'UTF-8'}" width="1000" height="620" loading="lazy" alt="{$store.name|escape:'htmlall':'UTF-8'}">
+            <figcaption>{$cash_store_kind|escape:'htmlall':'UTF-8'}</figcaption>
+          </figure>
+
+          <div class="cash-store-card__content">
+            <h2>{$store.name|escape:'htmlall':'UTF-8'}</h2>
+            {if $store.note}<p class="cash-store-card__intro">{$store.note nofilter}</p>{/if}
+
+            <address class="cash-store-card__line">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+              <span>{$store.address.formatted nofilter}</span>
+            </address>
+
+            {if $store.phone}
+              <a class="cash-store-card__line" href="tel:{$store.phone|replace:' ':''|escape:'htmlall':'UTF-8'}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.2 9.6 7a1.5 1.5 0 0 1-.2 1.8l-1.5 1.5a15.4 15.4 0 0 0 5.8 5.8l1.5-1.5a1.5 1.5 0 0 1 1.8-.2l3.8 2.4a1.5 1.5 0 0 1 .7 1.5v2a1.5 1.5 0 0 1-1.5 1.5C10.2 21.8 2.2 13.8 2.2 4A1.5 1.5 0 0 1 3.7 2.5h2a1.5 1.5 0 0 1 1.5.7Z"/></svg>
+                <strong>{$store.phone|escape:'htmlall':'UTF-8'}</strong>
+              </a>
             {/if}
-          </div>
-          <div class="col-md-4 col-sm-5 col-xs-12 divide-left">
-            <table>
-              {foreach $store.business_hours as $day}
-              <tr>
-                <th>{$day.day|truncate:4:'.'}</th>
-                <td>
-                  <ul>
-                  {foreach $day.hours as $h}
-                    <li>{$h}</li>
-                  {/foreach}
-                  </ul>
-                </td>
-              </tr>
-              {/foreach}
-            </table>
-          </div>
-        </div>
-        <footer id="about-{$store.id}" class="collapse">
-          <div class="store-item-footer divide-top">
-            <div class="card-block">
-              {if $store.note}
-                <p class="text-justify">{$store.note}<p>
-              {/if}
-            </div>
-            <ul class="card-block">
-              {if $store.phone}
-                <li><i class="material-icons">&#xE0B0;</i>{$store.phone}</li>
-              {/if}
-              {if $store.fax}
-                <li><i class="material-icons">&#xE8AD;</i>{$store.fax}</li>
-              {/if}
-              {if $store.email}
-                <li><i class="material-icons">&#xE0BE;</i>{$store.email}</li>
-              {/if}
-            </ul>
-          </div>
-        </footer>
-      </article>
-    {/foreach}
 
+            <div class="cash-store-card__hours">
+              <div class="cash-store-card__hours-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.4 2"/></svg>
+                <strong>Horaires</strong>
+              </div>
+              <table>
+                {foreach $store.business_hours as $day}
+                  <tr>
+                    <th>{$day.day|truncate:4:'.'}</th>
+                    <td>{foreach $day.hours as $h}<span>{$h|escape:'htmlall':'UTF-8'}</span>{/foreach}</td>
+                  </tr>
+                {/foreach}
+              </table>
+            </div>
+          </div>
+
+          <footer class="cash-store-card__actions">
+            <a href="{$cash_store_maps|escape:'htmlall':'UTF-8'}" target="_blank" rel="noopener noreferrer">Voir sur Google Maps</a>
+            <a class="cash-store-card__review" href="{$cash_store_reviews|escape:'htmlall':'UTF-8'}" target="_blank" rel="noopener noreferrer">Laisser un avis Google</a>
+          </footer>
+        </article>
+      {/foreach}
+    </div>
   </section>
 {/block}

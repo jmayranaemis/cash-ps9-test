@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.17.2';
+        $this->version = '1.18.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -48,6 +48,7 @@ class CashHomepage extends Module
         $this->configureHomeProducts();
         $this->configureProfessionalHeader();
         $this->configureCataloguesIntegration();
+        $this->configureStores();
 
         return true;
     }
@@ -129,6 +130,115 @@ class CashHomepage extends Module
     public function upgradeTo170()
     {
         return $this->installBrandSelection();
+    }
+
+    public function upgradeTo180()
+    {
+        return $this->configureStores();
+    }
+
+    private function configureStores()
+    {
+        $countryId = (int) Country::getByIso('FR');
+        $stores = [
+            1 => [
+                'name' => 'CASE — Zone piétonne',
+                'address1' => '15 rue de France',
+                'postcode' => '06000',
+                'city' => 'Nice',
+                'phone' => '04 83 66 01 26',
+                'email' => 'france@cash-alimentaire.com',
+                'latitude' => 43.6956,
+                'longitude' => 7.2623,
+                'note' => 'Une boutique de proximité au cœur de Nice pour retrouver les essentiels du quotidien, les produits frais, l’épicerie et une sélection de spécialités.',
+                'hours' => [
+                    ['08:00 - 13:00', '16:00 - 19:30'],
+                    ['08:00 - 13:00', '16:00 - 19:30'],
+                    ['08:00 - 13:00', '16:00 - 19:30'],
+                    ['08:00 - 13:00', '16:00 - 19:30'],
+                    ['08:00 - 13:00', '16:00 - 19:30'],
+                    ['08:00 - 13:00', '16:00 - 19:30'],
+                    ['09:30 - 13:00', '16:00 - 19:30 de mai à septembre'],
+                ],
+            ],
+            2 => [
+                'name' => 'CASE — Villermont',
+                'address1' => '19 & 21 avenue Villermont',
+                'postcode' => '06000',
+                'city' => 'Nice',
+                'phone' => '04 93 85 30 09',
+                'email' => '',
+                'latitude' => 43.7113,
+                'longitude' => 7.2628,
+                'note' => 'Notre point de vente historique près du marché de la Libération, avec une offre large destinée aux professionnels comme aux particuliers.',
+                'hours' => [
+                    ['08:00 - 13:00', '14:30 - 18:30'],
+                    ['08:00 - 13:00', '14:30 - 18:30'],
+                    ['08:00 - 13:00', '14:30 - 18:30'],
+                    ['08:00 - 13:00', '14:30 - 18:30'],
+                    ['08:00 - 13:00', '14:30 - 18:30'],
+                    ['08:00 - 13:30'],
+                    ['Fermé'],
+                ],
+            ],
+            5 => [
+                'name' => 'CASE — Centre logistique',
+                'address1' => '38 boulevard de l’Oli',
+                'postcode' => '06340',
+                'city' => 'La Trinité',
+                'phone' => '04 89 03 23 23',
+                'email' => 'contact@cash-alimentaire.com',
+                'latitude' => 43.7418,
+                'longitude' => 7.3137,
+                'note' => 'Le cœur logistique de Cash Alimentaire : réception, stockage, préparation des commandes et organisation des livraisons professionnelles.',
+                'hours' => [
+                    ['10:00 - 16:00'],
+                    ['10:00 - 16:00'],
+                    ['10:00 - 16:00'],
+                    ['10:00 - 16:00'],
+                    ['10:00 - 16:00'],
+                    ['Fermé'],
+                    ['Fermé'],
+                ],
+            ],
+        ];
+
+        $db = Db::getInstance();
+        if (!$db->update('store', ['active' => 0], 'id_store IN (3, 4)')) {
+            return false;
+        }
+
+        foreach ($stores as $storeId => $store) {
+            if (!$db->update('store', [
+                'id_country' => $countryId,
+                'id_state' => 0,
+                'city' => $store['city'],
+                'postcode' => $store['postcode'],
+                'latitude' => $store['latitude'],
+                'longitude' => $store['longitude'],
+                'phone' => $store['phone'],
+                'fax' => '',
+                'email' => $store['email'],
+                'active' => 1,
+                'date_upd' => date('Y-m-d H:i:s'),
+            ], 'id_store = ' . (int) $storeId)) {
+                return false;
+            }
+
+            foreach (Language::getLanguages(false) as $language) {
+                if (!$db->update('store_lang', [
+                    'name' => $store['name'],
+                    'address1' => $store['address1'],
+                    'address2' => '',
+                    'hours' => json_encode($store['hours'], JSON_UNESCAPED_UNICODE),
+                    'note' => $store['note'],
+                ], 'id_store = ' . (int) $storeId . ' AND id_lang = ' . (int) $language['id_lang'])) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private function removeDemoHooks()

@@ -45,20 +45,20 @@
     <section class="cash-contact-page__body">
       <aside class="cash-contact-page__details" aria-label="Coordonnées Cash Alimentaire">
         <p class="cash-contact-page__eyebrow">Nous joindre</p>
+        <p class="cash-contact-page__note">Pour une ouverture de compte professionnel, utilisez directement le parcours <a href="{$link->getModuleLink('b2bregistration', 'business')}">Devenir client</a>.</p>
         <h2>Notre équipe est à votre écoute</h2>
         <a class="cash-contact-page__detail" href="tel:+33489032323">
-          <span class="cash-contact-page__icon" aria-hidden="true">☎</span>
+          <span class="cash-contact-page__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.2 3.2 9.6 7a1.5 1.5 0 0 1-.2 1.8l-1.5 1.5a15.4 15.4 0 0 0 5.8 5.8l1.5-1.5a1.5 1.5 0 0 1 1.8-.2l3.8 2.4a1.5 1.5 0 0 1 .7 1.5v2a1.5 1.5 0 0 1-1.5 1.5C10.2 21.8 2.2 13.8 2.2 4A1.5 1.5 0 0 1 3.7 2.5h2a1.5 1.5 0 0 1 1.5.7Z"/></svg></span>
           <span><small>Téléphone</small><strong>04 89 03 23 23</strong></span>
         </a>
         <div class="cash-contact-page__detail">
-          <span class="cash-contact-page__icon" aria-hidden="true">◷</span>
-          <span><small>Horaires</small><strong>Lun–ven 9h–17h<br>Sam 8h30–12h</strong></span>
+          <span class="cash-contact-page__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+          <span><small>Horaires</small><strong>Lun–ven 9h–17h</strong></span>
         </div>
         <a class="cash-contact-page__detail" href="{$urls.pages.stores}">
-          <span class="cash-contact-page__icon" aria-hidden="true">⌖</span>
+          <span class="cash-contact-page__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg></span>
           <span><small>Proximité</small><strong>Voir nos magasins</strong></span>
         </a>
-        <p class="cash-contact-page__note">Pour une ouverture de compte professionnel, utilisez directement le parcours <a href="{$link->getModuleLink('b2bregistration', 'business')}">Devenir client</a>.</p>
       </aside>
       <div class="cash-contact-page__form">
         <p class="cash-contact-page__eyebrow">Votre demande</p>

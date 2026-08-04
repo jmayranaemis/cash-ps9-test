@@ -129,6 +129,41 @@ body#index{overflow-x:clip!important}.cash-main-nav{display:flex;width:100%;alig
 .cash-services h3 a{color:var(--brown)!important;text-decoration:none!important}
 .cash-services h3 a:hover,.cash-services h3 a:focus{color:var(--red)!important}
 
+/* Rythme plus dense : la page reste aérée sans cumuler 156 px de vide par section. */
+.cash-section{padding:60px 0}
+.cash-contact{padding:58px 0}
+
+.cash-services article{
+  display:flex;
+  flex-direction:column;
+}
+.cash-services article>p{
+  margin-bottom:18px;
+}
+.cash-services__more{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  align-self:flex-start;
+  margin-top:auto;
+  color:var(--red)!important;
+  font-size:.8rem;
+  font-weight:850;
+  text-decoration:none!important;
+}
+.cash-services__more span{
+  transition:transform .2s ease;
+}
+.cash-services__more:hover span,
+.cash-services__more:focus span{
+  transform:translateX(4px);
+}
+
+@media(max-width:767px){
+  .cash-section{padding:44px 0}
+  .cash-contact{padding:48px 0}
+}
+
 /* Carrousel familles : défilement piloté uniquement par les deux boutons. */
 .cash-card-scroll{padding-bottom:0;scrollbar-width:none;-ms-overflow-style:none}
 .cash-card-scroll::-webkit-scrollbar{display:none}

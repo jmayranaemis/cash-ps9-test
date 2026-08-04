@@ -560,3 +560,479 @@ body .page-cms-4{
     flex-direction:column;
   }
 }
+
+/* Barre haute : trois zones d'action homogènes et réellement alignées. */
+#header.header1 .header-nav .container>.row>.hidden-sm-down{
+  display:flex!important;
+  min-height:58px;
+  align-items:stretch;
+}
+
+#header.header1 .header-nav .left-nav,
+#header.header1 .header-nav .right-nav,
+#header.header1 .header-nav #_desktop_social{
+  display:flex;
+  min-height:58px;
+  align-items:center;
+}
+
+#header.header1 .header-nav .left-nav{
+  justify-content:flex-start;
+}
+
+#header.header1 .header-nav .right-nav{
+  justify-content:flex-end;
+}
+
+.cash-header-service a,
+.cash-header-links a,
+#header .cash-header-client{
+  display:inline-flex!important;
+  align-items:center;
+  text-decoration:none!important;
+}
+
+.cash-header-service a{
+  gap:10px;
+}
+
+.cash-header-service__icon,
+.cash-header-links a>svg{
+  display:grid;
+  width:32px;
+  height:32px;
+  flex:0 0 32px;
+  padding:7px;
+  border:1px solid rgba(255,248,241,.28);
+  border-radius:50%;
+  color:var(--cash-beige);
+}
+
+.cash-header-service svg,
+.cash-header-links svg,
+#header .cash-header-client svg{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.cash-header-service a>span:last-child,
+.cash-header-links a>span,
+#header .cash-header-client>span{
+  display:flex;
+  flex-direction:column;
+  line-height:1.08;
+}
+
+.cash-header-service small,
+.cash-header-links small,
+#header .cash-header-client small{
+  margin-bottom:3px;
+  color:var(--cash-beige);
+  font-size:.58rem;
+  font-weight:650;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+.cash-header-service strong,
+.cash-header-links strong,
+#header .cash-header-client strong{
+  color:var(--cash-white);
+  font-size:.76rem;
+  font-weight:800;
+}
+
+.cash-header-links{
+  gap:12px;
+}
+
+.cash-header-links a{
+  gap:8px;
+  padding:6px 8px;
+  border-radius:8px;
+}
+
+.cash-header-links a:hover{
+  background:rgba(255,248,241,.08);
+}
+
+.cash-header-links a+ a::before{
+  display:none;
+}
+
+#header .cash-header-client{
+  min-height:42px;
+  gap:9px;
+  margin-left:10px;
+  padding:6px 13px;
+  border-radius:8px;
+  box-shadow:0 5px 16px rgba(0,0,0,.14);
+}
+
+#header .cash-header-client svg{
+  width:28px;
+  height:28px;
+  flex:0 0 28px;
+  padding:4px;
+  color:#fff;
+}
+
+#header .cash-header-client small{
+  color:rgba(255,255,255,.72);
+}
+
+/* Contact : pictogrammes vectoriels centrés et accès B2B prioritaire. */
+.cash-contact-page__details>.cash-contact-page__note{
+  margin:0 0 28px!important;
+  padding:16px 18px!important;
+  border:1px solid var(--cash-beige)!important;
+  border-left:4px solid var(--cash-red)!important;
+  border-radius:10px;
+  color:var(--cash-brown)!important;
+  background:var(--cash-ivory)!important;
+  font-size:.9rem;
+  line-height:1.5;
+}
+
+.cash-contact-page__note a{
+  color:var(--cash-red)!important;
+  font-weight:850;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.cash-contact-page__icon{
+  display:grid!important;
+  width:50px!important;
+  height:50px!important;
+  flex:0 0 50px!important;
+  padding:0!important;
+  border:1px solid rgba(36,72,61,.18);
+  border-radius:15px!important;
+  place-items:center!important;
+  color:var(--cash-green)!important;
+  background:var(--cash-ivory)!important;
+}
+
+.cash-contact-page__icon svg{
+  width:25px;
+  height:25px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.cash-contact-page__detail:hover .cash-contact-page__icon{
+  color:#fff!important;
+  background:var(--cash-red)!important;
+  border-color:var(--cash-red)!important;
+}
+
+/* Page Magasins Cash. Les présentations restent pilotées par les fiches Magasins du BO. */
+body#stores{
+  overflow-x:hidden;
+}
+
+.cash-stores-page{
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  padding:0!important;
+  color:var(--cash-brown);
+  background:var(--cash-ivory);
+}
+
+.cash-stores-page *{
+  box-sizing:border-box;
+}
+
+.cash-stores-page__container{
+  width:min(1500px,calc(100% - 48px));
+  margin:0 auto;
+}
+
+.cash-stores-page__hero{
+  padding:66px 0 72px;
+  color:#fff;
+  background:linear-gradient(120deg,var(--cash-green),#18362e);
+}
+
+.cash-stores-page__hero span{
+  display:block;
+  margin-bottom:13px;
+  color:var(--cash-beige);
+  font-size:.76rem;
+  font-weight:850;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.cash-stores-page__hero h1{
+  max-width:960px;
+  margin:0 0 18px;
+  color:#fff!important;
+  font-size:clamp(2.35rem,4vw,4.5rem);
+  font-weight:900;
+  letter-spacing:-.04em;
+  line-height:1.02;
+  text-align:left!important;
+}
+
+.cash-stores-page__hero p{
+  max-width:780px;
+  margin:0;
+  color:rgba(255,248,241,.86)!important;
+  font-size:1.08rem;
+  line-height:1.65;
+}
+
+.cash-stores-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
+  padding-top:58px;
+  padding-bottom:64px;
+}
+
+.cash-store-card{
+  display:flex;
+  min-width:0;
+  overflow:hidden;
+  flex-direction:column;
+  border:1px solid var(--cash-beige);
+  border-radius:22px;
+  background:#fff;
+  box-shadow:0 16px 42px rgba(67,42,25,.09);
+}
+
+.cash-store-card__image{
+  position:relative;
+  height:245px;
+  margin:0;
+  overflow:hidden;
+  background:var(--cash-beige);
+}
+
+.cash-store-card__image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .35s ease;
+}
+
+.cash-store-card:hover .cash-store-card__image img{
+  transform:scale(1.025);
+}
+
+.cash-store-card__image figcaption{
+  position:absolute;
+  bottom:16px;
+  left:16px;
+  padding:7px 10px;
+  border-radius:8px;
+  color:#fff;
+  background:var(--cash-red);
+  font-size:.68rem;
+  font-weight:850;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.cash-store-card__content{
+  display:flex;
+  padding:26px 24px 22px;
+  flex:1 1 auto;
+  flex-direction:column;
+}
+
+.cash-store-card h2{
+  margin:0 0 13px;
+  color:var(--cash-brown)!important;
+  font-size:1.55rem;
+  font-weight:880;
+  letter-spacing:-.025em;
+  line-height:1.12;
+  text-align:left!important;
+}
+
+.cash-store-card__intro{
+  min-height:86px;
+  margin:0 0 18px;
+  color:rgba(67,42,25,.76)!important;
+  font-size:.88rem;
+  line-height:1.58;
+}
+
+.cash-store-card__line{
+  display:flex;
+  gap:11px;
+  align-items:flex-start;
+  margin:0 0 14px;
+  color:var(--cash-brown)!important;
+  font-size:.88rem;
+  font-style:normal;
+  line-height:1.45;
+  text-decoration:none!important;
+}
+
+.cash-store-card__line svg,
+.cash-store-card__hours-title svg{
+  width:22px;
+  height:22px;
+  flex:0 0 22px;
+  fill:none;
+  stroke:var(--cash-red);
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.cash-store-card__hours{
+  margin-top:8px;
+  padding-top:18px;
+  border-top:1px solid var(--cash-beige);
+}
+
+.cash-store-card__hours-title{
+  display:flex;
+  gap:11px;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.cash-store-card__hours table{
+  width:100%;
+  margin:0;
+  font-size:.76rem;
+}
+
+.cash-store-card__hours tr+tr{
+  border-top:1px solid rgba(217,197,173,.42);
+}
+
+.cash-store-card__hours th,
+.cash-store-card__hours td{
+  padding:7px 0;
+  vertical-align:top;
+}
+
+.cash-store-card__hours th{
+  width:52px;
+  color:var(--cash-olive);
+  font-weight:800;
+}
+
+.cash-store-card__hours td span{
+  display:block;
+}
+
+.cash-store-card__actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  padding:0 24px 24px;
+}
+
+.cash-store-card__actions a{
+  display:flex;
+  min-height:46px;
+  padding:10px 12px;
+  border:1px solid var(--cash-green);
+  border-radius:10px;
+  align-items:center;
+  justify-content:center;
+  color:#fff!important;
+  background:var(--cash-green);
+  font-size:.74rem;
+  font-weight:820;
+  line-height:1.25;
+  text-align:center;
+  text-decoration:none!important;
+}
+
+.cash-store-card__actions .cash-store-card__review{
+  border-color:var(--cash-red);
+  color:var(--cash-red)!important;
+  background:transparent;
+}
+
+.cash-store-card__actions a:hover{
+  border-color:var(--cash-red);
+  color:#fff!important;
+  background:var(--cash-red);
+}
+
+/* Cartes catalogue : zone informative plus compacte, sans écraser la photo. */
+body .product-miniature:not(.col-lg-12) .thumbnail-container{
+  min-height:468px!important;
+}
+
+body .product-miniature:not(.col-lg-12) .product-description{
+  min-height:204px!important;
+  padding:16px 16px 14px!important;
+}
+
+body .product-miniature:not(.col-lg-12) .cash-product-card__brand{
+  min-height:18px!important;
+  margin-bottom:5px!important;
+  font-size:.66rem!important;
+  line-height:18px!important;
+}
+
+body .product-miniature:not(.col-lg-12) .product-title{
+  min-height:44px!important;
+  font-size:.9rem!important;
+  line-height:1.38!important;
+}
+
+body .product-miniature:not(.col-lg-12) .cash-product-card__meta{
+  min-height:18px!important;
+  margin-top:7px!important;
+  font-size:.7rem!important;
+  line-height:18px!important;
+}
+
+body .product-miniature:not(.col-lg-12) .cash-product-card__action{
+  min-height:40px!important;
+  margin-top:auto!important;
+  padding:7px 11px!important;
+  font-size:.72rem!important;
+  line-height:1.25!important;
+}
+
+@media (max-width:1199px){
+  .cash-stores-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width:991px){
+  #header.header1 .header-nav .container>.row>.hidden-sm-down{
+    display:none!important;
+  }
+}
+
+@media (max-width:767px){
+  .cash-stores-page__container{
+    width:calc(100% - 28px);
+  }
+  .cash-stores-page__hero{
+    padding:48px 0 52px;
+  }
+  .cash-stores-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+    padding-top:36px;
+    padding-bottom:42px;
+  }
+  .cash-store-card__image{
+    height:225px;
+  }
+  .cash-store-card__intro{
+    min-height:0;
+  }
+}
