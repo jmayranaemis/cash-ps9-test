@@ -213,12 +213,21 @@ body#index{overflow-x:clip!important}.cash-main-nav{display:flex;width:100%;alig
 }
 .cash-product-selection__module .owl-item .product-title,
 .cash-product-selection__module .owl-item .product-title a{
+  display:block!important;
   width:100%;
+  height:auto!important;
   max-width:100%;
+  max-height:none!important;
+  min-height:4.05em!important;
   min-width:0;
   box-sizing:border-box;
-  overflow:hidden;
+  overflow:visible!important;
   overflow-wrap:anywhere;
+  font-size:.78rem!important;
+  line-height:1.35!important;
+  text-overflow:clip!important;
+  -webkit-box-orient:initial!important;
+  -webkit-line-clamp:unset!important;
 }
 .cash-product-selection__module .owl-item .product-thumbnail img{
   width:100%!important;
