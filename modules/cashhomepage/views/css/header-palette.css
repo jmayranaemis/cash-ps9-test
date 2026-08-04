@@ -568,6 +568,12 @@ body .page-cms-4{
   align-items:stretch;
 }
 
+#header.header1 .header-nav .container>.row>.hidden-sm-down>div{
+  width:33.3333%!important;
+  max-width:33.3333%!important;
+  flex:1 1 33.3333%!important;
+}
+
 #header.header1 .header-nav .left-nav,
 #header.header1 .header-nav .right-nav,
 #header.header1 .header-nav #_desktop_social{
@@ -927,8 +933,17 @@ body#stores{
 }
 
 .cash-store-card__hours td span{
-  display:block;
+  display:inline;
 }
+
+.cash-store-card__hours td span+span::before{
+  color:var(--cash-olive);
+  content:" / ";
+}
+
+#store-1{order:1}
+#store-2{order:2}
+#store-5{order:3}
 
 .cash-store-card__actions{
   display:grid;
