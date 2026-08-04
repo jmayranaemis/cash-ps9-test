@@ -1116,10 +1116,10 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
 
 #product .cash-product-related .product-miniature:not(.col-lg-12) .product-title,
 #product .cash-product-related .product-miniature:not(.col-lg-12) .product-title a{
-  min-height:42px!important;
+  min-height:3.95em!important;
   font-size:.84rem!important;
   line-height:1.35!important;
-  -webkit-line-clamp:2;
+  -webkit-line-clamp:3;
 }
 
 #product .cash-product-related .product-miniature:not(.col-lg-12) .cash-product-card__meta{
