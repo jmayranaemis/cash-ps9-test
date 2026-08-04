@@ -1116,10 +1116,16 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
 
 #product .cash-product-related .product-miniature:not(.col-lg-12) .product-title,
 #product .cash-product-related .product-miniature:not(.col-lg-12) .product-title a{
+  display:block!important;
+  height:auto!important;
+  max-height:none!important;
   min-height:3.95em!important;
+  overflow:visible!important;
   font-size:.84rem!important;
   line-height:1.35!important;
-  -webkit-line-clamp:3;
+  text-overflow:clip!important;
+  -webkit-box-orient:initial!important;
+  -webkit-line-clamp:unset!important;
 }
 
 #product .cash-product-related .product-miniature:not(.col-lg-12) .cash-product-card__meta{
