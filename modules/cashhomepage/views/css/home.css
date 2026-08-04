@@ -167,6 +167,87 @@ body#index{overflow-x:clip!important}.cash-main-nav{display:flex;width:100%;alig
 /* Carrousel familles : défilement piloté uniquement par les deux boutons. */
 .cash-card-scroll{padding-bottom:0;scrollbar-width:none;-ms-overflow-style:none}
 .cash-card-scroll::-webkit-scrollbar{display:none}
+
+/* Familles : même langage de carte que la sélection produits, en format éditorial compact. */
+.cash-families .cash-card-scroll{
+  grid-auto-columns:minmax(205px,1fr);
+  gap:18px;
+  padding:2px 2px 18px;
+}
+.cash-family-card{
+  display:flex;
+  min-height:382px;
+  flex-direction:column;
+  padding:10px 10px 14px;
+  overflow:hidden;
+  border:1px solid rgba(67,42,25,.13);
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 10px 28px rgba(67,42,25,.06);
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.cash-family-card:hover,
+.cash-family-card:focus{
+  border-color:var(--red);
+  box-shadow:0 18px 38px rgba(67,42,25,.13);
+  transform:translateY(-2px);
+}
+.cash-family-card__image{
+  width:100%;
+  height:238px;
+  flex:0 0 238px;
+  overflow:hidden;
+  border-radius:8px;
+  background-color:#f6f6f6;
+  background-position:center;
+  background-size:cover;
+  transform:none!important;
+}
+.cash-family-card__image--fallback{
+  background:linear-gradient(145deg,#f1e5d7,var(--beige));
+}
+.cash-family-card strong,
+.cash-family-card>span:last-child{
+  padding-right:8px;
+  padding-left:8px;
+}
+.cash-family-card strong{
+  display:flex;
+  min-height:58px;
+  align-items:center;
+  padding-top:14px;
+  padding-bottom:8px;
+  color:var(--brown);
+  font-size:1.02rem;
+  font-weight:800;
+  line-height:1.2;
+}
+.cash-family-card>span:last-child{
+  display:flex;
+  min-height:40px;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:auto;
+  padding-top:8px;
+  padding-bottom:8px;
+  border-radius:4px;
+  color:#fff!important;
+  background:var(--green);
+  font-size:.72rem;
+  font-weight:800;
+  transition:background-color .2s ease;
+}
+.cash-family-card:hover>span:last-child,
+.cash-family-card:focus>span:last-child{
+  background:var(--red);
+}
+
+@media(max-width:767px){
+  .cash-families .cash-card-scroll{grid-auto-columns:minmax(190px,76vw)}
+  .cash-family-card{min-height:352px}
+  .cash-family-card__image{height:210px;flex-basis:210px}
+}
+
 .cash-carousel-buttons--below{justify-content:center;margin-top:18px}
 .cash-carousel-buttons button,
 .cash-product-selection__module .owl-nav>div{
