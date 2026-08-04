@@ -129,9 +129,11 @@ body#index{overflow-x:clip!important}.cash-main-nav{display:flex;width:100%;alig
 .cash-services h3 a{color:var(--brown)!important;text-decoration:none!important}
 .cash-services h3 a:hover,.cash-services h3 a:focus{color:var(--red)!important}
 
-/* Rythme plus dense : la page reste aérée sans cumuler 156 px de vide par section. */
-.cash-section{padding:60px 0}
-.cash-contact{padding:58px 0}
+/* Rythme vertical : 84 px entre contenus, 56 px entre Produits et Familles. */
+.cash-section{padding:42px 0}
+.cash-product-selection{padding-bottom:28px}
+.cash-families{padding-top:28px}
+.cash-contact{padding:46px 0}
 
 .cash-services article{
   display:flex;
@@ -160,8 +162,10 @@ body#index{overflow-x:clip!important}.cash-main-nav{display:flex;width:100%;alig
 }
 
 @media(max-width:767px){
-  .cash-section{padding:44px 0}
-  .cash-contact{padding:48px 0}
+  .cash-section{padding:34px 0}
+  .cash-product-selection{padding-bottom:24px}
+  .cash-families{padding-top:24px}
+  .cash-contact{padding:38px 0}
 }
 
 /* Carrousel familles : défilement piloté uniquement par les deux boutons. */
