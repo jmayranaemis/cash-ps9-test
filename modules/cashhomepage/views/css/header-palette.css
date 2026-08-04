@@ -160,7 +160,7 @@ body .page-cms-4{
 
 .cash-about__copy h1,
 .cash-about__copy h2{
-  text-align:left;
+  text-align:left!important;
 }
 
 .cash-about p{
