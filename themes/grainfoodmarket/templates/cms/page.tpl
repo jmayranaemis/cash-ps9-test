@@ -24,15 +24,21 @@
  *}
 {extends file='page.tpl'}
 
-{block name='page_title'}
-  {$cms.meta_title}
+{block name='page_header_container'}
+  {if $cms.id != 4}
+    {$smarty.block.parent}
+  {/if}
 {/block}
 
 {block name='page_content_container'}
   <section id="content" class="page-content page-cms page-cms-{$cms.id}">
 
     {block name='cms_content'}
-      {$cms.content nofilter}
+      {if $cms.id == 4}
+        {include file='cms/_partials/about-case.tpl'}
+      {else}
+        {$cms.content nofilter}
+      {/if}
     {/block}
 
     {block name='hook_cms_dispute_information'}

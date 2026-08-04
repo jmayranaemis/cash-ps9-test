@@ -48,8 +48,16 @@
 
           {hook h='displayCopyrightContainerLeft'}
         </div>
-      <div class="col-md-6">
+      <div class="col-md-6 cash-footer-bottom-right">
         {hook h='displayCopyrightContainer'}
+        <nav class="cash-footer-socials" aria-label="Réseaux sociaux">
+          <span>Suivez-nous</span>
+          <a href="https://www.linkedin.com/company/cash-alimentaire-du-sud-est/" target="_blank" rel="noopener noreferrer" aria-label="Cash Alimentaire sur LinkedIn">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M5.2 7.7H1.6V22h3.6V7.7ZM3.4 1.5A2.1 2.1 0 1 0 3.4 5.7a2.1 2.1 0 0 0 0-4.2ZM22.4 13.8c0-4.3-2.3-6.3-5.4-6.3a4.7 4.7 0 0 0-4.3 2.4V7.7H9.1V22h3.6v-7.1c0-1.9.4-3.7 2.7-3.7 2.3 0 2.3 2.1 2.3 3.8v7h3.6l.1-8.2Z"/>
+            </svg>
+          </a>
+        </nav>
       </div>
     </div>
   </div>

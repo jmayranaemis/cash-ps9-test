@@ -35,7 +35,12 @@
       >
     </a>
     <p>Grossiste alimentaire au service des professionnels de la restauration et des métiers de bouche depuis 1984.</p>
-    <a class="cash-footer-brand__phone" href="tel:+33489032323">04 89 03 23 23</a>
+    <a class="cash-footer-brand__phone" href="tel:+33489032323">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+        <path d="M7.2 3.2 9.6 7a1.5 1.5 0 0 1-.2 1.8l-1.5 1.5a15.4 15.4 0 0 0 5.8 5.8l1.5-1.5a1.5 1.5 0 0 1 1.8-.2l3.8 2.4a1.5 1.5 0 0 1 .7 1.5v2a1.5 1.5 0 0 1-1.5 1.5C10.2 21.8 2.2 13.8 2.2 4A1.5 1.5 0 0 1 3.7 2.5h2a1.5 1.5 0 0 1 1.5.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>04 89 03 23 23</span>
+    </a>
     <span class="cash-footer-brand__hours">Lun–ven 9h–17h</span>
     <div class="cash-footer-brand__actions">
       <a href="{$urls.pages.contact}">Nous contacter</a>
