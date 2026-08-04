@@ -24,6 +24,8 @@
 	*  International Registered Trademark & Property of PrestaShop SA
 	*}
 	
+	{* Le favori reste disponible dans les cartes produit, mais pas sur la fiche catalogue. *}
+	{*
 	<div class="an_wishlist-container an_wishlist-mini js-an_wishlist-container">
 		<span class="js-an_wishlist-addremove{if $status} an_wishlist-in{/if}" data-url="{$an_wishlistAjax|escape:'quotes'}">
             <svg class="an_wishlist-icon"
@@ -45,3 +47,4 @@
 		<div class="an_wishlist-mini-count js-an_wishlist-product-count">{$countWishlists|intval}</div>
 		{/if}
 	</div>
+	*}

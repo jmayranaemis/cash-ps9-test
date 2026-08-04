@@ -59,15 +59,6 @@
 
         {hook h='displayProductActions' product=$product}
       </div>
-        {block name='product_availability'}
-          <div class="product-availability-wrap">
-           <span id="product-availability">
-              {if $product.show_availability && $product.availability_message}
-                {$product.availability_message}
-              {/if}
-            </span>
-            </div>
-        {/block}
     {/block}
 
     

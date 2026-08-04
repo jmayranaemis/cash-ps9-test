@@ -54,30 +54,6 @@
     {/if}
   {/block}
 
-  {block name='product_quantities'}
-    {if $product.show_quantities}
-      <div class="product-quantities">
-        <label class="label">{l s='In stock' d='Shop.Theme.Catalog'}</label>
-        <span data-stock="{$product.quantity}" data-allow-oosp="{$product.allow_oosp}">{$product.quantity} {$product.quantity_label}</span>
-      </div>
-    {/if}
-  {/block}
-
-  {block name='product_availability_date'}
-    {if $product.availability_date}
-      <div class="product-availability-date">
-        <label>{l s='Availability date:' d='Shop.Theme.Catalog'} </label>
-        <span>{$product.availability_date}</span>
-      </div>
-    {/if}
-  {/block}
-
-  {block name='product_out_of_stock'}
-    <div class="product-out-of-stock">
-      {hook h='actionProductOutOfStock' product=$product}
-    </div>
-  {/block}
-
   {block name='product_features'}
     {if isset($product.grouped_features) AND $product.grouped_features}
       <section class="product-features">
