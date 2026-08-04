@@ -471,7 +471,8 @@ body .page-cms-4{
   text-transform:uppercase;
 }
 
-.cash-footer-socials a{
+.cash-footer-socials a,
+.cash-footer-socials__placeholder{
   display:grid;
   width:44px;
   height:44px;
@@ -480,6 +481,11 @@ body .page-cms-4{
   color:#fff!important;
   background:var(--cash-green);
   transition:background .2s ease,transform .2s ease;
+}
+
+.cash-footer-socials__placeholder{
+  opacity:.42;
+  cursor:not-allowed;
 }
 
 .cash-footer-socials a:hover{
