@@ -72,6 +72,10 @@ body.cms-id-4 #main{
   overflow:visible;
 }
 
+body.cms-id-4{
+  overflow-x:hidden;
+}
+
 body .page-cms-4{
   padding:0!important;
   border:0!important;
@@ -154,6 +158,11 @@ body .page-cms-4{
   font-weight:850;
 }
 
+.cash-about__copy h1,
+.cash-about__copy h2{
+  text-align:left;
+}
+
 .cash-about p{
   margin:0 0 18px;
   font-size:1.02rem;
@@ -197,6 +206,7 @@ body .page-cms-4{
 
 .cash-about__media--intro img{
   min-height:570px;
+  object-position:72% center;
 }
 
 .cash-about__text-link{
