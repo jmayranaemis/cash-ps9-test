@@ -1010,6 +1010,21 @@ body .product-miniature:not(.col-lg-12) .product-title{
   line-height:1.38!important;
 }
 
+/* Pages catégories : le thème limitait le h3 à 3rem et coupait la dernière ligne. */
+#products .product-miniature:not(.col-lg-12) .product-title,
+#products .product-miniature:not(.col-lg-12) .product-title a{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  min-height:4.14em!important;
+  overflow:visible!important;
+  line-height:1.38!important;
+  text-overflow:clip!important;
+  -webkit-box-orient:initial!important;
+  -webkit-line-clamp:unset!important;
+}
+
 body .product-miniature:not(.col-lg-12) .cash-product-card__meta{
   min-height:18px!important;
   margin-top:7px!important;
