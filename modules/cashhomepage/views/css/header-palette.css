@@ -1025,6 +1025,144 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
   line-height:1.25!important;
 }
 
+/* Fiche produit : sélections associées alignées sur la grille catalogue Cash. */
+#product .cash-product-related{
+  width:100%;
+  margin:46px 0 0!important;
+  padding:34px 0 8px;
+  border-top:1px solid rgba(67,42,25,.14);
+}
+
+#product .cash-product-related>h2,
+#product .cash-product-related>.product-accessories-title{
+  margin:0 0 24px!important;
+  color:var(--cash-brown)!important;
+  font-size:clamp(1.45rem,2vw,2rem)!important;
+  font-weight:850;
+  letter-spacing:-.025em;
+  line-height:1.15;
+  text-align:left!important;
+  text-transform:none;
+}
+
+#product .cash-product-related>h2::after{
+  display:block;
+  width:48px;
+  height:3px;
+  margin-top:12px;
+  border-radius:999px;
+  background:var(--cash-red);
+  content:"";
+}
+
+#product .cash-product-related>.products{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px;
+  width:100%;
+  margin:0!important;
+  padding:0;
+  align-items:stretch;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12){
+  display:flex!important;
+  width:auto!important;
+  min-width:0;
+  height:100%;
+  margin:0!important;
+  padding:0!important;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container{
+  width:100%!important;
+  min-width:0;
+  min-height:430px!important;
+  margin:0!important;
+  border-color:rgba(67,42,25,.12);
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(67,42,25,.06);
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container-image{
+  width:auto!important;
+  height:218px!important;
+  min-height:218px!important;
+  margin:10px 10px 0!important;
+  border-radius:8px;
+  background:#f7f6f4;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .product-thumbnail{
+  padding:24px!important;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .product-thumbnail img,
+#product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container-image img{
+  max-width:78%!important;
+  max-height:164px!important;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .product-description,
+#product .cash-product-related .product-miniature:not(.col-lg-12):hover .product-description{
+  min-height:200px!important;
+  padding:15px 15px 14px!important;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .cash-product-card__brand{
+  margin-bottom:5px!important;
+  font-size:.64rem!important;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .product-title,
+#product .cash-product-related .product-miniature:not(.col-lg-12) .product-title a{
+  min-height:42px!important;
+  font-size:.84rem!important;
+  line-height:1.35!important;
+  -webkit-line-clamp:2;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .cash-product-card__meta{
+  margin-top:7px!important;
+}
+
+#product .cash-product-related .product-miniature:not(.col-lg-12) .cash-product-card__action{
+  min-height:38px!important;
+  padding:7px 10px!important;
+  font-size:.69rem!important;
+}
+
+@media (max-width:1199px){
+  #product .cash-product-related>.products{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+
+@media (max-width:767px){
+  #product .cash-product-related{
+    margin-top:34px!important;
+    padding-top:26px;
+  }
+  #product .cash-product-related>.products{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+  }
+  #product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container-image{
+    height:180px!important;
+    min-height:180px!important;
+  }
+  #product .cash-product-related .product-miniature:not(.col-lg-12) .product-thumbnail img,
+  #product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container-image img{
+    max-height:134px!important;
+  }
+}
+
+@media (max-width:479px){
+  #product .cash-product-related>.products{
+    grid-template-columns:1fr;
+  }
+}
+
 @media (max-width:1199px){
   .cash-stores-grid{
     grid-template-columns:repeat(2,minmax(0,1fr));

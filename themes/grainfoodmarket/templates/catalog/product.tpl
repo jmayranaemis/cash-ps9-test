@@ -232,7 +232,7 @@
 
     {block name='product_accessories'}
     {if $accessories}
-      <section class="product-accessories clearfix">
+      <section class="product-accessories cash-product-related clearfix">
         <h2 class="product-accessories-title">{l s='You might also like' d='Shop.Theme.Catalog'}</h2>
         <div class="products">
           {foreach from=$accessories item="product_accessory" name=accessories}
