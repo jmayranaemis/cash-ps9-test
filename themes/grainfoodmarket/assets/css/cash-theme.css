@@ -154,6 +154,7 @@
   min-height: 246px;
   flex: 1 1 auto;
   flex-direction: column;
+  box-sizing: border-box;
   padding: 22px 20px 18px !important;
   opacity: 1 !important;
   background: var(--cash-white) !important;
@@ -221,10 +222,16 @@
 
 .product-miniature:not(.col-lg-12) .cash-product-card__action {
   display: flex;
+  width: calc(100% - 8px) !important;
+  max-width: calc(100% - 8px) !important;
   min-height: 44px;
+  align-self: center;
   align-items: center;
+  box-sizing: border-box;
   justify-content: space-between;
   margin-top: auto;
+  margin-right: 4px;
+  margin-left: 4px;
   padding: 11px 14px;
   color: var(--cash-white) !important;
   background: var(--cash-green);
@@ -232,6 +239,7 @@
   font-size: .78rem;
   font-weight: 820;
   text-decoration: none !important;
+  transform: none !important;
   transition: background-color .2s ease;
 }
 
