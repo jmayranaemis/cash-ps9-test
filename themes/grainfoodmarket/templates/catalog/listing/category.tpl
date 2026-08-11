@@ -15,14 +15,28 @@
 {extends file='catalog/listing/product-list.tpl'}
 
 {block name='product_list_header'}
-    <div class="block-category card card-block">
-        <h1 class="h1">{$category.name}</h1>
+    <div class="block-category card card-block cash-category-hero">
+        <div class="cash-category-hero__copy">
+            <span class="cash-category-hero__eyebrow">La sélection Cash Alimentaire</span>
+            <h1 class="h1">{$category.name}</h1>
+            {if $category.description}
+                <div id="category-description" class="{if Module::isEnabled('an_theme') AND Module::getInstanceByName('an_theme')->getParam('categoryPage_showCategoryDescription')!='1'}hidden-sm-down{/if}">
+                    {$category.description nofilter}
+                </div>
+            {/if}
+            <div class="cash-category-hero__meta">
+                <span>Catalogue professionnel</span>
+                {if isset($listing.pagination.total_items)}
+                    <span><strong>{$listing.pagination.total_items}</strong> références disponibles</span>
+                {/if}
+            </div>
+        </div>
         {if isset($category.image.bySize.category_default.url) AND ($category.image.bySize.category_default.url!='')}
-            <img {if Module::isEnabled('an_theme') AND Module::getInstanceByName('an_theme')->getParam('categoryPage_showCategoryDescription')!='1'}class="hidden-sm-down"{/if} src="{$category.image.bySize.category_default.url}" alt="{$category.image.legend}">
-        {/if}
-        {if $category.description}
-            <div id="category-description" class="{if Module::isEnabled('an_theme') AND Module::getInstanceByName('an_theme')->getParam('categoryPage_showCategoryDescription')!='1'}hidden-sm-down{/if}">
-                {$category.description nofilter}
+            <div class="cash-category-hero__visual {if Module::isEnabled('an_theme') AND Module::getInstanceByName('an_theme')->getParam('categoryPage_showCategoryDescription')!='1'}hidden-sm-down{/if}">
+                <span class="cash-category-hero__image">
+                    <img fetchpriority="high" src="{$category.image.bySize.category_default.url}" alt="{$category.image.legend}">
+                </span>
+                <small>Une offre pensée pour les professionnels</small>
             </div>
         {/if}
     </div>

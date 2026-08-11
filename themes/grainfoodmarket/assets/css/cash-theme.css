@@ -2355,6 +2355,190 @@ a.active,
   color: var(--cash-brown) !important;
 }
 
+/* Catégories : contenu plein écran quand la colonne de filtres est réellement vide. */
+body#category .cash-category-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  min-height: 245px;
+  margin-bottom: 28px;
+  padding: 0;
+  border: 1px solid var(--cash-beige);
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--cash-ivory), #fff 72%);
+  box-shadow: 0 16px 38px rgba(67, 42, 25, 0.07);
+  overflow: hidden;
+}
+
+body#category .cash-category-hero__copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 38px 44px;
+}
+
+body#category .cash-category-hero__eyebrow {
+  margin-bottom: 10px;
+  color: var(--cash-red);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+body#category .cash-category-hero .h1 {
+  margin: 0 0 14px;
+  color: var(--cash-brown);
+  font-size: clamp(2rem, 3.5vw, 3.35rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  text-align: left;
+}
+
+body#category .cash-category-hero #category-description,
+body#category .cash-category-hero #category-description p {
+  max-width: 780px;
+  margin: 0;
+  color: rgba(67, 42, 25, 0.76) !important;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+body#category .cash-category-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 22px;
+  margin-top: 21px;
+  color: var(--cash-olive);
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+body#category .cash-category-hero__meta span {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+body#category .cash-category-hero__meta span::before {
+  width: 7px;
+  height: 7px;
+  background: var(--cash-red);
+  border-radius: 50%;
+  content: "";
+}
+
+body#category .cash-category-hero__meta strong {
+  color: var(--cash-brown);
+  font-weight: 900;
+}
+
+body#category .cash-category-hero__visual {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 28px;
+  color: var(--cash-ivory);
+  background: var(--cash-green);
+}
+
+body#category .cash-category-hero__image {
+  display: grid;
+  width: 168px;
+  height: 168px;
+  padding: 12px;
+  border-radius: 18px;
+  place-items: center;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.17);
+  overflow: hidden;
+}
+
+body#category .cash-category-hero__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 11px;
+}
+
+body#category .cash-category-hero__visual small {
+  color: var(--cash-ivory);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.35;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  body#category:not(:has(#left-column .facet)) #left-column {
+    display: none !important;
+  }
+
+  body#category:not(:has(#left-column .facet)) #content-wrapper {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  body#category:not(:has(#left-column .facet)) #products .products > .product-miniature {
+    width: 25% !important;
+    max-width: 25% !important;
+    flex: 0 0 25% !important;
+  }
+}
+
+@media (max-width: 991px) {
+  body#category .cash-category-hero {
+    grid-template-columns: minmax(0, 1fr) 220px;
+  }
+
+  body#category .cash-category-hero__copy {
+    padding: 32px;
+  }
+
+  body#category .cash-category-hero__image {
+    width: 145px;
+    height: 145px;
+  }
+}
+
+@media (max-width: 767px) {
+  body#category .cash-category-hero {
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+  }
+
+  body#category .cash-category-hero__copy {
+    padding: 28px 24px;
+  }
+
+  body#category .cash-category-hero__visual {
+    display: grid;
+    grid-template-columns: 95px minmax(0, 1fr);
+    padding: 18px 24px;
+  }
+
+  body#category .cash-category-hero__image {
+    width: 95px;
+    height: 95px;
+    padding: 7px;
+    border-radius: 13px;
+  }
+
+  body#category .cash-category-hero__visual small {
+    text-align: left;
+  }
+}
+
 .cash-b2b__eyebrow {
   margin-bottom: 12px;
   color: var(--cash-beige);
