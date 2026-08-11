@@ -994,9 +994,6 @@ product-mobile-row
 
 
 			<div class="highlighted-informations hidden-sm-down">
-			 {block name='product_wishlist'}
-               {hook h='displayProductListWishlist' product=$product}
-               {/block}
             {if Module::isEnabled('an_theme') and Module::getInstanceByName('an_theme')->getParam('product_showquickview') == 1}
 			  {block name='quick_view'}
 				<a class="quick-view" href="#" data-link-action="quickview" aria-label="{$product.name|truncate:30:'...'}">

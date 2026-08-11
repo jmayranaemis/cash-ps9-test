@@ -39,11 +39,12 @@
     <h3>{$catalogue.title|escape:'htmlall':'UTF-8'}</h3>
     <p>Feuilletez ce catalogue en ligne et retrouvez rapidement les références utiles à votre activité.</p>
     <div class="cash-flipbook-card__actions">
-      <button
-        type="button"
+      <a
         class="cash-button cash-button--primary"
-        data-cash-open-catalogue="cash_catalogue_{$catalogue.id|intval}"
-      >Feuilleter</button>
+        href="{$catalogue.viewer_url|escape:'htmlall':'UTF-8'}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Feuilleter</a>
       {if $catalogue.download}
         <a
           class="cash-flipbook-card__download"

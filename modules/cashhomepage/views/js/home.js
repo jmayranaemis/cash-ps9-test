@@ -110,6 +110,21 @@
     document.querySelectorAll('[data-cash-carousel]').forEach(initCarousel);
     document.querySelectorAll('[data-cash-pdf-cover]').forEach(renderPdfCover);
 
+    var requestedCatalogue = new URLSearchParams(window.location.search).get('open_catalogue');
+    if (requestedCatalogue && /^\d+$/.test(requestedCatalogue)) {
+      var attempts = 0;
+      var openRequestedCatalogue = window.setInterval(function () {
+        var catalogue = document.getElementById('cash_catalogue_' + requestedCatalogue);
+        attempts += 1;
+        if (catalogue && catalogue.classList.contains('_df_thumb')) {
+          window.clearInterval(openRequestedCatalogue);
+          catalogue.click();
+        } else if (attempts >= 20) {
+          window.clearInterval(openRequestedCatalogue);
+        }
+      }, 250);
+    }
+
     document.addEventListener('click', function (event) {
       var opener = event.target.closest('[data-cash-open-catalogue]');
       if (!opener) {

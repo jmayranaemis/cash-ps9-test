@@ -696,6 +696,123 @@ body .page-cms-4{
   color:rgba(255,255,255,.72);
 }
 
+/* Accès pro dans la barre haute, aides contextuelles à droite de la recherche. */
+#header.header1 .header-nav .cash-header-pro{
+  display:flex;
+  width:100%;
+  min-height:44px;
+  gap:11px;
+  align-items:center;
+  justify-content:center;
+  padding:7px 15px;
+  border:1px solid rgba(255,248,241,.2);
+  border-radius:10px;
+  color:#fff!important;
+  background:rgba(255,248,241,.07);
+  text-decoration:none!important;
+  transition:background .2s ease,border-color .2s ease;
+}
+
+#header.header1 .header-nav .cash-header-pro:hover{
+  border-color:rgba(255,248,241,.4);
+  background:rgba(255,248,241,.13);
+}
+
+.cash-header-pro>svg{
+  width:29px;
+  height:29px;
+  flex:0 0 29px;
+  fill:none;
+  stroke:var(--cash-beige);
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.cash-header-pro>span:not(.cash-header-pro__arrow){display:flex;flex-direction:column;line-height:1.08}
+.cash-header-pro small{margin-bottom:3px;color:var(--cash-beige);font-size:.56rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.cash-header-pro strong{color:#fff;font-size:.76rem;font-weight:850}
+.cash-header-pro__arrow{margin-left:2px;color:var(--cash-beige);font-size:1rem}
+
+#header.header1 .header-top .header_middle_line{
+  display:flex;
+  align-items:center;
+}
+
+#header.header1 .header-top .header-right{
+  display:flex;
+  align-items:center;
+  padding-left:12px;
+}
+
+#header.header1 .header-top .cash-header-links{
+  display:grid;
+  width:100%;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+
+#header.header1 .header-top .cash-header-links a{
+  min-width:0;
+  min-height:60px;
+  gap:7px;
+  padding:9px 8px;
+  border:1px solid rgba(67,42,25,.13);
+  border-radius:11px;
+  background:rgba(255,255,255,.5);
+}
+
+#header.header1 .header-top .cash-header-links a:hover{
+  border-color:var(--cash-beige);
+  background:#fff;
+}
+
+#header.header1 .header-top .cash-header-links a>svg{
+  width:29px;
+  height:29px;
+  flex-basis:29px;
+  padding:6px;
+  border-color:rgba(36,72,61,.2);
+  color:var(--cash-green);
+}
+
+#header.header1 .header-top .cash-header-links small{color:var(--cash-olive);font-size:.5rem}
+#header.header1 .header-top .cash-header-links strong{color:var(--cash-brown);font-size:.66rem;white-space:nowrap}
+
+/* Listes produits : surfaces neutres, informations utiles uniquement. */
+body#category .products-selection,
+body#category .pagination,
+body#module-ambjolisearch-jolisearch .products-selection,
+body#module-ambjolisearch-jolisearch .pagination{
+  background:transparent!important;
+}
+
+body#category #products .product-flags,
+body#category #products .cash-product-card__meta,
+body#module-ambjolisearch-jolisearch #products .product-flags,
+body#module-ambjolisearch-jolisearch #products .cash-product-card__meta{
+  display:none!important;
+}
+
+/* Rayons de cartes homogènes sur les composants éditoriaux. */
+.cash-services__grid article,
+.cash-trades__grid article,
+.cash-advice__item,
+.cash-contact__links a,
+.cash-brands__scroll a,
+body#index .anblog-widget .blog-item{
+  overflow:hidden;
+  border-radius:14px!important;
+}
+
+#subcategories,
+#subcategories .subcategory-image,
+#subcategories .subcategory-image a,
+#subcategories .subcategory-image img{
+  overflow:hidden;
+  border-radius:12px!important;
+}
+
 /* Contact : pictogrammes vectoriels centrés et accès B2B prioritaire. */
 .cash-contact-page__details>.cash-contact-page__note{
   margin:0 0 28px!important;

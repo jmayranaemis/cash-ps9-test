@@ -8,7 +8,6 @@
       <div class="cash-home__container">
         <p class="cash-eyebrow">Sélections & nouveautés</p>
         <h1>Nos catalogues professionnels</h1>
-        <p>Feuilletez nos catalogues interactifs ou téléchargez-les pour les consulter quand vous le souhaitez.</p>
       </div>
     </header>
 

@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.18.9';
+        $this->version = '1.19.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -1438,6 +1438,7 @@ class CashHomepage extends Module
             $catalogues[] = [
                 'id' => (int) $row['id_lpsflipbook'],
                 'title' => trim((string) $row['title']) ?: $this->l('Catalogue professionnel'),
+                'viewer_url' => $this->getCataloguesUrl() . '?open_catalogue=' . (int) $row['id_lpsflipbook'],
                 'pdf_url' => $baseUrl . '/modules/lpsflipbook/views/pdf/' . rawurlencode(
                     basename($row['pdf_name'])
                 ),
@@ -1503,12 +1504,12 @@ class CashHomepage extends Module
         $imageFile = '';
 
         foreach (['jpg', 'webp', 'png'] as $extension) {
-            if (file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '-category_default.' . $extension)) {
-                $imageFile = $categoryId . '-category_default.' . $extension;
-                break;
-            }
             if (file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '.' . $extension)) {
                 $imageFile = $categoryId . '.' . $extension;
+                break;
+            }
+            if (file_exists(_PS_CAT_IMG_DIR_ . $categoryId . '-category_default.' . $extension)) {
+                $imageFile = $categoryId . '-category_default.' . $extension;
                 break;
             }
         }
@@ -1522,12 +1523,12 @@ class CashHomepage extends Module
             foreach ($categoryObject->getAllChildren() as $child) {
                 $childId = (int) $child->id;
                 foreach (['jpg', 'webp', 'png'] as $extension) {
-                    if (file_exists(_PS_CAT_IMG_DIR_ . $childId . '-category_default.' . $extension)) {
-                        $imageFile = $childId . '-category_default.' . $extension;
-                        break 2;
-                    }
                     if (file_exists(_PS_CAT_IMG_DIR_ . $childId . '.' . $extension)) {
                         $imageFile = $childId . '.' . $extension;
+                        break 2;
+                    }
+                    if (file_exists(_PS_CAT_IMG_DIR_ . $childId . '-category_default.' . $extension)) {
+                        $imageFile = $childId . '-category_default.' . $extension;
                         break 2;
                     }
                 }

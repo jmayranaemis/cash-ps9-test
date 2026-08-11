@@ -35,7 +35,8 @@
       <ul class="subcategories-list">
         {foreach from=$subcategories item=subcategory}
 
-          {if version_compare($smarty.const._PS_VERSION_, '9.0.0.0', '<')}
+          {* JoliSearch transmet encore les sous-catégories sous forme de tableaux sous PS9. *}
+          {if is_array($subcategory)}
             {$thumbnail = $subcategory}
           {else}
             {$thumbnail = $subcategory->getThumbnail()}
@@ -45,13 +46,20 @@
             <div class="subcategory-image">
               <a href="{$subcategory.url}" title="{$subcategory.name|escape:'html':'UTF-8'}" class="img">
                 {if !empty($thumbnail.bySize.category_default.url)}
+                  {if isset($subcategory.id_category)}
+                    {$cashCategoryImageId = $subcategory.id_category}
+                  {elseif isset($subcategory.id)}
+                    {$cashCategoryImageId = $subcategory.id}
+                  {else}
+                    {$cashCategoryImageId = 0}
+                  {/if}
                   <img
                     class="img-fluid"
-                    src="{$thumbnail.bySize.category_default.url}"
+                    src="{if $cashCategoryImageId}{$urls.img_cat_url}{$cashCategoryImageId|intval}.jpg{else}{$thumbnail.bySize.category_default.url}{/if}"
                     alt="{$subcategory.name|escape:'html':'UTF-8'}"
                     loading="lazy"
-                    width="{$thumbnail.bySize.category_default.width}"
-                    height="{$thumbnail.bySize.category_default.height}"/>
+                    width="360"
+                    height="360"/>
                 {/if}
               </a>
             </div>

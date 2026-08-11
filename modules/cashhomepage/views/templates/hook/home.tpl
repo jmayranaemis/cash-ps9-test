@@ -87,7 +87,6 @@
       <div class="cash-catalogues__intro">
         <p class="cash-eyebrow">Sélections & nouveautés</p>
         <h2>{$cash_content.catalogue_title|escape:'htmlall':'UTF-8'}</h2>
-        <p>{$cash_content.catalogue_text|escape:'htmlall':'UTF-8'}</p>
         <a class="cash-catalogues__all" href="{$cash_catalogues_url|escape:'htmlall':'UTF-8'}">Voir tous les catalogues →</a>
       </div>
       {if $cash_catalogues}
