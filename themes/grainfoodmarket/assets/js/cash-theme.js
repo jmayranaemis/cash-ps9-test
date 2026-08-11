@@ -89,9 +89,73 @@
     }
   }
 
+  function initCashStickyHeader() {
+    var header = document.querySelector('#header');
+    var headerNav = header ? header.querySelector('.header-nav') : null;
+    var headerTop = header ? header.querySelector('.header-top') : null;
+    var megaMenu = header ? header.querySelector('.ets_mm_megamenu') : null;
+
+    if (!header || !headerNav || !headerTop || !megaMenu || header.querySelector('[data-cash-sticky-header]')) {
+      return;
+    }
+
+    var shell = document.createElement('div');
+    var spacer = document.createElement('div');
+    shell.className = 'cash-header-sticky-shell';
+    shell.setAttribute('data-cash-sticky-header', '');
+    spacer.className = 'cash-header-sticky-spacer';
+    spacer.setAttribute('aria-hidden', 'true');
+
+    header.insertBefore(shell, headerNav);
+    shell.appendChild(headerNav);
+    shell.appendChild(headerTop);
+    shell.appendChild(megaMenu);
+    header.insertBefore(spacer, shell.nextSibling);
+
+    var stickyOffset = shell.getBoundingClientRect().top + window.pageYOffset;
+    var normalHeight = shell.getBoundingClientRect().height;
+    var scheduled = false;
+
+    function resetSticky() {
+      shell.classList.remove('is-sticky');
+      document.body.classList.remove('cash-header-is-sticky');
+      spacer.style.height = '0px';
+    }
+
+    function updateSticky() {
+      scheduled = false;
+
+      if (window.innerWidth < 992) {
+        resetSticky();
+        return;
+      }
+
+      var shouldStick = window.pageYOffset > stickyOffset + 1;
+      shell.classList.toggle('is-sticky', shouldStick);
+      document.body.classList.toggle('cash-header-is-sticky', shouldStick);
+      spacer.style.height = shouldStick ? normalHeight + 'px' : '0px';
+    }
+
+    function scheduleUpdate() {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(updateSticky);
+    }
+
+    window.addEventListener('scroll', scheduleUpdate, {passive: true});
+    window.addEventListener('resize', function () {
+      resetSticky();
+      stickyOffset = shell.getBoundingClientRect().top + window.pageYOffset;
+      normalHeight = shell.getBoundingClientRect().height;
+      scheduleUpdate();
+    });
+    updateSticky();
+  }
+
   function initCashTheme() {
     initCashFaq();
     initCashServiceAnchors();
+    initCashStickyHeader();
   }
 
   if (document.readyState === 'loading') {
