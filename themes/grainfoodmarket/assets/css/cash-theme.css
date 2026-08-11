@@ -896,74 +896,8 @@ a.active,
     box-shadow: 0 12px 30px rgba(67, 42, 25, 0.2);
   }
 
-  .cash-header-sticky-shell.is-sticky .header-nav {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  #header.header1 .cash-header-sticky-shell.is-sticky .header-nav .container > .row > .hidden-sm-down,
-  #header.header1 .cash-header-sticky-shell.is-sticky .header-nav .left-nav,
-  #header.header1 .cash-header-sticky-shell.is-sticky .header-nav .right-nav,
-  #header.header1 .cash-header-sticky-shell.is-sticky .header-nav #_desktop_social {
-    min-height: 50px;
-  }
-
-  .cash-header-sticky-shell.is-sticky .cash-header-service__icon,
-  .cash-header-sticky-shell.is-sticky .cash-header-pro > svg {
-    width: 27px;
-    height: 27px;
-    flex-basis: 27px;
-  }
-
-  #header.header1 .cash-header-sticky-shell.is-sticky .header-nav .cash-header-pro {
-    min-height: 40px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-
-  #header.header1 .cash-header-sticky-shell.is-sticky .header_middle_line {
-    min-height: 78px;
-    height: 78px;
-  }
-
-  #header.header1 .cash-header-sticky-shell.is-sticky .header-top {
-    height: 78px !important;
-  }
-
-  #header.header1 .cash-header-sticky-shell.is-sticky #_desktop_logo img {
-    width: auto;
-    max-height: 50px;
-  }
-
-  #header.header1 .cash-header-sticky-shell.is-sticky .search-widget form {
-    height: 44px;
-  }
-
-  #header.header1 .cash-header-sticky-shell.is-sticky .header-top .cash-header-links a {
-    min-height: 48px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-  }
-
-  #header.header1 .cash-header-sticky-shell.is-sticky .header-top .cash-header-links a > svg {
-    width: 26px;
-    height: 26px;
-    flex-basis: 26px;
-  }
-
-  .cash-header-sticky-shell.is-sticky .ets_mm_megamenu .ets_mm_megamenu_content_content,
-  .cash-header-sticky-shell.is-sticky .ets_mm_megamenu .mm_menus_ul,
-  .cash-header-sticky-shell.is-sticky .ets_mm_megamenu .mm_menus_li > a.ets_mm_url {
-    min-height: 52px;
-  }
-
-  .cash-header-sticky-shell.is-sticky .ets_mm_megamenu .mm_menus_li::after {
-    bottom: 12px;
-    height: 26px;
-  }
-
   body.cash-header-is-sticky .cash-service-anchor {
-    scroll-margin-top: 200px;
+    scroll-margin-top: 265px;
   }
 }
 
