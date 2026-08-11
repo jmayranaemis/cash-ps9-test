@@ -901,6 +901,15 @@ a.active,
   }
 }
 
+/* JoliSearch peut rendre `col-lg-undefined` : neutralise les largeurs liées au contenu. */
+@media (min-width: 992px) {
+  body#module-ambjolisearch-jolisearch #js-product-list .products > .product-miniature {
+    flex: 0 0 33.333333% !important;
+    width: 33.333333% !important;
+    max-width: 33.333333% !important;
+  }
+}
+
 /* Barre de service professionnelle. */
 #header.header1 .header-nav .row > .hidden-sm-down {
   display: grid !important;
