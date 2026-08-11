@@ -134,22 +134,6 @@
     </div>
   </section>
 
-  <section class="cash-section cash-trades">
-    <div class="cash-home__container">
-      <div class="cash-section__heading">
-        <div>
-          <p class="cash-eyebrow">Une offre pensée pour votre métier</p>
-          <h2>{$cash_content.trades_title|escape:'htmlall':'UTF-8'}</h2>
-        </div>
-      </div>
-      <div class="cash-trades__grid">
-        <article><span>01</span><h3>Restaurateur</h3><p>Produits frais, épicerie, surgelés, boissons et consommables au même endroit.</p></article>
-        <article><span>02</span><h3>Fast-food & snacking</h3><p>Des références adaptées aux volumes, au rendement et à la rapidité de service.</p></article>
-        <article><span>03</span><h3>Pizza & vente à emporter</h3><p>Ingrédients, emballages et boissons pour composer une offre complète.</p></article>
-      </div>
-    </div>
-  </section>
-
   <section id="services" class="cash-section cash-services">
     <div class="cash-home__container">
       <div class="cash-section__heading">
@@ -181,14 +165,6 @@
           <a class="cash-services__more" href="{$cash_services_url|escape:'htmlall':'UTF-8'}#accompagnement">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
       </div>
-    </div>
-  </section>
-
-  <section class="cash-section cash-advice">
-    <div class="cash-home__container cash-advice__grid">
-      <div><p class="cash-eyebrow">Conseils & actualités</p><h2>Des idées directement utiles à votre activité</h2></div>
-      <a class="cash-advice__item" href="{$cash_contact_url|escape:'htmlall':'UTF-8'}"><span>Conseil pro</span><strong>Besoin d’une référence ou d’une alternative&nbsp;?</strong><em>Poser une question →</em></a>
-      <a class="cash-advice__item" href="{$cash_products_url|escape:'htmlall':'UTF-8'}"><span>Inspiration</span><strong>Découvrez nos familles produits</strong><em>Explorer l’offre →</em></a>
     </div>
   </section>
 

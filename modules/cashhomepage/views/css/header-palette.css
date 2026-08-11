@@ -782,6 +782,8 @@ body .page-cms-4{
 /* Listes produits : surfaces neutres, informations utiles uniquement. */
 body#category .products-selection,
 body#category .pagination,
+body#manufacturer .products-selection,
+body#manufacturer .pagination,
 body#module-ambjolisearch-jolisearch .products-selection,
 body#module-ambjolisearch-jolisearch .pagination{
   background:transparent!important;
