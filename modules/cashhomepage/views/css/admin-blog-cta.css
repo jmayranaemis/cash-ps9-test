@@ -1,0 +1,85 @@
+.cash-blog-cta-library {
+  margin: 18px 0 25px;
+  padding: 22px;
+  color: #432a19;
+  border: 1px solid #d9c5ad;
+  border-left: 5px solid #d01719;
+  border-radius: 12px;
+  background: #fff8f1;
+  box-shadow: 0 8px 22px rgba(67, 42, 25, 0.07);
+}
+
+.cash-blog-cta-library__heading {
+  display: flex;
+  gap: 30px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.cash-blog-cta-library__heading span {
+  display: block;
+  margin-bottom: 4px;
+  color: #d01719;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cash-blog-cta-library__heading h3 {
+  margin: 0;
+  color: #432a19;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.cash-blog-cta-library__heading p {
+  max-width: 480px;
+  margin: 0;
+  color: #71735b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cash-blog-cta-library__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cash-blog-cta-library__button {
+  display: inline-flex;
+  min-height: 44px;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.cash-blog-cta-library__button span {
+  font-size: 18px;
+}
+
+.cash-blog-cta-library__button--primary { color: #fff; background: #d01719; }
+.cash-blog-cta-library__button--secondary { color: #fff; background: #24483d; }
+.cash-blog-cta-library__button--outline { color: #432a19; border-color: #432a19; background: #fff; }
+.cash-blog-cta-library__button--dark { color: #fff; background: #432a19; }
+.cash-blog-cta-library__button:hover { color: #fff; border-color: #24483d; background: #24483d; }
+
+.cash-blog-cta-library__status {
+  min-height: 18px;
+  margin: 12px 0 0;
+  color: #24483d;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+@media (max-width: 767px) {
+  .cash-blog-cta-library__heading { align-items: flex-start; flex-direction: column; }
+  .cash-blog-cta-library__button { width: 100%; justify-content: space-between; }
+}

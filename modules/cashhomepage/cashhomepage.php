@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.20.2';
+        $this->version = '1.20.3';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -36,6 +36,7 @@ class CashHomepage extends Module
             && $this->registerHook('moduleRoutes')
             && $this->registerHook('actionFrontControllerInitAfter')
             && $this->registerHook('actionEmailSendBefore')
+            && $this->registerHook('displayBackOfficeHeader')
             && $this->installEditableContent()
             && $this->installBrandSelection()
             && $this->ensureSignatureCmsPages()
@@ -90,6 +91,16 @@ class CashHomepage extends Module
     public function upgradeTo1202()
     {
         $this->ensureFaqPage(true);
+
+        return true;
+    }
+
+    public function upgradeTo1203()
+    {
+        if (!$this->isRegisteredInHook('displayBackOfficeHeader')
+            && !$this->registerHook('displayBackOfficeHeader')) {
+            return false;
+        }
 
         return true;
     }
@@ -1328,6 +1339,23 @@ HTML;
             'modules/' . $this->name . '/views/js/home.js',
             ['position' => 'bottom', 'priority' => 200, 'version' => $this->version . '-2']
         );
+    }
+
+    public function hookDisplayBackOfficeHeader()
+    {
+        $controllerName = Tools::strtolower((string) Tools::getValue('controller'));
+        if ('adminanblogblogs' !== $controllerName) {
+            return '';
+        }
+
+        $this->context->controller->addJS(
+            $this->_path . 'views/js/admin-blog-cta.js?v=' . rawurlencode($this->version)
+        );
+        $this->context->controller->addCSS(
+            $this->_path . 'views/css/admin-blog-cta.css?v=' . rawurlencode($this->version)
+        );
+
+        return '';
     }
 
     public function hookModuleRoutes()

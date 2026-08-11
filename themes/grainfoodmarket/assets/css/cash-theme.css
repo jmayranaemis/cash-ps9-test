@@ -2235,6 +2235,48 @@ a.active,
   text-underline-offset: 3px;
 }
 
+/* CTA insérables depuis l’éditeur des articles de blog. */
+.blog-description .cash-blog-cta {
+  margin: 36px 0;
+  text-align: center;
+}
+
+.blog-description .cash-blog-cta__button {
+  display: inline-flex;
+  min-height: 52px;
+  gap: 13px;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 23px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-decoration: none !important;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.blog-description .cash-blog-cta__button:hover {
+  color: #fff !important;
+  border-color: var(--cash-green);
+  background: var(--cash-green);
+  transform: translateY(-2px);
+}
+
+.blog-description .cash-blog-cta__button--primary { color: #fff !important; background: var(--cash-red); }
+.blog-description .cash-blog-cta__button--secondary { color: #fff !important; background: var(--cash-green); }
+.blog-description .cash-blog-cta__button--outline { color: var(--cash-brown) !important; border-color: var(--cash-brown); background: var(--cash-ivory); }
+.blog-description .cash-blog-cta__button--dark { color: #fff !important; background: var(--cash-brown); }
+
+.blog-description .cash-blog-cta__button span {
+  font-size: 1.2em;
+  transition: transform 0.2s ease;
+}
+
+.blog-description .cash-blog-cta__button:hover span {
+  transform: translateX(4px);
+}
+
 .cash-faq__contact {
   display: flex;
   gap: 25px;
