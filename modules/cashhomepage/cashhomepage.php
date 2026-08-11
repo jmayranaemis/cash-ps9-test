@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.20.1';
+        $this->version = '1.20.2';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -82,6 +82,13 @@ class CashHomepage extends Module
     public function upgradeTo130()
     {
         $this->configureNewsBlog();
+        $this->ensureFaqPage(true);
+
+        return true;
+    }
+
+    public function upgradeTo1202()
+    {
         $this->ensureFaqPage(true);
 
         return true;
@@ -957,40 +964,166 @@ class CashHomepage extends Module
 
     private function getFaqContent()
     {
-        return '
+        return <<<'HTML'
             <div class="cash-faq">
               <div class="cash-faq__intro">
                 <p class="cash-faq__eyebrow">Aide aux professionnels</p>
                 <h2>Questions fréquentes</h2>
-                <p>Retrouvez les réponses essentielles avant de contacter notre équipe.</p>
+                <p>Ouverture de compte, commandes, produits, magasins et recrutement&nbsp;: retrouvez rapidement les réponses utiles.</p>
               </div>
               <div class="cash-faq__list">
+                <h3 class="cash-faq__section">Devenir client</h3>
                 <div class="cash-faq__item">
-                  <div class="cash-faq__question"><span>Qui peut devenir client professionnel&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__question"><span>Qui peut devenir client&nbsp;?</span><b></b></div>
                   <div class="cash-faq__answer"><p>Les restaurants, commerces de bouche, collectivités et professionnels disposant d’un SIRET valide peuvent déposer une demande d’ouverture de compte.</p></div>
                 </div>
                 <div class="cash-faq__item">
                   <div class="cash-faq__question"><span>Comment demander l’ouverture d’un compte&nbsp;?</span><b></b></div>
-                  <div class="cash-faq__answer"><p>Remplissez le formulaire «&nbsp;Devenir client&nbsp;» avec vos coordonnées, votre SIRET et votre extrait Kbis. Notre équipe contrôle ensuite votre dossier avant de vous recontacter.</p></div>
+                  <div class="cash-faq__answer"><p>Remplissez le formulaire <a href="/b2b-customer-create">«&nbsp;Devenir client&nbsp;»</a> avec vos coordonnées, votre numéro SIRET et votre extrait Kbis. Notre équipe étudie votre dossier avant de vous recontacter.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>L’ouverture de compte est-elle gratuite&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, la demande d’ouverture de compte est gratuite. Elle est soumise à la validation de votre dossier.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Quels documents sont nécessaires pour ouvrir un compte&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Selon votre activité, un extrait Kbis, votre numéro SIRET et d’autres justificatifs peuvent être demandés.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Combien de temps faut-il pour ouvrir un compte&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Les demandes sont traitées dans les meilleurs délais après réception d’un dossier complet.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment créer un espace client&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Déposez d’abord votre demande depuis la page «&nbsp;Devenir client&nbsp;». Après validation du dossier, l’équipe Cash Alimentaire crée votre accès. Sur ce site catalogue, cet espace permet notamment de conserver vos produits favoris&nbsp;; les commandes restent organisées avec votre interlocuteur commercial.</p></div>
+                </div>
+
+                <h3 class="cash-faq__section">Commandes &amp; livraison</h3>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment passer commande&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Une fois votre compte ouvert, votre commercial vous indiquera les modalités de commande adaptées à votre activité.</p></div>
                 </div>
                 <div class="cash-faq__item">
                   <div class="cash-faq__question"><span>Proposez-vous la livraison&nbsp;?</span><b></b></div>
-                  <div class="cash-faq__answer"><p>Oui, selon votre zone et les conditions convenues avec notre équipe commerciale. Appelez-nous pour vérifier la couverture de votre établissement.</p></div>
+                  <div class="cash-faq__answer"><p>Oui, selon votre secteur géographique et les conditions convenues avec notre équipe commerciale.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Dans quelles zones livrez-vous&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Nous livrons principalement sur notre secteur d’activité entre Saint-Tropez et Monaco. Contactez-nous pour vérifier si votre établissement est desservi.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Existe-t-il un minimum de commande&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Les conditions peuvent varier selon le secteur et le mode de livraison. Notre équipe vous renseignera lors de l’ouverture de votre compte.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Puis-je venir retirer ma commande&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, selon les modalités définies avec le service client. Contactez-nous avant votre déplacement.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Que faire si un produit est indisponible&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Contactez votre interlocuteur commercial ou notre service client. Selon votre besoin et les stocks disponibles, une référence de remplacement pourra vous être proposée.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment connaître les promotions en cours&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Consultez les catalogues du moment et les actualités du site. Vous pouvez également vous inscrire à la newsletter ou interroger votre commercial.</p></div>
+                </div>
+
+                <h3 class="cash-faq__section">Produits</h3>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Quels produits proposez-vous&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Nous proposons une large gamme de produits alimentaires et de boissons destinés aux professionnels de la restauration, des métiers de bouche et des collectivités.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Travaillez-vous avec des producteurs locaux&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, nous sélectionnons également des produits issus de producteurs locaux afin de valoriser les filières régionales.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Vos produits évoluent-ils au fil des saisons&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, certaines références sont saisonnières afin de garantir leur qualité et leur disponibilité.</p></div>
                 </div>
                 <div class="cash-faq__item">
                   <div class="cash-faq__question"><span>Comment obtenir un catalogue&nbsp;?</span><b></b></div>
-                  <div class="cash-faq__answer"><p>Consultez les catalogues interactifs sur le site ou sélectionnez «&nbsp;Demande de catalogue&nbsp;» dans le formulaire de contact pour recevoir la sélection adaptée à votre activité.</p></div>
+                  <div class="cash-faq__answer"><p>Consultez nos catalogues interactifs sur le site ou faites-en la demande via notre formulaire de contact.</p></div>
                 </div>
                 <div class="cash-faq__item">
-                  <div class="cash-faq__question"><span>Quand puis-je joindre l’équipe&nbsp;?</span><b></b></div>
-                  <div class="cash-faq__answer"><p>Du lundi au vendredi de 9h à 17h et le samedi de 8h30 à 12h, au 04 89 03 23 23 ou par e-mail à commandeweb@cash-alimentaire.com.</p></div>
+                  <div class="cash-faq__question"><span>Vos catalogues sont-ils mis à jour régulièrement&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, ils sont actualisés en fonction des nouveautés, des promotions et de la saisonnalité.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment sont sélectionnés vos produits&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Nos références sont sélectionnées selon leur qualité, leur régularité, leur disponibilité et leur pertinence pour les usages des professionnels de la restauration et des métiers de bouche.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Proposez-vous des produits bio, locaux ou labellisés&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, selon les familles et les disponibilités, notre catalogue comprend des références bio, locales ou bénéficiant de labels. Contactez-nous pour identifier les produits adaptés à vos critères.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Vos emballages sont-ils recyclables&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>La composition et les consignes de tri varient selon les produits et leurs fabricants. Reportez-vous aux indications présentes sur l’emballage ou demandez-nous les informations de la référence concernée.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Où trouver les informations allergènes et les fiches techniques&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Les allergènes figurent sur l’étiquetage des produits. Pour obtenir une fiche technique ou une information complémentaire, transmettez-nous la référence concernée via votre commercial ou le formulaire de contact.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment devenir fournisseur&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Présentez votre entreprise, vos gammes et vos conditions via notre formulaire de contact. Votre proposition sera transmise au service concerné pour étude.</p></div>
+                </div>
+
+                <h3 class="cash-faq__section">Particuliers</h3>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Je suis un particulier, puis-je acheter chez vous&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Notre activité est principalement réservée aux professionnels.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Je suis un particulier, où puis-je trouver vos produits&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Certains de nos produits sont disponibles auprès de nos deux magasins à Nice, situés au 21 avenue Villermont et aux 15 &amp; 17 rue de France. N’hésitez pas à nous contacter pour connaître les produits disponibles à la vente.</p></div>
+                </div>
+
+                <h3 class="cash-faq__section">Nos points de vente</h3>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Quels sont vos points de vente&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Retrouvez l’ensemble de nos magasins et leurs coordonnées sur la page <a href="/magasins">«&nbsp;Nos magasins&nbsp;»</a>.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Puis-je me rendre dans n’importe quelle agence&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, sous réserve des services proposés par chaque site. Consultez la fiche de votre agence ou contactez-nous avant votre visite.</p></div>
+                </div>
+
+                <h3 class="cash-faq__section">Contact</h3>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Quand puis-je joindre votre équipe&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Du lundi au vendredi de 9h à 17h et le samedi de 8h30 à 12h.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment vous contacter&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Vous pouvez nous joindre par téléphone, via notre formulaire de contact ou directement auprès du point de vente le plus proche.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>À qui s’adresser pour une question commerciale&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Notre équipe commerciale est à votre disposition pour vous accompagner dans vos besoins et vos commandes.</p></div>
+                </div>
+
+                <h3 class="cash-faq__section">Recrutement</h3>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Comment envoyer ma candidature&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Vous pouvez consulter nos offres d’emploi et déposer votre candidature directement depuis la page «&nbsp;Recrutement&nbsp;». Les candidatures spontanées sont également les bienvenues.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Acceptez-vous les candidatures spontanées&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, vous pouvez nous transmettre votre CV et votre lettre de motivation via notre formulaire de recrutement.</p></div>
+                </div>
+                <div class="cash-faq__item">
+                  <div class="cash-faq__question"><span>Proposez-vous des stages&nbsp;?</span><b></b></div>
+                  <div class="cash-faq__answer"><p>Oui, selon les besoins de nos différents services.</p></div>
                 </div>
               </div>
               <div class="cash-faq__contact">
                 <strong>Vous ne trouvez pas votre réponse&nbsp;?</strong>
                 <a href="/nous-contacter">Contactez notre équipe</a>
               </div>
-            </div>';
+            </div>
+HTML;
     }
 
     private function configureB2BRegistration()

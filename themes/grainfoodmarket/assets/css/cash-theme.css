@@ -2127,6 +2127,21 @@ a.active,
   gap: 12px;
 }
 
+.cash-faq__section {
+  margin: 32px 0 4px;
+  padding: 0 0 12px;
+  color: var(--cash-green) !important;
+  border-bottom: 3px solid var(--cash-beige);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 850;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.cash-faq__section:first-child {
+  margin-top: 0;
+}
+
 .cash-faq__item {
   overflow: hidden;
   background: var(--cash-white);
@@ -2211,6 +2226,13 @@ a.active,
   margin: 0;
   color: var(--cash-brown) !important;
   line-height: 1.7;
+}
+
+.cash-faq__answer a {
+  color: var(--cash-red) !important;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .cash-faq__contact {
