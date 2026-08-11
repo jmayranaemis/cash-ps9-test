@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.19.1';
+        $this->version = '1.20.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -38,6 +38,7 @@ class CashHomepage extends Module
             && $this->registerHook('actionEmailSendBefore')
             && $this->installEditableContent()
             && $this->installBrandSelection()
+            && $this->ensureSignatureCmsPages()
             && $this->configureCashExperience();
     }
 
@@ -863,6 +864,49 @@ class CashHomepage extends Module
             ['position' => 2],
             'id_hook = ' . $hookId . ' AND id_module = ' . (int) $announcement->id
         );
+    }
+
+    public function ensureSignatureCmsPages()
+    {
+        return $this->ensureSignatureCmsPage(
+            'recrutement',
+            'Recrutement',
+            'Rejoignez Cash Alimentaire du Sud-Est et découvrez nos métiers, nos valeurs et notre parcours de recrutement.'
+        ) && $this->ensureSignatureCmsPage(
+            'nos-engagements',
+            'Nos engagements',
+            'Découvrez les engagements humains, environnementaux, territoriaux et responsables de Cash Alimentaire du Sud-Est.'
+        );
+    }
+
+    private function ensureSignatureCmsPage($slug, $title, $description)
+    {
+        $cmsId = (int) Db::getInstance()->getValue(
+            'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+             WHERE link_rewrite = "' . pSQL($slug) . '" ORDER BY id_cms ASC LIMIT 1'
+        );
+        $cms = $cmsId ? new CMS($cmsId) : new CMS();
+        if (!$cmsId) {
+            $cms->id_cms_category = 1;
+        }
+        $cms->active = 1;
+        $cms->indexation = 1;
+        $cms->meta_title = [];
+        $cms->meta_description = [];
+        $cms->meta_keywords = [];
+        $cms->link_rewrite = [];
+        $cms->content = [];
+
+        foreach (Language::getLanguages(false) as $language) {
+            $languageId = (int) $language['id_lang'];
+            $cms->meta_title[$languageId] = $title;
+            $cms->meta_description[$languageId] = $description;
+            $cms->meta_keywords[$languageId] = '';
+            $cms->link_rewrite[$languageId] = $slug;
+            $cms->content[$languageId] = '<p>' . $description . '</p>';
+        }
+
+        return $cmsId ? $cms->update() : $cms->add();
     }
 
     private function ensureFaqPage($refreshContent = false)
