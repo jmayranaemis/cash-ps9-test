@@ -49,6 +49,7 @@
 }
 
 .cash-blog-cta-library__button {
+  box-sizing: border-box;
   display: inline-flex;
   min-height: 44px;
   gap: 12px;
@@ -67,6 +68,7 @@
 
 .cash-blog-cta-library__button--primary { color: #fff; background: #d01719; }
 .cash-blog-cta-library__button--secondary { color: #fff; background: #24483d; }
+.cash-blog-cta-library__button--services { color: #fff; background: #71735b; }
 .cash-blog-cta-library__button--outline { color: #432a19; border-color: #432a19; background: #fff; }
 .cash-blog-cta-library__button--dark { color: #fff; background: #432a19; }
 .cash-blog-cta-library__button:hover { color: #fff; border-color: #24483d; background: #24483d; }

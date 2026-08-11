@@ -13,6 +13,11 @@
       html: '<p class="cash-blog-cta"><a class="cash-blog-cta__button cash-blog-cta__button--secondary" href="/catalogues-professionnels.html">Voir les catalogues <span aria-hidden="true">→</span></a></p>'
     },
     {
+      label: 'Découvrez nos services',
+      variant: 'services',
+      html: '<p class="cash-blog-cta"><a class="cash-blog-cta__button cash-blog-cta__button--services" href="/content/services-cash-alimentaire">Découvrez nos services <span aria-hidden="true">→</span></a></p>'
+    },
+    {
       label: 'Nous contacter',
       variant: 'outline',
       html: '<p class="cash-blog-cta"><a class="cash-blog-cta__button cash-blog-cta__button--outline" href="/nous-contacter">Nous contacter <span aria-hidden="true">→</span></a></p>'
@@ -26,9 +31,10 @@
 
   var editorStyles = [
     '.cash-blog-cta{margin:28px 0;text-align:center}',
-    '.cash-blog-cta__button{display:inline-flex;min-height:50px;gap:12px;align-items:center;justify-content:center;padding:13px 22px;border:2px solid transparent;border-radius:12px;font-weight:800;text-decoration:none}',
+    '.cash-blog-cta__button{box-sizing:border-box;display:inline-flex;min-height:46px;gap:10px;align-items:center;justify-content:center;padding:10px 18px;border:2px solid transparent;border-radius:12px;font-weight:800;line-height:1.2;text-decoration:none}',
     '.cash-blog-cta__button--primary{color:#fff;background:#d01719}',
     '.cash-blog-cta__button--secondary{color:#fff;background:#24483d}',
+    '.cash-blog-cta__button--services{color:#fff;background:#71735b}',
     '.cash-blog-cta__button--outline{color:#432a19;border-color:#432a19;background:#fff8f1}',
     '.cash-blog-cta__button--dark{color:#fff;background:#432a19}'
   ].join('');

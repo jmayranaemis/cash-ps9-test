@@ -2242,12 +2242,13 @@ a.active,
 }
 
 .blog-description .cash-blog-cta__button {
+  box-sizing: border-box;
   display: inline-flex;
-  min-height: 52px;
-  gap: 13px;
+  min-height: 46px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
-  padding: 13px 23px;
+  padding: 10px 18px;
   border: 2px solid transparent;
   border-radius: 12px;
   font-weight: 800;
@@ -2265,6 +2266,7 @@ a.active,
 
 .blog-description .cash-blog-cta__button--primary { color: #fff !important; background: var(--cash-red); }
 .blog-description .cash-blog-cta__button--secondary { color: #fff !important; background: var(--cash-green); }
+.blog-description .cash-blog-cta__button--services { color: #fff !important; background: var(--cash-olive); }
 .blog-description .cash-blog-cta__button--outline { color: var(--cash-brown) !important; border-color: var(--cash-brown); background: var(--cash-ivory); }
 .blog-description .cash-blog-cta__button--dark { color: #fff !important; background: var(--cash-brown); }
 
