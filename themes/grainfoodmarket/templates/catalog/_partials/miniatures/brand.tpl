@@ -23,9 +23,9 @@
  * International Registered Trademark & Property of PrestaShop SA
  *}
 {block name='brand_miniature_item'}
-  <li class="brand">
-    <div class="brand-img">
-        <a href="{$brand.url}">
+  <li class="brand cash-brand-card" data-brand-name="{$brand.name|escape:'html':'UTF-8'}">
+    <a href="{$brand.url}" class="cash-brand-card__link" aria-label="Voir les produits {$brand.name|escape:'html':'UTF-8'}">
+      <div class="brand-img cash-brand-card__logo">
             {if version_compare($smarty.const._PS_VERSION_, '9.0.0.0', '<')}
                 <img src="{$brand.image}" alt="{$brand.name}">
             {else}
@@ -40,15 +40,12 @@
                   >
                 </picture>
             {/if}
-        </a>
-    </div>
-    <div class="brand-infos">
-      <h3><a href="{$brand.url}">{$brand.name}</a></h3>
-      {$brand.text nofilter}
-    </div>
-    <div class="brand-products">
-      <a href="{$brand.url}" class="brand-amount">{$brand.nb_products}</a>
-      <a href="{$brand.url}" class="btn btn-primary">{l s='View products' d='Shop.Theme.Actions'}</a>
-    </div>
+      </div>
+      <div class="brand-infos cash-brand-card__body">
+        <h2>{$brand.name}</h2>
+        {if $brand.text}<p>{$brand.text|strip_tags|truncate:105:'…'}</p>{/if}
+        <div class="cash-brand-card__footer"><span>{$brand.nb_products} {if $brand.nb_products > 1}produits{else}produit{/if}</span><strong>Découvrir <b aria-hidden="true">→</b></strong></div>
+      </div>
+    </a>
   </li>
 {/block}

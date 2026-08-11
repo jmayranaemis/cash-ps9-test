@@ -464,6 +464,44 @@ body:has(.cash-signature){overflow-x:hidden}
 @media(max-width:1199px){.cash-signature__grid--4,.cash-signature__actions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cash-signature__values{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:767px){.cash-signature__hero-panel{padding:30px;box-shadow:10px 10px 0 var(--cash-beige)}.cash-signature__grid--4,.cash-signature__grid--2,.cash-signature__actions-grid,.cash-signature__values,.cash-signature__territory,.cash-signature__objectives{grid-template-columns:1fr}.cash-signature__job{padding-left:72px!important}.cash-signature__job>span{left:24px}.cash-signature__statement{padding:34px;box-shadow:10px 10px 0 var(--cash-beige)}}
 
+/* Page Marques : grille éditoriale Cash, recherche et accès alphabétique. */
+body#manufacturer:has(.cash-brands-page){overflow-x:hidden}
+body#manufacturer:has(.cash-brands-page) #wrapper>.container{width:100%;max-width:none;padding:0}
+body#manufacturer:has(.cash-brands-page) #content-wrapper{width:100%;padding:0}
+.cash-brands-page{width:100%;color:var(--cash-brown)}
+.cash-brands-page *{box-sizing:border-box}
+.cash-brands-page__container{width:min(1420px,calc(100% - 64px));margin:0 auto}
+.cash-brands-page__hero{padding:76px 0 68px;background:linear-gradient(135deg,var(--cash-ivory),#f1e3d2)}
+.cash-brands-page__eyebrow{display:block;margin-bottom:13px;color:var(--cash-red);font-size:.76rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+.cash-brands-page__hero h1{max-width:900px;margin:0 0 22px;color:var(--cash-brown);font-size:clamp(2.35rem,4.3vw,4.6rem);font-weight:900;letter-spacing:-.045em;line-height:1.02;text-align:left}
+.cash-brands-page__hero p{max-width:780px;margin:0;color:rgba(67,42,25,.78);font-size:1.1rem;line-height:1.7}
+.cash-brands-page__facts{display:flex;gap:13px;align-items:baseline;margin-top:30px}.cash-brands-page__facts strong{color:var(--cash-green);font-size:2rem}.cash-brands-page__facts span{font-size:.88rem;font-weight:750}
+.cash-brands-page__content{padding:64px 0 82px;background:#fff}
+.cash-brands-page__tools{position:sticky;z-index:8;top:0;margin-bottom:36px;padding:20px;border:1px solid var(--cash-beige);border-radius:18px;background:rgba(255,248,241,.97);box-shadow:0 12px 32px rgba(67,42,25,.08);backdrop-filter:blur(8px)}
+.cash-brands-page__search{display:grid;grid-template-columns:190px minmax(0,1fr);gap:18px;align-items:center;margin:0 0 18px;color:var(--cash-brown);font-size:.86rem;font-weight:850}
+.cash-brands-page__search-field{display:flex;height:48px;align-items:center;border:1px solid rgba(67,42,25,.18);border-radius:12px;background:#fff;overflow:hidden}.cash-brands-page__search-field svg{width:21px;height:21px;margin-left:16px;fill:none;stroke:var(--cash-green);stroke-width:1.8}.cash-brands-page__search-field input{width:100%;height:100%;padding:0 15px;border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important}
+.cash-brands-page__alphabet{display:flex;flex-wrap:wrap;gap:6px}.cash-brands-page__alphabet button{min-width:34px;height:34px;padding:0 9px;border:1px solid rgba(67,42,25,.15);border-radius:9px;color:var(--cash-brown);background:#fff;font-size:.72rem;font-weight:850;cursor:pointer}.cash-brands-page__alphabet button:hover,.cash-brands-page__alphabet button.is-active{border-color:var(--cash-green);color:#fff;background:var(--cash-green)}
+.cash-brands-page__grid{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;margin:0!important;padding:0!important;list-style:none!important}
+.cash-brand-card{display:block!important;min-width:0;margin:0!important;border:1px solid rgba(67,42,25,.13)!important;border-radius:18px!important;background:#fff;box-shadow:0 9px 26px rgba(67,42,25,.06);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+.cash-brand-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(67,42,25,.12)}
+.cash-brand-card[hidden]{display:none!important}
+.cash-brand-card__link{display:flex;height:100%;min-height:315px;flex-direction:column;color:var(--cash-brown)!important;text-decoration:none!important}
+.cash-brand-card__logo{display:grid!important;width:100%!important;height:150px!important;padding:27px!important;border:0!important;border-bottom:1px solid rgba(67,42,25,.1)!important;place-items:center;background:var(--cash-ivory)}
+.cash-brand-card__logo picture{display:contents}.cash-brand-card__logo img{width:auto!important;height:auto!important;max-width:100%!important;max-height:95px!important;object-fit:contain}
+.cash-brand-card__body{display:flex!important;min-width:0;flex:1;flex-direction:column;padding:21px!important;text-align:left!important}
+.cash-brand-card__body h2{margin:0 0 10px;color:var(--cash-brown);font-size:1rem;font-weight:900;line-height:1.25;text-align:left!important}.cash-brand-card__body p{display:-webkit-box;margin:0;color:rgba(67,42,25,.68);font-size:.78rem;line-height:1.5;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.cash-brand-card__footer{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:auto;padding-top:19px}.cash-brand-card__footer>span{color:var(--cash-olive);font-size:.72rem;font-weight:750}.cash-brand-card__footer>strong{color:var(--cash-red);font-size:.76rem}.cash-brand-card__footer b{font-size:1rem}
+.cash-brands-page__empty{padding:60px;border:1px dashed var(--cash-beige);border-radius:18px;color:var(--cash-olive);background:var(--cash-ivory);text-align:center}
+.cash-brands-page__cta{padding:56px 0;color:#fff;background:var(--cash-green)}.cash-brands-page__cta>.cash-brands-page__container{display:flex;gap:40px;align-items:center;justify-content:space-between}.cash-brands-page__cta h2{max-width:760px;margin:0;color:#fff;font-size:clamp(1.7rem,3vw,2.9rem);line-height:1.1;text-align:left}.cash-brands-page__cta .cash-brands-page__eyebrow{color:var(--cash-beige)}.cash-brands-page__button{display:inline-flex;min-height:52px;padding:14px 24px;border-radius:13px;align-items:center;color:#fff!important;background:var(--cash-red);font-weight:850;white-space:nowrap}
+
+/* Footer : 3 colonnes de liens après désactivation de « Votre compte ». */
+@media(min-width:768px){.footer-container>.container>.row:first-child>.block-contact.col-md-3{width:25%;max-width:25%;flex:0 0 25%}.footer-container>.container>.row:first-child>.col-md-6.links{width:75%;max-width:75%;flex:0 0 75%}.footer-container>.container>.row:first-child>.col-md-6.links>.row>.col-md-6.wrapper{width:33.3333%;max-width:33.3333%;flex:0 0 33.3333%}}
+
+@media(max-width:1199px){.cash-brands-page__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:991px){.cash-brands-page__grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cash-brands-page__tools{position:static}}
+@media(max-width:767px){.cash-brands-page__container{width:calc(100% - 28px)}.cash-brands-page__hero{padding:54px 0}.cash-brands-page__content{padding:42px 0 56px}.cash-brands-page__search{grid-template-columns:1fr}.cash-brands-page__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.cash-brand-card__link{min-height:285px}.cash-brand-card__logo{height:125px!important;padding:22px!important}.cash-brand-card__body{padding:17px!important}.cash-brands-page__cta>.cash-brands-page__container{align-items:flex-start;flex-direction:column}}
+@media(max-width:479px){.cash-brands-page__grid{grid-template-columns:1fr}}
+
 /* Footer : téléphone et présence sociale. */
 .cash-footer-brand__phone{
   display:inline-flex!important;

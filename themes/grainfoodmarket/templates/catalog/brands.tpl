@@ -25,20 +25,81 @@
 {extends file=$layout}
 
 {block name='content'}
-  <section id="main">
+  <section id="main" class="cash-brands-page">
+    <header class="cash-brands-page__hero">
+      <div class="cash-brands-page__container">
+        <span class="cash-brands-page__eyebrow">Partenaires &amp; fabricants</span>
+        <h1>Les marques professionnelles que nous distribuons</h1>
+        <p>Retrouvez les fabricants et maisons sélectionnés par Cash Alimentaire pour répondre aux exigences des professionnels de la restauration.</p>
+        <div class="cash-brands-page__facts"><strong data-brand-count>—</strong><span>marques proposant actuellement des produits</span></div>
+      </div>
+    </header>
 
-    {block name='brand_header'}
-      <h1>{l s='Brands' d='Shop.Theme.Catalog'}</h1>
-    {/block}
+    <div class="cash-brands-page__content">
+      <div class="cash-brands-page__container">
+        <div class="cash-brands-page__tools">
+          <label class="cash-brands-page__search">
+            <span>Rechercher une marque</span>
+            <span class="cash-brands-page__search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><input type="search" placeholder="Nom de la marque" data-brand-search autocomplete="off"></span>
+          </label>
+          <nav class="cash-brands-page__alphabet" aria-label="Filtrer par initiale">
+            <button type="button" class="is-active" data-brand-letter="all">Toutes</button>
+            {foreach from=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'] item=letter}
+              <button type="button" data-brand-letter="{$letter}">{$letter}</button>
+            {/foreach}
+          </nav>
+        </div>
 
-    {block name='brand_miniature'}
-      <ul>
-        {foreach from=$brands item=brand}
-          {include file='catalog/_partials/miniatures/brand.tpl' brand=$brand}
-        {/foreach}
-      </ul>
-    {/block}
+        {block name='brand_miniature'}
+          <ul class="cash-brands-page__grid" data-brand-grid>
+            {foreach from=$brands item=brand}
+              {if $brand.nb_products > 0 && $brand.name != '.'}
+                {include file='catalog/_partials/miniatures/brand.tpl' brand=$brand}
+              {/if}
+            {/foreach}
+          </ul>
+          <p class="cash-brands-page__empty" data-brand-empty hidden>Aucune marque ne correspond à votre recherche.</p>
+        {/block}
+      </div>
+    </div>
 
+    <aside class="cash-brands-page__cta">
+      <div class="cash-brands-page__container"><div><span class="cash-brands-page__eyebrow">Une référence précise ?</span><h2>Notre équipe vous aide à trouver le bon produit.</h2></div><a href="{$urls.pages.contact}" class="cash-brands-page__button">Nous contacter</a></div>
+    </aside>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var page = document.querySelector('.cash-brands-page');
+      if (!page) return;
+      var cards = Array.prototype.slice.call(page.querySelectorAll('[data-brand-name]'));
+      var search = page.querySelector('[data-brand-search]');
+      var empty = page.querySelector('[data-brand-empty]');
+      var count = page.querySelector('[data-brand-count]');
+      var activeLetter = 'all';
+      function normalize(value) { return (value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); }
+      function update() {
+        var query = normalize(search.value.trim());
+        var visible = 0;
+        cards.forEach(function (card) {
+          var name = normalize(card.getAttribute('data-brand-name'));
+          var show = (!query || name.indexOf(query) !== -1) && (activeLetter === 'all' || name.charAt(0) === activeLetter);
+          card.hidden = !show;
+          if (show) visible += 1;
+        });
+        count.textContent = visible;
+        empty.hidden = visible !== 0;
+      }
+      search.addEventListener('input', update);
+      page.querySelectorAll('[data-brand-letter]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          activeLetter = button.getAttribute('data-brand-letter');
+          page.querySelectorAll('[data-brand-letter]').forEach(function (item) { item.classList.toggle('is-active', item === button); });
+          update();
+        });
+      });
+      update();
+    });
+  </script>
 
 {/block}
