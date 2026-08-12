@@ -784,6 +784,10 @@ a.active,
   align-items: center;
 }
 
+#header.header1 .header-right {
+  padding-right: 0;
+}
+
 #header.header1 #_desktop_logo {
   display: flex;
   align-items: center;
