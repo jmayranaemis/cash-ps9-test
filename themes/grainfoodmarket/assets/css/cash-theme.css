@@ -1023,7 +1023,7 @@ a.active,
   display: inline-flex;
   min-height: 30px;
   align-items: center;
-  margin-left: 12px;
+  margin-left: auto;
   padding: 5px 12px;
   color: var(--cash-white);
   background: var(--cash-red);
