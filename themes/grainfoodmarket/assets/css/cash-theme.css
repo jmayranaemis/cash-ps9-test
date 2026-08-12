@@ -1001,7 +1001,7 @@ a.active,
 
 .cash-header-links {
   gap: 20px;
-  justify-content: center;
+  justify-content: flex-end;
   white-space: nowrap;
 }
 
