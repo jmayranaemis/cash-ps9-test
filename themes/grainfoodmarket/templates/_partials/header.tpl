@@ -83,6 +83,11 @@
             </div>
             <div class="mobile-header-holder"></div>
         <div class="pull-xs-right" id="_mobile_search_widget"></div>
+        <a class="cash-header-pro cash-header-pro--mobile" href="https://www.cmdcase.fr/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5h16v11H4zM7 8.5V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2.5M4 12h16M10 12v2h4v-2"/></svg>
+          <span><small>Commandes en ligne</small><strong>Notre espace pro</strong></span>
+          <span class="cash-header-pro__arrow" aria-hidden="true">↗</span>
+        </a>
         <div class="clearfix"></div>
       </div>
     </div>
