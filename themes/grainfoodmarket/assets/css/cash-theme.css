@@ -3134,3 +3134,231 @@ body#category .cash-category-hero__visual small {
     display: none !important;
   }
 }
+
+/* Header mobile Cash : une seule navigation, pilotée par Mega Menu PRO. */
+@media (max-width: 767px) {
+  #header .cash-header-sticky-shell {
+    position: relative;
+    background: var(--cash-ivory);
+  }
+
+  #header .header-nav,
+  #header .header-nav .container,
+  #header .header-nav .row,
+  #header .header-nav .mobile {
+    width: 100%;
+  }
+
+  #header .header-nav .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  #header .header-nav .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  #header .mobile-header {
+    position: relative;
+    height: 64px;
+    padding: 4px 0 0;
+  }
+
+  #header #menu-icon,
+  #header #_mobile_an_wishlist-nav,
+  #header #_mobile_cart,
+  #header #_mobile_user_info,
+  #header #_mobile_clientservice {
+    display: none !important;
+  }
+
+  #header #_mobile_logo {
+    width: 172px;
+    height: 60px;
+    margin: 0 0 0 16px;
+  }
+
+  #header #_mobile_logo img {
+    width: 100%;
+    max-width: 172px;
+    height: 54px;
+    max-height: 54px;
+    margin: 1px 0 0;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  #header #_mobile_search_widget {
+    width: 100%;
+    height: 48px;
+    margin: 0 0 8px;
+  }
+
+  #header #_mobile_search_widget .search-widget {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  #header #_mobile_search_widget .search-widget form {
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+  }
+
+  #header .header-top,
+  #header .header-top .header_middle_line {
+    height: 72px;
+    min-height: 72px;
+  }
+
+  #header .header-top .header_middle_line {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+
+  #header .header-top .header-middle {
+    display: none !important;
+  }
+
+  #header.header1 .header-top .header-right {
+    position: static;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: 72px;
+    padding: 6px 16px 8px;
+  }
+
+  #header.header1 .header-top .cash-header-links {
+    width: 100%;
+    height: 58px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #header.header1 .header-top .cash-header-links a {
+    width: 100%;
+    min-height: 58px;
+    justify-content: flex-start;
+    gap: 7px;
+    padding: 8px 9px;
+    overflow: hidden;
+    border-color: rgba(67, 42, 25, .14);
+    border-radius: 10px;
+    background: var(--cash-white);
+  }
+
+  #header.header1 .header-top .cash-header-links a > svg {
+    width: 29px;
+    height: 29px;
+    flex: 0 0 29px;
+  }
+
+  #header.header1 .header-top .cash-header-links a > span {
+    min-width: 0;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #header.header1 .header-top .cash-header-links small,
+  #header.header1 .header-top .cash-header-links strong {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #header .ets_mm_megamenu.changestatus {
+    position: absolute !important;
+    z-index: 220;
+    top: 9px !important;
+    right: 16px;
+    left: auto !important;
+    width: 94px !important;
+    height: 46px;
+    margin: 0;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  #header .ets_mm_megamenu.changestatus .ets_mm_megamenu_content,
+  #header .ets_mm_megamenu.changestatus .ets_mm_megamenu_content_content {
+    width: 94px;
+    min-height: 46px;
+    background: transparent !important;
+  }
+
+  #header .ets_mm_megamenu.changestatus .ybc-menu-toggle {
+    width: 94px;
+    min-height: 46px;
+    justify-content: center;
+    padding: 0 12px;
+    border: 1px solid rgba(36, 72, 61, .2);
+    border-radius: 11px;
+    box-shadow: 0 5px 14px rgba(67, 42, 25, .1);
+  }
+
+  #header .ets_mm_megamenu.changestatus .ybc-menu-button-toggle_icon {
+    width: 23px;
+    height: 24px;
+    margin-right: 7px;
+  }
+
+  #header .ets_mm_megamenu.changestatus .mm_menus_ul {
+    width: min(320px, 86vw) !important;
+  }
+
+  #header .an-sfsl {
+    padding: 8px 14px;
+  }
+
+  #header .an-sfsl p,
+  #header .an-sfsl a {
+    font-size: .64rem !important;
+    line-height: 18px !important;
+    letter-spacing: .075em !important;
+  }
+
+  #header .an-sfsl span {
+    padding-right: 6px !important;
+    padding-left: 6px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  #header #_mobile_logo,
+  #header #_mobile_logo img {
+    width: 154px;
+    max-width: 154px;
+  }
+
+  #header .ets_mm_megamenu.changestatus,
+  #header .ets_mm_megamenu.changestatus .ets_mm_megamenu_content,
+  #header .ets_mm_megamenu.changestatus .ets_mm_megamenu_content_content,
+  #header .ets_mm_megamenu.changestatus .ybc-menu-toggle {
+    width: 86px !important;
+  }
+
+  #header.header1 .header-top .cash-header-links a {
+    gap: 5px;
+    padding-right: 7px;
+    padding-left: 7px;
+  }
+
+  #header.header1 .header-top .cash-header-links a > svg {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
+  }
+
+  #header.header1 .header-top .cash-header-links small {
+    font-size: .44rem;
+  }
+
+  #header.header1 .header-top .cash-header-links strong {
+    font-size: .59rem;
+  }
+}

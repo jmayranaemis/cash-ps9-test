@@ -76,17 +76,7 @@
       </div>
       <div class="hidden-md-up text-xs-center mobile">
         <div class="mobile-header">
-          <div class="pull-xs-right" id="menu-icon">
-            <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            width="19px" height="17px">
-           <path fill-rule="evenodd"  fill="rgb(0, 0, 0)"
-            d="M18.208,9.273 L0.792,9.273 C0.354,9.273 0.000,8.927 0.000,8.500 C0.000,8.073 0.354,7.727 0.792,7.727 L18.208,7.727 C18.645,7.727 19.000,8.073 19.000,8.500 C19.000,8.927 18.646,9.273 18.208,9.273 ZM18.208,1.545 L0.792,1.545 C0.354,1.545 0.000,1.199 0.000,0.773 C0.000,0.346 0.354,-0.000 0.792,-0.000 L18.208,-0.000 C18.645,-0.000 19.000,0.346 19.000,0.773 C19.000,1.199 18.646,1.545 18.208,1.545 ZM0.792,15.455 L18.208,15.455 C18.645,15.455 19.000,15.801 19.000,16.227 C19.000,16.654 18.646,17.000 18.208,17.000 L0.792,17.000 C0.354,17.000 0.000,16.654 0.000,16.227 C0.000,15.801 0.354,15.455 0.792,15.455 Z"/>
-           </svg>
-            </div>
             <div class="pull-xs-right" id="_mobile_cart"></div>
-            <div class="pull-xs-right" id="_mobile_an_wishlist-nav"></div>
             <div class="pull-xs-right" id="_mobile_user_info"></div>
             <div class="pull-xs-right" id="_mobile_clientservice"></div>
             <div class="top-logo" id="_mobile_logo"></div>
