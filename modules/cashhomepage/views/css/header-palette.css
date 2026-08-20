@@ -461,6 +461,9 @@ body:has(.cash-signature){overflow-x:hidden}
 .cash-signature__territory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.cash-signature__territory>div{padding:38px;border:1px solid var(--cash-beige);border-radius:22px}.cash-signature__territory h2{font-size:clamp(1.6rem,2.4vw,2.45rem)}
 .cash-signature__objectives{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.cash-signature__objectives span{position:relative;padding:20px 20px 20px 52px;border:1px solid var(--cash-beige);border-radius:15px;background:#fff;font-weight:800}.cash-signature__objectives span::before{position:absolute;left:20px;color:var(--cash-red);content:"✓"}
 
+/* Page Services : resserre la transition entre la grille des piliers et le premier bloc détaillé. */
+.cash-services .cash-about__section--ivory+.cash-about__section{padding-top:44px}
+
 @media(max-width:1199px){.cash-signature__grid--4,.cash-signature__actions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cash-signature__values{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:767px){.cash-signature__hero-panel{padding:30px;box-shadow:10px 10px 0 var(--cash-beige)}.cash-signature__grid--4,.cash-signature__grid--2,.cash-signature__actions-grid,.cash-signature__values,.cash-signature__territory,.cash-signature__objectives{grid-template-columns:1fr}.cash-signature__job{padding-left:72px!important}.cash-signature__job>span{left:24px}.cash-signature__statement{padding:34px;box-shadow:10px 10px 0 var(--cash-beige)}}
 
