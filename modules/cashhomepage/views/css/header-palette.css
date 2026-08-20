@@ -440,9 +440,9 @@ body:has(.cash-signature){overflow-x:hidden}
 .page-cms:has(.cash-signature){padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible}
 .cash-signature__hero{background:linear-gradient(135deg,#fff 0%,var(--cash-ivory) 100%)}
 .cash-signature__hero-panel{padding:44px;border-radius:28px;color:#fff;background:linear-gradient(145deg,var(--cash-brown),var(--cash-green));box-shadow:20px 20px 0 var(--cash-beige)}
-.cash-signature__hero-panel>span{display:block;margin-bottom:18px;color:var(--cash-beige);font-size:.76rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
-.cash-signature__hero-panel>strong{display:block;margin-bottom:20px;color:#fff;font-size:clamp(1.8rem,3vw,3rem);font-weight:900;letter-spacing:-.035em;line-height:1.08}
-.cash-signature__hero-panel>p{color:rgba(255,248,241,.82)!important}
+.cash-signature__hero-panel>span,.cash-signature__hero-panel__eyebrow{display:block;margin-bottom:18px;color:var(--cash-beige);font-size:.76rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.cash-signature__hero-panel>strong,.cash-signature__hero-panel__title{display:block;margin-bottom:20px;color:#fff;font-size:clamp(1.8rem,3vw,3rem);font-weight:900;letter-spacing:-.035em;line-height:1.08}
+.cash-signature__hero-panel>p,.cash-signature__hero-panel__text{color:rgba(255,248,241,.82)!important}
 .cash-signature__hero-panel--commitments{background:linear-gradient(145deg,var(--cash-green),#17352d)}
 .cash-signature__hero-facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px}
 .cash-signature__hero-facts>div{padding:18px;border:1px solid rgba(255,255,255,.17);border-radius:14px;background:rgba(255,255,255,.08)}
@@ -450,8 +450,8 @@ body:has(.cash-signature){overflow-x:hidden}
 .cash-signature__buttons{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:28px}
 .cash-signature__secondary{display:inline-flex;min-height:52px;padding:13px 22px;border:1px solid var(--cash-brown);border-radius:13px;align-items:center;color:var(--cash-brown)!important;font-weight:850}
 .cash-signature__grid{display:grid;gap:20px}.cash-signature__grid--4{grid-template-columns:repeat(4,minmax(0,1fr))}.cash-signature__grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.cash-signature__grid article{padding:30px;border:1px solid var(--cash-beige);border-radius:20px;background:#fff;box-shadow:0 12px 34px rgba(67,42,25,.07)}
-.cash-signature__grid article p{font-size:.94rem;line-height:1.65}.cash-signature__grid article ul{margin:16px 0 0;padding-left:20px}.cash-signature__grid article li{margin:8px 0}
+.cash-signature__grid article,.cash-signature__card{padding:30px;border:1px solid var(--cash-beige);border-radius:20px;background:#fff;box-shadow:0 12px 34px rgba(67,42,25,.07)}
+.cash-signature__grid article p,.cash-signature__card p{font-size:.94rem;line-height:1.65}.cash-signature__grid article ul,.cash-signature__card ul{margin:16px 0 0;padding-left:20px}.cash-signature__grid article li,.cash-signature__card li{margin:8px 0}
 .cash-signature__job{position:relative;padding-left:88px!important}.cash-signature__job>span{position:absolute;top:30px;left:30px;color:var(--cash-red);font-size:1.35rem;font-weight:900}.cash-signature__job>strong,.cash-signature__job>small{display:block}.cash-signature__job>strong{margin:18px 0 8px;color:var(--cash-green);line-height:1.45}.cash-signature__job>small{color:rgba(67,42,25,.72);line-height:1.5}
 .cash-signature__values{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.cash-signature__values>div{padding:25px;border:1px solid rgba(255,248,241,.2);border-radius:18px;background:rgba(255,248,241,.08)}.cash-signature__values strong,.cash-signature__values span{display:block}.cash-signature__values strong{margin-bottom:8px;color:#fff;font-size:1.08rem}.cash-signature__values span{color:rgba(255,248,241,.8);font-size:.88rem;line-height:1.55}
 .cash-signature__timeline{width:100%;margin-top:0}.cash-signature__note{display:block;margin-top:18px;color:rgba(67,42,25,.7);line-height:1.5}
