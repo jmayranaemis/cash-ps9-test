@@ -34,15 +34,7 @@
   <section id="content" class="page-content page-cms page-cms-{$cms.id}">
 
     {block name='cms_content'}
-      {if $cms.id == 4}
-        {include file='cms/_partials/about-case.tpl'}
-      {elseif $cms.link_rewrite == 'recrutement'}
-        {include file='cms/_partials/recruitment-case.tpl'}
-      {elseif $cms.link_rewrite == 'nos-engagements'}
-        {include file='cms/_partials/commitments-case.tpl'}
-      {else}
-        {$cms.content nofilter}
-      {/if}
+      {$cms.content nofilter}
     {/block}
 
     {block name='hook_cms_dispute_information'}

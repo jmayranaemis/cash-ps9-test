@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.20.9';
+        $this->version = '1.20.10';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -40,6 +40,7 @@ class CashHomepage extends Module
             && $this->installEditableContent()
             && $this->installBrandSelection()
             && $this->ensureSignatureCmsPages()
+            && $this->migrateSignatureCmsContent()
             && $this->configureCashExperience();
     }
 
@@ -903,10 +904,12 @@ class CashHomepage extends Module
             'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
              WHERE link_rewrite = "' . pSQL($slug) . '" ORDER BY id_cms ASC LIMIT 1'
         );
-        $cms = $cmsId ? new CMS($cmsId) : new CMS();
-        if (!$cmsId) {
-            $cms->id_cms_category = 1;
+        if ($cmsId) {
+            return true;
         }
+
+        $cms = new CMS();
+        $cms->id_cms_category = 1;
         $cms->active = 1;
         $cms->indexation = 1;
         $cms->meta_title = [];
@@ -924,7 +927,68 @@ class CashHomepage extends Module
             $cms->content[$languageId] = '<p>' . $description . '</p>';
         }
 
-        return $cmsId ? $cms->update() : $cms->add();
+        return $cms->add();
+    }
+
+    /**
+     * Move the signature pages' initial markup into PrestaShop CMS content.
+     *
+     * These pages used to be rendered from theme partials, so edits made in
+     * Design > Pages were silently ignored. The partials are kept as the
+     * one-time migration source to preserve the existing front-office design.
+     */
+    public function migrateSignatureCmsContent()
+    {
+        $pages = [
+            'a-propos' => 'about-case.tpl',
+            'recrutement' => 'recruitment-case.tpl',
+            'nos-engagements' => 'commitments-case.tpl',
+        ];
+        $templateDirectory = _PS_ROOT_DIR_ . '/themes/grainfoodmarket/templates/cms/_partials/';
+
+        foreach ($pages as $slug => $templateName) {
+            $cmsId = (int) Db::getInstance()->getValue(
+                'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+                 WHERE link_rewrite = "' . pSQL($slug) . '" ORDER BY id_cms ASC LIMIT 1'
+            );
+            if (!$cmsId && $slug === 'a-propos') {
+                $cmsId = 4;
+            }
+
+            $templatePath = $templateDirectory . $templateName;
+            if (!$cmsId || !is_readable($templatePath)) {
+                return false;
+            }
+
+            $templateContent = file_get_contents($templatePath);
+            if ($templateContent === false) {
+                return false;
+            }
+
+            foreach (Language::getLanguages(false) as $language) {
+                $languageId = (int) $language['id_lang'];
+                $baseUrl = Tools::getShopDomainSsl(true) . __PS_BASE_URI__;
+                $content = str_replace(
+                    ['{$urls.base_url}', '{$urls.pages.stores}', '{$urls.pages.contact}'],
+                    [
+                        $baseUrl,
+                        $this->context->link->getPageLink('stores', true, $languageId),
+                        $this->context->link->getPageLink('contact', true, $languageId),
+                    ],
+                    $templateContent
+                );
+
+                if (!Db::getInstance()->update(
+                    'cms_lang',
+                    ['content' => pSQL($content, true)],
+                    'id_cms = ' . $cmsId . ' AND id_lang = ' . $languageId
+                )) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private function ensureFaqPage($refreshContent = false)
