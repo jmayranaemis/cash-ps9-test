@@ -69,6 +69,10 @@
     };
 
     document.querySelectorAll('#content h3').forEach(function (heading) {
+      if (heading.closest('.cash-signature__grid')) {
+        return;
+      }
+
       var normalizedTitle = heading.textContent.trim().toLocaleLowerCase('fr')
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '');
