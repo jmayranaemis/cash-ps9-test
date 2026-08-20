@@ -902,7 +902,7 @@ class CashHomepage extends Module
     {
         $cmsId = (int) Db::getInstance()->getValue(
             'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
-             WHERE link_rewrite = "' . pSQL($slug) . '" ORDER BY id_cms ASC LIMIT 1'
+             WHERE link_rewrite = \'' . pSQL($slug) . '\' ORDER BY id_cms ASC LIMIT 1'
         );
         if ($cmsId) {
             return true;
@@ -949,7 +949,7 @@ class CashHomepage extends Module
         foreach ($pages as $slug => $templateName) {
             $cmsId = (int) Db::getInstance()->getValue(
                 'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
-                 WHERE link_rewrite = "' . pSQL($slug) . '" ORDER BY id_cms ASC LIMIT 1'
+                 WHERE link_rewrite = \'' . pSQL($slug) . '\' ORDER BY id_cms ASC LIMIT 1'
             );
             if (!$cmsId && $slug === 'a-propos') {
                 $cmsId = 4;
