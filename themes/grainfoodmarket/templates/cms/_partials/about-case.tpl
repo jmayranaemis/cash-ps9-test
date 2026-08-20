@@ -1,5 +1,5 @@
 <div class="cash-about">
-  <section class="cash-about__intro cash-about__section">
+  <div class="cash-about__intro cash-about__section">
     <div class="cash-about__container cash-about__split">
       <div class="cash-about__copy">
         <span class="cash-about__eyebrow">Au service des professionnels de la restauration</span>
@@ -8,9 +8,9 @@
         <p>Entreprise familiale ancrée à Nice et à La Trinité, nous avons construit notre développement autour d’une idée simple&nbsp;: proposer une offre large, disponible et adaptée aux contraintes réelles des professionnels.</p>
         <a class="cash-about__text-link" href="{$urls.base_url}content/services-cash-alimentaire">Découvrir nos services <span aria-hidden="true">→</span></a>
       </div>
-      <figure class="cash-about__media cash-about__media--intro">
+      <div class="cash-about__media cash-about__media--intro">
         <img src="{$urls.base_url}modules/cashhomepage/views/img/cash-hero-restauration.webp" width="1400" height="800" loading="eager" alt="Sélection de produits pour les professionnels de la restauration">
-      </figure>
+      </div>
     </div>
     <div class="cash-about__container cash-about__facts" aria-label="Cash Alimentaire en bref">
       <div><strong>1984</strong><span>Création à Nice</span></div>
@@ -18,13 +18,13 @@
       <div><strong>4 univers</strong><span>Sec, frais, surgelé et primeur</span></div>
       <div><strong>Côte d’Azur</strong><span>Une présence locale</span></div>
     </div>
-  </section>
+  </div>
 
-  <section class="cash-about__section cash-about__section--ivory">
+  <div class="cash-about__section cash-about__section--ivory">
     <div class="cash-about__container cash-about__split cash-about__split--history">
-      <figure class="cash-about__media">
+      <div class="cash-about__media">
         <img src="{$urls.base_url}modules/cashhomepage/views/img/cash-about-history.webp" width="1400" height="933" loading="lazy" alt="Évocation des débuts de Cash Alimentaire à Nice en 1984">
-      </figure>
+      </div>
       <div class="cash-about__copy">
         <span class="cash-about__eyebrow">Notre histoire</span>
         <h2>Une entreprise locale qui grandit avec ses clients</h2>
@@ -36,9 +36,9 @@
         </ol>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="cash-about__section cash-about__values">
+  <div class="cash-about__section cash-about__values">
     <div class="cash-about__container">
       <div class="cash-about__heading">
         <span class="cash-about__eyebrow">Ce qui nous guide</span>
@@ -46,16 +46,16 @@
         <p>Notre différence tient autant à la qualité de l’offre qu’à la manière dont nous travaillons avec nos clients.</p>
       </div>
       <div class="cash-about__values-grid">
-        <article><span class="cash-about__value-icon" aria-hidden="true">◎</span><h3>Proximité</h3><p>Une équipe accessible, implantée sur le territoire et attentive aux réalités de chaque métier.</p></article>
-        <article><span class="cash-about__value-icon" aria-hidden="true">↗</span><h3>Réactivité</h3><p>Des réponses rapides et une organisation pensée pour les impératifs du service et de la production.</p></article>
-        <article><span class="cash-about__value-icon" aria-hidden="true">✓</span><h3>Qualité</h3><p>Des références choisies avec exigence et une attention constante portée à leur conservation.</p></article>
-        <article><span class="cash-about__value-icon" aria-hidden="true">◇</span><h3>Sélection</h3><p>Une gamme professionnelle couvrant l’épicerie, le frais, le surgelé, les boissons, le primeur et l’hygiène.</p></article>
-        <article><span class="cash-about__value-icon" aria-hidden="true">♡</span><h3>Relation client</h3><p>Un accompagnement humain, durable et fondé sur la connaissance des besoins de nos clients.</p></article>
+        <div><span class="cash-about__value-icon" aria-hidden="true">◎</span><h3>Proximité</h3><p>Une équipe accessible, implantée sur le territoire et attentive aux réalités de chaque métier.</p></div>
+        <div><span class="cash-about__value-icon" aria-hidden="true">↗</span><h3>Réactivité</h3><p>Des réponses rapides et une organisation pensée pour les impératifs du service et de la production.</p></div>
+        <div><span class="cash-about__value-icon" aria-hidden="true">✓</span><h3>Qualité</h3><p>Des références choisies avec exigence et une attention constante portée à leur conservation.</p></div>
+        <div><span class="cash-about__value-icon" aria-hidden="true">◇</span><h3>Sélection</h3><p>Une gamme professionnelle couvrant l’épicerie, le frais, le surgelé, les boissons, le primeur et l’hygiène.</p></div>
+        <div><span class="cash-about__value-icon" aria-hidden="true">♡</span><h3>Relation client</h3><p>Un accompagnement humain, durable et fondé sur la connaissance des besoins de nos clients.</p></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="cash-about__section cash-about__section--green">
+  <div class="cash-about__section cash-about__section--green">
     <div class="cash-about__container cash-about__split">
       <div class="cash-about__copy">
         <span class="cash-about__eyebrow">Notre expertise</span>
@@ -70,9 +70,9 @@
         <div><strong>Une disponibilité maîtrisée</strong><span>Des stocks et une organisation conçus pour la continuité de votre service.</span></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="cash-about__section cash-about__section--ivory">
+  <div class="cash-about__section cash-about__section--ivory">
     <div class="cash-about__container cash-about__split cash-about__split--logistics">
       <div class="cash-about__copy">
         <span class="cash-about__eyebrow">Logistique &amp; livraison</span>
@@ -80,18 +80,18 @@
         <p>Notre site de La Trinité concentre la réception, le stockage et la préparation des commandes. Les flux secs, frais et surgelés sont organisés selon leurs contraintes de conservation.</p>
         <p>Cette maîtrise logistique nous permet d’accompagner les établissements de la Côte d’Azur avec régularité et de préserver la qualité des produits jusqu’à leur livraison.</p>
       </div>
-      <figure class="cash-about__media">
+      <div class="cash-about__media">
         <img src="{$urls.base_url}modules/cashhomepage/views/img/cash-about-logistics.webp" width="1400" height="933" loading="lazy" alt="Préparation logistique de produits alimentaires professionnels">
-      </figure>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <section class="cash-about__section cash-about__cta">
+  <div class="cash-about__section cash-about__cta">
     <div class="cash-about__container">
       <span class="cash-about__eyebrow">Cash Alimentaire près de chez vous</span>
       <h2>Retrouvez-nous dans nos magasins</h2>
       <p>Découvrez nos points de vente, leurs coordonnées et les informations pratiques pour préparer votre visite.</p>
       <a class="cash-about__button" href="{$urls.pages.stores}">Découvrir nos magasins</a>
     </div>
-  </section>
+  </div>
 </div>

@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.20.10';
+        $this->version = '1.20.11';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -944,8 +944,6 @@ class CashHomepage extends Module
             'recrutement' => 'recruitment-case.tpl',
             'nos-engagements' => 'commitments-case.tpl',
         ];
-        $templateDirectory = _PS_ROOT_DIR_ . '/themes/grainfoodmarket/templates/cms/_partials/';
-
         foreach ($pages as $slug => $templateName) {
             $cmsId = (int) Db::getInstance()->getValue(
                 'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
@@ -955,28 +953,16 @@ class CashHomepage extends Module
                 $cmsId = 4;
             }
 
-            $templatePath = $templateDirectory . $templateName;
-            if (!$cmsId || !is_readable($templatePath)) {
-                return false;
-            }
-
-            $templateContent = file_get_contents($templatePath);
-            if ($templateContent === false) {
+            if (!$cmsId) {
                 return false;
             }
 
             foreach (Language::getLanguages(false) as $language) {
                 $languageId = (int) $language['id_lang'];
-                $baseUrl = Tools::getShopDomainSsl(true) . __PS_BASE_URI__;
-                $content = str_replace(
-                    ['{$urls.base_url}', '{$urls.pages.stores}', '{$urls.pages.contact}'],
-                    [
-                        $baseUrl,
-                        $this->context->link->getPageLink('stores', true, $languageId),
-                        $this->context->link->getPageLink('contact', true, $languageId),
-                    ],
-                    $templateContent
-                );
+                $content = $this->getSignatureCmsTemplateContent($templateName, $languageId);
+                if ($content === false) {
+                    return false;
+                }
 
                 if (!Db::getInstance()->update(
                     'cms_lang',
@@ -989,6 +975,88 @@ class CashHomepage extends Module
         }
 
         return true;
+    }
+
+    /**
+     * Replace semantic layout tags stripped by the back-office editor with
+     * equivalent divs. The About page is restored from its template when a
+     * previous save has already removed its section wrappers.
+     */
+    public function repairSignatureCmsMarkup()
+    {
+        $pages = [
+            'a-propos' => 'about-case.tpl',
+            'recrutement' => 'recruitment-case.tpl',
+            'nos-engagements' => 'commitments-case.tpl',
+        ];
+        $db = Db::getInstance();
+
+        foreach ($pages as $slug => $templateName) {
+            $cmsId = (int) $db->getValue(
+                'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+                 WHERE link_rewrite = \'' . pSQL($slug) . '\' ORDER BY id_cms ASC'
+            );
+            if (!$cmsId) {
+                return false;
+            }
+
+            $rows = $db->executeS(
+                'SELECT id_lang, id_shop, content FROM `' . _DB_PREFIX_ . 'cms_lang`
+                 WHERE id_cms = ' . $cmsId
+            );
+            foreach ($rows as $row) {
+                $languageId = (int) $row['id_lang'];
+                $content = (string) $row['content'];
+
+                if ($slug === 'a-propos' && strpos($content, 'cash-about__section') === false) {
+                    $content = $this->getSignatureCmsTemplateContent($templateName, $languageId);
+                    if ($content === false) {
+                        return false;
+                    }
+                } else {
+                    $content = str_ireplace(
+                        ['<section', '</section>', '<figure', '</figure>', '<article', '</article>', '<aside', '</aside>'],
+                        ['<div', '</div>', '<div', '</div>', '<div', '</div>', '<div', '</div>'],
+                        $content
+                    );
+                }
+
+                if (!$db->update(
+                    'cms_lang',
+                    ['content' => pSQL($content, true)],
+                    'id_cms = ' . $cmsId
+                    . ' AND id_lang = ' . $languageId
+                    . ' AND id_shop = ' . (int) $row['id_shop']
+                )) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private function getSignatureCmsTemplateContent($templateName, $languageId)
+    {
+        $templatePath = _PS_ROOT_DIR_ . '/themes/grainfoodmarket/templates/cms/_partials/' . $templateName;
+        if (!is_readable($templatePath)) {
+            return false;
+        }
+
+        $templateContent = file_get_contents($templatePath);
+        if ($templateContent === false) {
+            return false;
+        }
+
+        return str_replace(
+            ['{$urls.base_url}', '{$urls.pages.stores}', '{$urls.pages.contact}'],
+            [
+                Tools::getShopDomainSsl(true) . __PS_BASE_URI__,
+                $this->context->link->getPageLink('stores', true, (int) $languageId),
+                $this->context->link->getPageLink('contact', true, (int) $languageId),
+            ],
+            $templateContent
+        );
     }
 
     private function ensureFaqPage($refreshContent = false)
