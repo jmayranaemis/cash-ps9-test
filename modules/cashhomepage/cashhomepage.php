@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.21.0';
+        $this->version = '1.21.1';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -158,6 +158,13 @@ class CashHomepage extends Module
     }
 
     public function upgradeTo1210()
+    {
+        $this->configureMegaMenu();
+
+        return true;
+    }
+
+    public function upgradeTo1211()
     {
         $this->configureMegaMenu();
 
@@ -1508,7 +1515,7 @@ HTML;
         return [
             'module-' . $this->name . '-products' => [
                 'controller' => 'products',
-                'rule' => 'produits',
+                'rule' => 'produits.html',
                 'keywords' => [],
                 'params' => [
                     'fc' => 'module',
@@ -1829,7 +1836,7 @@ HTML;
         return rtrim(
             $this->context->link->getBaseLink((int) $this->context->shop->id, true),
             '/'
-        ) . '/produits';
+        ) . '/produits.html';
     }
 
     public function getProductFamilies($limit = 100)
