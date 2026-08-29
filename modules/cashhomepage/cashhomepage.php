@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.21.2';
+        $this->version = '1.21.3';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -175,6 +175,11 @@ class CashHomepage extends Module
     {
         return $this->configureProductsMegaMenu()
             && $this->migrateSignatureCmsContent();
+    }
+
+    public function upgradeTo1213()
+    {
+        return $this->configureProductsMegaMenu();
     }
 
     private function configureStores()
@@ -603,9 +608,9 @@ class CashHomepage extends Module
             'SELECT m.id_menu
              FROM ' . _DB_PREFIX_ . 'ets_mm_menu m
              INNER JOIN ' . _DB_PREFIX_ . 'ets_mm_menu_lang ml ON ml.id_menu = m.id_menu
-             WHERE m.custom_class = "cash-mega-products"
-                OR LOWER(TRIM(ml.title)) IN ("produits", "nos produits")
-             ORDER BY (m.custom_class = "cash-mega-products") DESC, m.sort_order ASC
+             WHERE m.custom_class = \'cash-mega-products\'
+                OR LOWER(TRIM(ml.title)) IN (\'produits\', \'nos produits\')
+             ORDER BY (m.custom_class = \'cash-mega-products\') DESC, m.sort_order ASC
              LIMIT 1'
         );
         if (!$menuId) {
