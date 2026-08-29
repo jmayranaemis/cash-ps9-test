@@ -1437,10 +1437,12 @@ body#category #subcategories .subcategory-name{color:var(--cash-brown);font-size
 #header .ets_mm_megamenu .mm_menus_li.mm_has_sub.active>a.ets_mm_url::after,#header .ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>a.ets_mm_url::after{transform:scaleX(1)}
 @media(min-width:768px){
 #header .ets_mm_megamenu .mm_menus_li .mm_columns_ul.mm_columns_ul_tab{
-  height:clamp(390px,calc(100vh - 190px),680px);
+  height:clamp(390px,calc(100dvh - 190px),680px);
   min-height:390px!important;
-  max-height:calc(100vh - 190px);
+  max-height:calc(100dvh - 190px);
+  box-sizing:border-box;
   overflow-x:hidden!important;
+  background:var(--cash-white)!important;
   overflow-y:auto!important;
   overscroll-behavior:contain;
   scrollbar-color:var(--cash-green) var(--cash-ivory);
@@ -1452,7 +1454,10 @@ body#category #subcategories .subcategory-name{color:var(--cash-brown);font-size
   overflow:visible!important;
 }
 #header .ets_mm_megamenu .mm_tabs_li .mm_columns_contents_ul{
-  max-height:calc(100vh - 194px);
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  box-sizing:border-box;
   overflow-x:hidden!important;
   overflow-y:auto!important;
   overscroll-behavior:contain;
