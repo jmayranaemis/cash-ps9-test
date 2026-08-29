@@ -1435,7 +1435,40 @@ body#category #subcategories h5{margin:0;padding:16px}
 body#category #subcategories .subcategory-name{color:var(--cash-brown);font-size:.82rem;font-weight:850;text-transform:none}
 #header .ets_mm_megamenu .mm_menus_li.mm_has_sub>a.ets_mm_url::after{transform:scaleX(0)}
 #header .ets_mm_megamenu .mm_menus_li.mm_has_sub.active>a.ets_mm_url::after,#header .ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>a.ets_mm_url::after{transform:scaleX(1)}
-@media(min-width:768px){#header .ets_mm_megamenu .mm_menus_li .mm_columns_ul.mm_columns_ul_tab{max-height:calc(100vh - 190px);overflow:hidden}#header .ets_mm_megamenu .mm_tabs_li,#header .ets_mm_megamenu .mm_tab_li_content{max-height:calc(100vh - 194px);overflow-y:auto;overscroll-behavior:contain}}
+@media(min-width:768px){
+#header .ets_mm_megamenu .mm_menus_li .mm_columns_ul.mm_columns_ul_tab{
+  min-height:0!important;
+  max-height:calc(100vh - 190px);
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  scrollbar-color:var(--cash-green) var(--cash-ivory);
+  scrollbar-width:thin;
+}
+#header .ets_mm_megamenu .mm_tabs_li,
+#header .ets_mm_megamenu .mm_tab_li_content{
+  max-height:none!important;
+  overflow:visible!important;
+}
+#header .ets_mm_megamenu .mm_tabs_li .mm_columns_contents_ul{
+  max-height:calc(100vh - 194px);
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  scrollbar-color:var(--cash-green) var(--cash-ivory);
+  scrollbar-width:thin;
+}
+#header .ets_mm_megamenu .mm_columns_ul.mm_columns_ul_tab::-webkit-scrollbar,
+#header .ets_mm_megamenu .mm_columns_contents_ul::-webkit-scrollbar{
+  width:8px;
+  height:0;
+}
+#header .ets_mm_megamenu .mm_columns_ul.mm_columns_ul_tab::-webkit-scrollbar-thumb,
+#header .ets_mm_megamenu .mm_columns_contents_ul::-webkit-scrollbar-thumb{
+  border-radius:8px;
+  background:var(--cash-green);
+}
+}
 @media(max-width:767px){
 .cash-brands-page__container{width:calc(100% - 32px)}
 body#category #subcategories{padding:20px 16px}
