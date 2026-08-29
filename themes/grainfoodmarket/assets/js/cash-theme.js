@@ -163,6 +163,24 @@
       if (cleanedHref !== href) {
         link.setAttribute('href', cleanedHref);
       }
+
+      if (!link.classList.contains('category-sub-link')) {
+        return;
+      }
+
+      try {
+        var categoryUrl = new URL(cleanedHref, window.location.origin);
+        var categoryId = categoryUrl.searchParams.get('id');
+        var pathParts = categoryUrl.pathname.split('/').filter(Boolean);
+        var rewrite = pathParts[pathParts.length - 1];
+
+        if (categoryId && rewrite) {
+          link.href = window.location.origin + '/module/anblog/category?rewrite='
+            + encodeURIComponent(rewrite) + '&id=' + encodeURIComponent(categoryId);
+        }
+      } catch (error) {
+        // Laisser intact tout lien qui ne peut pas être interprété comme une URL.
+      }
     });
 
     var title = document.querySelector('body#index .anblog-widget > .anblog-widget-title');
