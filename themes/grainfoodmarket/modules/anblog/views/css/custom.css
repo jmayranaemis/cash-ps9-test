@@ -287,3 +287,13 @@
         display: none!important;
     }
 }
+
+/* Contrastes New Cash : metadonnees et tags restent secondaires mais lisibles. */
+.blog-item .blog-meta span,
+.blog-detail .blog-meta span,
+.blog-detail .blog-meta span a,
+.an-block-sidebar .blog-content .info{color:#71735b!important}
+.an-blog-tags .block_content a,
+#module-anblog-blog .post-tags.anblog-tags a{color:#24483d!important;background:#fff8f1!important;border:1px solid #d9c5ad}
+.an-blog-tags .block_content a:hover,
+#module-anblog-blog .post-tags.anblog-tags a:hover{color:#fff!important;background:#24483d!important;border-color:#24483d}

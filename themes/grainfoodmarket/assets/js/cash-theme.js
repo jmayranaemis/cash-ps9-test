@@ -156,10 +156,51 @@
     updateSticky();
   }
 
+  function initCashBlogLinks() {
+    document.querySelectorAll('#categories_blog_menu a[href], .an-blog-tags a[href]').forEach(function (link) {
+      var href = link.getAttribute('href') || '';
+      var cleanedHref = href.replace(/HTTP(?:\s.*)?$/i, '');
+      if (cleanedHref !== href) {
+        link.setAttribute('href', cleanedHref);
+      }
+    });
+
+    var title = document.querySelector('body#index .anblog-widget > .anblog-widget-title');
+    if (title && !title.querySelector('.cash-blog-all')) {
+      var source = title.querySelector('a');
+      var allPosts = document.createElement('a');
+      allPosts.className = 'cash-blog-all';
+      allPosts.href = source ? source.href : '/blog.html';
+      allPosts.textContent = 'Voir tous les articles →';
+      title.appendChild(allPosts);
+    }
+  }
+
+  function initCashActiveMenu() {
+    var currentPath = window.location.pathname.replace(/\/$/, '');
+    document.querySelectorAll('#header .ets_mm_megamenu .mm_menus_li > a.ets_mm_url').forEach(function (link) {
+      var item = link.closest('.mm_menus_li');
+      var targetPath;
+      try {
+        targetPath = new URL(link.href, window.location.origin).pathname.replace(/\/$/, '');
+      } catch (error) {
+        return;
+      }
+      var active = targetPath && targetPath !== '/' && (currentPath === targetPath || currentPath.indexOf(targetPath + '/') === 0);
+      item.classList.toggle('active', active);
+    });
+    if (document.body.id === 'category' || currentPath.indexOf('/produits') === 0) {
+      var products = document.querySelector('#header .ets_mm_megamenu .cash-mega-products');
+      if (products) products.classList.add('active');
+    }
+  }
+
   function initCashTheme() {
     initCashFaq();
     initCashServiceAnchors();
     initCashStickyHeader();
+    initCashBlogLinks();
+    initCashActiveMenu();
   }
 
   if (document.readyState === 'loading') {

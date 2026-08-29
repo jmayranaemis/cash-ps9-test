@@ -44,6 +44,7 @@
           </label>
           <nav class="cash-brands-page__alphabet" aria-label="Filtrer par initiale">
             <button type="button" class="is-active" data-brand-letter="all">Toutes</button>
+            <button type="button" data-brand-letter="#">#</button>
             {foreach from=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'] item=letter}
               <button type="button" data-brand-letter="{$letter}">{$letter}</button>
             {/foreach}
@@ -59,6 +60,7 @@
             {/foreach}
           </ul>
           <p class="cash-brands-page__empty" data-brand-empty hidden>Aucune marque ne correspond à votre recherche.</p>
+          <nav class="cash-brands-page__pagination" data-brand-pagination aria-label="Pagination des marques"></nav>
         {/block}
       </div>
     </div>
@@ -76,24 +78,47 @@
       var search = page.querySelector('[data-brand-search]');
       var empty = page.querySelector('[data-brand-empty]');
       var count = page.querySelector('[data-brand-count]');
+      var pagination = page.querySelector('[data-brand-pagination]');
       var activeLetter = 'all';
+      var currentPage = 1;
+      var pageSize = 25;
       function normalize(value) { return (value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); }
       function update() {
         var query = normalize(search.value.trim());
-        var visible = 0;
-        cards.forEach(function (card) {
+        var matches = cards.filter(function (card) {
           var name = normalize(card.getAttribute('data-brand-name'));
-          var show = (!query || name.indexOf(query) !== -1) && (activeLetter === 'all' || name.charAt(0) === activeLetter);
-          card.hidden = !show;
-          if (show) visible += 1;
+          var letterMatch = activeLetter === 'all' || (activeLetter === '#' ? /^[0-9]/.test(name) : name.charAt(0) === activeLetter);
+          return (!query || name.indexOf(query) !== -1) && letterMatch;
         });
-        count.textContent = visible;
-        empty.hidden = visible !== 0;
+        var pageCount = Math.max(1, Math.ceil(matches.length / pageSize));
+        currentPage = Math.min(currentPage, pageCount);
+        cards.forEach(function (card) { card.hidden = true; });
+        matches.slice((currentPage - 1) * pageSize, currentPage * pageSize).forEach(function (card) { card.hidden = false; });
+        count.textContent = matches.length;
+        empty.hidden = matches.length !== 0;
+        pagination.innerHTML = '';
+        pagination.hidden = pageCount <= 1;
+        for (var number = 1; number <= pageCount; number += 1) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = number;
+          button.setAttribute('aria-label', 'Page ' + number);
+          button.classList.toggle('is-active', number === currentPage);
+          (function (targetPage) {
+            button.addEventListener('click', function () {
+              currentPage = targetPage;
+              update();
+              page.querySelector('[data-brand-grid]').scrollIntoView({behavior: 'smooth', block: 'start'});
+            });
+          }(number));
+          pagination.appendChild(button);
+        }
       }
-      search.addEventListener('input', update);
+      search.addEventListener('input', function () { currentPage = 1; update(); });
       page.querySelectorAll('[data-brand-letter]').forEach(function (button) {
         button.addEventListener('click', function () {
           activeLetter = button.getAttribute('data-brand-letter');
+          currentPage = 1;
           page.querySelectorAll('[data-brand-letter]').forEach(function (item) { item.classList.toggle('is-active', item === button); });
           update();
         });

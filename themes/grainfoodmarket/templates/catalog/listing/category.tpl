@@ -26,9 +26,6 @@
             {/if}
             <div class="cash-category-hero__meta">
                 <span>Catalogue professionnel</span>
-                {if isset($listing.pagination.total_items)}
-                    <span><strong>{$listing.pagination.total_items}</strong> références disponibles</span>
-                {/if}
             </div>
         </div>
         {if isset($category.image.bySize.category_default.url) AND ($category.image.bySize.category_default.url!='')}

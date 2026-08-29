@@ -28,6 +28,16 @@
     </div>
   </section>
 
+  <section class="cash-contact">
+    <div class="cash-home__container cash-contact__grid">
+      <div><p class="cash-eyebrow">Besoin d’aide&nbsp;?</p><h2>{$cash_content.contact_title|escape:'htmlall':'UTF-8'}</h2><p>{$cash_content.contact_text|escape:'htmlall':'UTF-8'}</p></div>
+      <div class="cash-contact__links">
+        <a href="{$cash_contact_url|escape:'htmlall':'UTF-8'}"><strong>Écrire à l’équipe</strong><span>Formulaire de contact →</span></a>
+        <a href="{$cash_stores_url|escape:'htmlall':'UTF-8'}"><strong>Nos magasins</strong><span>Adresses et horaires →</span></a>
+      </div>
+    </div>
+  </section>
+
   <section class="cash-proof" aria-label="Nos engagements">
     <div class="cash-home__container cash-proof__grid">
       <div>
@@ -213,13 +223,4 @@
     </section>
   {/if}
 
-  <section class="cash-contact">
-    <div class="cash-home__container cash-contact__grid">
-      <div><p class="cash-eyebrow">Besoin d’aide&nbsp;?</p><h2>{$cash_content.contact_title|escape:'htmlall':'UTF-8'}</h2><p>{$cash_content.contact_text|escape:'htmlall':'UTF-8'}</p></div>
-      <div class="cash-contact__links">
-        <a href="{$cash_contact_url|escape:'htmlall':'UTF-8'}"><strong>Écrire à l’équipe</strong><span>Formulaire de contact →</span></a>
-        <a href="{$cash_stores_url|escape:'htmlall':'UTF-8'}"><strong>Nos magasins</strong><span>Adresses et horaires →</span></a>
-      </div>
-    </div>
-  </section>
 </div>

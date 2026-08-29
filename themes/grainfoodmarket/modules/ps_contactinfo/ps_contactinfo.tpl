@@ -41,15 +41,10 @@
       </svg>
       <span>04 89 03 23 23</span>
     </a>
-    <span class="cash-footer-brand__hours">Lun–ven 9h–17h</span>
+    <span class="cash-footer-brand__hours">Lun–ven 9h–17h · Sam 9h–12h</span>
     <div class="cash-footer-brand__actions">
       <a href="{$urls.pages.contact}">Nous contacter</a>
       <a href="{$urls.pages.stores}">Nos magasins</a>
-    </div>
-  </div>
-  <div class="hidden-md-up">
-    <div class="title">
-      <a class="h3" href="{$urls.pages.stores}">{l s='Store information' d='Shop.Theme.Global'}</a>
     </div>
   </div>
 </div>

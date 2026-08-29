@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.20.11';
+        $this->version = '1.21.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -155,6 +155,13 @@ class CashHomepage extends Module
     public function upgradeTo180()
     {
         return $this->configureStores();
+    }
+
+    public function upgradeTo1210()
+    {
+        $this->configureMegaMenu();
+
+        return true;
     }
 
     private function configureStores()
@@ -496,9 +503,9 @@ class CashHomepage extends Module
             2 => [
                 'position' => 0,
                 'title' => 'Nos produits',
-                'link_type' => 'CATEGORY',
-                'id_category' => (int) Configuration::get('PS_HOME_CATEGORY'),
-                'link' => '',
+                'link_type' => 'CUSTOM',
+                'id_category' => 0,
+                'link' => $this->getProductsUrl(),
                 'custom_class' => 'cash-mega-products',
             ],
             3 => [
@@ -1451,8 +1458,10 @@ HTML;
         $isHomepage = 'index' === $this->context->controller->php_self;
         $isCataloguesPage = 'cashhomepage' === Tools::getValue('module')
             && 'catalogues' === Tools::getValue('controller');
+        $isProductsPage = 'cashhomepage' === Tools::getValue('module')
+            && 'products' === Tools::getValue('controller');
 
-        if (!$isHomepage && !$isCataloguesPage) {
+        if (!$isHomepage && !$isCataloguesPage && !$isProductsPage) {
             return;
         }
 
@@ -1461,6 +1470,10 @@ HTML;
             'modules/' . $this->name . '/views/css/home.css',
             ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-2']
         );
+        if ($isProductsPage) {
+            return;
+        }
+
         $this->context->controller->registerJavascript(
             'module-cashhomepage-pdfjs',
             'modules/lpsflipbook/lib/dflip/js/libs/pdf.min.js',
@@ -1493,6 +1506,15 @@ HTML;
     public function hookModuleRoutes()
     {
         return [
+            'module-' . $this->name . '-products' => [
+                'controller' => 'products',
+                'rule' => 'produits',
+                'keywords' => [],
+                'params' => [
+                    'fc' => 'module',
+                    'module' => $this->name,
+                ],
+            ],
             'module-' . $this->name . '-catalogues' => [
                 'controller' => 'catalogues',
                 'rule' => 'catalogues-professionnels.html',
@@ -1674,9 +1696,7 @@ HTML;
             'cash_nav_families' => $this->getProductFamilies(6),
             'cash_nav_become_client_url' => $this->context->link->getModuleLink('b2bregistration', 'business'),
             'cash_nav_contact_url' => $this->context->link->getPageLink('contact', true),
-            'cash_nav_products_url' => $this->context->link->getCategoryLink(
-                (int) Configuration::get('PS_HOME_CATEGORY')
-            ),
+            'cash_nav_products_url' => $this->getProductsUrl(),
         ]);
 
         return $this->fetch('module:' . $this->name . '/views/templates/hook/navigation.tpl');
@@ -1685,9 +1705,6 @@ HTML;
     public function hookDisplayHome()
     {
         $languageId = (int) $this->context->language->id;
-        $shopId = (int) $this->context->shop->id;
-        $homeCategory = new Category((int) Configuration::get('PS_HOME_CATEGORY'), $languageId, $shopId);
-
         $manufacturers = $this->getSelectedManufacturers($languageId);
         foreach ($manufacturers as &$manufacturer) {
             $manufacturerId = (int) $manufacturer['id_manufacturer'];
@@ -1726,7 +1743,7 @@ HTML;
             'cash_catalogues_url' => $this->getCataloguesUrl(),
             'cash_promotions_url' => $this->context->link->getPageLink('prices-drop', true),
             'cash_stores_url' => $this->context->link->getPageLink('stores', true),
-            'cash_products_url' => $this->context->link->getCategoryLink($homeCategory->id),
+            'cash_products_url' => $this->getProductsUrl(),
         ]);
 
         return $this->fetch('module:' . $this->name . '/views/templates/hook/home.tpl');
@@ -1807,7 +1824,15 @@ HTML;
         ) . '/catalogues-professionnels.html';
     }
 
-    private function getProductFamilies($limit)
+    public function getProductsUrl()
+    {
+        return rtrim(
+            $this->context->link->getBaseLink((int) $this->context->shop->id, true),
+            '/'
+        ) . '/produits';
+    }
+
+    public function getProductFamilies($limit = 100)
     {
         $languageId = (int) $this->context->language->id;
         $shopId = (int) $this->context->shop->id;

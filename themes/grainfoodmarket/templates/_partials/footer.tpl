@@ -48,7 +48,6 @@
       </div>
       <div class="col-md-6 cash-footer-bottom-right">
         <nav class="cash-footer-socials" aria-label="Réseaux sociaux">
-          <span>Suivez-nous</span>
           {assign var='cash_social_instagram' value=Configuration::get('BLOCKSOCIAL_INSTAGRAM')}
           {assign var='cash_social_facebook' value=Configuration::get('BLOCKSOCIAL_FACEBOOK')}
           {assign var='cash_social_linkedin' value=Configuration::get('BLOCKSOCIAL_LINKEDIN')}
