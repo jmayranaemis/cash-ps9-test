@@ -1562,7 +1562,7 @@ HTML;
         $this->context->controller->registerJavascript(
             'module-cashhomepage-carousel',
             'modules/' . $this->name . '/views/js/home.js',
-            ['position' => 'bottom', 'priority' => 200, 'version' => $this->version . '-2']
+            ['position' => 'bottom', 'priority' => 200, 'version' => $this->version . '-3']
         );
     }
 

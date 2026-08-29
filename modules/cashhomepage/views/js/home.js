@@ -65,12 +65,13 @@
     var productSelection = homepage.querySelector('.cash-product-selection');
     var services = homepage.querySelector('.cash-services');
     var client = homepage.querySelector('.cash-client');
+    var contact = homepage.querySelector('.cash-contact');
     var brands = homepage.querySelector('.cash-brands');
     var proof = homepage.querySelector('.cash-proof');
     var blog = document.querySelector('#content > .anblog-widget');
     var newsletter = document.querySelector('#footer > .block_newsletter');
 
-    if (!hero || !productSelection || !catalogues || !services || !client || !proof) {
+    if (!hero || !productSelection || !catalogues || !services || !client || !contact || !proof) {
       return;
     }
 
@@ -85,12 +86,12 @@
     }
 
     orderedBlocks.push(client);
+    orderedBlocks.push(contact);
+    orderedBlocks.push(proof);
 
     if (brands) {
       orderedBlocks.push(brands);
     }
-
-    orderedBlocks.push(proof);
 
     if (newsletter) {
       var newsletterSlot = createHomepageSlot('cash-home-newsletter');
