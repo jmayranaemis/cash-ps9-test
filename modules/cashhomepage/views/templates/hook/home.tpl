@@ -28,37 +28,6 @@
     </div>
   </section>
 
-  <section class="cash-contact">
-    <div class="cash-home__container cash-contact__grid">
-      <div><p class="cash-eyebrow">Besoin d’aide&nbsp;?</p><h2>{$cash_content.contact_title|escape:'htmlall':'UTF-8'}</h2><p>{$cash_content.contact_text|escape:'htmlall':'UTF-8'}</p></div>
-      <div class="cash-contact__links">
-        <a href="{$cash_contact_url|escape:'htmlall':'UTF-8'}"><strong>Écrire à l’équipe</strong><span>Formulaire de contact →</span></a>
-        <a href="{$cash_stores_url|escape:'htmlall':'UTF-8'}"><strong>Nos magasins</strong><span>Adresses et horaires →</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="cash-proof" aria-label="Nos engagements">
-    <div class="cash-home__container cash-proof__grid">
-      <div>
-        <svg aria-hidden="true" viewBox="0 0 48 48"><path d="M24 5a19 19 0 1 0 19 19"/><path d="M24 13v12l8 5"/><path d="M37 5v10H27"/></svg>
-        <p><strong>{$cash_content.proof_1_title|escape:'htmlall':'UTF-8'}</strong><span>{$cash_content.proof_1_text|escape:'htmlall':'UTF-8'}</span></p>
-      </div>
-      <div>
-        <svg aria-hidden="true" viewBox="0 0 48 48"><rect x="6" y="7" width="15" height="15" rx="2"/><rect x="27" y="7" width="15" height="15" rx="2"/><rect x="6" y="28" width="15" height="15" rx="2"/><rect x="27" y="28" width="15" height="15" rx="2"/></svg>
-        <p><strong>{$cash_content.proof_2_title|escape:'htmlall':'UTF-8'}</strong><span>{$cash_content.proof_2_text|escape:'htmlall':'UTF-8'}</span></p>
-      </div>
-      <div>
-        <svg aria-hidden="true" viewBox="0 0 48 48"><path d="M5 12h25v22H5z"/><path d="M30 20h7l6 7v7H30z"/><circle cx="14" cy="37" r="4"/><circle cx="37" cy="37" r="4"/></svg>
-        <p><strong>{$cash_content.proof_3_title|escape:'htmlall':'UTF-8'}</strong><span>{$cash_content.proof_3_text|escape:'htmlall':'UTF-8'}</span></p>
-      </div>
-      <div>
-        <svg aria-hidden="true" viewBox="0 0 48 48"><circle cx="24" cy="16" r="9"/><path d="M8 42c2-11 9-16 16-16s14 5 16 16"/><path d="M15 15c0-8 4-12 9-12s9 4 9 12"/><path d="M33 16h5v9h-5"/></svg>
-        <p><strong>{$cash_content.proof_4_title|escape:'htmlall':'UTF-8'}</strong><span>{$cash_content.proof_4_text|escape:'htmlall':'UTF-8'}</span></p>
-      </div>
-    </div>
-  </section>
-
   <section id="familles-produits" class="cash-section cash-families">
     <div class="cash-home__container" data-cash-carousel>
       <div class="cash-section__heading">
@@ -189,6 +158,37 @@
       <div class="cash-client__action">
         <a class="cash-button cash-button--primary" href="{$cash_become_client_url|escape:'htmlall':'UTF-8'}">Devenir client</a>
         <a href="{$cash_faq_url|escape:'htmlall':'UTF-8'}">Vous avez une question&nbsp;?</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cash-contact">
+    <div class="cash-home__container cash-contact__grid">
+      <div><p class="cash-eyebrow">Besoin d’aide&nbsp;?</p><h2>{$cash_content.contact_title|escape:'htmlall':'UTF-8'}</h2><p>{$cash_content.contact_text|escape:'htmlall':'UTF-8'}</p></div>
+      <div class="cash-contact__links">
+        <a href="{$cash_contact_url|escape:'htmlall':'UTF-8'}"><strong>Écrire à l’équipe</strong><span>Formulaire de contact →</span></a>
+        <a href="{$cash_stores_url|escape:'htmlall':'UTF-8'}"><strong>Nos magasins</strong><span>Adresses et horaires →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cash-proof" aria-label="Nos engagements">
+    <div class="cash-home__container cash-proof__grid">
+      <div>
+        <svg aria-hidden="true" viewBox="0 0 48 48"><path d="M24 5a19 19 0 1 0 19 19"/><path d="M24 13v12l8 5"/><path d="M37 5v10H27"/></svg>
+        <p><strong>{$cash_content.proof_1_title|escape:'htmlall':'UTF-8'}</strong><span>{$cash_content.proof_1_text|escape:'htmlall':'UTF-8'}</span></p>
+      </div>
+      <div>
+        <svg aria-hidden="true" viewBox="0 0 48 48"><rect x="6" y="7" width="15" height="15" rx="2"/><rect x="27" y="7" width="15" height="15" rx="2"/><rect x="6" y="28" width="15" height="15" rx="2"/><rect x="27" y="28" width="15" height="15" rx="2"/></svg>
+        <p><strong>{$cash_content.proof_2_title|escape:'htmlall':'UTF-8'}</strong><span>{$cash_content.proof_2_text|escape:'htmlall':'UTF-8'}</span></p>
+      </div>
+      <div>
+        <svg aria-hidden="true" viewBox="0 0 48 48"><path d="M5 12h25v22H5z"/><path d="M30 20h7l6 7v7H30z"/><circle cx="14" cy="37" r="4"/><circle cx="37" cy="37" r="4"/></svg>
+        <p><strong>{$cash_content.proof_3_title|escape:'htmlall':'UTF-8'}</strong><span>{$cash_content.proof_3_text|escape:'htmlall':'UTF-8'}</span></p>
+      </div>
+      <div>
+        <svg aria-hidden="true" viewBox="0 0 48 48"><circle cx="24" cy="16" r="9"/><path d="M8 42c2-11 9-16 16-16s14 5 16 16"/><path d="M15 15c0-8 4-12 9-12s9 4 9 12"/><path d="M33 16h5v9h-5"/></svg>
+        <p><strong>{$cash_content.proof_4_title|escape:'htmlall':'UTF-8'}</strong><span>{$cash_content.proof_4_text|escape:'htmlall':'UTF-8'}</span></p>
       </div>
     </div>
   </section>
