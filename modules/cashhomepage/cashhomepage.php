@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.21.1';
+        $this->version = '1.21.2';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -171,6 +171,12 @@ class CashHomepage extends Module
         return true;
     }
 
+    public function upgradeTo1212()
+    {
+        return $this->configureProductsMegaMenu()
+            && $this->migrateSignatureCmsContent();
+    }
+
     private function configureStores()
     {
         $countryId = (int) Country::getByIso('FR');
@@ -317,7 +323,7 @@ class CashHomepage extends Module
         $this->ensureFaqPage();
         $this->ensureCatalogueContact();
         $this->configureNewsBlog();
-        $this->configureMegaMenu();
+        $this->configureProductsMegaMenu();
         $this->configureAnnouncementLine();
     }
 
@@ -583,6 +589,55 @@ class CashHomepage extends Module
         if (method_exists($megaMenu, 'clearAllCache')) {
             $megaMenu->clearAllCache();
         }
+    }
+
+    private function configureProductsMegaMenu()
+    {
+        $megaMenu = Module::getInstanceByName('ets_megamenu');
+        if (!$megaMenu || !$megaMenu->id) {
+            return false;
+        }
+
+        $db = Db::getInstance();
+        $menuId = (int) $db->getValue(
+            'SELECT m.id_menu
+             FROM ' . _DB_PREFIX_ . 'ets_mm_menu m
+             INNER JOIN ' . _DB_PREFIX_ . 'ets_mm_menu_lang ml ON ml.id_menu = m.id_menu
+             WHERE m.custom_class = "cash-mega-products"
+                OR LOWER(TRIM(ml.title)) IN ("produits", "nos produits")
+             ORDER BY (m.custom_class = "cash-mega-products") DESC, m.sort_order ASC
+             LIMIT 1'
+        );
+        if (!$menuId) {
+            return false;
+        }
+
+        if (!$db->update('ets_mm_menu', [
+            'link_type' => 'CUSTOM',
+            'id_category' => 0,
+            'id_cms' => 0,
+            'id_manufacturer' => 0,
+            'id_supplier' => 0,
+            'custom_class' => 'cash-mega-products',
+        ], 'id_menu = ' . $menuId)) {
+            return false;
+        }
+
+        foreach (Language::getLanguages(false) as $language) {
+            if (!$db->update(
+                'ets_mm_menu_lang',
+                ['link' => pSQL($this->getProductsUrl())],
+                'id_menu = ' . $menuId . ' AND id_lang = ' . (int) $language['id_lang']
+            )) {
+                return false;
+            }
+        }
+
+        if (method_exists($megaMenu, 'clearAllCache')) {
+            $megaMenu->clearAllCache();
+        }
+
+        return true;
     }
 
     private function ensureCatalogueContact()

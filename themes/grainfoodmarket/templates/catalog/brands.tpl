@@ -108,7 +108,7 @@
             button.addEventListener('click', function () {
               currentPage = targetPage;
               update();
-              page.querySelector('[data-brand-grid]').scrollIntoView({behavior: 'smooth', block: 'start'});
+              page.querySelector('[data-brand-grid]').scrollIntoView(true);
             });
           }(number));
           pagination.appendChild(button);

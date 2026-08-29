@@ -62,7 +62,7 @@
         <h2>Une offre pensée pour les professionnels</h2>
         <p>Carte saisonnière, volumes, régularité, maîtrise des coûts ou recherche d’une référence spécifique&nbsp;: nos équipes connaissent les exigences d’une cuisine professionnelle.</p>
         <p>Nous réunissons au même endroit les produits essentiels du quotidien et des gammes différenciantes, notamment une sélection italienne renforcée par l’intégration d’Elsi Food.</p>
-        <a class="cash-about__button cash-about__button--light" href="{$urls.base_url}produits">Explorer les familles de produits</a>
+        <a class="cash-about__button cash-about__button--light" href="{$urls.base_url}produits.html">Explorer les familles de produits</a>
       </div>
       <div class="cash-about__expertise-list">
         <div><strong>Une gamme complète</strong><span>Des produits du quotidien aux références de spécialité.</span></div>
