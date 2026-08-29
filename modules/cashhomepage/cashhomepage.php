@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.21.5';
+        $this->version = '1.21.6';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -193,6 +193,11 @@ class CashHomepage extends Module
         return $this->configureBlogCategoryRoutes();
     }
 
+    public function upgradeTo1216()
+    {
+        return $this->configureBlogCategoryRoutes();
+    }
+
     private function configureBlogCategoryRoutes()
     {
         $rewrites = [];
@@ -201,6 +206,7 @@ class CashHomepage extends Module
         }
 
         Configuration::deleteByName('ANBLOG_category_rewrite');
+        Configuration::updateValue('an_bl_cat_post_end_prefix', 1);
 
         return Configuration::updateValue('an_bl_category_rewrite', $rewrites);
     }
