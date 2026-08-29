@@ -610,7 +610,6 @@ class CashHomepage extends Module
              INNER JOIN ' . _DB_PREFIX_ . 'ets_mm_menu_lang ml ON ml.id_menu = m.id_menu
              WHERE m.custom_class = \'cash-mega-products\'
                 OR LOWER(TRIM(ml.title)) IN (\'produits\', \'nos produits\')
-             ORDER BY (m.custom_class = \'cash-mega-products\') DESC, m.sort_order ASC
              LIMIT 1'
         );
         if (!$menuId) {
