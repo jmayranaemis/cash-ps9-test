@@ -1417,7 +1417,31 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
 .cash-brands-page__pagination button{min-width:42px;height:42px;border:1px solid var(--cash-beige);border-radius:9px;color:var(--cash-brown);background:var(--cash-ivory);font-weight:850;cursor:pointer}
 .cash-brands-page__pagination button:hover,.cash-brands-page__pagination button.is-active{color:#fff;background:var(--cash-green);border-color:var(--cash-green)}
 .cash-footer-socials{width:100%;justify-content:center}
-.copyright-container{color:var(--cash-green);font-size:.72rem}
+.copyright-container{
+  color:var(--cash-green);
+  font-size:.72rem;
+}
+.copyright-container .row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.copyright-container .col-md-6{
+  display:flex;
+  min-height:44px;
+  align-items:center;
+}
+.copyright-container .an_copyright,
+.copyright-container .an_copyright a,
+.copyright-container .an_copyright p{
+  margin:0;
+  color:var(--cash-green)!important;
+  font-size:.72rem!important;
+  line-height:1.35;
+}
+.copyright-container .an_copyright a:hover p{
+  color:var(--cash-red)!important;
+}
 #scrolltopbtn{display:grid!important;width:48px!important;height:48px!important;place-items:center;border:2px solid var(--cash-ivory)!important;border-radius:50%!important;background:var(--cash-red)!important;box-shadow:0 8px 22px rgba(67,42,25,.22)!important}
 #scrolltopbtn:hover{background:var(--cash-green)!important;transform:translateY(-2px)}
 #scrolltopbtn #an_scrolltop-img{width:24px!important;height:24px!important}
