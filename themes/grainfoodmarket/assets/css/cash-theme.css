@@ -2756,23 +2756,50 @@ a.active,
   overflow-wrap: anywhere;
 }
 
-/* Compteur de pagination : ligne dédiée sous le tri, sans position absolue. */
+/* Barre catalogue : tri et compteur alignés sur une même ligne. */
 @media (min-width: 768px) {
   .products-selection .products-selection-inner {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
+    justify-content: space-between;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .products-selection .sort-block {
+    width: auto;
+    max-width: none;
+    flex: 1 1 auto;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .products-selection .sort-by-row {
+    align-items: center;
+    margin: 0;
+  }
+
+  .products-selection .products-sort-order {
+    padding: 0;
+    text-align: left;
+  }
+
+  .products-selection .sort-by {
+    margin: 0 10px 0 0;
+    text-align: left;
   }
 
   .products-selection .showing {
     position: static !important;
-    flex: 0 0 100%;
-    width: 100%;
-    max-width: 100%;
-    clear: both;
-    margin: 0;
-    padding: 10px 15px 0 !important;
+    width: auto;
+    max-width: none;
+    flex: 0 0 auto;
+    clear: none;
+    margin: 0 0 0 auto;
+    padding: 0 15px !important;
     text-align: right !important;
+    white-space: nowrap;
   }
 }
 
