@@ -1500,7 +1500,8 @@ body#category #subcategories .subcategory-name{color:var(--cash-brown);font-size
 }
 }
 @media(max-width:767px){
-.cash-brands-page__container{width:calc(100% - 32px)}
+body#manufacturer:has(.cash-brands-page) #wrapper>.container>.row{margin-right:0;margin-left:0}
+.cash-brands-page__container{width:auto;max-width:none;margin-right:20px;margin-left:20px}
 body#category #subcategories{padding:20px 16px}
 body#category #subcategories ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 body#category #subcategories .subcategory-image{height:120px}
