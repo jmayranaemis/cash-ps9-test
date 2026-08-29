@@ -604,14 +604,28 @@ class CashHomepage extends Module
         }
 
         $db = Db::getInstance();
-        $menuId = (int) $db->getValue(
-            'SELECT m.id_menu
+        $menuRows = $db->executeS(
+            'SELECT m.id_menu, m.custom_class, ml.title
              FROM ' . _DB_PREFIX_ . 'ets_mm_menu m
-             INNER JOIN ' . _DB_PREFIX_ . 'ets_mm_menu_lang ml ON ml.id_menu = m.id_menu
-             WHERE m.custom_class = \'cash-mega-products\'
-                OR LOWER(TRIM(ml.title)) IN (\'produits\', \'nos produits\')
-             LIMIT 1'
+             INNER JOIN ' . _DB_PREFIX_ . 'ets_mm_menu_lang ml ON ml.id_menu = m.id_menu'
         );
+        $menuId = 0;
+        $titleMenuId = 0;
+        foreach ((array) $menuRows as $menuRow) {
+            if ((string) $menuRow['custom_class'] === 'cash-mega-products') {
+                $menuId = (int) $menuRow['id_menu'];
+                break;
+            }
+
+            $menuTitle = strtolower(trim((string) $menuRow['title']));
+            if (!$titleMenuId && in_array($menuTitle, ['produits', 'nos produits'], true)) {
+                $titleMenuId = (int) $menuRow['id_menu'];
+            }
+        }
+        if (!$menuId) {
+            $menuId = $titleMenuId;
+        }
+
         if (!$menuId) {
             return false;
         }
