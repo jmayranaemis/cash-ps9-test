@@ -1437,7 +1437,8 @@ body#category #subcategories .subcategory-name{color:var(--cash-brown);font-size
 #header .ets_mm_megamenu .mm_menus_li.mm_has_sub.active>a.ets_mm_url::after,#header .ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>a.ets_mm_url::after{transform:scaleX(1)}
 @media(min-width:768px){
 #header .ets_mm_megamenu .mm_menus_li .mm_columns_ul.mm_columns_ul_tab{
-  min-height:0!important;
+  height:clamp(390px,calc(100vh - 190px),680px);
+  min-height:390px!important;
   max-height:calc(100vh - 190px);
   overflow-x:hidden!important;
   overflow-y:auto!important;
