@@ -597,8 +597,16 @@ body#index.page-index .cash-home .cash-home-blog .anblog-widget>.anblog-widget-p
 
 /* Alignements de liens de section. */
 .cash-catalogues__all{justify-self:end;text-align:right}
-body#index.page-index .anblog-widget>.anblog-widget-title{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
-.cash-blog-all{padding-bottom:8px;color:var(--red)!important;font-size:.9rem!important;font-weight:800!important;letter-spacing:0!important;text-transform:none!important;white-space:nowrap}
+body#index.page-index .anblog-widget>.anblog-widget-title{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:end;
+  column-gap:24px;
+  row-gap:10px;
+}
+body#index.page-index .anblog-widget>.anblog-widget-title::before{grid-column:1/-1;margin-bottom:0}
+body#index.page-index .anblog-widget>.anblog-widget-title>a:not(.cash-blog-all){grid-column:1;justify-self:start;text-align:left}
+.cash-blog-all{grid-column:2;justify-self:end;padding-bottom:8px;color:var(--red)!important;font-size:.9rem!important;font-weight:800!important;letter-spacing:0!important;text-align:right;text-transform:none!important;white-space:nowrap}
 
 /* Page Produits. */
 .cash-products-page{--brown:#432a19;--red:#d01719;--ivory:#fff8f1;--beige:#d9c5ad;--green:#24483d;width:100vw;margin-left:calc(50% - 50vw);color:var(--brown)}
@@ -621,4 +629,4 @@ body#index.page-index .anblog-widget>.anblog-widget-title{display:flex;align-ite
 .cash-products-page__cta h2,.cash-products-page__cta .cash-eyebrow{color:#fff}
 .cash-products-page__cta h2{margin:0}
 @media(max-width:991px){.cash-products-page__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:767px){.cash-catalogues__all{justify-self:start;text-align:left}body#index.page-index .anblog-widget>.anblog-widget-title{align-items:flex-start;flex-direction:column}.cash-products-page__grid{grid-template-columns:1fr}.cash-products-page__cta>div{align-items:flex-start;flex-direction:column}}
+@media(max-width:767px){.cash-catalogues__all{justify-self:start;text-align:left}body#index.page-index .anblog-widget>.anblog-widget-title{column-gap:14px}.cash-blog-all{padding-bottom:4px;font-size:.78rem!important}.cash-products-page__grid{grid-template-columns:1fr}.cash-products-page__cta>div{align-items:flex-start;flex-direction:column}}
