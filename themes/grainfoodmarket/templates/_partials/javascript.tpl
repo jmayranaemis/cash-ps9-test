@@ -40,4 +40,4 @@
   </script>
 {/if}
 
-<script src="{$urls.theme_assets}js/cash-theme.js?v=20260830-5" defer></script>
+<script src="{$urls.theme_assets}js/cash-theme.js?v=20260830-6" defer></script>

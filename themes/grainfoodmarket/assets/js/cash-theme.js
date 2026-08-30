@@ -93,6 +93,21 @@
     }
   }
 
+  function initCashRecruitmentAnchors() {
+    var link = document.querySelector('.cash-recruitment a[href="#nos-metiers"]');
+    var target = document.getElementById('nos-metiers');
+
+    if (!link || !target || link.dataset.cashAnchorReady) {
+      return;
+    }
+
+    link.dataset.cashAnchorReady = '1';
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      target.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  }
+
   function initCashStickyHeader() {
     var header = document.querySelector('#header');
     var headerNav = header ? header.querySelector('.header-nav') : null;
@@ -211,6 +226,7 @@
     initCashActiveMenu();
     initCashFaq();
     initCashServiceAnchors();
+    initCashRecruitmentAnchors();
     initCashStickyHeader();
     initCashBlogLinks();
   }
