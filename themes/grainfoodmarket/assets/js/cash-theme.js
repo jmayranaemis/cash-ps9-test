@@ -183,11 +183,11 @@
     );
 
     menuItems.forEach(function (item) {
-      var link = item.querySelector(':scope > a.ets_mm_url');
+      var link = item.firstElementChild;
       var targetPath = '';
       var isCurrent = false;
 
-      if (link) {
+      if (link && link.matches('a.ets_mm_url')) {
         try {
           targetPath = new URL(link.href, window.location.origin).pathname.replace(/\/$/, '');
           isCurrent = targetPath && targetPath !== '/'
@@ -208,11 +208,11 @@
   }
 
   function initCashTheme() {
+    initCashActiveMenu();
     initCashFaq();
     initCashServiceAnchors();
     initCashStickyHeader();
     initCashBlogLinks();
-    initCashActiveMenu();
   }
 
   if (document.readyState === 'loading') {
