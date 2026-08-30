@@ -1520,7 +1520,7 @@ body#category #subcategories .subcategory-image{height:120px}
   height:64px!important;
   min-height:64px;
 }
-.cash-header-sticky-shell.is-mobile-sticky .ets_mm_megamenu.changestatus{
+body.cash-header-is-sticky #header .ets_mm_megamenu.changestatus.cash-mobile-menu-sticky{
   position:fixed!important;
   z-index:1102;
   top:9px!important;

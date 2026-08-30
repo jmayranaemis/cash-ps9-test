@@ -138,6 +138,7 @@
     function resetSticky() {
       shell.classList.remove('is-sticky');
       shell.classList.remove('is-mobile-sticky');
+      megaMenu.classList.remove('cash-mobile-menu-sticky');
       document.body.classList.remove('cash-header-is-sticky');
       spacer.style.height = '0px';
     }
@@ -149,6 +150,7 @@
         var shouldStickMobile = window.pageYOffset > stickyOffset + 1;
         shell.classList.remove('is-sticky');
         shell.classList.toggle('is-mobile-sticky', shouldStickMobile);
+        megaMenu.classList.toggle('cash-mobile-menu-sticky', shouldStickMobile);
         document.body.classList.toggle('cash-header-is-sticky', shouldStickMobile);
         spacer.style.height = '0px';
         return;
