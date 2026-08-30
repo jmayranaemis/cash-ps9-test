@@ -7,7 +7,7 @@
         <p class="cash-about__lead">Ensemble, faisons grandir le goût du service.</p>
         <p>Depuis plus de 40 ans, notre réussite repose sur les femmes et les hommes qui sélectionnent nos produits, conseillent nos clients, préparent les commandes et assurent leur livraison.</p>
         <div class="cash-signature__buttons">
-          <a class="cash-about__button" href="{$urls.base_url}content/recrutement#nos-metiers">Découvrir nos métiers</a>
+          <a class="cash-about__button" href="#nos-metiers">Découvrir nos métiers</a>
           <a class="cash-signature__secondary" href="{$urls.pages.contact}?demande=recrutement">Candidature spontanée</a>
         </div>
       </div>
