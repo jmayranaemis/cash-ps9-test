@@ -43,10 +43,10 @@
 <div class="copyright-container">
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12 cash-footer-copyright">
         {hook h='displayCopyrightContainerLeft'}
       </div>
-      <div class="col-md-6 cash-footer-bottom-right">
+      <div class="col-md-12 cash-footer-bottom-right">
         <nav class="cash-footer-socials" aria-label="Réseaux sociaux">
           {assign var='cash_social_instagram' value=Configuration::get('BLOCKSOCIAL_INSTAGRAM')}
           {assign var='cash_social_facebook' value=Configuration::get('BLOCKSOCIAL_FACEBOOK')}

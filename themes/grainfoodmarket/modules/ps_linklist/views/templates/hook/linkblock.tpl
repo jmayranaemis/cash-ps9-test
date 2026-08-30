@@ -15,6 +15,7 @@
       </div>
       <ul id="footer_sub_menu_{$_expand_id}" class="collapse">
         {foreach $linkBlock.links as $link}
+          {if $link.title == 'Informations'}{continue}{/if}
           <li>
             <a
                 id="{$link.id}-{$linkBlock.id}"

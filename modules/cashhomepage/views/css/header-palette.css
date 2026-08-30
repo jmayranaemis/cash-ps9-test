@@ -1417,7 +1417,26 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
 .cash-brands-page__pagination{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:34px}
 .cash-brands-page__pagination button{min-width:42px;height:42px;border:1px solid var(--cash-beige);border-radius:9px;color:var(--cash-brown);background:var(--cash-ivory);font-weight:850;cursor:pointer}
 .cash-brands-page__pagination button:hover,.cash-brands-page__pagination button.is-active{color:#fff;background:var(--cash-green);border-color:var(--cash-green)}
-.cash-footer-socials{width:100%;justify-content:center}
+.copyright-container .cash-footer-copyright,
+.copyright-container .cash-footer-bottom-right{
+  display:flex;
+  width:100%;
+  max-width:100%;
+  flex:0 0 100%;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.copyright-container .cash-footer-bottom-right{
+  margin-top:8px;
+  flex-direction:row;
+}
+.copyright-container .cash-footer-socials{
+  display:flex;
+  width:100%;
+  align-items:center;
+  justify-content:center;
+}
 .copyright-container{
   color:var(--cash-green);
   font-size:.72rem;
