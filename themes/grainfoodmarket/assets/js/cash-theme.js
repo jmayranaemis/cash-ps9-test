@@ -137,12 +137,22 @@
 
     function resetSticky() {
       shell.classList.remove('is-sticky');
+      shell.classList.remove('is-mobile-sticky');
       document.body.classList.remove('cash-header-is-sticky');
       spacer.style.height = '0px';
     }
 
     function updateSticky() {
       scheduled = false;
+
+      if (window.innerWidth < 768) {
+        var shouldStickMobile = window.pageYOffset > stickyOffset + 1;
+        shell.classList.remove('is-sticky');
+        shell.classList.toggle('is-mobile-sticky', shouldStickMobile);
+        document.body.classList.toggle('cash-header-is-sticky', shouldStickMobile);
+        spacer.style.height = '0px';
+        return;
+      }
 
       if (window.innerWidth < 992) {
         resetSticky();
