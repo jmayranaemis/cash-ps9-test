@@ -1556,10 +1556,10 @@ body#category #subcategories .subcategory-image{height:120px}
 }
 #header.header1 .header-nav .cash-mobile-actions .cash-header-pro--mobile{width:100%;min-width:0;margin:0}
 #header .cash-mobile-quicklinks{width:108px;min-width:108px}
-#header .cash-mobile-quicklinks .cash-header-links{display:flex;height:100%;gap:8px}
-#header .cash-mobile-quicklinks .cash-header-links a{display:grid;width:50px;min-height:50px;padding:0;place-items:center;border:1px solid rgba(67,42,25,.16);border-radius:10px;background:#fff}
+#header .cash-mobile-quicklinks .cash-header-links{display:flex;height:100%;gap:8px;align-items:stretch}
+#header .cash-mobile-quicklinks .cash-header-links a{display:grid!important;width:50px;min-height:50px;padding:0!important;place-items:center!important;border:1px solid rgba(67,42,25,.16);border-radius:10px;background:#fff}
 #header .cash-mobile-quicklinks .cash-header-links a+ a::before,#header .cash-mobile-quicklinks .cash-header-links a>span{display:none}
-#header .cash-mobile-quicklinks .cash-header-links svg{width:25px;height:25px;color:var(--cash-green)}
+#header .cash-mobile-quicklinks .cash-header-links svg{display:block!important;width:36px!important;height:36px!important;margin:0!important;padding:5px!important;align-self:center;justify-self:center;color:var(--cash-green);stroke-width:2.1}
 #header .ets_mm_megamenu.changestatus .mm_menus_ul{max-height:calc(100vh - 70px);overflow-y:auto;overscroll-behavior:contain}
 #header .ets_mm_megamenu .mm_menus_li .mm_columns_ul.mm_columns_ul_tab,#header .ets_mm_megamenu .mm_tabs_li .mm_columns_contents_ul{max-height:calc(100vh - 145px);overflow-y:auto;overscroll-behavior:contain}
 .footer-container .row,.copyright-container .row{text-align:center}
