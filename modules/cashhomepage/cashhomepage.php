@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.21.6';
+        $this->version = '1.21.7';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -196,6 +196,40 @@ class CashHomepage extends Module
     public function upgradeTo1216()
     {
         return $this->configureBlogCategoryRoutes();
+    }
+
+    public function upgradeTo1217()
+    {
+        $rows = Db::getInstance()->executeS(
+            'SELECT id_cms, id_lang, id_shop, content FROM ' . _DB_PREFIX_ . 'cms_lang '
+            . 'WHERE link_rewrite = \'recrutement\''
+        );
+
+        foreach ($rows as $row) {
+            $content = preg_replace(
+                '~href="[^"]*/content/recrutement#nos-metiers"(?=>Découvrir nos métiers</a>)~u',
+                'href="#nos-metiers"',
+                (string) $row['content']
+            );
+            if ($content === null) {
+                return false;
+            }
+            if ($content === (string) $row['content']) {
+                continue;
+            }
+
+            if (!Db::getInstance()->update(
+                'cms_lang',
+                ['content' => pSQL($content, true)],
+                'id_cms = ' . (int) $row['id_cms']
+                . ' AND id_lang = ' . (int) $row['id_lang']
+                . ' AND id_shop = ' . (int) $row['id_shop']
+            )) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private function configureBlogCategoryRoutes()
