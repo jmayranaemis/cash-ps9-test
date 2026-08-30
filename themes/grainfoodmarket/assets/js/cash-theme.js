@@ -178,21 +178,33 @@
 
   function initCashActiveMenu() {
     var currentPath = window.location.pathname.replace(/\/$/, '');
-    document.querySelectorAll('#header .ets_mm_megamenu .mm_menus_li > a.ets_mm_url').forEach(function (link) {
-      var item = link.closest('.mm_menus_li');
-      var targetPath;
-      try {
-        targetPath = new URL(link.href, window.location.origin).pathname.replace(/\/$/, '');
-      } catch (error) {
-        return;
+    var menuItems = document.querySelectorAll(
+      '#header .ets_mm_megamenu_content_content > .mm_menus_ul > .mm_menus_li'
+    );
+
+    menuItems.forEach(function (item) {
+      var link = item.querySelector(':scope > a.ets_mm_url');
+      var targetPath = '';
+      var isCurrent = false;
+
+      if (link) {
+        try {
+          targetPath = new URL(link.href, window.location.origin).pathname.replace(/\/$/, '');
+          isCurrent = targetPath && targetPath !== '/'
+            && (currentPath === targetPath || currentPath.indexOf(targetPath + '/') === 0);
+        } catch (error) {
+          isCurrent = false;
+        }
       }
-      var active = targetPath && targetPath !== '/' && (currentPath === targetPath || currentPath.indexOf(targetPath + '/') === 0);
-      item.classList.toggle('active', active);
+
+      if (item.classList.contains('cash-mega-products')) {
+        isCurrent = document.body.id === 'category'
+          || currentPath === '/produits.html'
+          || currentPath.indexOf('/produits/') === 0;
+      }
+
+      item.classList.toggle('cash-menu-current', isCurrent);
     });
-    if (document.body.id === 'category' || currentPath.indexOf('/produits') === 0) {
-      var products = document.querySelector('#header .ets_mm_megamenu .cash-mega-products');
-      if (products) products.classList.add('active');
-    }
   }
 
   function initCashTheme() {

@@ -1457,8 +1457,8 @@ body#category #subcategories .subcategory-image a{display:block;height:100%}
 body#category #subcategories ul li img{width:100%;height:100%;object-fit:cover}
 body#category #subcategories h5{margin:0;padding:16px}
 body#category #subcategories .subcategory-name{color:var(--cash-brown);font-size:.82rem;font-weight:850;text-transform:none}
-#header .ets_mm_megamenu .mm_menus_li.mm_has_sub>a.ets_mm_url::after{transform:scaleX(0)}
-#header .ets_mm_megamenu .mm_menus_li.mm_has_sub.active>a.ets_mm_url::after,#header .ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>a.ets_mm_url::after{transform:scaleX(1)}
+#header .ets_mm_megamenu .mm_menus_li>a.ets_mm_url::after{transform:scaleX(0)!important}
+#header .ets_mm_megamenu .mm_menus_li.cash-menu-current>a.ets_mm_url::after{transform:scaleX(1)!important}
 @media(min-width:768px){
 #header .ets_mm_megamenu .mm_menus_li .mm_columns_ul.mm_columns_ul_tab{
   height:clamp(390px,calc(100dvh - 190px),680px);
