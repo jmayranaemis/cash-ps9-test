@@ -1412,6 +1412,7 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
 
 /* Lot conformité UX août 2026. */
 .cash-signature__hero-panel{background:var(--cash-brown)}
+.cash-recruitment .cash-signature__hero-panel{box-shadow:none!important}
 .cash-brands-page__alphabet{justify-content:center}
 .cash-brands-page__pagination{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:34px}
 .cash-brands-page__pagination button{min-width:42px;height:42px;border:1px solid var(--cash-beige);border-radius:9px;color:var(--cash-brown);background:var(--cash-ivory);font-weight:850;cursor:pointer}
