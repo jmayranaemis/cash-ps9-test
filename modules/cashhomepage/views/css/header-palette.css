@@ -472,6 +472,7 @@ body:has(.cash-signature){overflow-x:hidden}
 /* Équipe commerciale : page CMS éditable et trombinoscope Cash New. */
 body.cms-id-21{overflow-x:hidden}
 body.cms-id-21 #wrapper>.container{width:100%;max-width:none;padding:0}
+body.cms-id-21 #wrapper>.container>.row{margin-right:0;margin-left:0}
 body.cms-id-21 #content-wrapper{width:100%;padding:0}
 body.cms-id-21 .page-cms-21{padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible}
 .cash-sales-team{width:100%;color:var(--cash-brown)}
