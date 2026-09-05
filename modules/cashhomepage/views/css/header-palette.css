@@ -469,6 +469,60 @@ body:has(.cash-signature){overflow-x:hidden}
 @media(max-width:1199px){.cash-signature__grid--4,.cash-signature__actions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cash-signature__values{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:767px){.cash-signature__hero-panel{padding:30px;box-shadow:10px 10px 0 var(--cash-beige)}.cash-signature__grid--4,.cash-signature__grid--2,.cash-signature__actions-grid,.cash-signature__values,.cash-signature__territory,.cash-signature__objectives{grid-template-columns:1fr}.cash-signature__job{padding-left:72px!important}.cash-signature__job>span{left:24px}.cash-signature__statement{padding:34px;box-shadow:10px 10px 0 var(--cash-beige)}}
 
+/* Équipe commerciale : page CMS éditable et trombinoscope Cash New. */
+body.cms-id-21{overflow-x:hidden}
+body.cms-id-21 #wrapper>.container{width:100%;max-width:none;padding:0}
+body.cms-id-21 #content-wrapper{width:100%;padding:0}
+body.cms-id-21 .page-cms-21{padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible}
+.cash-sales-team{width:100%;color:var(--cash-brown)}
+.cash-sales-team *{box-sizing:border-box}
+.cash-sales-team__container{width:min(1420px,calc(100% - 64px));margin:0 auto}
+.cash-sales-team__hero{padding:82px 0;background:var(--cash-ivory)}
+.cash-sales-team__hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);gap:clamp(48px,7vw,108px);align-items:center}
+.cash-sales-team__intro{max-width:760px}
+.cash-sales-team__eyebrow{display:block;margin-bottom:15px;color:var(--cash-red);font-size:.77rem;font-weight:850;letter-spacing:.13em;line-height:1.4;text-transform:uppercase}
+.cash-sales-team h1,.cash-sales-team h2,.cash-sales-team h3,.cash-sales-team p{color:inherit!important}
+.cash-sales-team h1{max-width:800px;margin:0 0 25px;font-size:clamp(2.55rem,5vw,5rem);font-weight:900;letter-spacing:-.05em;line-height:.98;text-align:left!important}
+.cash-sales-team h2{margin:0 0 18px;font-size:clamp(2rem,3.4vw,3.5rem);font-weight:900;letter-spacing:-.04em;line-height:1.05}
+.cash-sales-team h3{margin:0;font-size:1.45rem;font-weight:900;line-height:1.15}
+.cash-sales-team p{margin:0;line-height:1.7}
+.cash-sales-team__lead{max-width:720px;margin-bottom:30px!important;font-size:clamp(1.05rem,1.5vw,1.28rem);font-weight:620}
+.cash-sales-team__button{display:inline-flex;min-height:52px;padding:14px 24px;border:0;border-radius:13px;align-items:center;justify-content:center;gap:12px;color:#fff!important;background:var(--cash-red);font-weight:850;text-decoration:none!important;transition:background .2s ease,transform .2s ease}
+.cash-sales-team__button:hover{color:#fff!important;background:var(--cash-green);transform:translateY(-2px)}
+.cash-sales-team__promise{padding:44px;border-radius:26px;color:#fff;background:var(--cash-brown)}
+.cash-sales-team__promise>span{display:block;margin-bottom:17px;color:var(--cash-beige);font-size:.76rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.cash-sales-team__promise>strong{display:block;margin-bottom:19px;color:#fff;font-size:clamp(1.8rem,3vw,3rem);font-weight:900;letter-spacing:-.04em;line-height:1.08}
+.cash-sales-team__promise>p{color:rgba(255,248,241,.82)!important}
+.cash-sales-team__promise-points{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}
+.cash-sales-team__promise-points span{padding:13px 8px;border:1px solid rgba(255,255,255,.17);border-radius:11px;color:#fff;font-size:.78rem;font-weight:800;text-align:center}
+.cash-sales-team__directory{padding:82px 0 90px;background:#fff}
+.cash-sales-team__heading{max-width:790px;margin:0 0 48px}
+.cash-sales-team__heading p{max-width:700px;color:rgba(67,42,25,.78)!important;font-size:1.04rem}
+.cash-sales-team__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.cash-sales-team__card{min-width:0;overflow:hidden;border:1px solid var(--cash-beige);border-radius:20px;background:var(--cash-ivory);box-shadow:0 12px 30px rgba(67,42,25,.08)}
+.cash-sales-team__photo{display:grid;aspect-ratio:4/3;place-items:center;color:var(--cash-beige);background:var(--cash-green)}
+.cash-sales-team__photo img{display:block;width:100%;height:100%;object-fit:cover}
+.cash-sales-team__photo>span{display:grid;width:78px;height:78px;place-items:center;border:1px solid rgba(255,255,255,.35);border-radius:50%;color:#fff;font-size:.74rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.cash-sales-team__card-body{padding:25px}
+.cash-sales-team__role{display:block;margin-bottom:8px;color:var(--cash-red);font-size:.72rem;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+.cash-sales-team__card dl{margin:23px 0 0}
+.cash-sales-team__card dl>div{padding:12px 0;border-top:1px solid rgba(67,42,25,.13)}
+.cash-sales-team__card dt{margin-bottom:4px;color:var(--cash-olive);font-size:.68rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+.cash-sales-team__card dd{margin:0;color:var(--cash-brown);font-size:.9rem;font-weight:750;line-height:1.4;overflow-wrap:anywhere}
+.cash-sales-team__card dd a{color:var(--cash-green)!important;text-decoration:none!important}
+.cash-sales-team__card dd a:hover{color:var(--cash-red)!important;text-decoration:underline!important}
+.cash-sales-team__contact{padding:64px 0;color:#fff;background:var(--cash-green)}
+.cash-sales-team__contact-inner{display:flex;gap:48px;align-items:center;justify-content:space-between}
+.cash-sales-team__contact-inner>div{max-width:850px}
+.cash-sales-team__contact .cash-sales-team__eyebrow{color:var(--cash-beige)}
+.cash-sales-team__contact h2{color:#fff!important;font-size:clamp(1.8rem,3vw,3rem)}
+.cash-sales-team__contact p{color:rgba(255,248,241,.82)!important}
+.cash-sales-team__button--light{flex:0 0 auto;color:var(--cash-brown)!important;background:var(--cash-ivory)}
+.cash-sales-team__button--light:hover{color:#fff!important;background:var(--cash-red)}
+@media(max-width:1199px){.cash-sales-team__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.cash-sales-team__hero-grid{grid-template-columns:1fr}.cash-sales-team__promise{max-width:720px}.cash-sales-team__contact-inner{align-items:flex-start;flex-direction:column}}
+@media(max-width:767px){.cash-sales-team__container{width:calc(100% - 32px)}.cash-sales-team__hero,.cash-sales-team__directory{padding:56px 0}.cash-sales-team__grid{grid-template-columns:1fr;gap:18px}.cash-sales-team__promise{padding:30px 24px}.cash-sales-team__contact{padding:48px 0}.cash-sales-team__button--light{width:100%}}
+
 /* Page Marques : grille éditoriale Cash, recherche et accès alphabétique. */
 body#manufacturer:has(.cash-brands-page){overflow-x:hidden}
 body#manufacturer:has(.cash-brands-page) #wrapper>.container{width:100%;max-width:none;padding:0}

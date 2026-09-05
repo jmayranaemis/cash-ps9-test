@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.21.7';
+        $this->version = '1.21.8';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -41,6 +41,7 @@ class CashHomepage extends Module
             && $this->installBrandSelection()
             && $this->ensureSignatureCmsPages()
             && $this->migrateSignatureCmsContent()
+            && $this->refreshSalesTeamCmsPage()
             && $this->configureCashExperience();
     }
 
@@ -196,6 +197,12 @@ class CashHomepage extends Module
     public function upgradeTo1216()
     {
         return $this->configureBlogCategoryRoutes();
+    }
+
+    public function upgradeTo1218()
+    {
+        return $this->ensureSignatureCmsPages()
+            && $this->refreshSalesTeamCmsPage();
     }
 
     public function upgradeTo1217()
@@ -1045,6 +1052,10 @@ class CashHomepage extends Module
             'nos-engagements',
             'Nos engagements',
             'Découvrez les engagements humains, environnementaux, territoriaux et responsables de Cash Alimentaire du Sud-Est.'
+        ) && $this->ensureSignatureCmsPage(
+            'equipe-commerciale',
+            'Découvrez notre équipe commerciale',
+            'Rencontrez les commerciaux Cash Alimentaire et trouvez l’interlocuteur de votre secteur.'
         );
     }
 
@@ -1078,6 +1089,35 @@ class CashHomepage extends Module
         }
 
         return $cms->add();
+    }
+
+    public function refreshSalesTeamCmsPage()
+    {
+        $cmsId = (int) Db::getInstance()->getValue(
+            'SELECT id_cms FROM `' . _DB_PREFIX_ . 'cms_lang`
+             WHERE link_rewrite = \'equipe-commerciale\' ORDER BY id_cms ASC'
+        );
+        if (!$cmsId) {
+            return false;
+        }
+
+        foreach (Language::getLanguages(false) as $language) {
+            $languageId = (int) $language['id_lang'];
+            $content = $this->getSignatureCmsTemplateContent('sales-team-case.tpl', $languageId);
+            if ($content === false || !Db::getInstance()->update(
+                'cms_lang',
+                [
+                    'meta_title' => pSQL('Découvrez notre équipe commerciale'),
+                    'meta_description' => pSQL('Rencontrez les commerciaux Cash Alimentaire et trouvez l’interlocuteur de votre secteur.'),
+                    'content' => pSQL($content, true),
+                ],
+                'id_cms = ' . $cmsId . ' AND id_lang = ' . $languageId
+            )) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
