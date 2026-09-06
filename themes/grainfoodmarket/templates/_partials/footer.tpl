@@ -84,3 +84,18 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest("a[href=\"#gerer-mes-cookies\"]");
+    if (!link) {
+      return;
+    }
+
+    event.preventDefault();
+    var cookieSettingsButton = document.getElementById("lgcookieslaw_fixed_button");
+    if (cookieSettingsButton) {
+      cookieSettingsButton.click();
+    }
+  });
+</script>
