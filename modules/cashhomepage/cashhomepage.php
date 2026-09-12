@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.21.8';
+        $this->version = '1.21.9';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -42,6 +42,7 @@ class CashHomepage extends Module
             && $this->ensureSignatureCmsPages()
             && $this->migrateSignatureCmsContent()
             && $this->refreshSalesTeamCmsPage()
+            && $this->refreshServicesCmsPage()
             && $this->configureCashExperience();
     }
 
@@ -203,6 +204,11 @@ class CashHomepage extends Module
     {
         return $this->ensureSignatureCmsPages()
             && $this->refreshSalesTeamCmsPage();
+    }
+
+    public function upgradeTo1219()
+    {
+        return $this->refreshServicesCmsPage();
     }
 
     public function upgradeTo1217()
@@ -1120,6 +1126,33 @@ class CashHomepage extends Module
         return true;
     }
 
+public function refreshServicesCmsPage()
+{
+    $sql = "SELECT id_cms FROM `" . _DB_PREFIX_ . "cms_lang` WHERE link_rewrite = 'services-cash-alimentaire' ORDER BY id_cms ASC";
+    $cmsId = (int) Db::getInstance()->getValue($sql);
+    if (!$cmsId) {
+        return false;
+    }
+
+    foreach (Language::getLanguages(false) as $language) {
+        $languageId = (int) $language['id_lang'];
+        $content = $this->getSignatureCmsTemplateContent('services-case.tpl', $languageId);
+        if ($content === false || !Db::getInstance()->update(
+            'cms_lang',
+            [
+                'meta_title' => pSQL('Nos services pour les professionnels de la restauration'),
+                'meta_description' => pSQL('Conseil, approvisionnement, livraison et accompagnement : les services Cash Alimentaire pour les professionnels de la restauration.'),
+                'content' => pSQL($content, true),
+            ],
+            'id_cms = ' . $cmsId . ' AND id_lang = ' . $languageId
+        )) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
     /**
      * Move the signature pages' initial markup into PrestaShop CMS content.
      *
@@ -1239,11 +1272,12 @@ class CashHomepage extends Module
         }
 
         return str_replace(
-            ['{$urls.base_url}', '{$urls.pages.stores}', '{$urls.pages.contact}'],
+            ['{$urls.base_url}', '{$urls.pages.stores}', '{$urls.pages.contact}', '{$urls.pages.become_client}'],
             [
                 Tools::getShopDomainSsl(true) . __PS_BASE_URI__,
                 $this->context->link->getPageLink('stores', true, (int) $languageId),
                 $this->context->link->getPageLink('contact', true, (int) $languageId),
+                $this->context->link->getModuleLink('b2bregistration', 'business', [], true, (int) $languageId),
             ],
             $templateContent
         );
@@ -1635,7 +1669,7 @@ HTML;
         $this->context->controller->registerStylesheet(
             'module-cashhomepage-header-palette',
             'modules/' . $this->name . '/views/css/header-palette.css',
-            ['media' => 'all', 'priority' => 250, 'version' => $this->version . '-footer-14']
+            ['media' => 'all', 'priority' => 250, 'version' => $this->version . '-footer-15']
         );
 
         $isHomepage = 'index' === $this->context->controller->php_self;
