@@ -1762,6 +1762,7 @@ body.cash-header-is-sticky #header .ets_mm_megamenu.changestatus.cash-mobile-men
     padding:50px 0 30px;
   }
   .cash-stores-grid{
+    grid-template-columns:1fr;
     gap:20px;
     padding-top:12px;
     padding-bottom:48px;
