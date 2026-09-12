@@ -1792,3 +1792,25 @@ body.cash-header-is-sticky #header .ets_mm_megamenu.changestatus.cash-mobile-men
 .cash-services-v2__detail{padding:94px 0;scroll-margin-top:125px}.cash-services-v2__detail--beige{background:#f9f2e9}.cash-services-v2__detail-grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:82px}.cash-services-v2__detail-label{padding-top:7px}.cash-services-v2__detail-label span,.cash-services-v2__detail-label b{display:block}.cash-services-v2__detail-label span{margin-bottom:14px;color:var(--cash-red);font-size:1rem;font-weight:900}.cash-services-v2__detail-label b{color:var(--cash-green);font-size:1rem;letter-spacing:.11em;text-transform:uppercase}.cash-services-v2__detail-grid h2{max-width:800px;margin-bottom:28px}.cash-services-v2__detail-grid p{max-width:780px}.cash-services-v2__delivery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:690px;margin-top:35px}.cash-services-v2__delivery>div{padding:25px;border:1px solid var(--cash-beige);border-radius:16px;background:#fff}.cash-services-v2__delivery span,.cash-services-v2__delivery strong{display:block}.cash-services-v2__delivery span{margin-bottom:8px;color:var(--cash-olive);font-size:.75rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}.cash-services-v2__delivery strong{color:var(--cash-green);font-size:1.22rem;line-height:1.2}
 .cash-services-v2__cta{padding:96px 0;color:#fff;background:var(--cash-green)}.cash-services-v2__cta .cash-services-v2__container{max-width:900px;text-align:center}.cash-services-v2__cta .cash-services-v2__eyebrow{color:var(--cash-beige)}.cash-services-v2__cta h2{margin-bottom:26px;color:#fff}.cash-services-v2__cta p{color:rgba(255,255,255,.84)}.cash-services-v2__cta-question{margin-top:27px!important;color:#fff!important;font-size:1.2rem!important;font-weight:850}.cash-services-v2__actions{display:flex;flex-wrap:wrap;justify-content:center;gap:13px;margin:31px 0 24px}.cash-services-v2__actions a{display:inline-flex;min-height:52px;padding:13px 23px;border:1px solid var(--cash-red);border-radius:12px;align-items:center;justify-content:center;color:#fff!important;background:var(--cash-red);font-weight:850;text-decoration:none}.cash-services-v2__actions a+a{border-color:rgba(255,255,255,.55);background:transparent}.cash-services-v2__actions a:hover{color:var(--cash-green)!important;background:#fff}.cash-services-v2__cta small{display:block;max-width:660px;margin:auto;color:rgba(255,255,255,.72);font-size:.86rem;line-height:1.55}
 @media(max-width:991px){.cash-services-v2__hero-layout{grid-template-columns:1fr;gap:32px}.cash-services-v2__hero-card{min-height:0;box-shadow:10px 10px 0 var(--cash-beige)}.cash-services-v2__pillars-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cash-services-v2__pillars-grid>div:nth-child(2){border-right:0}.cash-services-v2__pillars-grid>div:nth-child(n+3){border-top:1px solid rgba(255,255,255,.19)}.cash-services-v2__detail-grid{grid-template-columns:1fr;gap:27px}.cash-services-v2__detail-label{display:flex;gap:13px;align-items:center}.cash-services-v2__detail-label span{margin:0}.cash-services-v2__detail-label b{font-size:.86rem}}@media(max-width:767px){.cash-services-v2__container{width:calc(100% - 32px)}.cash-services-v2__hero{padding:38px 0 48px}.cash-services-v2__intro,.cash-services-v2__detail,.cash-services-v2__cta{padding:58px 0}.cash-services-v2 h1{font-size:2.45rem}.cash-services-v2__hero-card{padding:27px}.cash-services-v2__hero-card strong{font-size:3.6rem}.cash-services-v2__pillars{padding-bottom:42px}.cash-services-v2__pillars-grid{grid-template-columns:1fr;border-radius:0 0 18px 18px}.cash-services-v2__pillars-grid>div,.cash-services-v2__pillars-grid>div:nth-child(2){min-height:0;padding:25px;border-right:0;border-top:1px solid rgba(255,255,255,.19)}.cash-services-v2__pillars-grid>div:first-child{border-top:0}.cash-services-v2__intro-copy{text-align:left}.cash-services-v2__detail-grid h2{font-size:2rem}.cash-services-v2__delivery{grid-template-columns:1fr}.cash-services-v2__actions{flex-direction:column}.cash-services-v2__actions a{width:100%}}
+
+/* Ajustements de lisibilité Services. */
+.cash-services-v2 .cash-services-v2__hero-copy,
+.cash-services-v2 .cash-services-v2__hero-copy h1{
+  text-align:left!important;
+}
+.cash-services-v2 .cash-services-v2__pillars-grid>div{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.cash-services-v2 .cash-services-v2__pillars-grid>div>b{
+  display:flex!important;
+  min-height:42px;
+  margin:0 0 18px!important;
+  align-items:center;
+  color:var(--cash-beige)!important;
+  font-size:2rem!important;
+  font-weight:900!important;
+  letter-spacing:-.04em!important;
+  line-height:1!important;
+}
