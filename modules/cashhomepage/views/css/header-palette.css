@@ -1834,3 +1834,20 @@ body.cash-header-is-sticky #header .ets_mm_megamenu.changestatus.cash-mobile-men
   font-size:.9rem!important;
   line-height:1.55!important;
 }
+
+/* Repères numérotés des sections Services. */
+.cash-services-v2 .cash-services-v2__detail-label span{
+  margin-bottom:18px!important;
+  color:var(--cash-red)!important;
+  font-size:3.25rem!important;
+  font-weight:900!important;
+  letter-spacing:-.07em!important;
+  line-height:.85!important;
+}
+@media(max-width:991px){
+  .cash-services-v2 .cash-services-v2__detail-label span{
+    min-width:72px;
+    margin:0!important;
+    font-size:2.7rem!important;
+  }
+}
