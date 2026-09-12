@@ -1814,3 +1814,23 @@ body.cash-header-is-sticky #header .ets_mm_megamenu.changestatus.cash-mobile-men
   letter-spacing:-.04em!important;
   line-height:1!important;
 }
+
+/* Piliers Services : libellés non restructurés par le contenu CMS. */
+.cash-services-v2 .cash-services-v2__pillars-grid .cash-services-v2__pillar-title,
+.cash-services-v2 .cash-services-v2__pillars-grid .cash-services-v2__pillar-copy{
+  display:block!important;
+  width:100%;
+  text-align:left!important;
+}
+.cash-services-v2 .cash-services-v2__pillars-grid .cash-services-v2__pillar-title{
+  margin:0 0 14px!important;
+  color:#fff!important;
+  font-size:1.25rem!important;
+  font-weight:900!important;
+  line-height:1.25!important;
+}
+.cash-services-v2 .cash-services-v2__pillars-grid .cash-services-v2__pillar-copy{
+  color:rgba(255,255,255,.78)!important;
+  font-size:.9rem!important;
+  line-height:1.55!important;
+}
