@@ -1659,3 +1659,128 @@ body.cash-header-is-sticky #header .ets_mm_megamenu.changestatus.cash-mobile-men
 .footer-container .row,.copyright-container .row{text-align:center}
 .cash-footer-brand{padding-right:0}
 }
+
+/* Page Nos magasins - wireframe deux adresses à Nice. */
+.cash-stores-page__hero{
+  padding:76px 0 50px;
+  color:var(--cash-brown);
+  background:var(--cash-ivory);
+}
+.cash-stores-page__hero span{
+  color:var(--cash-green);
+}
+.cash-stores-page__hero h1{
+  color:var(--cash-brown)!important;
+  font-size:clamp(2.5rem,4.2vw,4.8rem);
+}
+.cash-stores-page__hero p{
+  max-width:760px;
+  color:rgba(67,42,25,.78)!important;
+}
+.cash-stores-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:32px;
+  padding-top:12px;
+  padding-bottom:80px;
+}
+.cash-store-card{
+  border-color:var(--cash-beige);
+  border-radius:18px;
+  box-shadow:0 12px 34px rgba(67,42,25,.07);
+}
+.cash-store-card__image{
+  height:300px;
+}
+.cash-store-card__content{
+  padding:30px 30px 24px;
+}
+.cash-store-card__eyebrow{
+  margin:0 0 10px;
+  color:var(--cash-green);
+  font-size:.72rem;
+  font-weight:850;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+.cash-store-card h2{
+  margin-bottom:17px;
+  font-size:clamp(1.7rem,2.2vw,2.35rem);
+}
+.cash-store-card__intro{
+  min-height:112px;
+  margin-bottom:25px;
+  font-size:.96rem;
+  line-height:1.62;
+}
+.cash-store-card__details{
+  display:grid;
+  gap:18px;
+  margin:0;
+  padding-top:23px;
+  border-top:1px solid var(--cash-beige);
+}
+.cash-store-card__details div{
+  display:grid;
+  grid-template-columns:minmax(130px,36%) 1fr;
+  gap:16px;
+}
+.cash-store-card__details dt{
+  color:var(--cash-olive);
+  font-size:.72rem;
+  font-weight:850;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+.cash-store-card__details dd{
+  margin:0;
+  color:var(--cash-brown);
+  font-size:.92rem;
+  font-weight:650;
+  line-height:1.55;
+}
+.cash-store-card__details a{
+  color:var(--cash-brown);
+  text-decoration:none;
+}
+.cash-store-card__details a:hover{
+  color:var(--cash-red);
+}
+.cash-store-card__actions{
+  padding:0 30px 30px;
+}
+.cash-store-card__actions a{
+  min-height:50px;
+  border-radius:8px;
+  font-size:.78rem;
+}
+.cash-store-card__actions span{
+  margin-left:5px;
+  font-size:1rem;
+}
+@media (max-width:767px){
+  .cash-stores-page__hero{
+    padding:50px 0 30px;
+  }
+  .cash-stores-grid{
+    gap:20px;
+    padding-top:12px;
+    padding-bottom:48px;
+  }
+  .cash-store-card__image{
+    height:220px;
+  }
+  .cash-store-card__content{
+    padding:25px 21px 20px;
+  }
+  .cash-store-card__intro{
+    min-height:0;
+  }
+  .cash-store-card__details div{
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+  .cash-store-card__actions{
+    grid-template-columns:1fr;
+    padding:0 21px 21px;
+  }
+}
