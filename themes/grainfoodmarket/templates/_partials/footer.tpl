@@ -48,9 +48,9 @@
       </div>
       <div class="col-md-12 cash-footer-bottom-right">
         <nav class="cash-footer-socials" aria-label="Réseaux sociaux">
-          {assign var='cash_social_instagram' value=Configuration::get('BLOCKSOCIAL_INSTAGRAM')}
-          {assign var='cash_social_facebook' value=Configuration::get('BLOCKSOCIAL_FACEBOOK')}
-          {assign var='cash_social_linkedin' value=Configuration::get('BLOCKSOCIAL_LINKEDIN')}
+          {assign var='cash_social_instagram' value=Configuration::get('BLOCKSOCIAL_INSTAGRAM', $language.id)}
+          {assign var='cash_social_facebook' value=Configuration::get('BLOCKSOCIAL_FACEBOOK', $language.id)}
+          {assign var='cash_social_linkedin' value=Configuration::get('BLOCKSOCIAL_LINKEDIN', $language.id)}
 
           {if $cash_social_instagram}
             <a href="{$cash_social_instagram|escape:'htmlall':'UTF-8'}" target="_blank" rel="noopener noreferrer" aria-label="Cash Alimentaire sur Instagram">
