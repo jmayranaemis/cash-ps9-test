@@ -9,7 +9,7 @@
   --cash-white: #ffffff;
 }
 
-/* Cards produits — catalogue professionnel sans prix. */
+/* Cards produits — catalogue professionnel avec prix HT. */
 .product-miniature:not(.col-lg-12) {
   display: flex;
   margin-bottom: 26px;
@@ -215,9 +215,48 @@
   font-weight: 700;
 }
 
-.product-miniature:not(.col-lg-12) .product-price-and-shipping,
 .product-miniature:not(.col-lg-12) .an_short_description {
   display: none !important;
+}
+
+.product-miniature:not(.col-lg-12) .product-price-and-shipping {
+  display: flex !important;
+  align-items: baseline;
+  min-height: 31px;
+  margin: 3px 0 14px;
+  color: var(--cash-brown);
+  font-weight: 800;
+  text-align: left;
+}
+
+.product-miniature:not(.col-lg-12) .product-price-and-shipping .product-prices-block {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.product-miniature:not(.col-lg-12) .product-price-and-shipping .price {
+  color: var(--cash-red);
+  font-size: 1.18rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.product-miniature:not(.col-lg-12) .cash-product-card__tax-label {
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--cash-olive);
+  font-size: .68rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+  vertical-align: middle;
+}
+
+/* Le thème source fournit l'ancien prix selon le réglage TTC global. Il reste
+   masqué ici pour qu'aucun montant TTC ne soit présenté dans les cartes. */
+.product-miniature:not(.col-lg-12) .product-price-and-shipping .regular-price {
+  display: none;
 }
 
 .product-miniature:not(.col-lg-12) .cash-product-card__action {
