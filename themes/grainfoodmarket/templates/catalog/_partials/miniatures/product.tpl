@@ -1045,7 +1045,7 @@ product-mobile-row
                   <div class="product-prices-block">
               <span class="sr-only">{l s='Price' d='Shop.Theme.Catalog'}</span>
               <span class="price" itemprop="price" content="{$product.price_tax_exc}">
-                <span class="money" {if isset($currency_code)}data-currency-{$currency_code|lower}="{$product.price_tax_exc}"{/if}>{$product.price_tax_exc}</span>
+                <span class="money" {if isset($currency_code)}data-currency-{$currency_code|lower}="{Context::getContext()->getCurrentLocale()->formatPrice($product.price_tax_exc, $currency_code)}"{/if}>{Context::getContext()->getCurrentLocale()->formatPrice($product.price_tax_exc, $currency_code)}</span>
                 <span class="cash-product-card__tax-label">HT</span>
               </span>
               {if $product.has_discount}
