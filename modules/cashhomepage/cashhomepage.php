@@ -1685,7 +1685,7 @@ HTML;
         $this->context->controller->registerStylesheet(
             'module-cashhomepage',
             'modules/' . $this->name . '/views/css/home.css',
-            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-3']
+            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-7']
         );
         if ($isProductsPage) {
             return;
