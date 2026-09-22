@@ -32,14 +32,14 @@
   background: var(--cash-white) !important;
   border: 1px solid rgba(67, 42, 25, .13);
   border-radius: 13px;
-  box-shadow: 0 10px 28px rgba(67, 42, 25, .06);
+  box-shadow: 0 10px 28px rgba(67, 42, 25, .06) !important;
   transform: none !important;
-  transition: border-color .2s ease;
+  transition: none !important;
 }
 
 .product-miniature:not(.col-lg-12):hover .thumbnail-container {
-  border-color: var(--cash-red);
-  box-shadow: 0 10px 28px rgba(67, 42, 25, .06);
+  border-color: var(--cash-red) !important;
+  box-shadow: 0 10px 28px rgba(67, 42, 25, .06) !important;
   transform: none !important;
 }
 
@@ -208,6 +208,44 @@
 
 .product-miniature:not(.col-lg-12) .product-title a:hover {
   color: var(--cash-brown) !important;
+}
+
+/* Aucun mouvement ni échange d'image au survol des cartes produit. */
+body .product-miniature:not(.col-lg-12),
+body .product-miniature:not(.col-lg-12) .thumbnail-container,
+body .product-miniature:not(.col-lg-12):hover .thumbnail-container,
+body .product-miniature:not(.col-lg-12) .product-description,
+body .product-miniature:not(.col-lg-12) .thumbnail-container-image,
+body .product-miniature:not(.col-lg-12) .product-thumbnail,
+body .product-miniature:not(.col-lg-12) .product-thumbnail img {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+body .product-miniature:not(.col-lg-12) .img_hover_change.cover,
+body .product-miniature:not(.col-lg-12) .thumbnail-container:hover .img_hover_change.cover {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+/* Les règles Avanto libèrent la hauteur du titre dans certains modules. */
+body #products .product-miniature:not(.col-lg-12) .product-title,
+body #products .product-miniature:not(.col-lg-12) .product-title a,
+body #product .cash-product-related .product-miniature:not(.col-lg-12) .product-title,
+body #product .cash-product-related .product-miniature:not(.col-lg-12) .product-title a,
+body .cash-product-selection__module .owl-item .product-title,
+body .cash-product-selection__module .owl-item .product-title a {
+  display: -webkit-box !important;
+  height: 3.9em !important;
+  min-height: 3.9em !important;
+  max-height: 3.9em !important;
+  overflow: hidden !important;
+  font-weight: 400 !important;
+  line-height: 1.3 !important;
+  text-overflow: ellipsis !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 3 !important;
 }
 
 .product-miniature:not(.col-lg-12) .cash-product-card__meta {
