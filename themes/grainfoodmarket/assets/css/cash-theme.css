@@ -161,6 +161,13 @@
   transform: none !important;
 }
 
+/* Le padding de la description doit rester identique au survol :
+   son ancien changement agrandissait et déplaçait toute la carte. */
+body .product-miniature:not(.col-lg-12) .product-description,
+body .product-miniature:not(.col-lg-12):hover .product-description {
+  padding: 16px 16px 14px !important;
+}
+
 .product-miniature:not(.col-lg-12) .product-list-reviews {
   min-height: 0;
   margin: 0;
