@@ -3893,3 +3893,174 @@ html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>a.
     transform:rotate(225deg)!important;
   }
 }
+
+
+/* ==========================================================
+   LGCookiesLaw — habillage charte CASE (Cash Alimentaire)
+   Le module n'a pas de champ CSS personnalisé : surcharge ici.
+   Le module injecte ses couleurs en !important, parfois via un id :
+   d où les !important et le préfixe html body:not(#cash-ck).
+   ========================================================== */
+
+:root {
+  --case-creme: #F8F1E5;
+  --case-texte: #4A3B2E;
+  --case-titre: #33241A;
+  --case-vert: #1D3A2C;
+  --case-vert-fonce: #152C21;
+}
+
+/* ---------- Bandeau ---------- */
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] {
+  background: var(--case-creme) !important;
+  color: var(--case-texte) !important;
+  border-top: 3px solid var(--case-vert) !important;
+  box-shadow: 0 -4px 18px rgba(51, 36, 26, .12) !important;
+  font-family: inherit !important;
+}
+
+/* Si le module reste en mode « flottant » (centré), on arrondit */
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"].lgcookieslaw-banner-floating {
+  border: 2px solid var(--case-vert) !important;
+  border-radius: 14px !important;
+  padding: 24px 28px !important;
+  max-width: 640px;
+  width: calc(100% - 32px) !important;
+}
+
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] h3,
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] h3 span {
+  color: var(--case-titre) !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 .6rem !important;
+}
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] p {
+  color: var(--case-texte) !important;
+  font-size: .95rem !important;
+  line-height: 1.55 !important;
+  margin: 0 0 .5rem !important;
+}
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] a,
+html body:not(#cash-ck) .lgcookieslaw-modal a:not(.lgcookieslaw-badge) {
+  color: var(--case-vert) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+}
+
+/* ---------- Boutons : les 3 strictement identiques ---------- */
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-button-container {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 10px !important;
+  margin-top: 1rem !important;
+}
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-button-container .lgcookieslaw-button,
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-button-container .lgcookieslaw-customize-cookies-link,
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-button {
+  flex: 1 1 0;
+  width: auto !important;
+  min-height: 46px !important;
+  padding: 10px 18px !important;
+  margin: 0 !important;
+  background: var(--case-vert) !important;
+  border: 2px solid var(--case-vert) !important;
+  border-radius: 999px !important;
+  color: #FFFFFF !important;
+  font-family: inherit !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-button-container .lgcookieslaw-button:hover,
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-button-container .lgcookieslaw-customize-cookies-link:hover,
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-button:hover {
+  background: var(--case-vert-fonce) !important;
+  border-color: var(--case-vert-fonce) !important;
+  color: #FFFFFF !important;
+}
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-button:focus-visible,
+html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-customize-cookies-link:focus-visible,
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-button:focus-visible {
+  outline: 3px solid #C9A45C !important;
+  outline-offset: 2px !important;
+}
+
+/* ---------- Panneau « Personnaliser » ---------- */
+html body:not(#cash-ck) .lgcookieslaw-modal {
+  background: #FFFFFF !important;
+  color: var(--case-texte) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  font-family: inherit !important;
+}
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-modal-header {
+  background: var(--case-creme) !important;
+  border-top-color: var(--case-vert) !important;
+  border-bottom: 2px solid var(--case-vert) !important;
+}
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-modal-header-title {
+  color: var(--case-titre) !important;
+  font-weight: 700 !important;
+}
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-section {
+  border-color: #E8DDCB !important;
+}
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-section-name {
+  color: var(--case-titre) !important;
+  font-weight: 700 !important;
+}
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-badge {
+  background: var(--case-creme) !important;
+  color: var(--case-vert) !important;
+  border: 1px solid var(--case-vert) !important;
+  border-radius: 999px !important;
+}
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-modal-footer {
+  background: var(--case-creme) !important;
+  border-top: 1px solid #E8DDCB !important;
+}
+/* « Annuler » en bouton secondaire (ce n'est pas un choix de consentement) */
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-cancel-button {
+  background: transparent !important;
+  color: var(--case-vert) !important;
+}
+html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-cancel-button:hover {
+  background: var(--case-vert) !important;
+  color: #FFFFFF !important;
+}
+
+/* Interrupteurs */
+html body:not(#cash-ck) .lgcookieslaw-slider {
+  background: #CFC6B8 !important;
+  border-color: #CFC6B8 !important;
+  box-shadow: none !important;
+}
+html body:not(#cash-ck) .lgcookieslaw-slider.lgcookieslaw-slider-checked {
+  background: var(--case-vert) !important;
+  border-color: var(--case-vert) !important;
+  box-shadow: 0 0 1px var(--case-vert) !important;
+}
+
+/* Voile derrière le panneau */
+html body:not(#cash-ck) .lgcookieslaw-overlay {
+  background: rgba(29, 58, 44, .45) !important;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 767px) {
+  html body:not(#cash-ck) [id^="lgcookieslaw_banner"].lgcookieslaw-banner-floating {
+    padding: 18px 16px !important;
+  }
+  html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-button-container {
+    flex-direction: column;
+  }
+  html body:not(#cash-ck) [id^="lgcookieslaw_banner"] .lgcookieslaw-button-container > * {
+    flex: 0 0 auto;
+    width: 100% !important;
+  }
+}
