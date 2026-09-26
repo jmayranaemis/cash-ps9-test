@@ -3991,6 +3991,13 @@ html body:not(#cash-ck) .lgcookieslaw-modal .lgcookieslaw-button:focus-visible {
 }
 
 /* ---------- Panneau « Personnaliser » ---------- */
+/* La fenêtre fancybox qui entoure le panneau a un fond clair et des coins
+   de 4px : on la rend transparente pour laisser voir les coins arrondis. */
+html body:not(#cash-ck) .fancybox-skin:has(.lgcookieslaw-modal) {
+  background: transparent !important;
+  border-radius: 16px !important;
+  padding: 0 !important;
+}
 html body:not(#cash-ck) .lgcookieslaw-modal {
   background: #FFFFFF !important;
   color: var(--case-texte) !important;
