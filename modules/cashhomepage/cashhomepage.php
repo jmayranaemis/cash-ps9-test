@@ -1716,7 +1716,7 @@ HTML;
         $this->context->controller->registerStylesheet(
             'module-cashhomepage-header-palette',
             'modules/' . $this->name . '/views/css/header-palette.css',
-            ['media' => 'all', 'priority' => 250, 'version' => $this->version . '-footer-32']
+            ['media' => 'all', 'priority' => 250, 'version' => $this->version . '-footer-34']
         );
 
         $isHomepage = 'index' === $this->context->controller->php_self;
