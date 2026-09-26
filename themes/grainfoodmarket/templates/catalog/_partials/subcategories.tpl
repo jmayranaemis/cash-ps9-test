@@ -34,44 +34,11 @@
 
       <ul class="subcategories-list">
         {foreach from=$subcategories item=subcategory}
-
-          {* JoliSearch transmet encore les sous-catégories sous forme de tableaux sous PS9. *}
-          {if is_array($subcategory)}
-            {$thumbnail = $subcategory}
-          {else}
-            {$thumbnail = $subcategory->getThumbnail()}
-          {/if}
-
           <li>
-            <div class="subcategory-image">
-              <a href="{$subcategory.url}" title="{$subcategory.name|escape:'html':'UTF-8'}" class="img">
-                {if !empty($thumbnail.bySize.category_default.url)}
-                  {if isset($subcategory.id_category)}
-                    {$cashCategoryImageId = $subcategory.id_category}
-                  {elseif isset($subcategory.id)}
-                    {$cashCategoryImageId = $subcategory.id}
-                  {else}
-                    {$cashCategoryImageId = 0}
-                  {/if}
-                  <img
-                    class="img-fluid"
-                    src="{if $cashCategoryImageId}{$urls.img_cat_url}{$cashCategoryImageId|intval}.jpg{else}{$thumbnail.bySize.category_default.url}{/if}"
-                    alt="{$subcategory.name|escape:'html':'UTF-8'}"
-                    loading="lazy"
-                    width="360"
-                    height="360"/>
-                {/if}
-              </a>
-            </div>
-
-            <h5>
-              <a class="subcategory-name" href="{$subcategory.url}">
-                {$subcategory.name|truncate:25:'...'|escape:'html':'UTF-8'}
-              </a>
-            </h5>
-            {if $subcategory.description}
-              <div class="cat_desc">{$subcategory.description|unescape:'html' nofilter}</div>
-            {/if}
+            <a class="subcategory-name cash-subcategory-tile" href="{$subcategory.url}">
+              <span class="cash-subcategory-tile__name">{$subcategory.name|escape:'html':'UTF-8'}</span>
+              <span class="cash-subcategory-tile__arrow" aria-hidden="true">→</span>
+            </a>
           </li>
         {/foreach}
       </ul>

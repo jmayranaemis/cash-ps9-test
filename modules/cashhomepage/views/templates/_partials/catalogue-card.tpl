@@ -37,7 +37,7 @@
   <div class="cash-flipbook-card__body">
     <span class="cash-flipbook-card__label">Catalogue interactif</span>
     <h3>{$catalogue.title|escape:'htmlall':'UTF-8'}</h3>
-    <p>Feuilletez ce catalogue en ligne et retrouvez rapidement les références utiles à votre activité.</p>
+    <p>{$catalogue.description|escape:'htmlall':'UTF-8'}</p>
     <div class="cash-flipbook-card__actions">
       <a
         class="cash-button cash-button--primary"

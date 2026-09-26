@@ -18,6 +18,7 @@ class CashHomepageCataloguesModuleFrontController extends ModuleFrontController
         $catalogueContactId = (int) Configuration::get('CASH_CATALOGUE_CONTACT_ID');
         $this->context->smarty->assign([
             'cash_catalogues' => $this->module->getActiveCatalogues(),
+            'cash_catalogue_flipbook_text' => (string) (Configuration::get('CASH_HOME_CATALOGUE_FLIPBOOK_TEXT') ?: 'Feuilletez ce catalogue en ligne et retrouvez rapidement les références utiles à votre activité.'),
             'cash_catalogue_contact_url' => $this->context->link->getPageLink(
                 'contact',
                 true,

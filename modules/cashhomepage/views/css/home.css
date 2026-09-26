@@ -640,3 +640,68 @@ body#index.page-index .anblog-widget>.anblog-widget-title>a:not(.cash-blog-all){
 .cash-products-page__cta h2{margin:0}
 @media(max-width:991px){.cash-products-page__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:767px){.cash-catalogues__all{justify-self:start;text-align:left}body#index.page-index .anblog-widget>.anblog-widget-title{column-gap:14px}.cash-blog-all{padding-bottom:4px;font-size:.78rem!important}.cash-products-page__grid{grid-template-columns:1fr}.cash-products-page__cta>div{align-items:flex-start;flex-direction:column}}
+
+/* Accueil : alternance vert, beige, brun pour distinguer les trois CTA finaux. */
+.cash-client{
+  background:var(--green);
+}
+
+.cash-client .cash-button--primary:hover{
+  background:var(--brown);
+}
+
+.cash-contact{
+  color:var(--brown);
+  background:var(--beige);
+}
+
+.cash-contact h2{
+  color:var(--brown);
+}
+
+.cash-contact .cash-eyebrow{
+  color:var(--red);
+}
+
+.cash-contact p{
+  color:var(--brown)!important;
+}
+
+.cash-contact__links a{
+  border:1px solid rgba(67,42,25,.14);
+  background:var(--ivory);
+}
+
+/* Catalogue accueil : commandes centrées et titre stable sur écran large. */
+.cash-catalogues__buttons{
+  justify-content:center;
+}
+
+@media(min-width:768px){
+  .cash-catalogues__intro h2{
+    white-space:nowrap;
+    font-size:clamp(1.9rem,2.8vw,3.15rem);
+  }
+}
+
+/* Sélection produits : mêmes flèches rondes que les autres carrousels. */
+.cash-product-selection__module .owl-nav .owl-prev,
+.cash-product-selection__module .owl-nav .owl-next{
+  font-size:0!important;
+}
+
+.cash-product-selection__module .owl-nav .owl-prev::before,
+.cash-product-selection__module .owl-nav .owl-next::before{
+  font-size:1.05rem;
+  line-height:1;
+}
+
+.cash-product-selection__module .owl-nav .owl-prev::before{content:"←"}
+.cash-product-selection__module .owl-nav .owl-next::before{content:"→"}
+
+.cash-product-selection__module .owl-nav .owl-prev>i,
+.cash-product-selection__module .owl-nav .owl-next>i,
+.cash-product-selection__module .owl-nav .owl-prev>svg,
+.cash-product-selection__module .owl-nav .owl-next>svg{
+  display:none!important;
+}

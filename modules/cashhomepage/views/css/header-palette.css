@@ -909,6 +909,7 @@ body#manufacturer:has(.cash-brands-page) #content-wrapper{width:100%;padding:0}
 
 /* Listes produits : surfaces neutres, informations utiles uniquement. */
 body#category .products-selection,
+body#prices-drop .products-selection,
 body#category .pagination,
 body#manufacturer .products-selection,
 body#manufacturer .pagination,
@@ -918,9 +919,7 @@ body#module-ambjolisearch-jolisearch .pagination{
 }
 
 body#category #products .product-flags,
-body#category #products .cash-product-card__meta,
-body#module-ambjolisearch-jolisearch #products .product-flags,
-body#module-ambjolisearch-jolisearch #products .cash-product-card__meta{
+body#module-ambjolisearch-jolisearch #products .product-flags{
   display:none!important;
 }
 
@@ -973,7 +972,13 @@ body#index .anblog-widget .blog-item{
   border-radius:15px!important;
   place-items:center!important;
   color:var(--cash-green)!important;
-  background:var(--cash-ivory)!important;
+  background:rgba(36,72,61,.08)!important;
+}
+
+.cash-contact-page__form{
+  background:var(--cash-white)!important;
+  border:1px solid var(--cash-beige)!important;
+  border-top:6px solid var(--cash-green)!important;
 }
 
 .cash-contact-page__icon svg{
@@ -1522,16 +1527,16 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
 #scrolltopbtn #an_scrolltop-img{width:24px!important;height:24px!important}
 .page-header h1,#main h1,.cash-about h1,.cash-contact-page h1,.cash-stores-page h1,.cash-catalogues-page h1,.cash-brands-page h1{font-weight:900!important}
 .products-selection .total-products{display:none!important}
-body#category #subcategories{margin:0 0 32px;padding:28px;border:1px solid var(--cash-beige);border-radius:20px;background:var(--cash-white);box-shadow:0 12px 34px rgba(67,42,25,.07)}
-body#category #subcategories .subcategory-heading{margin-bottom:22px;color:var(--cash-brown);font-size:1.35rem;font-weight:900;text-transform:none}
-body#category #subcategories ul{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0}
-body#category #subcategories ul li{width:auto;margin:0;padding:0;overflow:hidden;border:1px solid rgba(67,42,25,.12);border-radius:14px;background:var(--cash-ivory);transition:transform .2s ease,box-shadow .2s ease}
-body#category #subcategories ul li:hover{box-shadow:0 12px 25px rgba(67,42,25,.12);transform:translateY(-2px)}
-body#category #subcategories .subcategory-image{height:145px;margin:0;overflow:hidden;background:#fff}
-body#category #subcategories .subcategory-image a{display:block;height:100%}
-body#category #subcategories ul li img{width:100%;height:100%;object-fit:cover}
-body#category #subcategories h5{margin:0;padding:16px}
-body#category #subcategories .subcategory-name{color:var(--cash-brown);font-size:.82rem;font-weight:850;text-transform:none}
+body#category #subcategories{margin:0 0 32px;padding:24px;border:1px solid var(--cash-beige);border-radius:20px;background:var(--cash-white);box-shadow:0 12px 34px rgba(67,42,25,.07)}
+body#category #subcategories .subcategory-heading{margin-bottom:18px;color:var(--cash-brown);font-size:1.35rem;font-weight:900;text-transform:none}
+body#category #subcategories ul{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:12px;margin:0}
+body#category #subcategories ul li{width:auto;min-width:0;margin:0;padding:0;overflow:hidden;border:1px solid var(--cash-beige);border-radius:12px;background:var(--cash-ivory);transition:border-color .2s ease,background-color .2s ease,box-shadow .2s ease}
+body#category #subcategories ul li:hover{border-color:var(--cash-green);background:var(--cash-white);box-shadow:0 8px 20px rgba(67,42,25,.08)}
+body#category #subcategories .subcategory-name.cash-subcategory-tile{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:68px;padding:15px 17px;color:var(--cash-brown);font-size:.86rem;font-weight:850;line-height:1.3;text-decoration:none;text-transform:none}
+body#category #subcategories .cash-subcategory-tile__name{min-width:0;overflow-wrap:anywhere}
+body#category #subcategories .cash-subcategory-tile__arrow{flex:none;color:var(--cash-green);font-size:1.3rem;font-weight:700;line-height:1;transition:transform .2s ease}
+body#category #subcategories ul li:hover .cash-subcategory-tile__arrow{transform:translateX(3px)}
+body#category #subcategories .cash-subcategory-tile:focus-visible{outline:2px solid var(--cash-red);outline-offset:-4px}
 #header .ets_mm_megamenu .mm_menus_li>a.ets_mm_url::after{transform:scaleX(0)!important}
 #header .ets_mm_megamenu .mm_menus_li:hover>a.ets_mm_url::after,#header .ets_mm_megamenu .mm_menus_li:focus-within>a.ets_mm_url::after,#header .ets_mm_megamenu .mm_menus_li.cash-menu-current>a.ets_mm_url::after{transform:scaleX(1)!important}
 @media(min-width:768px){
@@ -1579,7 +1584,7 @@ body#manufacturer:has(.cash-brands-page) #wrapper>.container>.row{margin-right:0
 .cash-brands-page__container{width:auto;max-width:none;margin-right:20px;margin-left:20px}
 body#category #subcategories{padding:20px 16px}
 body#category #subcategories ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-body#category #subcategories .subcategory-image{height:120px}
+body#category #subcategories .subcategory-name.cash-subcategory-tile{min-height:62px;padding:12px 13px;font-size:.81rem}
 .cash-header-sticky-shell{position:relative!important;z-index:1100;top:auto}
 .cash-header-sticky-shell.is-mobile-sticky .mobile-header{
   position:fixed!important;
@@ -1850,4 +1855,336 @@ body.cash-header-is-sticky #header .ets_mm_megamenu.changestatus.cash-mobile-men
     margin:0!important;
     font-size:2.7rem!important;
   }
+}
+
+/* Jonction continue entre les dernières sections éditoriales et le footer. */
+#footer{
+  margin-top:0!important;
+}
+
+body#cms #footer{
+  padding-top:0!important;
+}
+
+body:has(.cash-about) #main .page-content,
+body:has(.cash-signature) #main .page-content,
+body:has(.cash-services-v2) #main .page-content,
+body:has(.cash-stores-page) #main .page-content,
+body:has(.cash-brands-page) #main .page-content,
+body:has(.cash-catalogues-page) #main .page-content,
+body:has(.cash-products-page) #main .page-content{
+  margin-bottom:0!important;
+}
+
+/* Marques : le CTA doit se détacher visuellement du footer vert. */
+.cash-brands-page__cta{
+  background:var(--cash-brown);
+}
+
+/* Bandeau cookies : le titre doit conserver un contraste suffisant sur le vert. */
+[id^="lgcookieslaw_banner_"] .lgcookieslaw-banner-message h3{
+  color:#fff!important;
+}
+
+/* Actualités : métadonnées et tags dans les couleurs secondaires CASE. */
+.an-blog-tags .block_content a,
+#module-anblog-blog .post-tags.anblog-tags a{
+  display:inline-flex;
+  padding:8px 12px;
+  border:1px solid var(--cash-beige);
+  border-radius:999px;
+  color:var(--cash-green)!important;
+  background:var(--cash-ivory)!important;
+  font-size:.7rem;
+  font-weight:850;
+  letter-spacing:.06em;
+  line-height:1.2;
+  text-decoration:none!important;
+  text-transform:uppercase;
+}
+
+.an-blog-tags .block_content a:hover,
+#module-anblog-blog .post-tags.anblog-tags a:hover{
+  border-color:var(--cash-green);
+  color:#fff!important;
+  background:var(--cash-green)!important;
+}
+
+#module-anblog-blog .blog-detail .blog-meta,
+#module-anblog-blog .blog-detail .blog-meta span,
+#module-anblog-blog .blog-detail .blog-meta span a,
+#module-anblog-blog .blog-detail .blog-meta .material-icons{
+  color:var(--cash-olive)!important;
+}
+
+#module-anblog-blog .blog-detail .blog-meta{
+  padding-bottom:16px;
+  border-bottom:1px solid var(--cash-beige);
+}
+
+/* Méga-menu : les deux entrées À propos occupent toute la largeur disponible. */
+@media(min-width:768px){
+  #header .ets_mm_megamenu .mm_menus_li:has(>a[href*="#apropos"])>.mm_columns_ul{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    width:100%!important;
+    margin:0!important;
+    padding:28px clamp(28px,4vw,64px)!important;
+    gap:24px;
+    background:var(--cash-white);
+    border:0!important;
+    outline:0!important;
+  }
+
+  #header .ets_mm_megamenu .mm_menus_li:has(>a[href*="#apropos"])>.mm_columns_ul>.mm_columns_li{
+    float:none!important;
+    width:auto!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+  }
+
+  #header .ets_mm_megamenu .mm_menus_li:has(>a[href*="#apropos"]) .mm_blocks_ul{
+    height:100%;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0!important;
+  }
+}
+
+/* Une seule bordure par carte : celle du bloc éditorial. Les conteneurs de
+   colonnes du module ne doivent jamais former un second cadre. */
+#header .ets_mm_megamenu .mm_columns_contents_ul .mm_columns_li,
+#header .ets_mm_megamenu .mm_columns_contents_ul .mm_blocks_ul{
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Les cadres ne doivent appartenir qu'aux cartes .ets_mm_block. Les wrappers
+   propres aux deux méga-menus restaient bordés selon l'état de survol. */
+#header .ets_mm_megamenu .mm_menus_li.cash-mega-products .mm_columns_ul,
+#header .ets_mm_megamenu .mm_menus_li.cash-mega-products .mm_columns_ul_tab,
+#header .ets_mm_megamenu .mm_menus_li.cash-mega-products .mm_tabs_li,
+#header .ets_mm_megamenu .mm_menus_li:has(>a[href*="#apropos"])>.mm_columns_ul{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+/* Menu Produits vertical : un seul indicateur d’ouverture. */
+#header .ets_mm_megamenu .mm_menus_li.cash-mega-products>.ets_mm_url .mm_arrow,
+#header .ets_mm_megamenu .mm_menus_li>.ets_mm_url[href*="/produits"] .mm_arrow{
+  display:none!important;
+}
+
+/* Entrée PRODUITS du menu vertical : les indicateurs du module et la barre
+   rouge du lien sont retirés. Un seul chevron est porté par son libellé. */
+body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>.arrow{
+  display:none!important;
+}
+
+/* Le module réactive .arrow dans sa feuille mobile. Cette règle, chargée
+   après celle-ci, le retire également à cette largeur. */
+@media(max-width:767px){
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow{
+    display:none!important;
+    visibility:hidden!important;
+    width:0!important;
+    height:0!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+  }
+}
+
+body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>a.ets_mm_url::after{
+  display:none!important;
+}
+
+body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>a.ets_mm_url>span{
+  display:flex!important;
+  width:100%;
+  align-items:center;
+}
+
+body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>a.ets_mm_url>span::after{
+  display:block!important;
+  width:10px!important;
+  height:10px!important;
+  margin-left:auto!important;
+  content:""!important;
+  background:transparent!important;
+  border:0!important;
+  border-right:3px solid var(--cash-ivory)!important;
+  border-bottom:3px solid var(--cash-ivory)!important;
+  transform:rotate(45deg)!important;
+}
+
+body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub:hover>a.ets_mm_url>span::after,
+body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub.menu_hover>a.ets_mm_url>span::after{
+  transform:rotate(225deg)!important;
+}
+
+/* Bureau : le module et le libellé dessinaient chacun un chevron. Le contrôle
+   natif est le seul indicateur visible et conserve sa zone de clic. */
+@media(min-width:768px){
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>a.ets_mm_url>.mm_menu_content_title::after{
+    display:none!important;
+    content:none!important;
+  }
+
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow{
+    display:block!important;
+    visibility:visible!important;
+    position:absolute!important;
+    top:50%!important;
+    right:24px!important;
+    left:auto!important;
+    width:9px!important;
+    height:9px!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    border-right:2px solid var(--cash-ivory)!important;
+    border-bottom:2px solid var(--cash-ivory)!important;
+    background:transparent!important;
+    transform:translateY(-70%) rotate(45deg)!important;
+  }
+
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow::before,
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow::after{
+    display:none!important;
+    content:none!important;
+  }
+
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub:hover>span.arrow,
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub.menu_hover>span.arrow{
+    transform:translateY(-20%) rotate(225deg)!important;
+  }
+}
+
+/* Photos produits : surface ivoire, plus douce que le gris du thème d’origine. */
+.product-miniature:not(.col-lg-12) .thumbnail-container-image,
+.product-miniature:not(.col-lg-12) .product-thumbnail,
+#product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container-image{
+  background:var(--cash-ivory)!important;
+}
+
+/* L'image alternative masquée gardait son <picture> flex à 50 % de la carte. */
+body .product-miniature:not(.col-lg-12) .product-thumbnail picture:has(>img.img_hover_change:not(.cover)){
+  display:none!important;
+}
+
+body .product-miniature:not(.col-lg-12) .product-thumbnail picture:has(>img.img_hover_change.cover){
+  width:100%!important;
+  flex:0 0 100%!important;
+}
+
+/* Fiches produits : la galerie reprend elle aussi la surface ivoire des cartes. */
+#product .images-container .product-cover,
+#product .images-container .product-cover img,
+#product .images-container .product-images>li.thumb-container>.thumb{
+  background:var(--cash-ivory)!important;
+}
+
+#product .images-container .product-cover{
+  overflow:hidden;
+  border:1px solid var(--cash-beige);
+  border-radius:14px;
+}
+
+#product .images-container .product-images>li.thumb-container>.thumb{
+  border:1px solid var(--cash-beige);
+  border-radius:8px;
+}
+
+/* Le slider de fiche applique son propre gris et les visuels JPG comportent un
+   aplat très clair. On neutralise les deux sans dénaturer les emballages. */
+#product .an_productpage-slider-wrap,
+#product .an_productpage-slider-image,
+#product .an_productpage-slider-nav{
+  background:var(--cash-ivory)!important;
+}
+
+#product .an_productpage-slider-main .productslider-main-image{
+  filter:brightness(1.04) contrast(1.02);
+  mix-blend-mode:normal!important;
+}
+
+/* Pagination : composants cohérents avec les filtres et les cartes CASE. */
+body .pagination .page-list{
+  display:flex!important;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:0!important;
+  line-height:1!important;
+}
+
+body .pagination>div:first-child{
+  display:flex;
+  justify-content:center;
+  line-height:1!important;
+}
+
+body .pagination .page-list li{
+  display:block!important;
+  margin:0!important;
+  align-self:center!important;
+  position:static!important;
+  transform:none!important;
+}
+
+body .pagination .page-list li>a,
+body .pagination .page-list li>span{
+  display:inline-flex!important;
+  min-width:38px;
+  height:64px;
+  min-height:64px;
+  padding:6px 9px;
+  border:1px solid var(--cash-beige);
+  border-radius:9px;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  color:var(--cash-brown)!important;
+  background:var(--cash-ivory)!important;
+  font-size:.82rem;
+  font-weight:850;
+  line-height:1;
+  vertical-align:middle!important;
+}
+
+body .pagination .page-list li>a.previous,
+body .pagination .page-list li>a.next{
+  float:none!important;
+  min-width:0;
+}
+
+body .pagination .page-list li>a .material-icons{
+  display:inline-block;
+  width:auto;
+  height:auto;
+  font-size:1.45rem;
+  line-height:1;
+}
+
+body .pagination .page-list li.current>a,
+body .pagination .page-list li.current>span,
+body .pagination .page-list li>a:hover,
+body .pagination .page-list li>a:focus{
+  border-color:var(--cash-green);
+  color:#fff!important;
+  background:var(--cash-green)!important;
+}
+
+body .pagination .page-list li.disabled>span{
+  border-color:rgba(67,42,25,.1);
+  color:var(--cash-olive)!important;
+  background:rgba(255,248,241,.55)!important;
 }

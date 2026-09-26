@@ -789,6 +789,7 @@ class CashHomepage extends Module
             'CASH_HOME_CATALOGUE_TEXT' => ['catalogue_text', 'Introduction des catalogues', 'Feuilletez nos sélections professionnelles et retrouvez rapidement les références adaptées à votre activité.', 'textarea'],
             'CASH_HOME_CATALOGUE_CARD_TITLE' => ['catalogue_card_title', 'Carte catalogue — titre', 'Nos sélections professionnelles', 'text'],
             'CASH_HOME_CATALOGUE_CARD_TEXT' => ['catalogue_card_text', 'Carte catalogue — texte', 'Consultez le catalogue interactif ci-dessous ou demandez à notre équipe la sélection adaptée à votre besoin.', 'textarea'],
+            'CASH_HOME_CATALOGUE_FLIPBOOK_TEXT' => ['catalogue_flipbook_text', 'Texte sous chaque catalogue', 'Feuilletez ce catalogue en ligne et retrouvez rapidement les références utiles à votre activité.', 'textarea'],
             'CASH_HOME_SERVICES_TITLE' => ['services_title', 'Titre des services', 'Des services utiles au quotidien', 'text'],
             'CASH_HOME_CLIENT_TITLE' => ['client_title', 'Titre devenir client', 'Devenir client Cash Alimentaire', 'text'],
             'CASH_HOME_CLIENT_TEXT' => ['client_text', 'Texte devenir client', 'Déposez votre demande en moins de 2 minutes. Après vérification de vos informations, notre équipe vous recontacte pour finaliser l’ouverture.', 'textarea'],
@@ -881,6 +882,7 @@ class CashHomepage extends Module
     public function getContent()
     {
         $confirmation = '';
+        $catalogues = $this->getActiveCatalogues();
         if (Tools::isSubmit('submitCashHomepage')) {
             foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
                 Configuration::updateValue($configurationKey, trim((string) Tools::getValue($configurationKey)));
@@ -892,6 +894,13 @@ class CashHomepage extends Module
             $selectedManufacturerIds = array_values(array_unique(array_filter(array_map('intval', $selectedManufacturerIds))));
             Configuration::updateValue('CASH_HOME_MANUFACTURERS', implode(',', $selectedManufacturerIds));
             $confirmation = $this->displayConfirmation($this->l('Les contenus et les marques de la page d’accueil ont été enregistrés.'));
+        }
+        if (Tools::isSubmit('submitCashCatalogueDescriptions')) {
+            foreach ($catalogues as $catalogue) {
+                $configurationKey = 'CASH_CATALOGUE_DESCRIPTION_' . (int) $catalogue['id'];
+                Configuration::updateValue($configurationKey, trim((string) Tools::getValue($configurationKey, '')));
+            }
+            $confirmation = $this->displayConfirmation($this->l('Les textes des catalogues ont été enregistrés.'));
         }
 
         $fields = [];
@@ -945,7 +954,7 @@ class CashHomepage extends Module
         }
         $helper->fields_value['CASH_HOME_MANUFACTURERS'] = $this->getSelectedManufacturerIds();
 
-        return $confirmation . $helper->generateForm([[
+        $homeForm = $helper->generateForm([[
             'form' => [
                 'legend' => [
                     'title' => $this->l('Textes de la page d’accueil'),
@@ -959,6 +968,44 @@ class CashHomepage extends Module
                 ],
             ],
         ]]);
+
+        $catalogueFields = [];
+        $catalogueValues = [];
+        foreach ($catalogues as $catalogue) {
+            $configurationKey = 'CASH_CATALOGUE_DESCRIPTION_' . (int) $catalogue['id'];
+            $catalogueFields[] = [
+                'type' => 'textarea',
+                'label' => $catalogue['title'],
+                'name' => $configurationKey,
+                'rows' => 3,
+                'cols' => 60,
+                'desc' => sprintf($this->l('Catalogue n° %d. Laisser vide pour utiliser le texte commun.'), (int) $catalogue['id']),
+            ];
+            $catalogueValues[$configurationKey] = (string) Configuration::get($configurationKey);
+        }
+
+        if (!$catalogueFields) {
+            return $confirmation . $homeForm;
+        }
+
+        $helper->submit_action = 'submitCashCatalogueDescriptions';
+        $helper->fields_value = $catalogueValues;
+        $catalogueForm = $helper->generateForm([[
+            'form' => [
+                'legend' => [
+                    'title' => $this->l('Textes propres à chaque catalogue'),
+                    'icon' => 'icon-book',
+                ],
+                'description' => $this->l('Un champ apparaît automatiquement pour chaque catalogue disponible. Le texte est affiché sur l’accueil et sur la page Catalogues.'),
+                'input' => $catalogueFields,
+                'submit' => [
+                    'title' => $this->l('Enregistrer les textes des catalogues'),
+                    'class' => 'btn btn-default pull-right',
+                ],
+            ],
+        ]]);
+
+        return $confirmation . $homeForm . $catalogueForm;
     }
 
     private function ensureMegaMenuCategoryColumns($menuId)
@@ -1669,7 +1716,7 @@ HTML;
         $this->context->controller->registerStylesheet(
             'module-cashhomepage-header-palette',
             'modules/' . $this->name . '/views/css/header-palette.css',
-            ['media' => 'all', 'priority' => 250, 'version' => $this->version . '-footer-15']
+            ['media' => 'all', 'priority' => 250, 'version' => $this->version . '-footer-32']
         );
 
         $isHomepage = 'index' === $this->context->controller->php_self;
@@ -1957,6 +2004,7 @@ HTML;
                 $catalogueContactId ? ['id_contact' => $catalogueContactId] : null
             ),
             'cash_catalogues' => $catalogues,
+            'cash_catalogue_flipbook_text' => $this->getEditableContent()['catalogue_flipbook_text'],
             'cash_catalogues_url' => $this->getCataloguesUrl(),
             'cash_promotions_url' => $this->context->link->getPageLink('prices-drop', true),
             'cash_stores_url' => $this->context->link->getPageLink('stores', true),
@@ -1994,6 +2042,7 @@ HTML;
         );
 
         $catalogues = [];
+        $defaultDescription = $this->getEditableContent()['catalogue_flipbook_text'];
         $baseUrl = rtrim(
             $this->context->link->getBaseLink((int) $this->context->shop->id, true),
             '/'
@@ -2009,6 +2058,7 @@ HTML;
             $catalogues[] = [
                 'id' => (int) $row['id_lpsflipbook'],
                 'title' => trim((string) $row['title']) ?: $this->l('Catalogue professionnel'),
+                'description' => trim((string) Configuration::get('CASH_CATALOGUE_DESCRIPTION_' . (int) $row['id_lpsflipbook'])) ?: $defaultDescription,
                 'viewer_url' => $this->getCataloguesUrl() . '?open_catalogue=' . (int) $row['id_lpsflipbook'],
                 'pdf_url' => $baseUrl . '/modules/lpsflipbook/views/pdf/' . rawurlencode(
                     basename($row['pdf_name'])

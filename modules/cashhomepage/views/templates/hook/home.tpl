@@ -72,7 +72,7 @@
         <div class="cash-catalogues__showcase" data-cash-carousel>
           <div class="cash-catalogues__list" data-cash-carousel-track>
             {foreach from=$cash_catalogues item=catalogue}
-              {include file='module:cashhomepage/views/templates/_partials/catalogue-card.tpl' catalogue=$catalogue}
+              {include file='module:cashhomepage/views/templates/_partials/catalogue-card.tpl' catalogue=$catalogue catalogue_text=$cash_content.catalogue_flipbook_text}
             {/foreach}
           </div>
           {if $cash_catalogues|count > 1}

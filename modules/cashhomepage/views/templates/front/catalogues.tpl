@@ -23,7 +23,7 @@
           </div>
           <div class="cash-catalogues-page__grid">
             {foreach from=$cash_catalogues item=catalogue}
-              {include file='module:cashhomepage/views/templates/_partials/catalogue-card.tpl' catalogue=$catalogue}
+              {include file='module:cashhomepage/views/templates/_partials/catalogue-card.tpl' catalogue=$catalogue catalogue_text=$cash_catalogue_flipbook_text}
             {/foreach}
           </div>
         {else}
