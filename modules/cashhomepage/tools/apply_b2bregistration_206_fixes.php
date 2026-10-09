@@ -101,6 +101,74 @@ $patches = [
             'from' => '                $this->module->validateB2bFields($customFields);',
             'to' => '                $this->module->validateB2bFields($customFields, $id_customer);',
         ],
+        [
+            'already' => "\$viewLink = \$baseLink . '&viewAttachment=1';",
+            'from' => "                        if (\$field['field_type'] == 'attachment') {\n"
+                . "                            \$input['display_image'] = true;\n"
+                . "                            \$input['image'] = \$name ? '<img src=\"' . __PS_BASE_URI__ .\n"
+                . "                            Tools::str_replace_once(_PS_ROOT_DIR_ . '/', '', \$name) .\n"
+                . "                            '?time=' . time() . '\" alt=\"\" class=\"imgm img-thumbnail\" width=\"50%\"/>' : false;\n"
+                . "                        } else {\n"
+                . "                            if (\$name && file_exists(\$name) && \$field['id_bb_registration_fields']) {\n"
+                . "                                \$link = \$this->context->link->getAdminLink('AdminB2BCustomers') .\n"
+                . "                                '&downloadAttachment&id_bb_registration_fields=' .\n"
+                . "                                \$field['id_bb_registration_fields'] . '&' .\n"
+                . "                                \$this->identifier . '=' . Tools::getValue(\$this->identifier);\n"
+                . "                                if (Configuration::get('PS_REWRITING_SETTINGS')) {\n"
+                . "                                    \$link = Tools::strReplaceFirst('&', '?', \$link);\n"
+                . "                                }\n"
+                . "                                \$input['file'] = \$link ? \$link : null;\n"
+                . "                            }\n"
+                . "                        }\n"
+                . "                        \$input['type'] = 'file';",
+            'to' => "                        if (\$name && file_exists(\$name) && \$field['id_bb_registration_fields']) {\n"
+                . "                            \$baseLink = \$this->context->link->getAdminLink('AdminB2BCustomers') .\n"
+                . "                                '&id_bb_registration_fields=' . (int) \$field['id_bb_registration_fields'] . '&' .\n"
+                . "                                \$this->identifier . '=' . (int) Tools::getValue(\$this->identifier);\n"
+                . "\n"
+                . "                            if (\$field['field_type'] == 'attachment') {\n"
+                . "                                \$viewLink = \$baseLink . '&viewAttachment=1';\n"
+                . "                                \$downloadLink = \$baseLink . '&downloadAttachment=1';\n"
+                . "                                \$input['type'] = 'html';\n"
+                . "                                \$input['html_content'] = '<a class=\"btn btn-default\" href=\"' .\n"
+                . "                                    \$viewLink . '\" target=\"_blank\" rel=\"noopener\"><i class=\"icon-eye\"></i> ' .\n"
+                . "                                    \$this->trans('View document') . '</a> ' .\n"
+                . "                                    '<a class=\"btn btn-default\" href=\"' . \$downloadLink . '\"><i class=\"icon-download\"></i> ' .\n"
+                . "                                    \$this->trans('Download document') . '</a><br><br>' .\n"
+                . "                                    '<input type=\"file\" name=\"' . \$input['name'] . '\" id=\"file_' .\n"
+                . "                                    (int) \$field['id_bb_registration_fields'] . '\">';\n"
+                . "                            } else {\n"
+                . "                                \$input['file'] = '<a class=\"btn btn-default\" href=\"' .\n"
+                . "                                    \$baseLink . '&downloadAttachment=1\"><i class=\"icon-download\"></i> ' .\n"
+                . "                                    \$this->trans('Download file') . '</a>';\n"
+                . "                                \$input['type'] = 'file';\n"
+                . "                            }\n"
+                . "                        } else {\n"
+                . "                            \$input['file'] = '<input type=\"file\" name=\"' . \$input['name'] . '\" id=\"file_' .\n"
+                . "                                (int) \$field['id_bb_registration_fields'] . '\">';\n"
+                . "                            \$input['type'] = 'file';\n"
+                . "                        }\n"
+                . "                        if (\$field['field_type'] != 'attachment') {\n"
+                . "                            \$input['type'] = 'file';\n"
+                . "                        }",
+        ],
+        [
+            'already' => "if (Tools::isSubmit('viewAttachment') || Tools::isSubmit('downloadAttachment'))",
+            'from' => "        if (Tools::isSubmit('downloadAttachment')) {\n"
+                . "            \$b2bregistration = new BusinessAccountModel(Tools::getValue('id_b2bregistration'));\n"
+                . "            \$id_bb_registration_fields = (int) Tools::getValue('id_bb_registration_fields');\n"
+                . "            BToBCustomFields::downloadAttachment(\$id_bb_registration_fields, \$b2bregistration->id_customer);\n"
+                . "        }",
+            'to' => "        if (Tools::isSubmit('viewAttachment') || Tools::isSubmit('downloadAttachment')) {\n"
+                . "            \$b2bregistration = new BusinessAccountModel(Tools::getValue('id_b2bregistration'));\n"
+                . "            \$id_bb_registration_fields = (int) Tools::getValue('id_bb_registration_fields');\n"
+                . "            BToBCustomFields::downloadAttachment(\n"
+                . "                \$id_bb_registration_fields,\n"
+                . "                \$b2bregistration->id_customer,\n"
+                . "                Tools::isSubmit('viewAttachment')\n"
+                . "            );\n"
+                . "        }",
+        ],
     ],
     $modulesRoot . '/b2bregistration/b2bregistration.php' => [
         [
@@ -117,6 +185,28 @@ $patches = [
         ],
     ],
     $modulesRoot . '/b2bregistration/models/b2bCustomFields.php' => [
+        [
+            'from' => "    public static function downloadAttachment(\$id_file, \$id_customer = null)\n"
+                . "    {\n"
+                . "        \$full_path = self::getFieldValue(\$id_file, \$id_customer);\n"
+                . "        self::actionDownload(\$full_path);\n"
+                . "    }\n"
+                . "\n"
+                . "    public static function actionDownload(\$full_path)",
+            'to' => "    public static function downloadAttachment(\$id_file, \$id_customer = null, \$inline = false)\n"
+                . "    {\n"
+                . "        \$full_path = self::getFieldValue(\$id_file, \$id_customer);\n"
+                . "        self::actionDownload(\$full_path, \$inline);\n"
+                . "    }\n"
+                . "\n"
+                . "    public static function actionDownload(\$full_path, \$inline = false)",
+        ],
+        [
+            'from' => "            header('Content-Disposition: attachment; filename=\"' .\n"
+                . "                basename(\$full_path) . '\";');",
+            'to' => "            header('Content-Disposition: ' . (\$inline ? 'inline' : 'attachment') . '; filename=\"' .\n"
+                . "                basename(\$full_path) . '\";');",
+        ],
         [
             'from' => '            if (!empty($this->getAllFields($id_customer))) {' . "\n"
                 . '                $this->deleteCustomerData($id_customer);' . "\n"
@@ -150,7 +240,8 @@ foreach ($patches as $path => $filePatches) {
         if (1 === $occurrences) {
             $contents = str_replace($patch['from'], $patch['to'], $contents);
             $changed = true;
-        } elseif (false === strpos($contents, $patch['to'])) {
+        } elseif (false === strpos($contents, $patch['to'])
+            && (!isset($patch['already']) || false === strpos($contents, $patch['already']))) {
             $legacyOccurrences = isset($patch['legacy']) ? substr_count($contents, $patch['legacy']) : 0;
             if (1 === $legacyOccurrences) {
                 $contents = str_replace($patch['legacy'], $patch['to'], $contents);
