@@ -28,7 +28,7 @@ class CashRedirects extends Module
     {
         $this->name = 'cashredirects';
         $this->tab = 'seo';
-        $this->version = '1.0.1';
+        $this->version = '1.0.2';
         $this->author = 'M2J Expertise';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = ['min' => '8.0.0', 'max' => '9.99.99'];
@@ -56,6 +56,11 @@ class CashRedirects extends Module
         }
 
         try {
+            if (Tools::getValue('controller') === 'attachment') {
+                $this->handleMissingAttachment((int) Tools::getValue('id_attachment'));
+
+                return;
+            }
             $target = $this->resolve($this->getRequestPath());
         } catch (\Throwable $e) {
             return; // Ne jamais casser une page pour une redirection.
@@ -64,6 +69,38 @@ class CashRedirects extends Module
         if ($target) {
             $this->redirect301($target);
         }
+    }
+
+    /**
+     * Fiche technique dont le fichier n'existe plus sur le serveur : sans ce garde-fou,
+     * PrestaShop envoie un Content-Length vide et Nginx répond 502.
+     * On redirige vers le produit associé, ou on répond 410 si aucun produit actif n'y est lié.
+     * Dès que le fichier est présent, on ne fait rien : PrestaShop le sert normalement.
+     */
+    protected function handleMissingAttachment($idAttachment)
+    {
+        if ($idAttachment <= 0) {
+            return;
+        }
+        $file = Db::getInstance()->getValue(
+            'SELECT file FROM `' . _DB_PREFIX_ . 'attachment` WHERE id_attachment = ' . (int) $idAttachment
+        );
+        if (!$file || is_file(_PS_DOWNLOAD_DIR_ . $file)) {
+            return;
+        }
+        $idProduct = (int) Db::getInstance()->getValue(
+            'SELECT pa.id_product FROM `' . _DB_PREFIX_ . 'product_attachment` pa
+             INNER JOIN `' . _DB_PREFIX_ . 'product_shop` ps ON ps.id_product = pa.id_product AND ps.id_shop = ' . (int) Context::getContext()->shop->id . '
+             WHERE pa.id_attachment = ' . (int) $idAttachment . ' AND ps.active = 1 AND ps.visibility <> \'none\'
+             ORDER BY pa.id_product LIMIT 1'
+        );
+        if ($idProduct) {
+            $this->redirect301(Context::getContext()->link->getProductLink($idProduct));
+        }
+        header('HTTP/1.1 410 Gone');
+        header('Content-Type: text/plain; charset=utf-8');
+        echo 'Ce document n\'est plus disponible.';
+        exit;
     }
 
     /**
