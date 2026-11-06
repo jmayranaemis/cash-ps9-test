@@ -14,6 +14,8 @@ return [
         '/content/22-notre-offre' => '/content/services-cash-alimentaire',
         '/content/23-chronofresh' => '/content/services-cash-alimentaire',
         '/content/category/5-nos-catalogues' => '/produits.html',
+        '/96-glaces-glaces-christophe' => '/produits-surgeles',
+        '/487-pates-de-fruits' => '/confiseries',
     ],
     'categories' => [
         'frais' => 'produits-frais',

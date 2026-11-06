@@ -28,7 +28,7 @@ class CashRedirects extends Module
     {
         $this->name = 'cashredirects';
         $this->tab = 'seo';
-        $this->version = '1.0.0';
+        $this->version = '1.0.1';
         $this->author = 'M2J Expertise';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = ['min' => '8.0.0', 'max' => '9.99.99'];
