@@ -217,9 +217,20 @@ jobs:
             if [ '$CIBLE' != 'theme' ]; then
               docker exec -u www-data '$C' php -d memory_limit=1G bin/console prestashop:module upgrade '$CIBLE' || echo 'Mise à jour du module à faire depuis le back-office'
             fi
-            docker exec -u www-data '$C' php -d memory_limit=1G bin/console cache:clear --no-warmup
-            docker exec -u www-data '$C' php -d memory_limit=1G bin/console cache:warmup --no-optional-warmers
+            docker exec -u www-data '$C' php -d memory_limit=1G bin/console cache:clear --env=prod --no-warmup
+            docker exec -u www-data '$C' php -d memory_limit=1G bin/console cache:warmup --env=prod --no-optional-warmers
           "
+          # Équivalent du bouton « Vider le cache » du back-office : gabarits
+          # Smarty compilés et mis en cache, et fichiers CSS/JS combinés du
+          # thème (la prod les combine, pas le test). Sans cela, un gabarit
+          # ou une feuille de style déployés ne s'affichent pas.
+          printf '%s\n' '<?php' \
+            'require "/var/www/html/config/config.inc.php";' \
+            'Tools::clearAllCache();' \
+            'Media::clearCache();' \
+            'echo "Caches PrestaShop vidés\n";' > vider-cache.php
+          ssh -i ~/.ssh/id_deploy "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+            "docker exec -i -u www-data $C php" < vider-cache.php
 
       - name: Healthcheck
         if: ${{ inputs.simulation == false }}
