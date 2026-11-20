@@ -38,14 +38,23 @@ jobs:
       name: prod
       url: https://www.cash-alimentaire.com
 
+    # Valeurs propres à la prod, écrites ici : ce ne sont pas des secrets, et
+    # les avoir en clair évite toute confusion avec celles de test.
+    # Seuls SSH_HOST, SSH_USER et SSH_KEY viennent des secrets GitHub
+    # (les mêmes que pour test : même VPS).
     env:
       CIBLE: ${{ inputs.cible }}
       SIMULATION: ${{ inputs.simulation }}
-      ROOT: ${{ secrets.SSH_PATH_ROOT }}
-      C: ${{ secrets.DOCKER_PHP_CONTAINER }}
+      ROOT: /srv/www/cash-ps9-prod
+      C: cash_ps9_prod_php
+      HEALTHCHECK_URL: https://www.cash-alimentaire.com/
 
     steps:
       - name: Contrôles avant déploiement
+        env:
+          HAS_KEY: ${{ secrets.SSH_KEY != '' && 'oui' || '' }}
+          HAS_HOST: ${{ secrets.SSH_HOST }}
+          HAS_USER: ${{ secrets.SSH_USER }}
         run: |
           set -e
           case "$GITHUB_REF_NAME" in
@@ -58,10 +67,9 @@ jobs:
           if [ "$SIMULATION" != "true" ] && [ "${{ inputs.confirmation }}" != "PROD" ]; then
             echo "::error::Vrai déploiement demandé sans la confirmation PROD." ; exit 1
           fi
-          case "$ROOT" in
-            */cash-ps9-prod) ;;
-            *) echo "::error::SSH_PATH_ROOT de l'environnement prod ne pointe pas sur cash-ps9-prod ($ROOT)." ; exit 1 ;;
-          esac
+          if [ -z "$HAS_KEY" ] || [ -z "$HAS_HOST" ] || [ -z "$HAS_USER" ]; then
+            echo "::error::Secrets SSH_HOST / SSH_USER / SSH_KEY introuvables pour l'environnement prod." ; exit 1
+          fi
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -134,4 +142,4 @@ jobs:
       - name: Healthcheck
         if: ${{ inputs.simulation == false }}
         run: |
-          curl -fsSL -o /dev/null -w "%{http_code}\n" "${{ secrets.HEALTHCHECK_URL }}" | grep -E "200|301|302"
+          curl -fsSL -o /dev/null -w "%{http_code}\n" "$HEALTHCHECK_URL" | grep -E "200|301|302"
