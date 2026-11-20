@@ -15,7 +15,7 @@
     <div class="cash-stores-page__container cash-stores-grid">
       <article id="store-villermont" class="cash-store-card">
         <figure class="cash-store-card__image">
-          <img src="{$urls.base_url}modules/cashhomepage/views/img/cash-store-villermont.webp" width="1000" height="620" loading="eager" alt="Devanture du magasin CASE Villermont">
+          <img src="{if isset($cash_images.stores_villermont)}{$cash_images.stores_villermont|escape:'htmlall':'UTF-8'}{else}{$urls.base_url}modules/cashhomepage/views/img/cash-store-villermont.webp{/if}" width="1000" height="620" loading="eager" alt="Devanture du magasin CASE Villermont">
         </figure>
         <div class="cash-store-card__content">
           <p class="cash-store-card__eyebrow">L’adresse historique</p>
@@ -35,7 +35,7 @@
 
       <article id="store-rue-de-france" class="cash-store-card">
         <figure class="cash-store-card__image">
-          <img src="{$urls.base_url}modules/cashhomepage/views/img/cash-store-france.webp" width="1000" height="620" loading="lazy" alt="Devanture du magasin CASE Rue de France">
+          <img src="{if isset($cash_images.stores_france)}{$cash_images.stores_france|escape:'htmlall':'UTF-8'}{else}{$urls.base_url}modules/cashhomepage/views/img/cash-store-france.webp{/if}" width="1000" height="620" loading="lazy" alt="Devanture du magasin CASE Rue de France">
         </figure>
         <div class="cash-store-card__content">
           <p class="cash-store-card__eyebrow">Le magasin de proximité</p>

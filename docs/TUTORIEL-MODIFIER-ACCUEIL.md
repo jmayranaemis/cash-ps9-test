@@ -8,22 +8,25 @@
 
 Les textes principaux du hero, des preuves, des familles, des catalogues, des services, du bloc « Devenir client » et du bloc contact sont administrables ici.
 
-## Ajouter ou changer une image (médiathèque)
+## Changer une photo du site
 
-Plus besoin de passer par le serveur : les images s’envoient depuis le back-office.
+Plus besoin de passer par le serveur : les photos se changent depuis le back-office.
 
 1. Ouvrir **Modules > Gestionnaire de modules > Accueil Cash Alimentaire > Configurer**.
-2. Descendre jusqu’au bloc **Médiathèque — images du site**.
-3. Choisir une ou plusieurs images (JPG, PNG ou WebP, 8 Mo maximum) puis cliquer sur **Envoyer**. Les photos de plus de 2 000 px de large sont réduites automatiquement.
+2. Descendre jusqu’au bloc **Images du site — page par page**. Les photos y sont classées par page (Accueil, Qui sommes-nous ?, Nos magasins) ; chaque ligne décrit l’endroit exact où la photo apparaît, avec l’image actuelle à gauche.
+3. Sur la ligne concernée, cliquer sur **Choisir un fichier**, sélectionner la nouvelle photo, puis cliquer sur **Remplacer**.
 
-Ensuite, selon l’usage :
+Le changement est immédiat. JPG, PNG ou WebP, 8 Mo maximum ; les photos plus larges que 2 000 px sont réduites automatiquement. Chaque ligne indique le format conseillé.
 
-- **Fond de la page d’accueil** : cliquer sur **Fond de l’accueil** en face de l’image. Le changement est immédiat.
-- **Image dans une page** (Qui sommes-nous, Nos engagements…) : cliquer sur **Copier l’adresse**, ouvrir la page dans **Design > Pages**, cliquer sur le bouton **Image** de l’éditeur et coller l’adresse.
+Pour revenir en arrière, cliquer sur **Remettre la photo d’origine** sous le bouton Remplacer.
 
-Une image utilisée en fond d’accueil ne peut pas être supprimée. Pour les autres, vérifier qu’elle n’est plus utilisée dans une page avant de la supprimer : la page afficherait sinon une image cassée.
+## Ajouter une photo dans le texte d’une page
 
-Les images envoyées sont rangées dans `img/cms/cash/` sur le serveur, à l’abri des déploiements du module.
+1. Dans le même écran, bloc **Autres images**, choisir la photo et cliquer sur **Envoyer**.
+2. Cliquer sur **Copier l’adresse** en face de la photo.
+3. Ouvrir la page dans **Design > Pages**, cliquer sur le bouton **Image** de l’éditeur et coller l’adresse.
+
+Une photo affichée sur le site ne peut pas être supprimée. Pour les autres, vérifier qu’elle n’est plus utilisée dans le texte d’une page avant de la supprimer.
 
 ## Modifier les images des familles
 

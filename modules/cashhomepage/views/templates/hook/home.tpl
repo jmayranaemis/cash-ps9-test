@@ -14,12 +14,12 @@
       </article>
 
       <div class="cash-hero__aside" aria-label="Accès rapides">
-        <a class="cash-hero-card cash-hero-card--promotions" href="{$cash_promotions_url|escape:'htmlall':'UTF-8'}">
+        <a class="cash-hero-card cash-hero-card--promotions"{if isset($cash_images.home_promotions)} style="background-image:url('{$cash_images.home_promotions|escape:'htmlall':'UTF-8'}')"{/if} href="{$cash_promotions_url|escape:'htmlall':'UTF-8'}">
           <span class="cash-hero-card__kicker">Offres professionnelles</span>
           <strong>Les promotions du moment</strong>
           <span class="cash-hero-card__cta">Découvrir les promotions <b aria-hidden="true">→</b></span>
         </a>
-        <a class="cash-hero-card cash-hero-card--stores" href="{$cash_stores_url|escape:'htmlall':'UTF-8'}">
+        <a class="cash-hero-card cash-hero-card--stores"{if isset($cash_images.home_stores)} style="background-image:url('{$cash_images.home_stores|escape:'htmlall':'UTF-8'}')"{/if} href="{$cash_stores_url|escape:'htmlall':'UTF-8'}">
           <span class="cash-hero-card__kicker">Au plus près de vous</span>
           <strong>Découvrez nos magasins</strong>
           <span class="cash-hero-card__cta">Trouver un magasin <b aria-hidden="true">→</b></span>
