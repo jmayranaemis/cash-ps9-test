@@ -13,7 +13,7 @@ class CashHomepage extends Module
     {
         $this->name = 'cashhomepage';
         $this->tab = 'front_office_features';
-        $this->version = '1.21.9';
+        $this->version = '1.22.0';
         $this->author = 'Cash Alimentaire';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -881,7 +881,7 @@ class CashHomepage extends Module
 
     public function getContent()
     {
-        $confirmation = '';
+        $confirmation = $this->processMediaLibrary();
         $catalogues = $this->getActiveCatalogues();
         if (Tools::isSubmit('submitCashHomepage')) {
             foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
@@ -984,8 +984,10 @@ class CashHomepage extends Module
             $catalogueValues[$configurationKey] = (string) Configuration::get($configurationKey);
         }
 
+        $mediaLibrary = $this->renderMediaLibrary($helper->currentIndex . '&token=' . $helper->token);
+
         if (!$catalogueFields) {
-            return $confirmation . $homeForm;
+            return $confirmation . $homeForm . $mediaLibrary;
         }
 
         $helper->submit_action = 'submitCashCatalogueDescriptions';
@@ -1005,7 +1007,296 @@ class CashHomepage extends Module
             ],
         ]]);
 
-        return $confirmation . $homeForm . $catalogueForm;
+        return $confirmation . $homeForm . $catalogueForm . $mediaLibrary;
+    }
+
+    /*
+     * ── Médiathèque ──────────────────────────────────────────────────────
+     *
+     * Envoi d'images depuis le back-office, pour ne plus passer par scp.
+     *
+     * Les fichiers sont rangés dans /img/cms/cash/ et JAMAIS dans le dossier
+     * du module : le déploiement CI synchronise modules/ par rsync et
+     * écraserait un visuel remplacé à la main dans views/img. /img/ n'est ni
+     * versionné ni touché par le déploiement.
+     */
+
+    const MEDIA_MAX_BYTES = 8388608;   // 8 Mo à l'envoi
+    const MEDIA_MAX_WIDTH = 2000;      // redimensionné au-delà, en conservant le format
+
+    private function getMediaDir()
+    {
+        return _PS_IMG_DIR_ . 'cms/cash/';
+    }
+
+    private function getMediaBaseUrl()
+    {
+        return __PS_BASE_URI__ . 'img/cms/cash/';
+    }
+
+    private function getMediaExtensions()
+    {
+        return ['jpg', 'jpeg', 'png', 'webp'];
+    }
+
+    /**
+     * Liste les images de la médiathèque, les plus récentes en premier.
+     * Les visuels d'origine du module sont listés à part, en lecture seule.
+     */
+    private function getMediaFiles()
+    {
+        $files = [];
+        $directories = [
+            ['dir' => $this->getMediaDir(), 'url' => $this->getMediaBaseUrl(), 'deletable' => true],
+            ['dir' => _PS_MODULE_DIR_ . $this->name . '/views/img/', 'url' => __PS_BASE_URI__ . 'modules/' . $this->name . '/views/img/', 'deletable' => false],
+        ];
+
+        foreach ($directories as $directory) {
+            if (!is_dir($directory['dir'])) {
+                continue;
+            }
+            foreach (scandir($directory['dir']) as $name) {
+                $path = $directory['dir'] . $name;
+                $extension = Tools::strtolower(pathinfo($name, PATHINFO_EXTENSION));
+                if ($name[0] === '.' || !is_file($path) || !in_array($extension, $this->getMediaExtensions(), true)) {
+                    continue;
+                }
+                $size = @getimagesize($path);
+                $files[] = [
+                    'name' => $name,
+                    'url' => $directory['url'] . rawurlencode($name),
+                    'bytes' => (int) filesize($path),
+                    'width' => $size ? (int) $size[0] : 0,
+                    'height' => $size ? (int) $size[1] : 0,
+                    'mtime' => (int) filemtime($path),
+                    'deletable' => $directory['deletable'],
+                ];
+            }
+        }
+
+        usort($files, function ($a, $b) {
+            if ($a['deletable'] !== $b['deletable']) {
+                return $a['deletable'] ? -1 : 1;
+            }
+
+            return $b['mtime'] - $a['mtime'];
+        });
+
+        return $files;
+    }
+
+    /**
+     * Nom de fichier sûr : minuscules, sans accents ni espaces, et jamais
+     * l'écrasement silencieux d'un fichier existant (suffixe -2, -3…).
+     */
+    private function buildMediaFileName($originalName, $extension)
+    {
+        $base = pathinfo((string) $originalName, PATHINFO_FILENAME);
+        $base = Tools::str2url($base);
+        $base = trim(preg_replace('/[^a-z0-9-]+/', '-', Tools::strtolower($base)), '-');
+        if ($base === '') {
+            $base = 'image';
+        }
+        $base = Tools::substr($base, 0, 60);
+        $extension = $extension === 'jpeg' ? 'jpg' : $extension;
+
+        $name = $base . '.' . $extension;
+        $index = 2;
+        while (file_exists($this->getMediaDir() . $name)) {
+            $name = $base . '-' . $index . '.' . $extension;
+            ++$index;
+        }
+
+        return $name;
+    }
+
+    private function processMediaLibrary()
+    {
+        if (Tools::isSubmit('submitCashMediaUpload')) {
+            return $this->processMediaUpload();
+        }
+
+        if (Tools::isSubmit('submitCashMediaHero')) {
+            $url = (string) Tools::getValue('cash_media_url');
+            $known = array_column($this->getMediaFiles(), 'url');
+            if (!in_array($url, $known, true)) {
+                return $this->displayError($this->l('Image introuvable dans la médiathèque.'));
+            }
+            Configuration::updateValue('CASH_HOME_HERO_IMAGE_URL', $url);
+
+            return $this->displayConfirmation($this->l('L’image de fond de l’accueil a été remplacée.'));
+        }
+
+        if (Tools::isSubmit('submitCashMediaDelete')) {
+            $name = basename((string) Tools::getValue('cash_media_name'));
+            $path = $this->getMediaDir() . $name;
+            $realDir = realpath($this->getMediaDir());
+            $realPath = realpath($path);
+            if (!$realDir || !$realPath || strpos($realPath, $realDir . DIRECTORY_SEPARATOR) !== 0 || !is_file($realPath)) {
+                return $this->displayError($this->l('Image introuvable.'));
+            }
+            $url = $this->getMediaBaseUrl() . rawurlencode($name);
+            if ((string) Configuration::get('CASH_HOME_HERO_IMAGE_URL') === $url) {
+                return $this->displayError($this->l('Cette image est utilisée en fond de l’accueil : choisissez-en une autre avant de la supprimer.'));
+            }
+            if (!@unlink($realPath)) {
+                return $this->displayError($this->l('La suppression a échoué (droits sur le dossier img/cms/cash).'));
+            }
+
+            return $this->displayConfirmation(sprintf($this->l('Image %s supprimée.'), $name));
+        }
+
+        return '';
+    }
+
+    private function processMediaUpload()
+    {
+        if (empty($_FILES['cash_media_files']['name']) || !is_array($_FILES['cash_media_files']['name'])) {
+            return $this->displayError($this->l('Aucun fichier sélectionné.'));
+        }
+
+        $directory = $this->getMediaDir();
+        if (!is_dir($directory) && !@mkdir($directory, 0775, true)) {
+            return $this->displayError($this->l('Impossible de créer le dossier img/cms/cash : vérifier les droits de www-data sur img/.'));
+        }
+        if (!file_exists($directory . 'index.php')) {
+            @copy(_PS_MODULE_DIR_ . $this->name . '/index.php', $directory . 'index.php');
+        }
+
+        $uploaded = [];
+        $errors = [];
+        $count = count($_FILES['cash_media_files']['name']);
+
+        for ($i = 0; $i < $count; ++$i) {
+            $originalName = (string) $_FILES['cash_media_files']['name'][$i];
+            $tmpName = (string) $_FILES['cash_media_files']['tmp_name'][$i];
+            $error = (int) $_FILES['cash_media_files']['error'][$i];
+            $bytes = (int) $_FILES['cash_media_files']['size'][$i];
+            $extension = Tools::strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+
+            if ($originalName === '' && $error === UPLOAD_ERR_NO_FILE) {
+                continue;
+            }
+            if ($error !== UPLOAD_ERR_OK) {
+                $errors[] = sprintf($this->l('%s : envoi interrompu (code %d, fichier probablement trop lourd pour le serveur).'), $originalName, $error);
+                continue;
+            }
+            if ($bytes > self::MEDIA_MAX_BYTES) {
+                $errors[] = sprintf($this->l('%s : fichier de plus de 8 Mo.'), $originalName);
+                continue;
+            }
+            if (!in_array($extension, $this->getMediaExtensions(), true)) {
+                $errors[] = sprintf($this->l('%s : format refusé (JPG, PNG ou WebP uniquement).'), $originalName);
+                continue;
+            }
+            // Contrôle sur le contenu réel, pas seulement sur l'extension.
+            $info = @getimagesize($tmpName);
+            $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG];
+            if (defined('IMAGETYPE_WEBP')) {
+                $allowedTypes[] = IMAGETYPE_WEBP;
+            }
+            if (!is_uploaded_file($tmpName) || !$info || !in_array($info[2], $allowedTypes, true)) {
+                $errors[] = sprintf($this->l('%s : ce fichier n’est pas une image valide.'), $originalName);
+                continue;
+            }
+
+            $name = $this->buildMediaFileName($originalName, $extension);
+            $destination = $directory . $name;
+            $saved = false;
+
+            // Les photos d'appareil (4000 px et plus) sont ramenées à une
+            // largeur raisonnable pour le web, dans leur format d'origine.
+            if ((int) $info[0] > self::MEDIA_MAX_WIDTH) {
+                $type = $extension === 'jpeg' ? 'jpg' : $extension;
+                // Hauteur calculée ici : passée à null, ImageManager garderait
+                // la hauteur d'origine et ajouterait des bandes blanches.
+                $height = (int) round($info[1] * self::MEDIA_MAX_WIDTH / $info[0]);
+                $saved = ImageManager::resize($tmpName, $destination, self::MEDIA_MAX_WIDTH, $height, $type, true);
+            }
+            if (!$saved) {
+                $saved = move_uploaded_file($tmpName, $destination);
+            }
+            if (!$saved) {
+                $errors[] = sprintf($this->l('%s : écriture impossible dans img/cms/cash.'), $originalName);
+                continue;
+            }
+            @chmod($destination, 0664);
+            $uploaded[] = $name;
+        }
+
+        $output = '';
+        if ($uploaded) {
+            $output .= $this->displayConfirmation(sprintf(
+                $this->l('%d image(s) ajoutée(s) : %s'),
+                count($uploaded),
+                implode(', ', $uploaded)
+            ));
+        }
+        if ($errors) {
+            $output .= $this->displayError(implode('<br>', array_map('htmlspecialchars', $errors)));
+        }
+
+        return $output;
+    }
+
+    private function renderMediaLibrary($action)
+    {
+        $files = $this->getMediaFiles();
+        $heroUrl = (string) Configuration::get('CASH_HOME_HERO_IMAGE_URL');
+        $shopUrl = rtrim(Tools::getShopDomainSsl(true), '/');
+        $e = function ($value) {
+            return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+        };
+
+        $html = '<div class="panel" id="cash-media-library">'
+            . '<div class="panel-heading"><i class="icon-picture"></i> ' . $e($this->l('Médiathèque — images du site')) . '</div>'
+            . '<p class="help-block">' . $e($this->l('Ajoutez ici les images à utiliser sur l’accueil et dans les pages (Design > Pages). JPG, PNG ou WebP, 8 Mo maximum ; les photos plus larges que 2 000 px sont redimensionnées automatiquement. Pour insérer une image dans une page, copiez son adresse puis, dans l’éditeur, utilisez le bouton Image et collez-la.')) . '</p>'
+            . '<form method="post" enctype="multipart/form-data" action="' . $e($action) . '" class="form-inline" style="margin-bottom:20px">'
+            . '<input type="file" name="cash_media_files[]" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple required style="display:inline-block;margin-right:10px">'
+            . '<button type="submit" name="submitCashMediaUpload" class="btn btn-primary"><i class="icon-upload"></i> ' . $e($this->l('Envoyer')) . '</button>'
+            . '</form>';
+
+        if (!$files) {
+            return $html . '<p>' . $e($this->l('Aucune image pour l’instant.')) . '</p></div>';
+        }
+
+        $html .= '<table class="table"><thead><tr>'
+            . '<th style="width:140px">' . $e($this->l('Aperçu')) . '</th>'
+            . '<th>' . $e($this->l('Fichier et adresse à copier')) . '</th>'
+            . '<th style="width:110px">' . $e($this->l('Dimensions')) . '</th>'
+            . '<th style="width:340px">' . $e($this->l('Actions')) . '</th>'
+            . '</tr></thead><tbody>';
+
+        foreach ($files as $file) {
+            $isHero = $heroUrl === $file['url'];
+            $fullUrl = $shopUrl . $file['url'];
+            $html .= '<tr>'
+                . '<td><a href="' . $e($file['url']) . '" target="_blank" rel="noopener"><img src="' . $e($file['url']) . '?v=' . (int) $file['mtime'] . '" alt="" loading="lazy" style="max-width:120px;max-height:80px;object-fit:cover;border:1px solid #ddd"></a></td>'
+                . '<td><strong>' . $e($file['name']) . '</strong>'
+                . ($isHero ? ' <span class="label label-success">' . $e($this->l('Fond de l’accueil')) . '</span>' : '')
+                . (!$file['deletable'] ? ' <span class="label label-default">' . $e($this->l('Visuel d’origine du module')) . '</span>' : '')
+                . '<input type="text" readonly value="' . $e($fullUrl) . '" onclick="this.select()" class="form-control" style="margin-top:6px;font-family:monospace;font-size:12px"></td>'
+                . '<td>' . ($file['width'] ? (int) $file['width'] . ' × ' . (int) $file['height'] . '<br>' : '')
+                . '<small>' . $e(Tools::ps_round($file['bytes'] / 1024, 0)) . ' Ko</small></td>'
+                . '<td>'
+                . '<button type="button" class="btn btn-default btn-sm" onclick="var i=this.closest(&quot;tr&quot;).querySelector(&quot;input[readonly]&quot;);i.select();if(navigator.clipboard){navigator.clipboard.writeText(i.value);}this.textContent=' . $e(json_encode($this->l('Adresse copiée'))) . ';"><i class="icon-copy"></i> ' . $e($this->l('Copier l’adresse')) . '</button> ';
+
+            if (!$isHero) {
+                $html .= '<form method="post" action="' . $e($action) . '" style="display:inline">'
+                    . '<input type="hidden" name="cash_media_url" value="' . $e($file['url']) . '">'
+                    . '<button type="submit" name="submitCashMediaHero" class="btn btn-default btn-sm" onclick="return confirm(' . $e(json_encode($this->l('Utiliser cette image en fond de l’accueil ?'))) . ');"><i class="icon-home"></i> ' . $e($this->l('Fond de l’accueil')) . '</button>'
+                    . '</form> ';
+            }
+            if ($file['deletable'] && !$isHero) {
+                $html .= '<form method="post" action="' . $e($action) . '" style="display:inline">'
+                    . '<input type="hidden" name="cash_media_name" value="' . $e($file['name']) . '">'
+                    . '<button type="submit" name="submitCashMediaDelete" class="btn btn-danger btn-sm" title="' . $e($this->l('Supprimer')) . '" onclick="return confirm(' . $e(json_encode($this->l('Supprimer définitivement cette image ? Vérifiez qu’elle n’est plus utilisée dans une page.'))) . ');"><i class="icon-trash"></i></button>'
+                    . '</form>';
+            }
+            $html .= '</td></tr>';
+        }
+
+        return $html . '</tbody></table></div>';
     }
 
     private function ensureMegaMenuCategoryColumns($menuId)
