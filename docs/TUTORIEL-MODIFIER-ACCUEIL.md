@@ -8,6 +8,8 @@
 
 Les textes principaux du hero, des preuves, des familles, des catalogues, des services, du bloc « Devenir client » et du bloc contact sont administrables ici.
 
+Chaque champ commence par l’endroit de la page où il s’affiche. Pour le grand bloc en haut à gauche de l’accueil, on modifie ainsi la petite ligne rouge, le titre, le texte, et les deux boutons : texte **et** lien de chacun. Même chose pour les deux petites cartes en haut à droite (étiquette, titre, texte du lien, lien). Un lien laissé vide renvoie vers sa destination habituelle (page Devenir client, bloc des familles de produits, page des promotions, page Nos magasins).
+
 ## Changer une photo du site
 
 Plus besoin de passer par le serveur : les photos se changent depuis le back-office.

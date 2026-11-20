@@ -771,10 +771,22 @@ class CashHomepage extends Module
     private function getEditableContentDefinitions()
     {
         return [
-            'CASH_HOME_HERO_EYEBROW' => ['hero_eyebrow', 'Sur-titre du hero', 'Grossiste alimentaire pour les professionnels', 'text'],
-            'CASH_HOME_HERO_TITLE' => ['hero_title', 'Titre principal', 'Tout pour votre activité, avec un interlocuteur local', 'text'],
-            'CASH_HOME_HERO_LEAD' => ['hero_lead', 'Introduction du hero', 'Une offre complète pour la restauration, la vente à emporter et les métiers de bouche, disponible dans nos magasins et en livraison.', 'textarea'],
+            'CASH_HOME_HERO_EYEBROW' => ['hero_eyebrow', 'Accueil, grand bloc en haut à gauche — petite ligne rouge au-dessus du titre', 'Grossiste alimentaire pour les professionnels', 'text'],
+            'CASH_HOME_HERO_TITLE' => ['hero_title', 'Accueil, grand bloc en haut à gauche — titre', 'Tout pour votre activité, avec un interlocuteur local', 'text'],
+            'CASH_HOME_HERO_LEAD' => ['hero_lead', 'Accueil, grand bloc en haut à gauche — texte sous le titre', 'Une offre complète pour la restauration, la vente à emporter et les métiers de bouche, disponible dans nos magasins et en livraison.', 'textarea'],
+            'CASH_HOME_HERO_BUTTON_1_TEXT' => ['hero_button_1_text', 'Accueil, grand bloc en haut à gauche — bouton rouge (1er bouton) — texte', 'Devenir client', 'text'],
+            'CASH_HOME_HERO_BUTTON_1_URL' => ['hero_button_1_url', 'Accueil, grand bloc en haut à gauche — bouton rouge (1er bouton) — lien', '', 'text', 'Adresse d’une page du site (ex. /content/nos-services) ou adresse complète (https://…). Laisser vide pour la page « Devenir client ».'],
+            'CASH_HOME_HERO_BUTTON_2_TEXT' => ['hero_button_2_text', 'Accueil, grand bloc en haut à gauche — bouton encadré (2e bouton) — texte', 'Découvrir les produits', 'text'],
+            'CASH_HOME_HERO_BUTTON_2_URL' => ['hero_button_2_url', 'Accueil, grand bloc en haut à gauche — bouton encadré (2e bouton) — lien', '', 'text', 'Adresse d’une page du site (ex. /content/nos-services) ou adresse complète (https://…). Laisser vide pour descendre au bloc « Nos familles de produits » de la page d’accueil.'],
             'CASH_HOME_HERO_IMAGE_URL' => ['hero_image_url', 'Image du grand bloc en haut de l’accueil', __PS_BASE_URI__ . 'modules/cashhomepage/views/img/cash-hero-restauration.webp', 'image'],
+            'CASH_HOME_CARD_1_KICKER' => ['card_1_kicker', 'Accueil, 1re petite carte en haut à droite — étiquette en haut', 'Offres professionnelles', 'text'],
+            'CASH_HOME_CARD_1_TITLE' => ['card_1_title', 'Accueil, 1re petite carte en haut à droite — titre', 'Les promotions du moment', 'text'],
+            'CASH_HOME_CARD_1_CTA' => ['card_1_cta', 'Accueil, 1re petite carte en haut à droite — texte du lien en bas', 'Découvrir les promotions', 'text'],
+            'CASH_HOME_CARD_1_URL' => ['card_1_url', 'Accueil, 1re petite carte en haut à droite — lien', '', 'text', 'Adresse d’une page du site (ex. /content/nos-services) ou adresse complète (https://…). Laisser vide pour la page des promotions.'],
+            'CASH_HOME_CARD_2_KICKER' => ['card_2_kicker', 'Accueil, 2e petite carte en haut à droite — étiquette en haut', 'Au plus près de vous', 'text'],
+            'CASH_HOME_CARD_2_TITLE' => ['card_2_title', 'Accueil, 2e petite carte en haut à droite — titre', 'Découvrez nos magasins', 'text'],
+            'CASH_HOME_CARD_2_CTA' => ['card_2_cta', 'Accueil, 2e petite carte en haut à droite — texte du lien en bas', 'Trouver un magasin', 'text'],
+            'CASH_HOME_CARD_2_URL' => ['card_2_url', 'Accueil, 2e petite carte en haut à droite — lien', '', 'text', 'Adresse d’une page du site (ex. /content/nos-services) ou adresse complète (https://…). Laisser vide pour la page « Nos magasins ».'],
             'CASH_HOME_PROOF_1_TITLE' => ['proof_1_title', 'Preuve 1 — titre', 'Depuis 1984', 'text'],
             'CASH_HOME_PROOF_1_TEXT' => ['proof_1_text', 'Preuve 1 — texte', 'Une expérience terrain', 'text'],
             'CASH_HOME_PROOF_2_TITLE' => ['proof_2_title', 'Preuve 2 — titre', 'Des milliers de références', 'text'],
@@ -868,6 +880,28 @@ class CashHomepage extends Module
         return $manufacturers;
     }
 
+    /**
+     * Textes de l'accueil, avec les liens laissés vides remplacés par
+     * leur destination habituelle.
+     */
+    private function getHomeContentWithLinks()
+    {
+        $content = $this->getEditableContent();
+        $defaults = [
+            'hero_button_1_url' => $this->context->link->getModuleLink('b2bregistration', 'business'),
+            'hero_button_2_url' => '#familles-produits',
+            'card_1_url' => $this->context->link->getPageLink('prices-drop', true),
+            'card_2_url' => $this->context->link->getPageLink('stores', true),
+        ];
+        foreach ($defaults as $key => $url) {
+            if (!isset($content[$key]) || $content[$key] === '') {
+                $content[$key] = $url;
+            }
+        }
+
+        return $content;
+    }
+
     private function getEditableContent()
     {
         $content = [];
@@ -888,7 +922,11 @@ class CashHomepage extends Module
                 if ($definition[3] === 'image') {
                     continue;   // géré par le bloc « Images du site »
                 }
-                Configuration::updateValue($configurationKey, trim((string) Tools::getValue($configurationKey)));
+                $value = trim((string) Tools::getValue($configurationKey));
+                if (substr($configurationKey, -4) === '_URL' && preg_match('/^\s*(javascript|data|vbscript):/i', $value)) {
+                    $value = '';
+                }
+                Configuration::updateValue($configurationKey, $value);
             }
             $selectedManufacturerIds = Tools::getValue('CASH_HOME_MANUFACTURERS', []);
             if (!is_array($selectedManufacturerIds)) {
@@ -917,6 +955,7 @@ class CashHomepage extends Module
                 'name' => $configurationKey,
                 'rows' => 3,
                 'cols' => 60,
+                'desc' => isset($definition[4]) ? $definition[4] : null,
             ];
         }
 
@@ -1135,21 +1174,21 @@ class CashHomepage extends Module
                 'default' => $img . 'cash-hero-restauration.webp',
                 'where' => 'Le grand bloc tout en haut, à gauche, juste sous le menu : la photo derrière le titre « '
                     . $content['hero_title'] . ' » et les boutons « Devenir client » et « Découvrir les produits ».',
-                'advice' => 'Format paysage, 1 600 × 900 px environ. La moitié gauche est assombrie pour que le texte reste lisible : placer le sujet de la photo à droite.',
+                'advice' => 'Format paysage, 1 600 × 900 px environ. La moitié gauche est assombrie pour que le texte reste lisible : placer le sujet de la photo à droite. Le titre, le texte et les deux boutons (textes et liens) de ce bloc se modifient plus haut, dans « Textes de la page d’accueil ».',
             ],
             'home_promotions' => [
                 'page' => 'Page d’accueil',
                 'config' => 'CASH_IMG_HOME_PROMOTIONS',
                 'default' => $img . 'cash-hero-promotions.webp',
                 'where' => 'La petite carte en haut à droite, la première : « Les promotions du moment ».',
-                'advice' => 'Format paysage, 900 × 600 px environ. Le bas de l’image est assombri sous le texte.',
+                'advice' => 'Format paysage, 900 × 600 px environ. Le bas de l’image est assombri sous le texte. Les textes et le lien de cette carte se modifient plus haut, dans « Textes de la page d’accueil ».',
             ],
             'home_stores' => [
                 'page' => 'Page d’accueil',
                 'config' => 'CASH_IMG_HOME_STORES',
                 'default' => $img . 'cash-hero-magasins.webp',
                 'where' => 'La petite carte en haut à droite, la seconde, sous les promotions : « Découvrez nos magasins ».',
-                'advice' => 'Format paysage, 900 × 600 px environ. Le bas de l’image est assombri sous le texte.',
+                'advice' => 'Format paysage, 900 × 600 px environ. Le bas de l’image est assombri sous le texte. Les textes et le lien de cette carte se modifient plus haut, dans « Textes de la page d’accueil ».',
             ],
             'about_top' => [
                 'page' => 'Page « Qui sommes-nous ? »',
@@ -2522,7 +2561,7 @@ HTML;
             'cash_families' => $this->getProductFamilies(8),
             'cash_manufacturers' => $manufacturers,
             'cash_manufacturers_url' => $this->context->link->getPageLink('manufacturer', true),
-            'cash_content' => $this->getEditableContent(),
+            'cash_content' => $this->getHomeContentWithLinks(),
             'cash_images' => $this->getImageUrls(),
             'cash_become_client_url' => $this->context->link->getModuleLink('b2bregistration', 'business'),
             'cash_contact_url' => $this->context->link->getPageLink('contact', true),

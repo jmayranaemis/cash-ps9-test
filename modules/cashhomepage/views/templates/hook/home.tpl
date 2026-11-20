@@ -7,22 +7,22 @@
           <h1>{$cash_content.hero_title|escape:'htmlall':'UTF-8'}</h1>
           <p class="cash-hero__lead">{$cash_content.hero_lead|escape:'htmlall':'UTF-8'}</p>
           <div class="cash-actions">
-            <a class="cash-button cash-button--primary" href="{$cash_become_client_url|escape:'htmlall':'UTF-8'}">Devenir client</a>
-            <a class="cash-button cash-button--secondary" href="#familles-produits">Découvrir les produits</a>
+            <a class="cash-button cash-button--primary" href="{$cash_content.hero_button_1_url|escape:'htmlall':'UTF-8'}">{$cash_content.hero_button_1_text|escape:'htmlall':'UTF-8'}</a>
+            <a class="cash-button cash-button--secondary" href="{$cash_content.hero_button_2_url|escape:'htmlall':'UTF-8'}">{$cash_content.hero_button_2_text|escape:'htmlall':'UTF-8'}</a>
           </div>
         </div>
       </article>
 
       <div class="cash-hero__aside" aria-label="Accès rapides">
-        <a class="cash-hero-card cash-hero-card--promotions"{if isset($cash_images.home_promotions)} style="background-image:url('{$cash_images.home_promotions|escape:'htmlall':'UTF-8'}')"{/if} href="{$cash_promotions_url|escape:'htmlall':'UTF-8'}">
-          <span class="cash-hero-card__kicker">Offres professionnelles</span>
-          <strong>Les promotions du moment</strong>
-          <span class="cash-hero-card__cta">Découvrir les promotions <b aria-hidden="true">→</b></span>
+        <a class="cash-hero-card cash-hero-card--promotions"{if isset($cash_images.home_promotions)} style="background-image:url('{$cash_images.home_promotions|escape:'htmlall':'UTF-8'}')"{/if} href="{$cash_content.card_1_url|escape:'htmlall':'UTF-8'}">
+          <span class="cash-hero-card__kicker">{$cash_content.card_1_kicker|escape:'htmlall':'UTF-8'}</span>
+          <strong>{$cash_content.card_1_title|escape:'htmlall':'UTF-8'}</strong>
+          <span class="cash-hero-card__cta">{$cash_content.card_1_cta|escape:'htmlall':'UTF-8'} <b aria-hidden="true">→</b></span>
         </a>
-        <a class="cash-hero-card cash-hero-card--stores"{if isset($cash_images.home_stores)} style="background-image:url('{$cash_images.home_stores|escape:'htmlall':'UTF-8'}')"{/if} href="{$cash_stores_url|escape:'htmlall':'UTF-8'}">
-          <span class="cash-hero-card__kicker">Au plus près de vous</span>
-          <strong>Découvrez nos magasins</strong>
-          <span class="cash-hero-card__cta">Trouver un magasin <b aria-hidden="true">→</b></span>
+        <a class="cash-hero-card cash-hero-card--stores"{if isset($cash_images.home_stores)} style="background-image:url('{$cash_images.home_stores|escape:'htmlall':'UTF-8'}')"{/if} href="{$cash_content.card_2_url|escape:'htmlall':'UTF-8'}">
+          <span class="cash-hero-card__kicker">{$cash_content.card_2_kicker|escape:'htmlall':'UTF-8'}</span>
+          <strong>{$cash_content.card_2_title|escape:'htmlall':'UTF-8'}</strong>
+          <span class="cash-hero-card__cta">{$cash_content.card_2_cta|escape:'htmlall':'UTF-8'} <b aria-hidden="true">→</b></span>
         </a>
       </div>
     </div>
