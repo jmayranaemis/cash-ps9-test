@@ -4,7 +4,7 @@ Le test se déploie tout seul à chaque envoi sur `develop`. La production, elle
 
 ## Mise en place — une seule fois
 
-1. **Secrets GitHub.** Le workflow prod n'utilise que `SSH_HOST`, `SSH_USER` et `SSH_KEY` — les mêmes que pour test, puisque test et prod sont sur le même VPS. S'ils sont rangés dans l'environnement `test` (GitHub > Settings > Environments > test), les recopier dans un environnement `prod`. S'ils sont au niveau du dépôt (Settings > Secrets and variables > Actions), il n'y a rien à faire.
+1. **Secrets GitHub.** Rien à faire : le workflow prod lit `SSH_HOST`, `SSH_USER` et `SSH_KEY` dans l'environnement GitHub `test` (même VPS, même clé). C'est pourquoi les déploiements prod apparaissent sous « test » dans l'historique GitHub. Le chemin et le conteneur de la prod sont écrits en clair dans le workflow.
 2. **Sentinelle sur le VPS**, sans laquelle le workflow refuse de toucher à la prod :
    ```bash
    ssh root@137.74.47.113 touch /srv/www/cash-ps9-prod/.allow-ci-sync

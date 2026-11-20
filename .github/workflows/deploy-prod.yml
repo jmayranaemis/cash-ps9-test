@@ -34,14 +34,16 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Environnement GitHub « test » : uniquement pour lire les secrets SSH,
+    # communs à test et prod (même VPS, même clé). La cible réelle est fixée
+    # plus bas (ROOT, C) et ne dépend d'aucun secret.
     environment:
-      name: prod
+      name: test
       url: https://www.cash-alimentaire.com
 
     # Valeurs propres à la prod, écrites ici : ce ne sont pas des secrets, et
     # les avoir en clair évite toute confusion avec celles de test.
-    # Seuls SSH_HOST, SSH_USER et SSH_KEY viennent des secrets GitHub
-    # (les mêmes que pour test : même VPS).
+    # Seuls SSH_HOST, SSH_USER et SSH_KEY viennent des secrets GitHub.
     env:
       CIBLE: ${{ inputs.cible }}
       SIMULATION: ${{ inputs.simulation }}
@@ -68,7 +70,7 @@ jobs:
             echo "::error::Vrai déploiement demandé sans la confirmation PROD." ; exit 1
           fi
           if [ -z "$HAS_KEY" ] || [ -z "$HAS_HOST" ] || [ -z "$HAS_USER" ]; then
-            echo "::error::Secrets SSH_HOST / SSH_USER / SSH_KEY introuvables pour l'environnement prod." ; exit 1
+            echo "::error::Secrets SSH_HOST / SSH_USER / SSH_KEY introuvables dans l'environnement GitHub test." ; exit 1
           fi
 
       - name: Checkout
