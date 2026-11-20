@@ -26,6 +26,10 @@ on:
         description: "Pour un vrai déploiement, taper PROD"
         required: false
         default: ""
+      scripts_de_mise_a_jour:
+        description: "Accepter les scripts de mise à jour du module listés par la simulation (ils peuvent modifier la base)"
+        type: boolean
+        default: false
 
 concurrency:
   group: deploy-prod
@@ -106,6 +110,52 @@ jobs:
             test -f '$ROOT/.allow-ci-sync' || { echo 'Pas de sentinelle .allow-ci-sync en prod, arrêt' ; exit 1 ; }
             docker ps --format '{{.Names}}' | grep -qx '$C' || { echo 'Conteneur PHP prod arrêté : $C' ; exit 1 ; }
           "
+
+      - name: Version du module en prod et scripts de mise à jour
+        id: version
+        if: ${{ inputs.cible != 'theme' }}
+        run: |
+          set -e
+          REPO_VERSION=$(grep -oP "this->version\s*=\s*'\K[^']+" "modules/$CIBLE/$CIBLE.php" | head -1)
+          printf '%s\n' '<?php' \
+            'require "/var/www/html/config/config.inc.php";' \
+            "echo (string) Db::getInstance()->getValue(\"SELECT version FROM \" . _DB_PREFIX_ . \"module WHERE name = '$CIBLE'\");" \
+            > version.php
+          PROD_VERSION=$(ssh -i ~/.ssh/id_deploy "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+            "docker exec -i -u www-data $C php" < version.php | tail -1)
+          SCRIPTS=""
+          if [ -d "modules/$CIBLE/upgrade" ] && [ -n "$PROD_VERSION" ]; then
+            for f in $(ls "modules/$CIBLE/upgrade" | grep -E '^upgrade-[0-9.]+\.php$' | sort -V); do
+              v=$(echo "$f" | sed -E 's/^upgrade-([0-9.]+)\.php$/\1/')
+              # script exécuté par PrestaShop si version prod < v <= version dépôt
+              if [ "$(printf '%s\n%s\n' "$PROD_VERSION" "$v" | sort -V | head -1)" = "$PROD_VERSION" ] && [ "$v" != "$PROD_VERSION" ] \
+                 && [ "$(printf '%s\n%s\n' "$v" "$REPO_VERSION" | sort -V | tail -1)" = "$REPO_VERSION" ]; then
+                SCRIPTS="$SCRIPTS $f"
+              fi
+            done
+          fi
+          echo "scripts=$SCRIPTS" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Version de \`$CIBLE\`"
+            echo "- en prod : **${PROD_VERSION:-non installé}**"
+            echo "- dans le dépôt : **$REPO_VERSION**"
+            if [ -n "$SCRIPTS" ]; then
+              echo ""
+              echo "⚠️ **Scripts de mise à jour que PrestaShop exécuterait** — ils peuvent modifier la base (pages CMS, menus…) :"
+              for f in $SCRIPTS; do echo "- \`$f\`"; done
+              echo ""
+              echo "Le vrai déploiement s'arrêtera sans rien copier, sauf si « scripts_de_mise_a_jour » est coché."
+            else
+              echo "- aucun script de mise à jour à exécuter"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          cat "$GITHUB_STEP_SUMMARY"
+
+      - name: Arrêt si scripts de mise à jour non acceptés
+        if: ${{ inputs.simulation == false && steps.version.outputs.scripts != '' && inputs.scripts_de_mise_a_jour == false }}
+        run: |
+          echo "::error::Des scripts de mise à jour du module seraient exécutés en prod (voir la simulation). Rien n'a été copié."
+          exit 1
 
       - name: Synchronisation (simulation = liste seule)
         run: |

@@ -18,10 +18,17 @@ Le test se déploie tout seul à chaque envoi sur `develop`. La production, elle
    - branche : `develop` ;
    - **cible** : le nom du module (`cashhomepage`, `cashredirects`, `cashga4events`…) ou `theme` ;
    - **simulation** : cochée.
-3. Ouvrir l'exécution terminée : le résumé liste les fichiers qui **seraient** modifiés en prod. Rien n'a été écrit.
+3. Ouvrir l'exécution terminée. Le résumé donne, sans rien avoir écrit :
+   - la **version du module en prod** et celle du dépôt ;
+   - les **scripts de mise à jour** que PrestaShop exécuterait pour passer de l'une à l'autre. Ils peuvent modifier la base : certains réécrivent le contenu de pages (Qui sommes-nous, Recrutement, Nos engagements, Équipe commerciale, Services) ou reconfigurent le menu. S'il y en a, le vrai déploiement s'arrête sans rien copier, sauf si la case **scripts_de_mise_a_jour** est cochée en connaissance de cause ;
+   - la liste des **fichiers qui seraient remplacés**.
 4. Si la liste correspond à ce qui est attendu, relancer en **décochant simulation** et en tapant `PROD` dans **confirmation**.
 
 Le workflow copie alors les fichiers, met le module à jour, vide le cache et vérifie que le site répond.
+
+## Ce que le workflow touche, et ce qu'il ne touche pas
+
+Il remplace uniquement, dans le dossier choisi (`modules/<cible>/` ou `themes/grainfoodmarket/`), les fichiers qui diffèrent du dépôt. Il ne touche ni à la base (sauf scripts de mise à jour acceptés), ni aux produits, commandes, clients, images, ni aux autres modules.
 
 ## Ce que le workflow ne fait jamais
 
