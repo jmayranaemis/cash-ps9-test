@@ -915,7 +915,7 @@ class CashHomepage extends Module
 
     public function getContent()
     {
-        $confirmation = $this->processMediaLibrary();
+        $confirmation = $this->processAnnouncement() . $this->processMediaLibrary();
         $catalogues = $this->getActiveCatalogues();
         if (Tools::isSubmit('submitCashHomepage')) {
             foreach ($this->getEditableContentDefinitions() as $configurationKey => $definition) {
@@ -1029,7 +1029,8 @@ class CashHomepage extends Module
             $catalogueValues[$configurationKey] = (string) Configuration::get($configurationKey);
         }
 
-        $mediaLibrary = $this->renderMediaLibrary($helper->currentIndex . '&token=' . $helper->token);
+        $mediaLibrary = $this->renderAnnouncementForm($helper->currentIndex . '&token=' . $helper->token)
+            . $this->renderMediaLibrary($helper->currentIndex . '&token=' . $helper->token);
 
         if (!$catalogueFields) {
             return $confirmation . $homeForm . $mediaLibrary;
@@ -1153,6 +1154,118 @@ class CashHomepage extends Module
         }
 
         return $name;
+    }
+
+    /*
+     * ── Bandeau d'annonce ────────────────────────────────────────────────
+     *
+     * La ligne de texte pleine largeur juste sous le menu. Son texte et son
+     * lien appartiennent au module Anvanto an_simplefreeshippingline
+     * (an_sfsl_title, an_sfsl_link) ; la couleur et l'ouverture dans un
+     * nouvel onglet sont lues par le gabarit du thème
+     * (themes/grainfoodmarket/modules/an_simplefreeshippingline).
+     *
+     * Avant la première modification, le bandeau en place est mis de côté :
+     * le bouton « Remettre le bandeau d'avant » le restaure.
+     */
+    private function getAnnouncementState()
+    {
+        $languageId = (int) Configuration::get('PS_LANG_DEFAULT');
+
+        return [
+            'title' => (string) Configuration::get('an_sfsl_title', $languageId),
+            'link' => (string) Configuration::get('an_sfsl_link', $languageId),
+            'color' => Configuration::get('CASH_ANNOUNCE_COLOR') === 'red' ? 'red' : 'beige',
+            'new_tab' => (bool) Configuration::get('CASH_ANNOUNCE_NEW_TAB'),
+        ];
+    }
+
+    private function saveAnnouncementState(array $state)
+    {
+        $titles = [];
+        $links = [];
+        foreach (Language::getLanguages(false) as $language) {
+            $titles[(int) $language['id_lang']] = $state['title'];
+            $links[(int) $language['id_lang']] = $state['link'];
+        }
+        Configuration::updateValue('an_sfsl_title', $titles);
+        Configuration::updateValue('an_sfsl_link', $links);
+        Configuration::updateValue('CASH_ANNOUNCE_COLOR', $state['color'] === 'red' ? 'red' : 'beige');
+        Configuration::updateValue('CASH_ANNOUNCE_NEW_TAB', $state['new_tab'] ? 1 : 0);
+        Tools::clearSmartyCache();
+    }
+
+    private function processAnnouncement()
+    {
+        if (Tools::isSubmit('submitCashAnnouncement')) {
+            $link = trim((string) Tools::getValue('cash_announce_link'));
+            if (preg_match('/^\s*(javascript|data|vbscript):/i', $link)) {
+                $link = '';
+            }
+            if (!Configuration::get('CASH_ANNOUNCE_BACKUP')) {
+                Configuration::updateValue('CASH_ANNOUNCE_BACKUP', json_encode($this->getAnnouncementState()));
+            }
+            $this->saveAnnouncementState([
+                'title' => trim(strip_tags((string) Tools::getValue('cash_announce_title'))),
+                'link' => $link,
+                'color' => (string) Tools::getValue('cash_announce_color'),
+                'new_tab' => (bool) Tools::getValue('cash_announce_new_tab'),
+            ]);
+
+            return $this->displayConfirmation($this->l('Bandeau enregistré. Il est visible immédiatement sur toutes les pages du site.'));
+        }
+
+        if (Tools::isSubmit('submitCashAnnouncementRestore')) {
+            $backup = json_decode((string) Configuration::get('CASH_ANNOUNCE_BACKUP'), true);
+            if (!is_array($backup) || !isset($backup['title'])) {
+                return $this->displayError($this->l('Aucun bandeau précédent n’a été mis de côté.'));
+            }
+            $this->saveAnnouncementState($backup);
+            Configuration::deleteByName('CASH_ANNOUNCE_BACKUP');
+
+            return $this->displayConfirmation($this->l('Le bandeau d’avant a été remis en place.'));
+        }
+
+        return '';
+    }
+
+    private function renderAnnouncementForm($action)
+    {
+        $e = function ($value) {
+            return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+        };
+        $state = $this->getAnnouncementState();
+        $backup = json_decode((string) Configuration::get('CASH_ANNOUNCE_BACKUP'), true);
+
+        $html = '<div class="panel" id="cash-announcement">'
+            . '<div class="panel-heading"><i class="icon-bullhorn"></i> ' . $e($this->l('Bandeau d’annonce — la ligne de texte juste sous le menu, sur toutes les pages')) . '</div>'
+            . '<form method="post" action="' . $e($action) . '" class="form-horizontal">'
+            . '<div class="form-group"><label class="control-label col-lg-3">' . $e($this->l('Texte')) . '</label>'
+            . '<div class="col-lg-9"><input type="text" name="cash_announce_title" class="form-control" value="' . $e($state['title']) . '">'
+            . '<p class="help-block">' . $e($this->l('Affiché en majuscules. Pour séparer plusieurs messages par un point, écrire [span]•[/span] entre eux.')) . '</p></div></div>'
+            . '<div class="form-group"><label class="control-label col-lg-3">' . $e($this->l('Lien')) . '</label>'
+            . '<div class="col-lg-9"><input type="text" name="cash_announce_link" class="form-control" value="' . $e($state['link']) . '">'
+            . '<p class="help-block">' . $e($this->l('Adresse ouverte au clic sur le bandeau. Laisser vide pour un bandeau sans lien. Pour un catalogue : ouvrir la page Nos catalogues, cliquer sur « Feuilleter » sous le catalogue voulu, et copier l’adresse affichée par le navigateur.')) . '</p></div></div>'
+            . '<div class="form-group"><label class="control-label col-lg-3">' . $e($this->l('Ouverture du lien')) . '</label>'
+            . '<div class="col-lg-9"><label class="checkbox-inline" style="padding-top:7px"><input type="checkbox" name="cash_announce_new_tab" value="1"' . ($state['new_tab'] ? ' checked' : '') . '> '
+            . $e($this->l('Ouvrir dans un nouvel onglet')) . '</label></div></div>'
+            . '<div class="form-group"><label class="control-label col-lg-3">' . $e($this->l('Couleur de fond')) . '</label>'
+            . '<div class="col-lg-9" style="padding-top:7px">'
+            . '<label class="radio-inline"><input type="radio" name="cash_announce_color" value="beige"' . ($state['color'] === 'beige' ? ' checked' : '') . '> '
+            . '<span style="display:inline-block;width:14px;height:14px;background:#d9c5ad;vertical-align:middle;border:1px solid #aaa"></span> ' . $e($this->l('Beige, texte marron (habituel)')) . '</label> '
+            . '<label class="radio-inline"><input type="radio" name="cash_announce_color" value="red"' . ($state['color'] === 'red' ? ' checked' : '') . '> '
+            . '<span style="display:inline-block;width:14px;height:14px;background:#d01719;vertical-align:middle"></span> ' . $e($this->l('Rouge CASE, texte blanc')) . '</label>'
+            . '</div></div>'
+            . '<div class="panel-footer">'
+            . '<button type="submit" name="submitCashAnnouncement" class="btn btn-default pull-right"><i class="process-icon-save"></i> ' . $e($this->l('Enregistrer le bandeau')) . '</button>';
+        if (is_array($backup) && isset($backup['title'])) {
+            $html .= '<button type="submit" name="submitCashAnnouncementRestore" class="btn btn-default" onclick="return confirm('
+                . $e(json_encode($this->l('Remettre le bandeau tel qu’il était avant la première modification ?'))) . ');">'
+                . '<i class="process-icon-back"></i> ' . $e($this->l('Remettre le bandeau d’avant')) . '</button>'
+                . '<span class="help-block" style="display:inline-block;margin-left:10px">' . $e(sprintf($this->l('Bandeau d’avant : « %s »'), str_replace(['[span]', '[/span]'], '', $backup['title']))) . '</span>';
+        }
+
+        return $html . '</div></form></div>';
     }
 
     /**
@@ -2280,12 +2393,16 @@ HTML;
     {
         // Adresses des images administrables, lues par les gabarits du thème
         // (page Nos magasins notamment).
-        $this->context->smarty->assign('cash_images', $this->getImageUrls());
+        $this->context->smarty->assign([
+            'cash_images' => $this->getImageUrls(),
+            'cash_announce_red' => Configuration::get('CASH_ANNOUNCE_COLOR') === 'red',
+            'cash_announce_new_tab' => (bool) Configuration::get('CASH_ANNOUNCE_NEW_TAB'),
+        ]);
 
         $this->context->controller->registerStylesheet(
             'module-cashhomepage-header-palette',
             'modules/' . $this->name . '/views/css/header-palette.css',
-            ['media' => 'all', 'priority' => 250, 'version' => $this->version . '-footer-34']
+            ['media' => 'all', 'priority' => 250, 'version' => $this->version . '-footer-35']
         );
 
         $isHomepage = 'index' === $this->context->controller->php_self;

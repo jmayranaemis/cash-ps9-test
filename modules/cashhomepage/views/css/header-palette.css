@@ -8,6 +8,19 @@ body #header .an-sfsl span,
 body #header .an-sfsl p{
   color:var(--cash-brown)!important;
 }
+/* Bandeau d'annonce en rouge CASE (réglage du module Accueil Cash Alimentaire). */
+body #header .an-sfsl.an-sfsl--red{
+  color:#fff!important;
+  background:var(--cash-red,#d01719)!important;
+}
+body #header .an-sfsl.an-sfsl--red:hover{
+  background:#b01416!important;
+}
+body #header .an-sfsl.an-sfsl--red a,
+body #header .an-sfsl.an-sfsl--red span,
+body #header .an-sfsl.an-sfsl--red p{
+  color:#fff!important;
+}
 
 #header .header-nav #_desktop_an_wishlist-nav{
   display:none!important;
