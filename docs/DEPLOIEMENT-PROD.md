@@ -28,7 +28,7 @@ Le workflow copie alors les fichiers, met le module à jour, vide le cache et v�
 
 ## Ce que le workflow touche, et ce qu'il ne touche pas
 
-Il remplace uniquement, dans le dossier choisi (`modules/<cible>/` ou `themes/grainfoodmarket/`), les fichiers qui diffèrent du dépôt. Il ne touche ni à la base (sauf scripts de mise à jour acceptés), ni aux produits, commandes, clients, images, ni aux autres modules.
+Il remplace uniquement, dans le dossier choisi (`modules/<cible>/` ou `themes/grainfoodmarket/`), les fichiers de code qui diffèrent du dépôt. **Les images déjà présentes en prod ne sont jamais remplacées** (elles ont pu être changées sur le serveur) : seules les images nouvelles sont ajoutées, et le résumé liste à part celles qui diffèrent. Il ne touche ni à la base (sauf scripts de mise à jour acceptés), ni aux produits, commandes, clients, images, ni aux autres modules.
 
 ## Ce que le workflow ne fait jamais
 

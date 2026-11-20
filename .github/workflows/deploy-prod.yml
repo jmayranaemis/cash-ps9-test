@@ -162,21 +162,51 @@ jobs:
           set -e
           DRY=""
           [ "$SIMULATION" = "true" ] && DRY="--dry-run"
-          # Pas de --delete : un fichier présent seulement en prod n'est jamais supprimé.
-          rsync -rlvz --checksum --itemize-changes $DRY \
-            --no-perms --no-owner --no-group \
-            --exclude '.git/' --exclude '*.bak' --exclude '*.bak.*' --exclude '*~' \
-            --exclude '.DS_Store' --exclude 'vendor/' --exclude 'node_modules/' \
-            -e "ssh -i $HOME/.ssh/id_deploy" \
-            "${{ steps.paths.outputs.src }}" \
-            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$ROOT/${{ steps.paths.outputs.dst }}" \
-            | tee rsync.log
+          SRC="${{ steps.paths.outputs.src }}"
+          DEST="${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$ROOT/${{ steps.paths.outputs.dst }}"
+          COMMUN=(-rlz --checksum --itemize-changes $DRY --no-perms --no-owner --no-group
+                  --exclude '.git/' --exclude '*.bak' --exclude '*.bak.*' --exclude '*~'
+                  --exclude '.DS_Store' --exclude 'vendor/' --exclude 'node_modules/'
+                  -e "ssh -i $HOME/.ssh/id_deploy")
+          IMAGES=(--include '*/' --include '*.webp' --include '*.jpg' --include '*.jpeg'
+                  --include '*.png' --include '*.gif' --include '*.svg' --include '*.ico' --exclude '*')
+
+          # 1. Tout sauf les images. Pas de --delete : rien n'est jamais supprimé en prod.
+          rsync "${COMMUN[@]}" \
+            --exclude '*.webp' --exclude '*.jpg' --exclude '*.jpeg' --exclude '*.png' \
+            --exclude '*.gif' --exclude '*.svg' --exclude '*.ico' \
+            "$SRC" "$DEST" | grep -E '^[<>ch.*]' > code.log || true
+
+          # 2. Les images : seulement celles qui n'existent pas encore en prod.
+          #    Une image déjà en prod n'est JAMAIS remplacée : elle a pu être
+          #    changée sur le serveur (photos remplacées à la main).
+          rsync "${COMMUN[@]}" --ignore-existing --prune-empty-dirs "${IMAGES[@]}" \
+            "$SRC" "$DEST" | grep -E '^[<>ch.*]' | grep -v '/$' > images.log || true
+
+          # Pour information : images qui diffèrent entre le dépôt et la prod,
+          # laissées telles quelles en prod.
+          rsync "${COMMUN[@]}" --dry-run --existing --prune-empty-dirs "${IMAGES[@]}" \
+            "$SRC" "$DEST" | grep -E '^[<>ch.*]' | grep -v '/$' > images-differentes.log || true
+
           {
-            echo "### ${CIBLE} — $([ "$SIMULATION" = "true" ] && echo 'SIMULATION' || echo 'DÉPLOYÉ')"
+            echo "### ${CIBLE} — $([ "$SIMULATION" = "true" ] && echo 'SIMULATION, rien n’a été écrit' || echo 'DÉPLOYÉ')"
+            echo ""
+            echo "**Fichiers $([ "$SIMULATION" = "true" ] && echo 'qui seraient remplacés' || echo 'remplacés') :**"
             echo '```'
-            grep -E '^[<>ch.*]' rsync.log || echo "Aucun fichier à modifier."
+            [ -s code.log ] && cat code.log || echo "aucun"
             echo '```'
+            echo "**Images nouvelles $([ "$SIMULATION" = "true" ] && echo 'qui seraient ajoutées' || echo 'ajoutées') :**"
+            echo '```'
+            [ -s images.log ] && cat images.log || echo "aucune"
+            echo '```'
+            if [ -s images-differentes.log ]; then
+              echo "**Images différentes en prod, conservées telles quelles (jamais écrasées) :**"
+              echo '```'
+              cat images-differentes.log
+              echo '```'
+            fi
           } >> "$GITHUB_STEP_SUMMARY"
+          cat "$GITHUB_STEP_SUMMARY"
 
       - name: Droits, mise à jour du module, cache
         if: ${{ inputs.simulation == false }}
