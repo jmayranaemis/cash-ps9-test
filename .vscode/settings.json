@@ -1,6 +1,7 @@
 {
   "github-actions.workflows.pinned.workflows": [
-    ".github/workflows/deploy-test.yml"
+    ".github/workflows/deploy-test.yml",
+    ".github/workflows/deploy-prod.yml"
   ],
   "files.exclude": {
     "**/.DS_Store": true,

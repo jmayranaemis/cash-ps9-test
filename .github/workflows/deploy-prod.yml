@@ -1,0 +1,137 @@
+name: Deploy to PROD
+
+# Déploiement en production, UNIQUEMENT à la main (bouton « Run workflow »
+# dans VS Code ou sur GitHub). Jamais déclenché par un push.
+#
+# Volontairement ciblé : on déploie UN module (ou le thème) à la fois, jamais
+# tout modules/ ni override/. La prod a reçu des correctifs posés directement
+# sur le serveur (override Link.php le 07/10, lpsflipbook le 18/11) : un rsync
+# global les écraserait.
+#
+# Toujours lancer d'abord avec « simulation » coché : le journal liste les
+# fichiers qui seraient modifiés, sans rien toucher.
+
+on:
+  workflow_dispatch:
+    inputs:
+      cible:
+        description: "Module à déployer (ex. cashhomepage) ou « theme »"
+        required: true
+        default: cashhomepage
+      simulation:
+        description: "Simulation : lister les changements sans rien écrire"
+        type: boolean
+        default: true
+      confirmation:
+        description: "Pour un vrai déploiement, taper PROD"
+        required: false
+        default: ""
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: https://www.cash-alimentaire.com
+
+    env:
+      CIBLE: ${{ inputs.cible }}
+      SIMULATION: ${{ inputs.simulation }}
+      ROOT: ${{ secrets.SSH_PATH_ROOT }}
+      C: ${{ secrets.DOCKER_PHP_CONTAINER }}
+
+    steps:
+      - name: Contrôles avant déploiement
+        run: |
+          set -e
+          case "$GITHUB_REF_NAME" in
+            develop|main) ;;
+            *) echo "::error::Branche $GITHUB_REF_NAME refusée : lancer depuis develop ou main." ; exit 1 ;;
+          esac
+          if ! echo "$CIBLE" | grep -Eq '^[a-z0-9_]+$'; then
+            echo "::error::Cible invalide : $CIBLE" ; exit 1
+          fi
+          if [ "$SIMULATION" != "true" ] && [ "${{ inputs.confirmation }}" != "PROD" ]; then
+            echo "::error::Vrai déploiement demandé sans la confirmation PROD." ; exit 1
+          fi
+          case "$ROOT" in
+            */cash-ps9-prod) ;;
+            *) echo "::error::SSH_PATH_ROOT de l'environnement prod ne pointe pas sur cash-ps9-prod ($ROOT)." ; exit 1 ;;
+          esac
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Déterminer les dossiers
+        id: paths
+        run: |
+          set -e
+          if [ "$CIBLE" = "theme" ]; then
+            SRC="themes/grainfoodmarket/"
+            DST="themes/grainfoodmarket/"
+          else
+            SRC="modules/$CIBLE/"
+            DST="modules/$CIBLE/"
+          fi
+          test -d "$SRC" || { echo "::error::$SRC n'existe pas dans le dépôt." ; exit 1 ; }
+          echo "src=$SRC" >> "$GITHUB_OUTPUT"
+          echo "dst=$DST" >> "$GITHUB_OUTPUT"
+
+      - name: Clé SSH
+        run: |
+          set -e
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Sentinelle et conteneur
+        run: |
+          ssh -i ~/.ssh/id_deploy "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "
+            set -e
+            test -f '$ROOT/.allow-ci-sync' || { echo 'Pas de sentinelle .allow-ci-sync en prod, arrêt' ; exit 1 ; }
+            docker ps --format '{{.Names}}' | grep -qx '$C' || { echo 'Conteneur PHP prod arrêté : $C' ; exit 1 ; }
+          "
+
+      - name: Synchronisation (simulation = liste seule)
+        run: |
+          set -e
+          DRY=""
+          [ "$SIMULATION" = "true" ] && DRY="--dry-run"
+          # Pas de --delete : un fichier présent seulement en prod n'est jamais supprimé.
+          rsync -rlvz --checksum --itemize-changes $DRY \
+            --no-perms --no-owner --no-group \
+            --exclude '.git/' --exclude '*.bak' --exclude '*.bak.*' --exclude '*~' \
+            --exclude '.DS_Store' --exclude 'vendor/' --exclude 'node_modules/' \
+            -e "ssh -i $HOME/.ssh/id_deploy" \
+            "${{ steps.paths.outputs.src }}" \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$ROOT/${{ steps.paths.outputs.dst }}" \
+            | tee rsync.log
+          {
+            echo "### ${CIBLE} — $([ "$SIMULATION" = "true" ] && echo 'SIMULATION' || echo 'DÉPLOYÉ')"
+            echo '```'
+            grep -E '^[<>ch.*]' rsync.log || echo "Aucun fichier à modifier."
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Droits, mise à jour du module, cache
+        if: ${{ inputs.simulation == false }}
+        run: |
+          ssh -i ~/.ssh/id_deploy "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "
+            set -e
+            docker exec '$C' chown -R www-data:www-data /var/www/html/${{ steps.paths.outputs.dst }}
+            if [ '$CIBLE' != 'theme' ]; then
+              docker exec -u www-data '$C' php -d memory_limit=1G bin/console prestashop:module upgrade '$CIBLE' || echo 'Mise à jour du module à faire depuis le back-office'
+            fi
+            docker exec -u www-data '$C' php -d memory_limit=1G bin/console cache:clear --no-warmup
+            docker exec -u www-data '$C' php -d memory_limit=1G bin/console cache:warmup --no-optional-warmers
+          "
+
+      - name: Healthcheck
+        if: ${{ inputs.simulation == false }}
+        run: |
+          curl -fsSL -o /dev/null -w "%{http_code}\n" "${{ secrets.HEALTHCHECK_URL }}" | grep -E "200|301|302"
