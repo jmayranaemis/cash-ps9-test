@@ -1287,7 +1287,7 @@ class CashHomepage extends Module
                 'default' => $img . 'cash-hero-restauration.webp',
                 'where' => 'Le grand bloc tout en haut, à gauche, juste sous le menu : la photo derrière le titre « '
                     . $content['hero_title'] . ' » et les boutons « Devenir client » et « Découvrir les produits ».',
-                'advice' => 'Format paysage, 1 600 × 900 px environ. La moitié gauche est assombrie pour que le texte reste lisible : placer le sujet de la photo à droite. Le titre, le texte et les deux boutons (textes et liens) de ce bloc se modifient plus haut, dans « Textes de la page d’accueil ».',
+                'advice' => 'Format paysage, 1 600 × 900 px environ. Le tiers gauche est assombri sous le texte : placer le sujet de la photo à droite. Sur mobile, la photo s’affiche entière au-dessus du texte. Le titre, le texte et les deux boutons (textes et liens) de ce bloc se modifient plus haut, dans « Textes de la page d’accueil ».',
             ],
             'home_promotions' => [
                 'page' => 'Page d’accueil',
@@ -2418,7 +2418,7 @@ HTML;
         $this->context->controller->registerStylesheet(
             'module-cashhomepage',
             'modules/' . $this->name . '/views/css/home.css',
-            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-7']
+            ['media' => 'all', 'priority' => 200, 'version' => $this->version . '-8']
         );
         if ($isProductsPage) {
             return;

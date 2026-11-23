@@ -705,3 +705,29 @@ body#index.page-index .anblog-widget>.anblog-widget-title>a:not(.cash-blog-all){
 .cash-product-selection__module .owl-nav .owl-next>svg{
   display:none!important;
 }
+
+/* Hero : voile allégé pour laisser voir la photo et ses couleurs (23/11/2026).
+   Ordinateur : voile sombre seulement à gauche, sous le texte, qui disparaît
+   vers le milieu. Mobile : la photo s'affiche entière en haut du bloc, le
+   texte en dessous, avec un fondu vers le marron. */
+.cash-hero__primary{
+  background-image:
+    linear-gradient(90deg,rgba(43,27,16,.86) 0%,rgba(43,27,16,.72) 26%,rgba(43,27,16,.3) 48%,rgba(43,27,16,0) 64%),
+    linear-gradient(0deg,rgba(43,27,16,.35) 0%,rgba(43,27,16,0) 40%),
+    var(--cash-hero-image);
+  background-position:center;
+}
+.cash-hero h1,.cash-hero__lead,.cash-hero .cash-eyebrow{text-shadow:0 2px 18px rgba(20,12,6,.5)}
+@media(min-width:992px){.cash-hero__content{max-width:min(600px,58%)}}
+@media(max-width:767px){
+  .cash-hero__primary{
+    min-height:0;
+    padding:calc(54vw - 24px) 22px 28px;
+    background-image:
+      linear-gradient(180deg,rgba(43,27,16,0) 0,rgba(43,27,16,0) calc(54vw - 110px),rgba(43,27,16,.96) calc(54vw - 6px)),
+      var(--cash-hero-image);
+    background-size:100% 100%,100% auto;
+    background-repeat:no-repeat;
+    background-position:0 0,center top;
+  }
+}
