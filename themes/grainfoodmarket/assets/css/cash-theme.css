@@ -4185,3 +4185,24 @@ html body:not(#cash-ck) .lgcookieslaw-overlay {
     margin:0 0 24px!important;
   }
 }
+
+/* Fiche produit mobile (28/11/2026) : photo sans cadre ivoire. Les photos
+   fournisseurs ont un fond blanc : dans le cadre ivoire on voyait un
+   rectangle blanc sur ivoire, dans une carte blanche. La photo est posée
+   directement sur la carte blanche, avec moins de marge (plus grande, couleurs
+   fidèles). Les vignettes des listes produits ne sont pas concernées. */
+@media(max-width:767px){
+  #product .images-container.an_productpage-slider-wrap{
+    background:#fff!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+  #product .images-container .an_productpage-slider-image{
+    background:#fff!important;
+    padding:8px!important;
+  }
+  #product .images-container .product-images>li.thumb-container>.thumb,
+  #product .images-container .an_productpage-slider-nav img{
+    background:#fff!important;
+  }
+}
