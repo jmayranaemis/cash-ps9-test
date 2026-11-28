@@ -4173,3 +4173,15 @@ html body:not(#cash-ck) .lgcookieslaw-overlay {
     display:none!important;
   }
 }
+
+/* Fiche produit mobile (28/11/2026) : le cadre ivoire de la photo était
+   décalé à gauche et touchait le bord de la carte blanche. stickyproduct.css
+   du thème l'étire de 15 px de chaque côté (margin:0 -15px) pour un affichage
+   bord à bord, mais sa largeur est figée par nos réglages : seul le décalage
+   à gauche restait. Cadre centré, 16 px de marge de chaque côté. */
+@media(max-width:767px){
+  #product .sticky-product-row .page-content .images-container.an_productpage-slider-wrap{
+    width:auto!important;
+    margin:0 0 24px!important;
+  }
+}
