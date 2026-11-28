@@ -242,6 +242,14 @@
    * La page Produits reste accessible : c'est la première ligne du sous-menu.
    */
   function initCashMobileMenu() {
+    // cash-theme.js est inclus deux fois (javascript.tpl est appelé dans le
+    // head et en bas de page) : sans ce verrou, l'écouteur serait posé deux
+    // fois et chaque appui ouvrirait puis refermerait aussitôt le sous-menu.
+    if (window.cashMobileMenuReady) {
+      return;
+    }
+    window.cashMobileMenuReady = true;
+
     document.addEventListener('click', function (event) {
       if (window.innerWidth > 767 || !event.target.closest) {
         return;
