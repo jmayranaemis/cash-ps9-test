@@ -234,7 +234,36 @@
     });
   }
 
+  /*
+   * Menu mobile : un appui sur le libellé d'une entrée à sous-menu (PRODUITS,
+   * À PROPOS) ouvre ou ferme ce sous-menu, comme le bouton +/− à droite.
+   * Sans cela, PRODUITS ne réagissait pas au premier appui (effet de survol
+   * sur écran tactile) et À PROPOS suivait /#apropos, qui ne mène nulle part.
+   * La page Produits reste accessible : c'est la première ligne du sous-menu.
+   */
+  function initCashMobileMenu() {
+    document.addEventListener('click', function (event) {
+      if (window.innerWidth > 767 || !event.target.closest) {
+        return;
+      }
+      var link = event.target.closest(
+        '#header .ets_mm_megamenu .mm_menus_li.mm_has_sub > a.ets_mm_url'
+      );
+      if (!link) {
+        return;
+      }
+      var toggle = link.parentElement.querySelector(':scope > .arrow');
+      if (!toggle) {
+        return;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      toggle.click();
+    }, true);
+  }
+
   function initCashTheme() {
+    initCashMobileMenu();
     initCashActiveMenu();
     initCashFaq();
     initCashServiceAnchors();

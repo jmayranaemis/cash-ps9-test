@@ -4086,3 +4086,64 @@ html body:not(#cash-ck) .lgcookieslaw-overlay {
     width: 100% !important;
   }
 }
+
+/* ==========================================================
+   Menu mobile (28/11/2026)
+   - PRODUITS aligné à gauche comme les autres entrées : l'icône ☰ du
+     bureau, centrée, était décalée dans le panneau mobile.
+   - PRODUITS et À PROPOS ont le même bouton rond +/− à droite. Celui de
+     PRODUITS était invisible (visibility:hidden posé par header-palette.css)
+     et placé au milieu de l'entrée dépliée.
+   - Les boutons +/− passent au-dessus du lien : le lien les recouvrait, et
+     un appui sur À PROPOS suivait /#apropos, qui ne mène nulle part.
+   Le libellé de ces deux entrées ouvre aussi le sous-menu : voir
+   initCashMobileMenu() dans cash-theme.js.
+   ========================================================== */
+@media(max-width:767px){
+  html body #header .ets_mm_megamenu .mm_menus_li.mm_has_sub>a.ets_mm_url{
+    position:relative!important;
+    z-index:1!important;
+  }
+  html body #header .ets_mm_megamenu .mm_menus_li.mm_has_sub>span.arrow{
+    z-index:5!important;
+  }
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>a.ets_mm_url>.mm_menu_content_title{
+    justify-content:flex-start!important;
+  }
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products>a.ets_mm_url .fa-bars{
+    display:none!important;
+  }
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow{
+    visibility:visible!important;
+    top:5px!important;
+    right:8px!important;
+    left:auto!important;
+    width:40px!important;
+    height:40px!important;
+    transform:none!important;
+    background:rgba(217,197,173,.34)!important;
+    border-radius:50%!important;
+  }
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow::before,
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow::after{
+    display:block!important;
+    content:""!important;
+    position:absolute!important;
+    top:50%!important;
+    left:50%!important;
+    right:auto!important;
+    width:13px!important;
+    height:1px!important;
+    margin:0!important;
+    border:0!important;
+    background:var(--cash-brown,#432a19)!important;
+    transform:translate(-50%,-50%)!important;
+  }
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow::after{
+    width:1px!important;
+    height:13px!important;
+  }
+  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow.opened::after{
+    display:none!important;
+  }
+}
