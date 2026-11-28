@@ -1460,6 +1460,15 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:14px;
   }
+  /* Le thème donne aux vignettes mobiles max-width:50% (affichage en ligne) :
+     dans la grille, chaque carte n'occupait que la moitié de sa colonne. */
+  #product .cash-product-related .product-miniature:not(.col-lg-12){
+    flex:none!important;
+    max-width:none!important;
+  }
+  #product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container{
+    min-height:0!important;
+  }
   #product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container-image{
     height:180px!important;
     min-height:180px!important;
@@ -1470,9 +1479,22 @@ body .product-miniature:not(.col-lg-12) .cash-product-card__action{
   }
 }
 
+/* Petits téléphones : toujours 2 cartes par ligne, visuels resserrés. */
 @media (max-width:479px){
   #product .cash-product-related>.products{
-    grid-template-columns:1fr;
+    gap:12px;
+  }
+  #product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container-image{
+    height:140px!important;
+    min-height:140px!important;
+    margin:8px 8px 0!important;
+  }
+  #product .cash-product-related .product-miniature:not(.col-lg-12) .product-thumbnail{
+    padding:12px!important;
+  }
+  #product .cash-product-related .product-miniature:not(.col-lg-12) .product-thumbnail img,
+  #product .cash-product-related .product-miniature:not(.col-lg-12) .thumbnail-container-image img{
+    max-height:112px!important;
   }
 }
 

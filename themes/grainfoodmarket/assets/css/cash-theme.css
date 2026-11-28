@@ -4113,37 +4113,63 @@ html body:not(#cash-ck) .lgcookieslaw-overlay {
   html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products>a.ets_mm_url .fa-bars{
     display:none!important;
   }
-  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow{
+  /* Boutons +/− de PRODUITS et À PROPOS : même dessin, aucun mouvement.
+     Les règles de survol du bureau (rotation de 225°) restaient actives
+     après un appui sur écran tactile et changeaient le « − » en « / » :
+     elles sont neutralisées ici. La classe répétée (.ets_mm_megamenu deux
+     fois) donne à ces règles une spécificité supérieure à celles, propres à
+     PRODUITS, qui précèdent dans ce fichier et dans header-palette.css. */
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub>span.arrow,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>span.arrow,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub.menu_hover>span.arrow{
+    display:block!important;
     visibility:visible!important;
+    position:absolute!important;
     top:5px!important;
     right:8px!important;
     left:auto!important;
     width:40px!important;
     height:40px!important;
-    transform:none!important;
-    background:rgba(217,197,173,.34)!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
     border-radius:50%!important;
+    background:rgba(217,197,173,.34)!important;
+    transform:none!important;
+    transition:none!important;
   }
-  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow::before,
-  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow::after{
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub>span.arrow::before,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub>span.arrow::after,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>span.arrow::before,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>span.arrow::after,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub.menu_hover>span.arrow::before,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub.menu_hover>span.arrow::after{
     display:block!important;
     content:""!important;
     position:absolute!important;
     top:50%!important;
     left:50%!important;
     right:auto!important;
-    width:13px!important;
-    height:1px!important;
+    bottom:auto!important;
+    width:14px!important;
+    height:2px!important;
     margin:0!important;
     border:0!important;
+    border-radius:1px!important;
     background:var(--cash-brown,#432a19)!important;
     transform:translate(-50%,-50%)!important;
+    transition:none!important;
   }
-  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow::after{
-    width:1px!important;
-    height:13px!important;
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub>span.arrow::after,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>span.arrow::after,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub.menu_hover>span.arrow::after{
+    width:2px!important;
+    height:14px!important;
   }
-  html body #header .ets_mm_megamenu .mm_menus_li.cash-mega-products.mm_has_sub>span.arrow.opened::after{
+  /* Ouvert : « − » (la barre verticale disparaît). */
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub>span.arrow.opened::after,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub:hover>span.arrow.opened::after,
+  html body #header .ets_mm_megamenu.ets_mm_megamenu .mm_menus_li.mm_has_sub.menu_hover>span.arrow.opened::after{
     display:none!important;
   }
 }
